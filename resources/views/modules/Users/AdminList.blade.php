@@ -9,75 +9,7 @@
     <div class="main-content">
         <section class="section">
 
-            <div class="row">
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="mb-2">Info Message</div>
-                            <button class="btn btn-primary" id="toastr-1">Launch</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="mb-2">Success Message</div>
-                            <button class="btn btn-primary" id="toastr-2">Launch</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="mb-2">Warning Message</div>
-                            <button class="btn btn-primary" id="toastr-3">Launch</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="mb-2">Error Message</div>
-                            <button class="btn btn-primary" id="toastr-4">Launch</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="mb-2">Toastr Right Bottom</div>
-                            <button class="btn btn-primary" id="toastr-5">Launch</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="mb-2">Toastr Center Bottom</div>
-                            <button class="btn btn-primary" id="toastr-6">Launch</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="mb-2">Toastr Left Bottom</div>
-                            <button class="btn btn-primary" id="toastr-7">Launch</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="mb-2">Toastr Top Center</div>
-                            <button class="btn btn-primary" id="toastr-8">Launch</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <!-- Admin Data List -->
             <div class="section-body">
                 <div class="row">
                     <div class="col-12">
@@ -121,8 +53,9 @@
                                                         <td class="text-center">
                                                             <div class="custom-checkbox custom-control">
                                                                 <input type="checkbox" data-checkboxes="mygroup"
-                                                                    class="custom-control-input" id="checkbox-1">
-                                                                <label for="checkbox-1"
+                                                                    class="custom-control-input"
+                                                                    id="checkbox-{{ $admin->id }}">
+                                                                <label for="checkbox-{{ $admin->id }}"
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
@@ -192,7 +125,133 @@
                     </div>
                 </div>
             </div>
+            <!-- Roles and Permissions -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Admin <code>Settings</code></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-pills" id="myTab3" role="tablist">
+                                <li class="nav-item mr-2">
+                                    <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3"
+                                        role="tab" aria-controls="home" aria-selected="true">Roles</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#profile3"
+                                        role="tab" aria-controls="profile" aria-selected="false">Permissions</a>
+                                </li>
+                                <li class="nav-item ml-auto">
+                                    <a href="http://create" class="nav-link active" id="add-link" role="tab"
+                                        aria-controls="profile" aria-selected="false">Create</a>
+                                    <a href="http://add" class="nav-link active d-none" id="create-link"
+                                        role="tab" aria-controls="profile" aria-selected="false">Add</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" id="myTabContent2">
+                                <div class="tab-content tab-pane fade show active" id="home3" role="tabpanel"
+                                    aria-labelledby="home-tab3">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-md">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Role</th>
+                                                    <th>Permissions</th>
+                                                    <th>Created At</th>
+                                                    <th class="text-center">Status</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Admin</td>
+                                                    <td>Create, Edit, Delete, View Create, Edit, Delete, View</td>
+                                                    <td>2017-01-09</td>
+                                                    <td class="text-center">
+                                                        <div class="badge badge-success">Active</div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="#" class="btn btn-primary">Edit</a>
+                                                        <a href="#" class="btn btn-danger">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-content tab-pane fade" id="profile3" role="tabpanel"
+                                    aria-labelledby="profile-tab3">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-md">
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Permission</th>
+                                                    <th>Created At</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Create</td>
+                                                    <td>2017-01-09</td>
+                                                    <td class="text-center">
+                                                        <a href="#" class="btn btn-primary">Edit</a>
+                                                        <a href="#" class="btn btn-danger">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottoms -->
+            <div class="row">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="mb-2">Info Message</div>
+                            <button class="btn btn-primary" id="toastr-1">Launch</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="mb-2">Success Message</div>
+                            <button class="btn btn-primary" id="toastr-2">Launch</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="mb-2">Warning Message</div>
+                            <button class="btn btn-primary" id="toastr-3">Launch</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="mb-2">Error Message</div>
+                            <button class="btn btn-primary" id="toastr-4">Launch</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </section>
+        <!-- Settings Sidebar -->
         <div class="settingSidebar">
             <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
             </a>
@@ -289,6 +348,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Modal -->
     <!-- Create Staff Modal -->
@@ -511,7 +571,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="#">
+                    <form method="POST" action="" id="modalFormPass" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="d-flex bd-highlight">
@@ -577,7 +639,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary waves-effect">Save Change</button>
+                        <button type="submit" class="btn btn-primary waves-effect">Save Change</button>
                         <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Close</button>
                     </form>
                 </div>
@@ -614,8 +676,10 @@
                 if (image) {
                     modalImage.attr('src', image);
                 } else {
-                    modalImage.attr('src', 'https://bootdey.com/img/Content/avatar/avatar7.png');
+                    modalImage.attr('src', "{{ asset('assets/dashboard/img/users/avatar.png') }}");
                 }
+
+                modal.find('#modalFormPass').attr('action', '/admin/staff/' + id);
 
             });
 
@@ -676,6 +740,20 @@
                     });
                 }
             }
+
+            //Tab Controler
+            document.addEventListener('DOMContentLoaded', function() {
+                $('#myTab3 a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                    var target = $(e.target).attr("href"); // activated tab
+                    if (target === '#home3') {
+                        $('#add-link').removeClass('d-none');
+                        $('#create-link').addClass('d-none');
+                    } else if (target === '#profile3') {
+                        $('#add-link').addClass('d-none');
+                        $('#create-link').removeClass('d-none');
+                    }
+                });
+            });
         </script>
     </x-slot>
 

@@ -59,10 +59,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
     //AdminUsers Routes
     Route::get('/staff', [AdminStaffController::class, 'index'])->name('staff.index');
-    Route::post('/staff', [AdminStaffController::class, 'update_password'])->name('staff.update_password');
     Route::post('/staff', [AdminStaffController::class, 'store'])->name('staff.store');
     Route::put('/staff/{id}', [AdminStaffController::class, 'update'])->name('staff.update');
     Route::delete('/staff', [AdminStaffController::class, 'destroy'])->name('staff.destroy');
+    Route::put('/staff/{id}', [AdminStaffController::class, 'update_password'])->name('staff.update_password');
 
 
 

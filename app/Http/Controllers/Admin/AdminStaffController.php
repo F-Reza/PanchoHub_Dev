@@ -90,11 +90,8 @@ class AdminStaffController extends Controller //implements HasMiddleware
     }
 
 
-
     public function update($id, Request $request, Admin $admins)
     {
-        //$admin = Admin::findOrFail($id);
-
         $validator = Validator::make($request->all(),[
             'name' => 'required|min:4|string|max:255',
             'email' => 'required|lowercase|email|max:255|unique:admins,email,'.$id.',id',
@@ -118,44 +115,47 @@ class AdminStaffController extends Controller //implements HasMiddleware
         $admin->status = $request->status ? 'Active' : 'Deactive';
 
           // Handle image upload if provided
-    if ($request->hasFile('image')) {
-        // Delete old image if it exists
-        if ($admin->image) {
-            $oldImagePath = public_path('uploads/admins/' . $admin->image);
-            if (File::exists($oldImagePath)) {
-                File::delete($oldImagePath);
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($admin->image) {
+                $oldImagePath = public_path('uploads/admins/' . $admin->image);
+                if (File::exists($oldImagePath)) {
+                    File::delete($oldImagePath);
+                }
             }
+
+            // Upload new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/admins'), $imageName);
+            $admin->image = $imageName;
         }
-
-        // Upload new image
-        $image = $request->file('image');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('uploads/admins'), $imageName);
-        $admin->image = $imageName;
-    }
-
 
         $admin->save();
 
         //$admin->syncRoles($request->role);
-
 
         return redirect()->back()->with('success', 'Admin updated successfully.');
         //return redirect()->route('admin.staff.index')->with('success', 'Admin updated successfully.');
 
     }
 
-    public function update_password(Request $request)
+    public function update_password($id, Request $request)
     {
-        // $validated = $request->validateWithBag('updatePassword', [
-        //     'password' => ['required', Password::defaults(), 'confirmed'],
-        // ]);
+        // dd ($request->all());
+        $validator = Validator::make($request->all(),[
+            'password' => 'required|min:8|confirmed',
+        ]);
 
-        // $request->user()->update([
-        //     'password' => Hash::make($validated['password']),
-        // ]);
+        if ($validator->fails()) {
+            dd ($validator->errors());
+        }
 
-        //return back();
+        $admin = Admin::findOrFail($id);
+        $admin->password = Hash::make($request->password);
+        $admin->save();
+
+        return back();
     }
 
     public function destroy(Request $request, Admin $admins)
