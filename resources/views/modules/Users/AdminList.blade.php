@@ -125,6 +125,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Roles and Permissions -->
             <div class="row">
                 <div class="col-12">
@@ -143,13 +144,15 @@
                                         role="tab" aria-controls="profile" aria-selected="false">Permissions</a>
                                 </li>
                                 <li class="nav-item ml-auto">
-                                    <a href="http://create" class="nav-link active" id="add-link" role="tab"
-                                        aria-controls="profile" aria-selected="false">Create</a>
-                                    <a href="http://add" class="nav-link active d-none" id="create-link"
-                                        role="tab" aria-controls="profile" aria-selected="false">Add</a>
+                                    <a href="#" class="nav-link active" id="add-link" role="tab"
+                                        aria-controls="profile" aria-selected="false" data-target="#createRolesModal"
+                                        data-toggle="modal">Create</a>
+                                    <a href="#" class="nav-link active d-none" id="create-link" role="tab"
+                                        aria-controls="profile" aria-selected="false"
+                                        data-target="#createPermissionsModal" data-toggle="modal">Add</a>
                                 </li>
                             </ul>
-
+                            <!-- Admin Settings -->
                             <div class="tab-content" id="myTabContent2">
                                 <div class="tab-content tab-pane fade show active" id="home3" role="tabpanel"
                                     aria-labelledby="home-tab3">
@@ -161,22 +164,32 @@
                                                     <th>Role</th>
                                                     <th>Permissions</th>
                                                     <th>Created At</th>
-                                                    <th class="text-center">Status</th>
                                                     <th class="text-center">Action</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Admin</td>
-                                                    <td>Create, Edit, Delete, View Create, Edit, Delete, View</td>
-                                                    <td>2017-01-09</td>
-                                                    <td class="text-center">
-                                                        <div class="badge badge-success">Active</div>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <a href="#" class="btn btn-primary">Edit</a>
-                                                        <a href="#" class="btn btn-danger">Delete</a>
-                                                    </td>
-                                                </tr>
+                                                @if ($roles->isNotEmpty())
+                                                    @foreach ($roles as $key => $role)
+                                                        <tr>
+                                                            <td> {{ ++$key }} </td>
+                                                            <td> {{ $role->name }} </td>
+                                                            <td> {{ $role->permissions->pluck('name')->implode(', ') }}
+                                                            </td>
+                                                            <td> {{ \Carbon\Carbon::parse($role->created_at)->format('d M, Y') }}
+                                                            </td>
+
+                                                            <td class="text-center">
+                                                                <a href="#" class="btn btn-primary"
+                                                                    data-toggle="modal" data-target="#editRolesModal"
+                                                                    data-id="{{ $role->id }}"
+                                                                    data-name="{{ $role->name }}">
+                                                                    Edit
+                                                                </a>
+                                                                <a href="javascript:void(0);"
+                                                                    onclick="deleteRole({{ $role->id }})"
+                                                                    class="btn btn-danger">Delete</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </table>
                                         </div>
                                     </div>
@@ -193,15 +206,29 @@
                                                     <th>Created At</th>
                                                     <th class="text-center">Action</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Create</td>
-                                                    <td>2017-01-09</td>
-                                                    <td class="text-center">
-                                                        <a href="#" class="btn btn-primary">Edit</a>
-                                                        <a href="#" class="btn btn-danger">Delete</a>
-                                                    </td>
-                                                </tr>
+                                                @if ($permissions->isNotEmpty())
+                                                    @foreach ($permissions as $key => $permission)
+                                                        <tr>
+                                                            <td> {{ ++$key }} </td>
+                                                            <td> {{ $permission->name }} </td>
+                                                            <td> {{ \Carbon\Carbon::parse($permission->created_at)->format('d M, Y') }}
+                                                            </td>
+
+                                                            <td class="text-center">
+                                                                <a href="#" class="btn btn-primary"
+                                                                    data-toggle="modal"
+                                                                    data-target="#editPermissionsModal"
+                                                                    data-id="{{ $permission->id }}"
+                                                                    data-name="{{ $permission->name }}">
+                                                                    Edit
+                                                                </a>
+                                                                <a href="javascript:void(0);"
+                                                                    onclick="deletePermission({{ $permission->id }})"
+                                                                    class="btn btn-danger">Delete</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </table>
                                         </div>
                                     </div>
@@ -460,7 +487,6 @@
             </div>
         </div>
     </div>
-
     <!-- Edit Staff Modal -->
     <div class="modal modalz fade" id="editStaffModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
         aria-hidden="true">
@@ -505,7 +531,7 @@
                         <!-- Name Field -->
                         <div class="form-group">
                             <input type="text" class="form-control" id="name" name="name"
-                                placeholder="Name" value="{{ old('name', $admin->name) }}" required>
+                                placeholder="Name" value="{{ old('name') }}" required>
                             @error('name')
                                 <p class="text-danger font-medium">{{ $message }}</p>
                             @enderror
@@ -514,7 +540,7 @@
                         <!-- Email Field -->
                         <div class="form-group">
                             <input type="email" class="form-control" id="email" name="email"
-                                placeholder="Email" value="{{ old('email', $admin->email) }}" required>
+                                placeholder="Email" value="{{ old('email') }}" required>
                             @error('email')
                                 <p class="text-danger font-medium">{{ $message }}</p>
                             @enderror
@@ -526,7 +552,7 @@
                                 @if ($roles->isNotEmpty())
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->name }}"
-                                            {{ old('role', $admin->role) == $role->name ? 'selected' : '' }}>
+                                            {{ old('role') == $role->name ? 'selected' : '' }}>
                                             {{ $role->name }}
                                         </option>
                                     @endforeach
@@ -541,8 +567,9 @@
 
                         <!-- Phone Field -->
                         <div class="form-group">
-                            <input type="tel" id="phone" name="phone" class="form-control"
-                                placeholder="Phone" value="{{ $admin->phone }}">
+                            <input type="tel" id="phone" name="phone"
+                                value="{{ old('phone') }}"class="form-control" placeholder="Phone"
+                                value="{{ $admin->phone }}">
                             @error('phone')
                                 <p class="text-danger font-medium">{{ $message }}</p>
                             @enderror
@@ -558,7 +585,6 @@
             </div>
         </div>
     </div>
-
     <!-- View Staff Modal -->
     <div class="modal fade" id="viewStaffModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
         aria-hidden="true">
@@ -648,8 +674,208 @@
     </div>
 
 
+    <!-- Create Role Modal -->
+    <div class="modal modalz fade" id="createRolesModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Create New Role</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Modal Content Goes Here -->
+                    <form method="POST" action="{{ route('admin.roles.store') }}" id="modalForm">
+                        @csrf
+
+                        <!-- Role Name Field -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Enter Role Name" value="{{ old('name') }}" required>
+                            @error('name')
+                                <p class="text-danger font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Permissions Field -->
+                        <div class="form-group">
+                            @if ($permissions->isNotEmpty())
+                                @foreach ($permissions as $permission)
+                                    <div>
+                                        <input type="checkbox" id="permission-{{ $permission->id }}" class="rounded"
+                                            name="permission[]" value="{{ $permission->name }}">
+                                        <label for="permission-{{ $permission->id }}">{{ $permission->name }}</label>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Role Modal -->
+    <div class="modal modalz fade" id="editRolesModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Edit Role</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Modal Content Goes Here -->
+                    <form method="POST" action="" id="modalFormR">
+                        @csrf
+                        @method('PUT')
+
+                        <!-- Role Name Field -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Enter Role Name" value="{{ old('name') }}" required>
+                            @error('name')
+                                <p class="text-danger font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            @foreach ($permissions as $permission)
+                                <div>
+                                    <input type="checkbox" id="permission-{{ $permission->id }}" class="rounded"
+                                        name="permission[]" value="{{ $permission->name }}">
+                                    <label for="permission-{{ $permission->id }}">{{ $permission->name }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Change</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Permission Modal -->
+    <div class="modal modalz fade" id="createPermissionsModal" tabindex="-1" role="dialog"
+        aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Create New Permission</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Modal Content Goes Here -->
+                    <form method="POST" action="{{ route('admin.permissions.store') }}" id="modalForm">
+                        @csrf
+                        <!-- Permission Name Field -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Enter Permission Name" value="{{ old('name') }}" required>
+                            @error('name')
+                                <p class="text-danger font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Permission Modal -->
+    <div class="modal modalz fade" id="editPermissionsModal" tabindex="-1" role="dialog"
+        aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Edit Permission</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Modal Content Goes Here -->
+                    <form method="POST" action="" id="modalFormP">
+                        @csrf
+                        @method('PUT')
+
+                        <!-- Role Permission Field -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Enter Role Name" value="{{ old('name') }}" required>
+                            @error('name')
+                                <p class="text-danger font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Change</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <x-slot name="script">
         <script type="text/javascript">
+            //imagePreview
+            document.getElementById('editIcon').addEventListener('click', function() {
+                document.getElementById('fileInput').click();
+            });
+
+            document.getElementById('fileInput').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                const preview = document.getElementById('imagePreview');
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.innerHTML = `<img src="${e.target.result}" alt="Image Preview">`;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            //imagePreviewX
+            document.getElementById('editIconX').addEventListener('click', function() {
+                document.getElementById('fileInputX').click();
+            });
+
+            document.getElementById('fileInputX').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                const preview = document.getElementById('imagePreviewX');
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.innerHTML = `<img src="${e.target.result}" alt="Image Preview">`;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+
             //viewStaffModal
             $('#viewStaffModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
@@ -679,10 +905,9 @@
                     modalImage.attr('src', "{{ asset('assets/dashboard/img/users/avatar.png') }}");
                 }
 
-                modal.find('#modalFormPass').attr('action', '/admin/staff/' + id);
+                modal.find('#modalFormPass').attr('action', '/admin/staff/pass/' + id);
 
             });
-
             //editStaffModal
             $('#editStaffModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
@@ -711,8 +936,6 @@
                 modal.find('#modalFormX').attr('action', '/admin/staff/' + id);
 
             });
-
-
             //deleteAdminStaff
             function deleteAdminStaff(id) {
                 if (confirm('Are you sure you want to delete this user?')) {
@@ -754,6 +977,101 @@
                     }
                 });
             });
+
+            //editRolesModal
+            $('#editRolesModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var name = button.data('name');
+
+                var modal = $(this);
+                modal.find('#name').val(name);
+
+                // Fetch the permissions for the role and update the checkboxes
+                $.ajax({
+                    url: '/admin/roles/' + id + '/permissions',
+                    type: 'GET',
+                    success: function(data) {
+                        var permissions = data.permissions;
+                        $('input[name="permission[]"]').each(function() {
+                            var permissionName = $(this).val();
+                            if (permissions.includes(permissionName)) {
+                                $(this).prop('checked', true);
+                            } else {
+                                $(this).prop('checked', false);
+                            }
+                        });
+                    }
+                });
+
+                modal.find('#modalFormR').attr('action', '/admin/roles/' + id);
+            });
+            //Delete Role
+            function deleteRole(id) {
+                if (confirm('Are you sure you want to delete this role?')) {
+                    $.ajax({
+                        url: '{{ route('admin.roles.destroy') }}',
+                        type: 'DELETE',
+                        data: {
+                            id: id,
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                alert(response.message);
+                                location.reload();
+                            } else {
+                                alert(response.message);
+                            }
+                        },
+                        error: function(xhr) {
+                            alert('Failed to delete role. Please try again.');
+                            console.error(xhr.responseText);
+                        },
+                    });
+                }
+            }
+
+            //editPermissionsModal
+            $('#editPermissionsModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var name = button.data('name');
+
+                var modal = $(this);
+                modal.find('#name').val(name);
+
+                modal.find('#modalFormP').attr('action', '/admin/permissions/' + id);
+            });
+            //Delete Permission
+            function deletePermission(id) {
+                if (confirm('Are you sure you want to delete this role?')) {
+                    $.ajax({
+                        url: '{{ route('admin.permissions.destroy') }}',
+                        type: 'DELETE',
+                        data: {
+                            id: id,
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                alert(response.message);
+                                location.reload();
+                            } else {
+                                alert(response.message);
+                            }
+                        },
+                        error: function(xhr) {
+                            alert('Failed to delete role. Please try again.');
+                            console.error(xhr.responseText);
+                        },
+                    });
+                }
+            }
         </script>
     </x-slot>
 

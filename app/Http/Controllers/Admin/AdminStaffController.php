@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -28,67 +30,46 @@ class AdminStaffController extends Controller //implements HasMiddleware
 
     public function index()
     {
-        // return view('modules.Users.AdminList');
-
         $roles = Role::orderBy('name', 'ASC')->get();
-
+        $permissions = Permission::orderBy('name', 'ASC')->get();
         $admins = Admin::latest()->paginate(25);
         return view('modules.Users.AdminList',[
             'admins' => $admins,
-            'roles' => $roles
+            'roles' => $roles,
+            'permissions' => $permissions,
         ]);
-
-        // $admins = Admin::latest()->paginate(25);
-        // return view('admin.staffs.list',[
-        //     'admins' => $admins
-        // ]);
     }
+
     public function store(Request $request)
     {
+        try {
+            $validated = $request->validate([
+                'name' => 'required|min:4|string|max:255',
+                'email' => 'required|email|unique:admins,email|max:255',
+                'password' => 'required|min:8|confirmed',
+                'role' => 'required|not_in:null,',
+                'phone' => 'nullable|regex:/^[0-9]+$/',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
 
-        $validated = $request->validate([
-            'name' => 'required|min:4|string|max:255',
-            'email' => 'required|email|unique:admins,email|max:255',
-            'password' => 'required|min:8|confirmed',
-            'role' => 'required|not_in:null,',
-            'phone' => 'nullable|regex:/^[0-9]+$/',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+            // Create and save the new Admin record
+            $admin = new Admin();
+            $admin->name = $validated['name'];
+            $admin->email = $validated['email'];
+            $admin->password = Hash::make($validated['password']);
+            $admin->role = $validated['role'];
+            $admin->phone = $validated['phone'] ?? null;
 
-        // Create and save the new Admin record
-        $admin = new Admin();
-        $admin->name = $validated['name'];
-        $admin->email = $validated['email'];
-        $admin->password = Hash::make($validated['password']);
-        $admin->role = $validated['role'];
-        $admin->phone = $validated['phone'] ?? null;
+            $admin->save();
+             //$admin->syncRoles($request->role);
+            flash()->success('New staff member added successfully.');
+            return redirect()->back();
 
-        $admin->save();
-
-        //$admin->syncRoles($request->role);
-
-        // return redirect()->route('admin.staff.index')->with('success', 'New staff member added successfully.');
-        // Toaster::class('success', 'New staff member added successfully.');
-        return redirect()->back()->with('success', 'New staff member added successfully.');
+        } catch (ValidationException $e) {
+            flash()->error('Failed to add new staff member.');
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
     }
-
-    public function show(Admin $admins)
-    {
-        //
-    }
-
-    public function edit($id, Admin $admins)
-    {
-        $admin= Admin::findOrFail($id);
-        $roles = Role::orderBy('name', 'ASC')->get();
-        $hasRoles = $admin->roles()->pluck('id');
-        return view('admin.staffs.edit',[
-            'admin' => $admin,
-            'roles' => $roles,
-            'hasRoles' => $hasRoles
-        ]);
-    }
-
 
     public function update($id, Request $request, Admin $admins)
     {
@@ -102,8 +83,8 @@ class AdminStaffController extends Controller //implements HasMiddleware
         ]);
 
         if ($validator->fails()) {
-            dd ($validator->errors());
-            // return redirect()->route('users.edit',$id)->withInput()->withErrors($validator);
+            flash()->error('Failed to update staff member.');
+            return redirect()->back()->withErrors($validator);
         }
 
 
@@ -132,29 +113,25 @@ class AdminStaffController extends Controller //implements HasMiddleware
         }
 
         $admin->save();
-
         //$admin->syncRoles($request->role);
-
-        return redirect()->back()->with('success', 'Admin updated successfully.');
-        //return redirect()->route('admin.staff.index')->with('success', 'Admin updated successfully.');
-
+        flash()->success('' . $admin->name . ' updated successfully.');
+        return redirect()->back();
     }
 
     public function update_password($id, Request $request)
     {
-        // dd ($request->all());
         $validator = Validator::make($request->all(),[
             'password' => 'required|min:8|confirmed',
         ]);
 
         if ($validator->fails()) {
-            dd ($validator->errors());
+            flash()->error('Failed to update password.');
         }
 
         $admin = Admin::findOrFail($id);
         $admin->password = Hash::make($request->password);
         $admin->save();
-
+        flash()->success('Password updated successfully.');
         return back();
     }
 
@@ -171,7 +148,7 @@ class AdminStaffController extends Controller //implements HasMiddleware
         }
 
         $admin->delete();
-
+        flash()->success('User deleted successfully.');
         return response()->json([
             'status' => true,
             'message' => 'User deleted successfully.',

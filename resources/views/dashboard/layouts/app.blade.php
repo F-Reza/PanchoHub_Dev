@@ -199,9 +199,21 @@
                         </div>
                     </li>
                     <li class="dropdown"><a href="#" data-toggle="dropdown"
-                            class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image"
-                                src="{{ asset('assets/dashboard/img/user.png') }}" class="user-img-radious-style">
-                            <span class="d-sm-none d-lg-inline-block"></span></a>
+                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+
+                            @if (!empty(Auth::user()->image))
+                                <img alt="image" src="{{ asset('uploads/admins/' . Auth::user()->image) }}"
+                                    class="rounded-circle">
+                            @else
+                                <img alt="image" src="{{ asset('assets/dashboard/img/users/avatar.png') }}"
+                                    class="user-img-radious-style">
+                            @endif
+
+
+
+
+                            <span class="d-sm-none d-lg-inline-block"></span>
+                        </a>
                         <div class="dropdown-menu dropdown-menu-right pullDown">
                             <div class="dropdown-title">Hello {{ Auth::user()->name }}</div>
                             <a href="{{ route('admin.profile.edit') }}" class="dropdown-item has-icon"> <i

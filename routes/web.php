@@ -36,25 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/users', [UserController::class, 'destroy'])->name('users.destroy');
 
 
-
-    //User Roles Routes
-    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
-    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
-    Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
-    Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
-    Route::post('/roles/{id}', [RoleController::class, 'update'])->name('roles.update');
-    Route::delete('/roles', [RoleController::class, 'destroy'])->name('roles.destroy');
-
-
-    //User Permissions Routes
-    Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
-    Route::get('/permissions/create', [PermissionController::class, 'create'])->name('permissions.create');
-    Route::post('/permissions', [PermissionController::class, 'store'])->name('permissions.store');
-    Route::get('/permissions/{id}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
-    Route::post('/permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
-    Route::delete('/permissions', [PermissionController::class, 'destroy'])->name('permissions.destroy');
-
-
     //NewsDesk Routes
     Route::get('/news_desks', [NewsDeskController::class, 'index'])->name('news_desks.index');
     Route::get('/news_desks/create', [NewsDeskController::class, 'create'])->name('news_desks.create');

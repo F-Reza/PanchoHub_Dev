@@ -36,7 +36,8 @@
                                     @endforeach
                                 @endif
                             </div>
-                            <button class="bg-fuchsia-700 text-sm rounded-md text-white px-5 py-2">Submit</button>
+                            <button type="submit"
+                                class="bg-fuchsia-700 text-sm rounded-md text-white px-5 py-2">Submit</button>
                         </div>
                     </form>
                 </div>

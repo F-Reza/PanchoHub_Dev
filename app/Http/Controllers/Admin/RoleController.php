@@ -24,32 +24,19 @@ class RoleController extends Controller //implements HasMiddleware
     //    ];
     // }
 
-
-    //This method will show role page
     public function index() {
         $roles = Role::orderBy('name', 'ASC')->paginate(10);
-        return view('roles.list',[
+        return view('admin.roles.list',[
             'roles' => $roles
         ]);
     }
 
-    //This method will show create role page
-    public function create() {
-
-        $permissions = Permission::orderBy('name', 'ASC')->get();
-        return view('roles.create',[
-            'permissions' => $permissions
-        ]);
-    }
-
-    //This method will insert a role in DB
     public function store(Request $request) {
         $validator = Validator::make($request->all(),[
             'name' => 'required|unique:roles|min:3'
         ]);
 
         if ($validator->passes()) {
-            //dd($request->permission);
             $role = Role::create(['name' => $request->name]);
 
             if(!empty($request->permission)) {
@@ -57,28 +44,24 @@ class RoleController extends Controller //implements HasMiddleware
                     $role->givePermissionTo($name);
                 }
             }
-            return redirect()->route('roles.index')->with('success', 'Role added successfully.');
+            flash()->success('Role added successfully.');
+            return redirect()->back();
         } else {
-            return redirect()->route('roles.create')->withInput()->withErrors($validator);
+            flash()->error(' Role not added. Validation error.');
+            return redirect()->back()->withInput()->withErrors($validator);
         }
 
     }
 
-    //This method will show edit role page
-    public function edit($id) {
+    public function getPermissions($id)
+    {
         $role = Role::findOrFail($id);
-        $hasPermissions = $role->permissions->pluck('name');
-        $permissions = Permission::orderBy('name', 'ASC')->get();
-        //dd($hasPermissions);
-        return view('roles.edit',[
-            'permissions' => $permissions,
-            'hasPermissions' => $hasPermissions,
-            'role' => $role
-        ]);
+        $permissions = $role->permissions->pluck('name');
+        return response()->json(['permissions' => $permissions]);
     }
 
-    //This method will update role page
     public function update($id, Request $request) {
+
         $role = Role::findOrFail($id);
 
         $validator = Validator::make($request->all(),[
@@ -94,13 +77,14 @@ class RoleController extends Controller //implements HasMiddleware
             } else {
                 $role->syncPermissions([]);
             }
-            return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
+            flash()->success(' Role updated successfully.');
+            return redirect()->back();
         } else {
-            return redirect()->route('roles.edit',$id)->withInput()->withErrors($validator);
+            flash()->error(' Role not updated. Validation error.');
+            return redirect()->back()->withInput()->withErrors($validator);
         }
     }
 
-    //This method will delete role in DB
     public function destroy(Request $request){
 
         $id = $request->id;
@@ -114,7 +98,7 @@ class RoleController extends Controller //implements HasMiddleware
         }
 
         $role->delete();
-
+        flash()->success('Role deleted successfully.');
         return response()->json([
             'status' => true,
             'message' => 'Role deleted successfully.',
