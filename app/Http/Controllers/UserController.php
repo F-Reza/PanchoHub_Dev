@@ -41,12 +41,12 @@ class UserController extends Controller //implements HasMiddleware
             'gender' => 'required',
             'upazila' => 'required|not_in:null,',
             'email' => 'lowercase|email|max:255|unique:users,email',
-            'password' => 'required|min:6|same:confirm_password',
-            'confirm_password' => 'required',
+            'password' => 'required|min:6|confirmed',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-dd ($validator->all());
+
         if ($validator->fails()) {
+            dd ($validator->errors());
             flash()->error('Failed to add new user.');
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }

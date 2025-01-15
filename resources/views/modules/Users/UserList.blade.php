@@ -114,7 +114,7 @@
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteAdminStaff({{ $user->id }})"
+                                                                onclick="deleteUser({{ $user->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -307,49 +307,24 @@
                             <label for="itemDescription"> লিঙ্গ :* </label>
                             <br>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="gender" id="male" value="">
+                              <input class="form-check-input" type="radio" name="gender" id="male" value="পুরুষ" checked>
                               <label class="form-check-label" for="male">
                                 পুরুষ
                               </label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="gender" id="female">
+                              <input class="form-check-input" type="radio" name="gender" value="মহিলা" id="female">
                               <label class="form-check-label" for="female">
                                 মহিলা
                               </label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="gender" id="others">
+                              <input class="form-check-input" type="radio" name="gender" value="অন্যান্য" id="others">
                               <label class="form-check-label" for="others">
                                 অন্যান্য
                               </label>
                             </div>
                           </div>
-                        {{-- <div class="form-group">
-                            <label for="gender"> লিঙ্গ :* </label>
-                            <br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender"
-                                    id="male" value="পুরুষ" >
-                                <label class="form-check-label" for="female">
-                                    পুরুষ
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender"
-                                    id="female" value="মহিলা" >
-                                <label class="form-check-label" for="female">
-                                    মহিলা
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gender"
-                                    id="others" value="অন্যান্য" >
-                                <label class="form-check-label" for="others">
-                                    অন্যান্য
-                                </label>
-                            </div>
-                        </div> --}}
 
                         <!-- Gender Field -->
                         <div class="form-group">
@@ -375,10 +350,10 @@
                         <div class="form-group">
                             <label for="subscription"> সাবস্ক্রিপশন : </label>
                             <select class="form-control" name="subscription" id="subscription">
-                                <option> নির্বাচন করুন </option>
-                                <option value="সিলভার"> সিলভার </option>
-                                <option value="ব্রোঞ্জ"> ব্রোঞ্জ </option>
-                                <option value="গোল্ড"> গোল্ড </option>
+                                <option value=""> নির্বাচন করুন </option>
+                                <option value="Silver"> সিলভার </option>
+                                <option value="Bronze"> ব্রোঞ্জ </option>
+                                <option value="Gold"> গোল্ড </option>
                             </select>
                         </div>
 
@@ -400,11 +375,12 @@
                             @enderror
                         </div>
 
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Now</button>
+                        </div>
+
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Now</button>
                 </div>
             </div>
         </div>
@@ -586,5 +562,131 @@
         </div>
     </div>
 
+
+
+    <x-slot name="script">
+        <script type="text/javascript">
+            //imagePreview
+            document.getElementById('editIcon').addEventListener('click', function() {
+                document.getElementById('fileInput').click();
+            });
+
+            document.getElementById('fileInput').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                const preview = document.getElementById('imagePreview');
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.innerHTML = `<img src="${e.target.result}" alt="Image Preview">`;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            //imagePreviewX
+            document.getElementById('editIconX').addEventListener('click', function() {
+                document.getElementById('fileInputX').click();
+            });
+
+            document.getElementById('fileInputX').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                const preview = document.getElementById('imagePreviewX');
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.innerHTML = `<img src="${e.target.result}" alt="Image Preview">`;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+
+            //viewStaffModal
+            $('#viewStaffModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var name = button.data('name');
+                var email = button.data('email');
+                var phone = button.data('phone');
+                var role = button.data('role');
+                var status = button.data('status');
+                var image = button.data('image');
+                var entry = button.data('entry');
+
+                var modal = $(this);
+                modal.find('#xID').text(id);
+                modal.find('#xName').text(name);
+                modal.find('#xEmail').text(email);
+                modal.find('#xPhone').text(phone);
+                modal.find('#xRole').text(role);
+                modal.find('#xStatus').text(status);
+                modal.find('#xEntry').text(entry);
+
+                // Set the image source
+                var modalImage = modal.find('#modalImage');
+                if (image) {
+                    modalImage.attr('src', image);
+                } else {
+                    modalImage.attr('src', "{{ asset('assets/dashboard/img/users/avatar.png') }}");
+                }
+
+            });
+            //editStaffModal
+            $('#editUserModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var name = button.data('name');
+                var email = button.data('email');
+                var phone = button.data('phone');
+                var role = button.data('role');
+                var status = button.data('status');
+                var image = button.data('image');
+
+                var modal = $(this);
+                modal.find('#name').val(name);
+                modal.find('#email').val(email);
+                modal.find('#phone').val(phone);
+                modal.find('#itemCategory').val(role);
+                modal.find('#customSwitch1').prop('checked', status === 'Active').val(status);
+
+                var imagePreview = modal.find('#imagePreviewX');
+                if (image) {
+                    imagePreview.html('<img src="' + image + '" class="img-fluid" />');
+                } else {
+                    imagePreview.html('<i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>');
+                }
+
+                modal.find('#modalFormX').attr('action', '/admin/users/' + id);
+
+            });
+            //deleteAdminStaff
+            function deleteUser(id) {
+                if (confirm('Are you sure you want to delete this user?')) {
+                    $.ajax({
+                        url: '{{ route('admin.users.destroy') }}',
+                        type: 'DELETE',
+                        data: {
+                            id: id,
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                alert(response.message);
+                                location.reload();
+                            } else {
+                                alert(response.message);
+                            }
+                        },
+                        error: function(xhr) {
+                            alert('Failed to delete User. Please try again.');
+                            console.error(xhr.responseText);
+                        },
+                    });
+                }
+            }
+
+        </script>
+    </x-slot>
 
 </x-dashboard-app-layout>
