@@ -46,36 +46,80 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td class="text-center align-middle">
-                                                    <div class="custom-checkbox custom-control">
-                                                        <input type="checkbox" data-checkboxes="mygroup"
-                                                            class="custom-control-input" id="checkbox-1">
-                                                        <label for="checkbox-1"
-                                                            class="custom-control-label">&nbsp;</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <img class="rounded-circle" alt="image"
-                                                        src="{{ asset('assets/dashboard/img/users/user-3.png') }}"
-                                                        width="35">
-                                                </td>
-                                                <td>User Name</td>
-                                                <td>01830996044</td>
-                                                <td>Student</td>
-                                                <td>Male</td>
-                                                <td>Panchagarh</td>
-                                                <td>2018-01-20</td>
-                                                <td>
-                                                    <div class="badge badge-success badge-shadow">Active </div>
-                                                </td>
-                                                <td><a href="#" class="btn btn-success" data-toggle="modal"
-                                                        data-target="#viewUserModal">View</a><a href="#"
-                                                        class="btn mx-1 btn-primary" data-toggle="modal"
-                                                        data-target="#editUserModal">Edit</a><a href="#"
-                                                        class="btn btn-danger">Delete</a></td>
-                                            </tr>
+                                            @if ($users->isNotEmpty())
+                                                @foreach ($users as $key => $user)
+                                                    <tr>
+                                                        <td> {{ ++$key }} </td>
+                                                        <td class="text-center">
+                                                            <div class="custom-checkbox custom-control">
+                                                                <input type="checkbox" data-checkboxes="mygroup"
+                                                                    class="custom-control-input"
+                                                                    id="checkbox-{{ $user->id }}">
+                                                                <label for="checkbox-{{ $user->id }}"
+                                                                    class="custom-control-label">&nbsp;</label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            @if (!empty($user->image))
+                                                                <img class="rounded-circle" alt="image"
+                                                                    src="{{ asset('uploads/users/' . $user->image) }}"
+                                                                    width="35" height="35">
+                                                            @else
+                                                                <img class="rounded-circle" alt="image"
+                                                                    src="{{ asset('assets/dashboard/img/users/avatar.png') }}"
+                                                                    width="35" height="35">
+                                                            @endif
+                                                        </td>
+                                                        <td class="align-left"> {{ $user->name }} </td>
+                                                        <td class="align-left"> {{ $user->phone }} </td>
+                                                        <td class="align-left"> {{ $user->profession }} </td>
+                                                        <td class="align-left"> {{ $user->gender }} </td>
+                                                        <td class="align-left"> {{ $user->upazila }} </td>
+                                                        <td class="align-left">
+                                                            {{ \Carbon\Carbon::parse($user->created_at)->format('d M, Y') }}
+                                                        </td>
+                                                        <td>
+                                                            <div @if ($user->status == 'Active') class="badge badge-success badge-shadow" @endif
+                                                                class="badge badge-danger badge-shadow">
+                                                                {{ $user->status }}
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="#" class="btn btn-success"
+                                                                data-toggle="modal" data-target="#viewUserModal"
+                                                                data-id="{{ $user->id }}"
+                                                                data-name="{{ $user->name }}"
+                                                                data-phone="{{ $user->phone }}"
+                                                                data-profession="{{ $user->profession }}"
+                                                                data-gender="{{ $user->gender }}"
+                                                                data-upazila="{{ $user->upazila }}"
+                                                                data-status="{{ $user->status }}"
+                                                                data-image="{{ $user->image ? asset('uploads/users/' . $user->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}">
+                                                                View
+                                                            </a>
+
+                                                            <a href="#" class="btn btn-primary"
+                                                                data-toggle="modal" data-target="#editUserModal"
+                                                                data-id="{{ $user->id }}"
+                                                                data-name="{{ $user->name }}"
+                                                                data-phone="{{ $user->phone }}"
+                                                                data-profession="{{ $user->profession }}"
+                                                                data-gender="{{ $user->gender }}"
+                                                                data-upazila="{{ $user->upazila }}"
+                                                                data-status="{{ $user->status }}"
+                                                                data-image="{{ $user->image ? asset('uploads/users/' . $admin->image) : '' }}">
+                                                                Edit
+                                                            </a>
+
+                                                            <a href="javascript:void(0);"
+                                                                onclick="deleteAdminStaff({{ $user->id }})"
+                                                                class="btn btn-danger">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -196,104 +240,171 @@
                 </div>
                 <div class="modal-body">
                     <!-- Modal Content Goes Here -->
-                    <form id="modalForm">
+                    <form method="POST" action="{{ route('admin.users.store') }}" id="modalForm"
+                        enctype="multipart/form-data">
+                        @csrf
+
+                        <!-- Picture Input with Preview -->
                         <div class="form-group">
-                            <label for="itemName">নাম :*</label>
-                            <input type="text" class="form-control" id="itemName" placeholder="নাম লিখুন">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4 text-center">
+                                    <div class="profile-container">
+                                        <div class="image-preview" id="imagePreview">
+                                            <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
+                                        </div>
+                                        <div class="edit-icon" id="editIcon">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </div>
+                                        <input type="file" value="{{ old('image') }}" name="image"
+                                            class="form-control d-none" id="fileInput" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-
+                        <!-- Name Field -->
                         <div class="form-group">
-                            <label for="itemName">পেশা :*</label>
-                            <input type="text" class="form-control" id="itemName"
-                                placeholder="আপনার পেশা লিখুন">
-                        </div>
-                        <div class="form-group">
-                            <label for="itemDescription"> ফোন :* </label>
-                            <input type="text" class="form-control" id="itemName" placeholder="ফোন নম্বর লিখুন">
-                        </div>
-                        <div class="form-group">
-                            <label for="itemName">ইমেইল : (যদি থাকে)</label>
-                            <input type="text" class="form-control" id="itemName" placeholder="ইমেইল লিখুন">
+                            <label for="name">নাম :*</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="নাম লিখুন" value="{{ old('name') }}" required>
+                            @error('name')
+                                <p class="text-danger font-medium">{{ $message }}</p>
+                            @enderror
                         </div>
 
+                        <!-- Profession Field -->
+                        <div class="form-group">
+                            <label for="profession">পেশা :*</label>
+                            <input type="text" class="form-control" id="profession" name="profession"
+                                placeholder="আপনার পেশা লিখুন" value="{{ old('profession') }}" required>
+                            @error('profession')
+                                <p class="text-danger font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Phone Field -->
+                        <div class="form-group">
+                            <label for="phone"> ফোন :* </label>
+                            <input type="tel" id="phone" name="phone" class="form-control"
+                                placeholder="ফোন নম্বর লিখুন" value="{{ old('phone') }}" required>
+                            @error('phone')
+                                <p class="text-danger font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                         <!-- Email Field -->
+                         <div class="form-group">
+                            <label for="email">ইমেইল : (যদি থাকে)</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="ইমেইল লিখুন" value="{{ old('email') }}">
+                            @error('email')
+                                <p class="text-danger font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Gender Field -->
                         <div class="form-group">
                             <label for="itemDescription"> লিঙ্গ :* </label>
                             <br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="male" value="" checked>
-                                <label class="form-check-label" for="male">
+                              <input class="form-check-input" type="radio" name="gender" id="male" value="">
+                              <label class="form-check-label" for="male">
+                                পুরুষ
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="gender" id="female">
+                              <label class="form-check-label" for="female">
+                                মহিলা
+                              </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="gender" id="others">
+                              <label class="form-check-label" for="others">
+                                অন্যান্য
+                              </label>
+                            </div>
+                          </div>
+                        {{-- <div class="form-group">
+                            <label for="gender"> লিঙ্গ :* </label>
+                            <br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender"
+                                    id="male" value="পুরুষ" >
+                                <label class="form-check-label" for="female">
                                     পুরুষ
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="female">
+                                <input class="form-check-input" type="radio" name="gender"
+                                    id="female" value="মহিলা" >
                                 <label class="form-check-label" for="female">
                                     মহিলা
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="others">
+                                <input class="form-check-input" type="radio" name="gender"
+                                    id="others" value="অন্যান্য" >
                                 <label class="form-check-label" for="others">
                                     অন্যান্য
                                 </label>
                             </div>
-                        </div>
+                        </div> --}}
+
+                        <!-- Gender Field -->
                         <div class="form-group">
-                            <label for="itemCategory">উপজেলা :* </label>
-                            <select class="form-control" id="itemCategory">
+                            <label for="upazila">উপজেলা :* </label>
+                            <select class="form-control" id="upazila" name="upazila" required>
                                 <option value=""> নির্বাচন করুন </option>
-                                <option value="medicine">বোদা</option>
-                                <option value="surgery">দেবীগঞ্জ</option>
-                                <option value="dentistry">আটোয়ারী</option>
-                                <option value="dentistry">তেঁতুলিয়া</option>
-                                <option value="dentistry">পঞ্চগড় সদর</option>
+                                <option value="বোদা">বোদা</option>
+                                <option value="দেবীগঞ্জ">দেবীগঞ্জ</option>
+                                <option value="আটোয়ারী">আটোয়ারী</option>
+                                <option value="তেঁতুলিয়া">তেঁতুলিয়া</option>
+                                <option value="পঞ্চগড় সদর">পঞ্চগড় সদর</option>
 
                             </select>
                         </div>
+
+                         <!-- Address Field -->
                         <div class="form-group">
-                            <label for="itemDescription">ঠিকানা :</label>
-                            <textarea class="form-control" id="itemDescription" rows="3" placeholder="আপনার ঠিকানা লিখুন"></textarea>
+                            <label for="address">ঠিকানা :</label>
+                            <textarea class="form-control" id="address" name="address" rows="3" placeholder="আপনার ঠিকানা লিখুন"></textarea>
                         </div>
 
-                        <!-- Picture Input with Preview -->
+                        <!-- Subscription Field -->
                         <div class="form-group">
-                            <label for="itemImage"> প্রফাইল ফটো : </label>
-                            <input type="file" class="form-control-file" id="itemImage" accept="image/*">
-                            <!-- Image Preview Area -->
-                            <div id="imagePreview" class="mt-2" style="display: none;">
-                                <img id="previewImg" src="" alt="Image Preview" class="img-fluid"
-                                    style="max-width: 200px;">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="itemCategory"> সাবস্ক্রিপশন : </label>
-                            <select class="form-control" id="itemCategory">
-                                <option value="medicine"> নির্বাচন করুন </option>
-                                <option value="medicine"> সিলভার </option>
-                                <option value="surgery"> ব্রোঞ্জ </option>
-                                <option value="dentistry"> গোল্ড </option>
+                            <label for="subscription"> সাবস্ক্রিপশন : </label>
+                            <select class="form-control" name="subscription" id="subscription">
+                                <option> নির্বাচন করুন </option>
+                                <option value="সিলভার"> সিলভার </option>
+                                <option value="ব্রোঞ্জ"> ব্রোঞ্জ </option>
+                                <option value="গোল্ড"> গোল্ড </option>
                             </select>
                         </div>
 
+                        <!-- Password Field -->
                         <div class="form-group">
                             <input type="password" class="form-control" name="password" id="password"
-                                placeholder="Password">
+                                placeholder="Password" required>
+                            @error('password')
+                                <p class="text-danger font-medium">{{ $message }}</p>
+                            @enderror
                         </div>
+
+                        <!-- Confirm Password Field -->
                         <div class="form-group">
                             <input type="password" class="form-control" name="password_confirmation"
-                                id="password_confirmation" placeholder="Confirm Password">
+                                id="password_confirmation" placeholder="Confirm Password" required>
+                            @error('password_confirmation')
+                                <p class="text-danger font-medium">{{ $message }}</p>
+                            @enderror
                         </div>
 
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Save Now</button>
                 </div>
             </div>
         </div>

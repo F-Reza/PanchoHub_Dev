@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
 use App\Models\User;
-use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -24,108 +24,105 @@ class UserController extends Controller //implements HasMiddleware
     //    ];
     // }
 
-
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $users = User::latest()->paginate(25);
-        return view('users.list',[
+        return view('modules.Users.UserList',[
             'users' => $users
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $roles = Role::orderBy('name', 'ASC')->get();
-        return view('users.create', [
-            'roles' => $roles,
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'name' => 'required|min:4',
-            'email' => 'required|lowercase|email|max:255|unique:admins,email',
-            'password' => 'required|min:8|same:confirm_password',
+            'phone' => 'required|regex:/^[0-9]+$/|unique:users,phone',
+            'profession' => 'required',
+            'gender' => 'required',
+            'upazila' => 'required|not_in:null,',
+            'email' => 'lowercase|email|max:255|unique:users,email',
+            'password' => 'required|min:6|same:confirm_password',
             'confirm_password' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+dd ($validator->all());
         if ($validator->fails()) {
-            return redirect()->route('users.create')->withInput()->withErrors($validator);
+            flash()->error('Failed to add new user.');
+            return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
         $user = new User();
         $user-> name = $request->name;
-        $user-> email = $request->email;
+        $user-> phone = $request->phone;
+        $user-> email = $request->email?? null;
+        $user-> profession = $request->profession;
+        $user-> gender = $request->gender;
+        $user-> upazila = $request->upazila;
+        $user-> address = $request->address ?? null;
+        $user-> image = $request->image?? null;
+        $user-> subscription = $request->subscription ?? null;
         $user-> password = Hash::make($request->password);
         $user->save();
 
-        $user->syncRoles($request->role);
-
-        return redirect()->route('users.index')->with('success', 'User added successfully.');
+        flash()->success('New user added successfully.');
+        return redirect()->back();
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $user = User::findOrFail($id);
-        $roles = Role::orderBy('name', 'ASC')->get();
-        $hasRoles = $user->roles()->pluck('id');
-        return view('users.edit',[
-            'users' => $user,
-            'roles' => $roles,
-            'hasRoles' => $hasRoles
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
 
         $validator = Validator::make($request->all(),[
             'name' => 'required|min:4',
-            'email' => 'required|email|unique:users,email,'.$id.',id'
+            'phone' => 'required|regex:/^[0-9]+$/|unique:users,phone,'.$id.',id',
+            'profession' => 'required',
+            'gender' => 'required',
+            'upazila' => 'required|not_in:null,',
+            'email' => 'lowercase|email|max:255|unique:users,email',
+            'password' => 'required|min:6|same:confirm_password',
+            'confirm_password' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('users.edit',$id)->withInput()->withErrors($validator);
+            flash()->error('Failed to update user.');
+            return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
         $user-> name = $request->name;
-        $user-> email = $request->email;
+        $user-> phone = $request->phone;
+        $user-> email = $request->email?? null;
+        $user-> profession = $request->profession;
+        $user-> gender = $request->gender;
+        $user-> upazila = $request->upazila;
+        $user-> address = $request->address ?? null;
+        $user-> subscription = $request->subscription ?? null;
+        $user->status = $request->status ? 'Active' : 'Deactive';
+
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($user->image) {
+                $oldImagePath = public_path('uploads/users/' . $user->image);
+                if (File::exists($oldImagePath)) {
+                    File::delete($oldImagePath);
+                }
+            }
+
+            // Upload new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/users'), $imageName);
+            $user->image = $imageName;
+        }
+
         $user->save();
-
-        $user->syncRoles($request->role);
-
-        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+        flash()->success(' User updated successfully.');
+        return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Request $request)
     {
         $id = $request->id;
@@ -139,7 +136,7 @@ class UserController extends Controller //implements HasMiddleware
         }
 
         $users->delete();
-
+        flash()->success('User deleted successfully.');
         return response()->json([
             'status' => true,
             'message' => 'User deleted successfully.',

@@ -322,7 +322,7 @@
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="users"></i><span>ইউজার সমুহ</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="{{ route('users.index') }}">লোকাল ইউজার</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.users.index') }}">লোকাল ইউজার</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.staff.index') }}">কর্মচারীগণ</a></li>
                             </ul>
                         </li>

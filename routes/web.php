@@ -27,15 +27,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    //Users Routes
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::post('/users/{id}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/users', [UserController::class, 'destroy'])->name('users.destroy');
-
-
     //NewsDesk Routes
     Route::get('/news_desks', [NewsDeskController::class, 'index'])->name('news_desks.index');
     Route::get('/news_desks/create', [NewsDeskController::class, 'create'])->name('news_desks.create');

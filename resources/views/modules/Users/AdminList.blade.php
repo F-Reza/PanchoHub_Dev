@@ -110,9 +110,13 @@
                                                                 Edit
                                                             </a>
 
-                                                            <a href="javascript:void(0);"
-                                                                onclick="deleteAdminStaff({{ $admin->id }})"
-                                                                class="btn btn-danger">Delete</a>
+                                                            @if ($admin->role != 'Super Admin')
+                                                                <a href="javascript:void(0);"
+                                                                    onclick="deleteAdminStaff({{ $admin->id }})"
+                                                                    class="btn btn-danger">Delete</a>
+
+                                                            @endif
+
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -434,7 +438,7 @@
                         <!-- Role Field -->
                         <div class="form-group">
                             <select class="form-control" id="itemCategory" name="role" required>
-                                <option value="" selected>Select role</option>
+                                <option value="">Select role</option>
                                 @if ($roles->isNotEmpty())
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->name }}"

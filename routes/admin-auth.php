@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminStaffController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->middleware('guest:admin')->group(function () {
@@ -52,12 +53,20 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
         return view('dashboard.dashboard');
     })->middleware(['verified'])->name('dashboard');
 
+
+    //Users Routes
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users', [UserController::class, 'destroy'])->name('users.destroy');
+
+
     Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [AdminProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    //AdminUsers Routes
+    //Admin Staff Routes
     Route::get('/staff', [AdminStaffController::class, 'index'])->name('staff.index');
     Route::post('/staff', [AdminStaffController::class, 'store'])->name('staff.store');
     Route::put('/staff/{id}', [AdminStaffController::class, 'update'])->name('staff.update');
@@ -76,8 +85,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::post('/permissions', [PermissionController::class, 'store'])->name('permissions.store');
     Route::put('/permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
     Route::delete('/permissions', [PermissionController::class, 'destroy'])->name('permissions.destroy');
-
-
 
 
     //AdminAuth Routes

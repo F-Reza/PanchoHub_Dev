@@ -61,7 +61,7 @@ class AdminStaffController extends Controller //implements HasMiddleware
             $admin->phone = $validated['phone'] ?? null;
 
             $admin->save();
-             //$admin->syncRoles($request->role);
+            $admin->syncRoles($request->role);
             flash()->success('New staff member added successfully.');
             return redirect()->back();
 
@@ -113,7 +113,7 @@ class AdminStaffController extends Controller //implements HasMiddleware
         }
 
         $admin->save();
-        //$admin->syncRoles($request->role);
+        $admin->syncRoles($request->role);
         flash()->success('' . $admin->name . ' updated successfully.');
         return redirect()->back();
     }
