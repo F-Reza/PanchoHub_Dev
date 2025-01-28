@@ -40,7 +40,7 @@ class UserController extends Controller //implements HasMiddleware
             'profession' => 'required',
             'gender' => 'required',
             'upazila' => 'required|not_in:null,',
-            'email' => 'lowercase|email|max:255|unique:users,email',
+            'email' => 'lowercase|email|max:255',
             'password' => 'required|min:6|confirmed',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -62,6 +62,23 @@ class UserController extends Controller //implements HasMiddleware
         $user-> image = $request->image?? null;
         $user-> subscription = $request->subscription ?? null;
         $user-> password = Hash::make($request->password);
+
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($user->image) {
+                $oldImagePath = public_path('uploads/users/' . $user->image);
+                if (File::exists($oldImagePath)) {
+                    File::delete($oldImagePath);
+                }
+            }
+
+            // Upload new image
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/users'), $imageName);
+            $user->image = $imageName;
+        }
+
         $user->save();
 
         flash()->success('New user added successfully.');
@@ -80,7 +97,7 @@ class UserController extends Controller //implements HasMiddleware
             'profession' => 'required',
             'gender' => 'required',
             'upazila' => 'required|not_in:null,',
-            'email' => 'lowercase|email|max:255|unique:users,email',
+            'email' => 'lowercase|email|max:255',
             'password' => 'required|min:6|same:confirm_password',
             'confirm_password' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

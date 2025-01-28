@@ -552,7 +552,7 @@
 
                         <!-- Role Field -->
                         <div class="form-group">
-                            <select class="form-control" id="itemCategory" name="role" required>
+                            <select class="form-control" id="role" name="role" required>
                                 @if ($roles->isNotEmpty())
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->name }}"
@@ -927,7 +927,7 @@
                 modal.find('#name').val(name);
                 modal.find('#email').val(email);
                 modal.find('#phone').val(phone);
-                modal.find('#itemCategory').val(role);
+                modal.find('#role').val(role);
                 modal.find('#customSwitch1').prop('checked', status === 'Active').val(status);
 
                 var imagePreview = modal.find('#imagePreviewX');

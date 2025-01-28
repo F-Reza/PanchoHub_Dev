@@ -91,10 +91,13 @@
                                                                 data-id="{{ $user->id }}"
                                                                 data-name="{{ $user->name }}"
                                                                 data-phone="{{ $user->phone }}"
+                                                                data-email="{{ $user->email ?? 'Empty' }}"
                                                                 data-profession="{{ $user->profession }}"
                                                                 data-gender="{{ $user->gender }}"
                                                                 data-upazila="{{ $user->upazila }}"
+                                                                data-address="{{ $user->address ?? 'Empty' }}"
                                                                 data-status="{{ $user->status }}"
+                                                                data-subscription="{{ $user->subscription ?? 'Empty' }}"
                                                                 data-image="{{ $user->image ? asset('uploads/users/' . $user->image) : '' }}"
                                                                 data-entry="{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}">
                                                                 View
@@ -105,11 +108,14 @@
                                                                 data-id="{{ $user->id }}"
                                                                 data-name="{{ $user->name }}"
                                                                 data-phone="{{ $user->phone }}"
+                                                                data-email="{{ $user->email }}"
                                                                 data-profession="{{ $user->profession }}"
                                                                 data-gender="{{ $user->gender }}"
                                                                 data-upazila="{{ $user->upazila }}"
+                                                                data-address="{{ $user->address }}"
                                                                 data-status="{{ $user->status }}"
-                                                                data-image="{{ $user->image ? asset('uploads/users/' . $admin->image) : '' }}">
+                                                                data-subscription="{{ $user->subscription }}"
+                                                                data-image="{{ $user->image ? asset('uploads/users/' . $user->image) : '' }}">
                                                                 Edit
                                                             </a>
 
@@ -304,7 +310,7 @@
 
                         <!-- Gender Field -->
                         <div class="form-group">
-                            <label for="itemDescription"> লিঙ্গ :* </label>
+                            <label for="gender"> লিঙ্গ :* </label>
                             <br>
                             <div class="form-check form-check-inline">
                               <input class="form-check-input" type="radio" name="gender" id="male" value="পুরুষ" checked>
@@ -324,7 +330,7 @@
                                 অন্যান্য
                               </label>
                             </div>
-                          </div>
+                        </div>
 
                         <!-- Gender Field -->
                         <div class="form-group">
@@ -393,6 +399,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitle">ইউজার ডাটা পরিবর্তন </h5>
+                    <div class="ml-3 custom-switch">
+                        <input type="checkbox" checked class="custom-control-input" id="customSwitch1"
+                            name="status" value="Active">
+                        <label class="custom-control-label" for="customSwitch1">Status</label>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -400,88 +411,93 @@
                 <div class="modal-body">
                     <!-- Modal Content Goes Here -->
                     <form id="modalForm">
+
+                        <!-- Picture Input with Preview -->
                         <div class="form-group">
-                            <label for="itemName">নাম :*</label>
-                            <input type="text" class="form-control" id="itemName" placeholder="নাম লিখুন">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4 text-center">
+                                    <div class="profile-container">
+                                        <div class="image-preview" id="imagePreviewX">
+                                            <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
+                                        </div>
+                                        <div class="edit-icon" id="editIconX">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </div>
+                                        <input type="file" name="image" class="form-control d-none"
+                                            id="fileInputX" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-
                         <div class="form-group">
-                            <label for="itemName">পেশা :* </label>
-                            <input type="text" class="form-control" id="itemName"
-                                placeholder="আপনার পেশা লিখুন">
-                        </div>
-                        <div class="form-group">
-                            <label for="itemName">ইমেইল : (যদি থাকে) </label>
-                            <input type="text" class="form-control" id="itemName" placeholder="ইমেইল লিখুন">
+                            <label for="name">নাম :*</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="নাম লিখুন" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="itemDescription">ফোন :* (পরিবর্তনযোগ্য নয়) </label>
-                            <input type="text" class="form-control" id="itemName" placeholder="01830996044"
+                            <label for="profession">পেশা :* </label>
+                            <input type="text" class="form-control" id="profession" name="profession" value="{{ old('profession') }}"
+                                placeholder="আপনার পেশা লিখুন" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">ইমেইল : (যদি থাকে) </label>
+                            <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="ইমেইল লিখুন">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">ফোন :* (পরিবর্তনযোগ্য নয়) </label>
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{ old(key: 'phone') }}"
                                 disabled>
                         </div>
 
                         <div class="form-group">
-                            <label for="itemDescription"> লিঙ্গ :* </label>
+                            <label for="gender"> লিঙ্গ :* </label>
                             <br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="male" value="" checked>
-                                <label class="form-check-label" for="male">
-                                    পুরুষ
-                                </label>
+                              <input class="form-check-input" type="radio" name="gender" id="male" value="পুরুষ" {{ old('gender') == 'পুরুষ' ? 'checked' : '' }}>
+                              <label class="form-check-label" for="male">
+                                পুরুষ
+                              </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="female">
-                                <label class="form-check-label" for="female">
-                                    মহিলা
-                                </label>
+                              <input class="form-check-input" type="radio" name="gender" value="মহিলা" id="female" {{ old('gender') == 'পুরুষ' ? 'checked' : '' }}>
+                              <label class="form-check-label" for="female">
+                                মহিলা
+                              </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="others">
-                                <label class="form-check-label" for="others">
-                                    অন্যান্য
-                                </label>
+                              <input class="form-check-input" type="radio" name="gender" value="অন্যান্য" id="others" {{ old('gender') == 'অন্যান্য' ? 'checked' : '' }}>
+                              <label class="form-check-label" for="others">
+                                অন্যান্য
+                              </label>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="itemCategory">উপজেলা :* </label>
-                            <select class="form-control" id="itemCategory">
+                            <label for="upazila">উপজেলা :* </label>
+                            <select class="form-control" id="upazila" name="upazila" required>
                                 <option value=""> নির্বাচন করুন </option>
-                                <option value="medicine">বোদা</option>
-                                <option value="surgery">দেবীগঞ্জ</option>
-                                <option value="dentistry">আটোয়ারী</option>
-                                <option value="dentistry">তেঁতুলিয়া</option>
-                                <option value="dentistry">পঞ্চগড় সদর</option>
+                                <option value="বোদা" {{ old('upazila') == 'বোদা' ? 'selected' : '' }}> বোদা</option>
+                                <option value="দেবীগঞ্জ" {{ old('upazila') == 'দেবীগঞ্জ' ? 'selected' : '' }}>দেবীগঞ্জ</option>
+                                <option value="আটোয়ারী" {{ old('upazila') == 'আটোয়ারী' ? 'selected' : '' }}>আটোয়ারী</option>
+                                <option value="তেঁতুলিয়া" {{ old('upazila') == 'তেঁতুলিয়া' ? 'selected' : '' }}>তেঁতুলিয়া</option>
+                                <option value="পঞ্চগড় সদর" {{ old('upazila') == 'পঞ্চগড় সদর' ? 'selected' : '' }}>পঞ্চগড় সদর</option>
 
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="itemDescription">ঠিকানা :</label>
-                            <textarea class="form-control" id="itemDescription" rows="3" placeholder="আপনার ঠিকানা লিখুন"></textarea>
-                        </div>
-
-                        <!-- Picture Input with Preview -->
-                        <div class="form-group">
-                            <label for="itemImage"> প্রফাইল ফটো : </label>
-                            <input type="file" class="form-control-file" id="itemImage" accept="image/*">
-                            <!-- Image Preview Area -->
-                            <div id="imagePreview" class="mt-2" style="display: none;">
-                                <img id="previewImg" src="" alt="Image Preview" class="img-fluid"
-                                    style="max-width: 200px;">
-                            </div>
+                            <label for="address">ঠিকানা :</label>
+                            <textarea class="form-control" id="address" name="address" value="{{ old(key: 'address') }}" rows="3" placeholder="আপনার ঠিকানা লিখুন"></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label for="itemCategory"> সাবস্ক্রিপশন : </label>
-                            <select class="form-control" id="itemCategory">
-                                <option value="medicine"> নির্বাচন করুন </option>
-                                <option value="medicine"> সিলভার </option>
-                                <option value="surgery"> ব্রোঞ্জ </option>
-                                <option value="dentistry"> গোল্ড </option>
+                            <label for="subscription"> সাবস্ক্রিপশন : </label>
+                            <select class="form-control" id="subscription" name="subscription">
+                                <option value=""> নির্বাচন করুন </option>
+                                <option value="সিলভার" {{ old('upazila') == 'সিলভার' ? 'selected' : '' }}> সিলভার </option>
+                                <option value="ব্রোঞ্জ" {{ old('upazila') == 'ব্রোঞ্জ' ? 'selected' : '' }}> ব্রোঞ্জ </option>
+                                <option value="গোল্ড" {{ old('upazila') == 'গোল্ড' ? 'selected' : '' }}> গোল্ড </option>
                             </select>
                         </div>
 
@@ -497,69 +513,67 @@
 
     <!-- View User Modal -->
     <div class="modal fade" id="viewUserModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="formModal">ইউজার প্রফাইল</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="d-flex bd-highlight">
-                                    <div class="p-2 flex-fill bd-highlight">
-                                        <div class="about-avatar mt-1 mb-0 p-2 pr-4">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                                style="width: 100px; height: 100px;" alt="">
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formModal">ইউজার প্রফাইল</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="d-flex bd-highlight">
+                            <div class="p-2 flex-fill bd-highlight">
+                                <div class="about-avatar mt-1 mb-0 p-2 pr-4">
+                                    <img id="modalImage" src=""
+                                        style="width: 100px; height: 100px;" alt="User Image">
+                                </div>
+                            </div>
+                            <div class="p-2 flex-fill bd-highlight">
+                                <div class="row about-list">
+                                    <div class="d-flex flex-column">
+                                        <div>
+                                            <h6><samp class="sampcolor"> ফারহান মর্শেদ</span> </samp></h6>
                                         </div>
-                                    </div>
-                                    <div class="p-2 flex-fill bd-highlight">
-                                        <div class="row about-list">
-                                            <div class="d-flex flex-column">
-                                                <div>
-                                                    <h6><samp class="sampcolor"> ফারহান মর্শেদ</samp> </h6>
-                                                </div>
-                                                <div>
-                                                    <p><samp class="sampcolor"> পেশা : </samp> ছাত্র </p>
-                                                </div>
-                                                <div>
-                                                    <p><samp class="sampcolor"> মোবাইল : </samp> 01830996044</p>
-                                                </div>
-                                                <div>
-                                                    <p><samp class="sampcolor"> ইমাইল : </samp> farhan@gmail.com</p>
-                                                </div>
-                                                <div>
-                                                    <p><samp class="sampcolor"> লিঙ্গ :</samp> পুরুষ </p>
-                                                </div>
-                                                <div>
-                                                    <p><samp class="sampcolor"> উপজেলা : </samp> আটোয়ারী </p>
-                                                </div>
-                                                <div>
-                                                    <p><samp class="sampcolor"> ঠিকানা :</samp> আটোয়ারী, পঞ্চগড় </p>
-                                                </div>
-                                                <div>
-                                                    <p><samp class="sampcolor"> সাবস্ক্রিপশন :</samp> Empty </p>
-                                                </div>
-                                                <div>
-                                                    <p><samp class="sampcolor"> স্ট্যাটাস :</samp> Active </p>
-                                                </div>
-                                                <div>
-                                                    <p><samp class="sampcolor"> নিবন্ধন তারিখ : </samp> 01/01/2025</p>
-                                                </div>
-                                            </div>
+                                        <div>
+                                            <p><samp class="sampcolor"> পেশা : </samp> <span id="xProfession"></span> </p>
+                                        </div>
+                                        <div>
+                                            <p><samp class="sampcolor"> মোবাইল : </samp> <span id="xPhone"></span> </p>
+                                        </div>
+                                        <div>
+                                            <p><samp class="sampcolor"> ইমেইল : </samp> <span id="xEmail"></span> </p>
+                                        </div>
+                                        <div>
+                                            <p><samp class="sampcolor"> লিঙ্গ :</samp> <span id="xGender"></span> </p>
+                                        </div>
+                                        <div>
+                                            <p><samp class="sampcolor"> উপজেলা : </samp> <span id="xUpazila"></span> </p>
+                                        </div>
+                                        <div>
+                                            <p><samp class="sampcolor"> ঠিকানা :</samp> <span id="xAddress"></span> </p>
+                                        </div>
+                                        <div>
+                                            <p><samp class="sampcolor"> সাবস্ক্রিপশন :</samp> <span id="xSubscription"></span> </p>
+                                        </div>
+                                        <div>
+                                            <p><samp class="sampcolor"> স্ট্যাটাস :</samp> <span id="xStatus"></span> </p>
+                                        </div>
+                                        <div>
+                                            <p><samp class="sampcolor"> নিবন্ধন তারিখ : </samp> <span id="xEntry"></span> </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 
@@ -600,54 +614,68 @@
             });
 
 
-            //viewStaffModal
-            $('#viewStaffModal').on('show.bs.modal', function(event) {
+            //viewUserModal
+            $('#viewUserModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
                 var name = button.data('name');
+                var profession = button.data('profession');
                 var email = button.data('email');
                 var phone = button.data('phone');
-                var role = button.data('role');
+                var gender = button.data('gender');
+                var upazila = button.data('upazila');
+                var address = button.data('address');
                 var status = button.data('status');
+                var subscription = button.data('subscription');
                 var image = button.data('image');
                 var entry = button.data('entry');
 
                 var modal = $(this);
-                modal.find('#xID').text(id);
                 modal.find('#xName').text(name);
+                modal.find('#xProfession').text(profession);
                 modal.find('#xEmail').text(email);
                 modal.find('#xPhone').text(phone);
-                modal.find('#xRole').text(role);
+                modal.find('#xGender').text(gender);
+                modal.find('#xUpazila').text(upazila);
+                modal.find('#xAddress').text(address);
                 modal.find('#xStatus').text(status);
+                modal.find('#xSubscription').text(subscription);
                 modal.find('#xEntry').text(entry);
 
-                // Set the image source
+                // Set the image source correctly
                 var modalImage = modal.find('#modalImage');
                 if (image) {
                     modalImage.attr('src', image);
                 } else {
                     modalImage.attr('src', "{{ asset('assets/dashboard/img/users/avatar.png') }}");
                 }
-
             });
-            //editStaffModal
+
+            //editUserModal
             $('#editUserModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
                 var name = button.data('name');
+                var profession = button.data('profession');
                 var email = button.data('email');
                 var phone = button.data('phone');
-                var role = button.data('role');
+                var gender = button.data('gender');
+                var upazila = button.data('upazila');
+                var address = button.data('address');
                 var status = button.data('status');
+                var subscription = button.data('subscription');
                 var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#name').val(name);
                 modal.find('#email').val(email);
                 modal.find('#phone').val(phone);
-                modal.find('#itemCategory').val(role);
+                modal.find('#profession').val(profession);
+                modal.find('#gender').val(gender);
+                modal.find('#upazila').val(upazila);
+                modal.find('#address').val(address);
                 modal.find('#customSwitch1').prop('checked', status === 'Active').val(status);
-
+                modal.find('#subscription').val(subscription);
                 var imagePreview = modal.find('#imagePreviewX');
                 if (image) {
                     imagePreview.html('<img src="' + image + '" class="img-fluid" />');
@@ -658,7 +686,7 @@
                 modal.find('#modalFormX').attr('action', '/admin/users/' + id);
 
             });
-            //deleteAdminStaff
+            //deleteUser
             function deleteUser(id) {
                 if (confirm('Are you sure you want to delete this user?')) {
                     $.ajax({
