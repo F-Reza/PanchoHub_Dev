@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctors', function (Blueprint $table) {
+        Schema::create('hospitals', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('dr_name');
-            $table->string('category');
-            $table->string('education_qualify');
-            $table->string('current_servise');
-            $table->string('spacialist');
-            $table->string('chambers')->nullable();
+            $table->string('hp_name');
+            $table->string('contact');
+            $table->string('upazila');
+            $table->string('address');
             $table->string('image')->nullable();
             $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctors');
+        Schema::dropIfExists('hospitals');
     }
 };

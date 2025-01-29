@@ -262,7 +262,7 @@
                                     data-feather="activity"></i><span>হেলথ সার্ভিস</span></a>
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="{{ route('admin.doctors.index') }}">ডাক্তারগন</a></li>
-                                <li><a class="nav-link" href="hospitals-datatable.html">হাসপাতাল সমূহ</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.hospitals.index') }}">হাসপাতাল সমূহ</a></li>
                                 <li><a class="nav-link" href="widget-data.html">ডায়াগনস্টিক সেন্টার</a></li>
                                 <li><a class="nav-link" href="widget-data.html">রক্তদাতা</a></li>
                                 <li><a class="nav-link" href="widget-data.html">রক্ত গ্রহীতা</a></li>

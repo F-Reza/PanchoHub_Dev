@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DoctorsController;
+use App\Http\Controllers\HospitalsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->middleware('guest:admin')->group(function () {
@@ -61,6 +62,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::put('/doctors/{id}', [DoctorsController::class, 'update'])->name('doctors.update');
     Route::delete('/doctors', [DoctorsController::class, 'destroy'])->name('doctors.destroy');
 
+    //Hospitals Routes
+    Route::get('/hospitals', [HospitalsController::class, 'index'])->name('hospitals.index');
+    Route::post('/hospitals', [HospitalsController::class, 'store'])->name('hospitals.store');
+    Route::put('/hospitals/{id}', [HospitalsController::class, 'update'])->name('hospitals.update');
+    Route::delete('/hospitals', [HospitalsController::class, 'destroy'])->name('hospitals.destroy');
 
 
 

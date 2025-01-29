@@ -332,7 +332,7 @@
                             </div>
                         </div>
 
-                        <!-- Gender Field -->
+                        <!-- Upazila Field -->
                         <div class="form-group">
                             <label for="upazila">উপজেলা :* </label>
                             <select class="form-control" id="upazila" name="upazila" required>
@@ -499,9 +499,9 @@
                             <label for="subscription"> সাবস্ক্রিপশন : </label>
                             <select class="form-control" id="subscription" name="subscription">
                                 <option value=""> নির্বাচন করুন </option>
-                                <option value="সিলভার" {{ old('upazila') == 'সিলভার' ? 'selected' : '' }}> সিলভার </option>
-                                <option value="ব্রোঞ্জ" {{ old('upazila') == 'ব্রোঞ্জ' ? 'selected' : '' }}> ব্রোঞ্জ </option>
-                                <option value="গোল্ড" {{ old('upazila') == 'গোল্ড' ? 'selected' : '' }}> গোল্ড </option>
+                                <option value="সিলভার" {{ old('subscription') == 'সিলভার' ? 'selected' : '' }}> সিলভার </option>
+                                <option value="ব্রোঞ্জ" {{ old('subscription') == 'ব্রোঞ্জ' ? 'selected' : '' }}> ব্রোঞ্জ </option>
+                                <option value="গোল্ড" {{ old('subscription') == 'গোল্ড' ? 'selected' : '' }}> গোল্ড </option>
                             </select>
                         </div>
 
@@ -534,7 +534,7 @@
                             <div class="p-2 flex-fill bd-highlight">
                                 <div class="about-avatar mt-1 mb-0 p-2 pr-4">
                                     <img id="modalImage" src=""
-                                        style="width: 100px; height: 100px;" alt="User Image">
+                                        style="width: 135px; height: 165px;" alt="User Image">
                                 </div>
                             </div>
                             <div class="p-2 flex-fill bd-highlight">

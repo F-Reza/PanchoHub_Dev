@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
@@ -61,6 +63,23 @@ class AdminStaffController extends Controller //implements HasMiddleware
             $admin->phone = $validated['phone'] ?? null;
 
             // Handle image upload if provided
+            // if ($request->hasFile('image')) {
+            //     // Delete old image if it exists
+            //     if ($admin->image) {
+            //         $oldImagePath = public_path('uploads/admins/' . $admin->image);
+            //         if (File::exists($oldImagePath)) {
+            //             File::delete($oldImagePath);
+            //         }
+            //     }
+
+            //     // Upload new image
+            //     $image = $request->file('image');
+            //     $imageName = time() . '.' . $image->getClientOriginalExtension();
+            //     $image->move(public_path('uploads/admins'), $imageName);
+            //     $admin->image = $imageName;
+            // }
+
+            // Handle image upload if provided
             if ($request->hasFile('image')) {
                 // Delete old image if it exists
                 if ($admin->image) {
@@ -73,9 +92,33 @@ class AdminStaffController extends Controller //implements HasMiddleware
                 // Upload new image
                 $image = $request->file('image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('uploads/admins'), $imageName);
+                $imagePath = public_path('uploads/admins/' . $imageName);
+
+                // Initialize Image Manager
+                $manager = new ImageManager(new Driver());
+                $img = $manager->read($image);
+
+                // Resize while maintaining aspect ratio
+                $img->resize(592, 744);
+
+                // Reduce image size to 100 KB
+                $quality = 90; // Start with high quality
+                do {
+                    ob_start(); // Start output buffering
+                    $img->save($imagePath, $quality); // Save image with current quality
+                    $imageSize = ob_get_length(); // Get the image size
+                    ob_end_clean(); // End output buffering
+
+                    $quality -= 5; // Reduce quality by 5
+                } while ($imageSize > 100 * 1024 && $quality > 10); // Repeat until under 100 KB or quality reaches 10
+
+                // Save final optimized image
+                $img->save($imagePath, $quality);
+
+                // Save filename in database
                 $admin->image = $imageName;
             }
+
 
             $admin->save();
             $admin->syncRoles($request->role);
@@ -114,20 +157,32 @@ class AdminStaffController extends Controller //implements HasMiddleware
 
         // Handle image upload if provided
         if ($request->hasFile('image')) {
-            // Delete old image if it exists
             if ($admin->image) {
                 $oldImagePath = public_path('uploads/admins/' . $admin->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
             }
-
-            // Upload new image
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/admins'), $imageName);
+            $imagePath = public_path('uploads/admins/' . $imageName);
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img->resize(592, 744);
+            $quality = 90;
+            do {
+                ob_start();
+                $img->save($imagePath, $quality);
+                $imageSize = ob_get_length();
+                ob_end_clean();
+
+                $quality -= 5;
+            } while ($imageSize > 100 * 1024 && $quality > 10);
+
+            $img->save($imagePath, $quality);
             $admin->image = $imageName;
         }
+
 
         $admin->save();
         $admin->syncRoles($request->role);

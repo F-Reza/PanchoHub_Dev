@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -64,7 +66,6 @@ class UserController extends Controller //implements HasMiddleware
         $user-> password = Hash::make($request->password);
 
         if ($request->hasFile('image')) {
-            // Delete old image if it exists
             if ($user->image) {
                 $oldImagePath = public_path('uploads/users/' . $user->image);
                 if (File::exists($oldImagePath)) {
@@ -72,10 +73,24 @@ class UserController extends Controller //implements HasMiddleware
                 }
             }
 
-            // Upload new image
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/users'), $imageName);
+            $imagePath = public_path('uploads/users/' . $imageName);
+
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img->resize(450, 550);
+            $quality = 90;
+            do {
+                ob_start();
+                $img->save($imagePath, $quality);
+                $imageSize = ob_get_length();
+                ob_end_clean();
+
+                $quality -= 5;
+            } while ($imageSize > 100 * 1024 && $quality > 10);
+
+            $img->save($imagePath, $quality);
             $user->image = $imageName;
         }
 
@@ -117,7 +132,6 @@ class UserController extends Controller //implements HasMiddleware
         $user->status = $request->status ? 'Active' : 'Deactive';
 
         if ($request->hasFile('image')) {
-            // Delete old image if it exists
             if ($user->image) {
                 $oldImagePath = public_path('uploads/users/' . $user->image);
                 if (File::exists($oldImagePath)) {
@@ -125,12 +139,27 @@ class UserController extends Controller //implements HasMiddleware
                 }
             }
 
-            // Upload new image
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/users'), $imageName);
+            $imagePath = public_path('uploads/users/' . $imageName);
+
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img->resize(450, 550);
+            $quality = 90;
+            do {
+                ob_start();
+                $img->save($imagePath, $quality);
+                $imageSize = ob_get_length();
+                ob_end_clean();
+
+                $quality -= 5;
+            } while ($imageSize > 100 * 1024 && $quality > 10);
+
+            $img->save($imagePath, $quality);
             $user->image = $imageName;
         }
+
 
         $user->save();
         flash()->success(' User updated successfully.');
