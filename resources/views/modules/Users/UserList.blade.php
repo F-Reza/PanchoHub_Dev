@@ -114,7 +114,7 @@
                                                                 data-upazila="{{ $user->upazila }}"
                                                                 data-address="{{ $user->address }}"
                                                                 data-status="{{ $user->status }}"
-                                                                data-subscription="{{ $user->subscription }}"
+                                                                data-subscription="{{ $user->subscription ?? '' }}"
                                                                 data-image="{{ $user->image ? asset('uploads/users/' . $user->image) : '' }}">
                                                                 Edit
                                                             </a>
@@ -397,6 +397,11 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
+                <!-- Modal Content Goes Here -->
+                <form method="POST" action="" id="modalFormX" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitle">ইউজার ডাটা পরিবর্তন </h5>
                     <div class="ml-3 custom-switch">
@@ -409,8 +414,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- Modal Content Goes Here -->
-                    <form id="modalForm">
 
                         <!-- Picture Input with Preview -->
                         <div class="form-group">
@@ -451,23 +454,24 @@
                                 disabled>
                         </div>
 
+                        <!-- Gender Field -->
                         <div class="form-group">
                             <label for="gender"> লিঙ্গ :* </label>
                             <br>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="gender" id="male" value="পুরুষ" {{ old('gender') == 'পুরুষ' ? 'checked' : '' }}>
+                              <input class="" type="radio" name="gender" id="male" value="পুরুষ">
                               <label class="form-check-label" for="male">
                                 পুরুষ
                               </label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="gender" value="মহিলা" id="female" {{ old('gender') == 'পুরুষ' ? 'checked' : '' }}>
+                              <input class="" type="radio" name="gender" value="মহিলা" id="female">
                               <label class="form-check-label" for="female">
                                 মহিলা
                               </label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="gender" value="অন্যান্য" id="others" {{ old('gender') == 'অন্যান্য' ? 'checked' : '' }}>
+                              <input class="" type="radio" name="gender" value="অন্যান্য" id="others">
                               <label class="form-check-label" for="others">
                                 অন্যান্য
                               </label>
@@ -501,11 +505,12 @@
                             </select>
                         </div>
 
+                        <!-- Modal Footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -536,7 +541,7 @@
                                 <div class="row about-list">
                                     <div class="d-flex flex-column">
                                         <div>
-                                            <h6><samp class="sampcolor"> ফারহান মর্শেদ</span> </samp></h6>
+                                            <h4><samp class="sampcolor"> <span id="xName"></span> </samp></h4>
                                         </div>
                                         <div>
                                             <p><samp class="sampcolor"> পেশা : </samp> <span id="xProfession"></span> </p>
@@ -663,7 +668,7 @@
                 var upazila = button.data('upazila');
                 var address = button.data('address');
                 var status = button.data('status');
-                var subscription = button.data('subscription');
+                var subscription = button.data('subscription') || '';
                 var image = button.data('image');
 
                 var modal = $(this);
@@ -671,11 +676,23 @@
                 modal.find('#email').val(email);
                 modal.find('#phone').val(phone);
                 modal.find('#profession').val(profession);
-                modal.find('#gender').val(gender);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
                 modal.find('#customSwitch1').prop('checked', status === 'Active').val(status);
                 modal.find('#subscription').val(subscription);
+
+                modal.find('input[name="gender"]').prop('checked', false);
+                if (gender) {
+                    modal.find('input[name="gender"]').each(function() {
+                        if ($(this).val() === gender) {
+                            $(this).prop('checked', true);
+                        }
+                    });
+                }
+                modal.find('input[name="gender"]').off('change').on('change', function() {
+                    gender = $(this).val();
+                });
+
                 var imagePreview = modal.find('#imagePreviewX');
                 if (image) {
                     imagePreview.html('<img src="' + image + '" class="img-fluid" />');
@@ -686,6 +703,7 @@
                 modal.find('#modalFormX').attr('action', '/admin/users/' + id);
 
             });
+
             //deleteUser
             function deleteUser(id) {
                 if (confirm('Are you sure you want to delete this user?')) {

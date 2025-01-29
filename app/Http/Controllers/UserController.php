@@ -93,13 +93,11 @@ class UserController extends Controller //implements HasMiddleware
 
         $validator = Validator::make($request->all(),[
             'name' => 'required|min:4',
-            'phone' => 'required|regex:/^[0-9]+$/|unique:users,phone,'.$id.',id',
+            // 'phone' => 'required|regex:/^[0-9]+$/|unique:users,phone,'.$id.',id',
             'profession' => 'required',
             'gender' => 'required',
             'upazila' => 'required|not_in:null,',
             'email' => 'lowercase|email|max:255',
-            'password' => 'required|min:6|same:confirm_password',
-            'confirm_password' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -109,7 +107,7 @@ class UserController extends Controller //implements HasMiddleware
         }
 
         $user-> name = $request->name;
-        $user-> phone = $request->phone;
+        // $user-> phone = $request->phone;
         $user-> email = $request->email?? null;
         $user-> profession = $request->profession;
         $user-> gender = $request->gender;
@@ -143,17 +141,24 @@ class UserController extends Controller //implements HasMiddleware
     public function destroy(Request $request)
     {
         $id = $request->id;
-        $users = User::find($id);
+        $user = User::find($id);
 
-        if (!$users) {
+        if (!$user) {
             return response()->json([
                 'status' => false,
                 'message' => 'User not found.',
             ], 404);
         }
 
-        $users->delete();
-        flash()->success('User deleted successfully.');
+        if ($user->image) {
+            $imagePath = public_path('uploads/users/' . $user->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        $user->delete();
+
         return response()->json([
             'status' => true,
             'message' => 'User deleted successfully.',

@@ -164,7 +164,16 @@ class AdminStaffController extends Controller //implements HasMiddleware
             ], 404);
         }
 
+        if ($admin->image) {
+            $imagePath = public_path('uploads/admins/' . $admin->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+
         $admin->delete();
+
         flash()->success('User deleted successfully.');
         return response()->json([
             'status' => true,
