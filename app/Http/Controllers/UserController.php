@@ -48,7 +48,6 @@ class UserController extends Controller //implements HasMiddleware
         ]);
 
         if ($validator->fails()) {
-            dd ($validator->errors());
             flash()->error('Failed to add new user.');
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
@@ -66,6 +65,12 @@ class UserController extends Controller //implements HasMiddleware
         $user-> password = Hash::make($request->password);
 
         if ($request->hasFile('image')) {
+
+            $directory = public_path('uploads/users');
+            if (!File::exists($directory)) {
+                File::makeDirectory($directory, 0777, true);
+            }
+
             if ($user->image) {
                 $oldImagePath = public_path('uploads/users/' . $user->image);
                 if (File::exists($oldImagePath)) {
@@ -128,10 +133,17 @@ class UserController extends Controller //implements HasMiddleware
         $user-> gender = $request->gender;
         $user-> upazila = $request->upazila;
         $user-> address = $request->address ?? null;
+        $user-> image = $request->image?? null;
         $user-> subscription = $request->subscription ?? null;
         $user->status = $request->status ? 'Active' : 'Deactive';
 
         if ($request->hasFile('image')) {
+
+            $directory = public_path('uploads/users');
+            if (!File::exists($directory)) {
+                File::makeDirectory($directory, 0777, true);
+            }
+
             if ($user->image) {
                 $oldImagePath = public_path('uploads/users/' . $user->image);
                 if (File::exists($oldImagePath)) {

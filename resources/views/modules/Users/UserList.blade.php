@@ -35,12 +35,12 @@
                                                     </div>
                                                 </th>
                                                 <th>Image</th>
-                                                <th>Name</th>
-                                                <th>Phone</th>
-                                                <th>Profession</th>
-                                                <th>Gender</th>
-                                                <th>Upazila</th>
-                                                <th>Entry Date</th>
+                                                <th class="align-left">Name</th>
+                                                <th class="align-left">Phone</th>
+                                                <th class="align-left">Profession</th>
+                                                <th class="align-left">Gender</th>
+                                                <th class="align-left">Upazila</th>
+                                                <th class="align-left">Entry Date</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>

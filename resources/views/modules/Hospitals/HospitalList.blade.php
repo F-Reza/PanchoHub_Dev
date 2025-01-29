@@ -36,55 +36,89 @@
                                                     </div>
                                                 </th>
                                                 <th>Logo</th>
-                                                <th>Hospital Name</th>
-                                                <th>Contact</th>
-                                                <th>Upazila</th>
-                                                <th>Added By</th>
-                                                <th>Entry Date</th>
+                                                <th class="align-left">Hospital Name</th>
+                                                <th class="align-left">Contact</th>
+                                                <th class="align-left">Upazila</th>
+                                                <th class="align-left">Added By</th>
+                                                <th class="align-left">Entry Date</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td class="text-center align-middle">
-                                                    <!-- align-middle for vertical centering -->
-                                                    <div class="custom-checkbox custom-control">
-                                                        <input type="checkbox" data-checkboxes="mygroup"
-                                                            class="custom-control-input" id="checkbox-1">
-                                                        <label for="checkbox-1"
-                                                            class="custom-control-label">&nbsp;</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <img class="rounded-circle" alt="image"
-                                                        src="{{ asset('assets/dashboard/img/users/user-5.png') }}"
-                                                        width="35">
-                                                </td>
-                                                <td>Squar Hospital</td>
-                                                <td class="align-middle">
-                                                    010830996044
-                                                </td>
-                                                <td class="align-middle">
-                                                    Panchagarh
-                                                </td>
-                                                <td class="align-middle">
-                                                    <img class="rounded-circle" alt="image"
-                                                        src="{{ asset('assets/dashboard/img/users/user-5.png') }}"
-                                                        width="24">
-                                                    Mr. Xyz Abcd
-                                                </td>
-                                                <td>2018-01-20</td>
-                                                <td>
-                                                    <div class="badge badge-success badge-shadow">Approved</div>
-                                                </td>
-                                                <td><a href="#" class="btn btn-success" data-toggle="modal"
-                                                        data-target="#viewHospitaModal">View</a><a href="#"
-                                                        class="btn mx-1 btn-primary" data-toggle="modal"
-                                                        data-target="#editHospitaModal">Edit</a><a href="#"
-                                                        class="btn btn-danger">Delete</a></td>
-                                            </tr>
+                                            @if ($hospitals->isNotEmpty())
+                                                @foreach ($hospitals as $key => $hospital)
+                                                    <tr>
+                                                        <td> {{ ++$key }} </td>
+                                                        <td class="text-center">
+                                                            <div class="custom-checkbox custom-control">
+                                                                <input type="checkbox" data-checkboxes="mygroup"
+                                                                    class="custom-control-input"
+                                                                    id="checkbox-{{ $hospital->id }}">
+                                                                <label for="checkbox-{{ $hospital->id }}"
+                                                                    class="custom-control-label">&nbsp;</label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            @if (!empty($hospital->image))
+                                                                <img class="rounded-circle" alt="image"
+                                                                    src="{{ asset('uploads/hospitals/' . $hospital->image) }}"
+                                                                    width="35" height="35">
+                                                            @else
+                                                                <img class="rounded-circle" alt="image"
+                                                                    src="{{ asset('assets/dashboard/img/hospitals/avatar.png') }}"
+                                                                    width="35" height="35">
+                                                            @endif
+                                                        </td>
+                                                        <td class="align-left"> {{ $hospital->hp_name }} </td>
+                                                        <td class="align-left"> {{ $hospital->contact }} </td>
+                                                        <td class="align-left"> {{ $hospital->upazila }} </td>
+                                                        <td class="align-left"> {{ $hospital->user_id }} </td>
+                                                        <td class="align-left">
+                                                            {{ \Carbon\Carbon::parse($hospital->created_at)->format('d M, Y') }}
+                                                        </td>
+                                                        <td>
+                                                            <div @if ($hospital->status == 'Active') class="badge badge-success badge-shadow" @endif
+                                                                class="badge badge-danger badge-shadow">
+                                                                {{ $hospital->status }}
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="#" class="btn btn-success"
+                                                                data-toggle="modal" data-target="#viewHospitalModal"
+                                                                data-id="{{ $hospital->id }}"
+                                                                data-id="{{ $hospital->user_id }}"
+                                                                data-name="{{ $hospital->hp_name }}"
+                                                                data-phone="{{ $hospital->contact }}"
+                                                                data-upazila="{{ $hospital->upazila }}"
+                                                                data-address="{{ $hospital->address }}"
+                                                                data-status="{{ $hospital->status }}"
+                                                                data-image="{{ $hospital->image ? asset('uploads/hospitals/' . $hospital->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($hospital->created_at)->format('d/m/Y') }}">
+                                                                View
+                                                            </a>
+
+                                                            <a href="#" class="btn btn-primary"
+                                                                data-toggle="modal" data-target="#editHospitalModal"
+                                                                data-id="{{ $hospital->id }}"
+                                                                data-id="{{ $hospital->user_id }}"
+                                                                data-name="{{ $hospital->hp_name }}"
+                                                                data-phone="{{ $hospital->contact }}"
+                                                                data-upazila="{{ $hospital->upazila }}"
+                                                                data-address="{{ $hospital->address }}"
+                                                                data-status="{{ $hospital->status }}"
+                                                                data-image="{{ $hospital->image ? asset('uploads/hospitals/' . $hospital->image) : '' }}">
+                                                                Edit
+                                                            </a>
+
+                                                            <a href="javascript:void(0);"
+                                                                onclick="deletehospital({{ $hospital->id }})"
+                                                                class="btn btn-danger">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -269,7 +303,7 @@
         </div>
 
     <!-- Edit Hospita Modal -->
-    <div class="modal modalz fade" id="editHospitaModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal modalz fade" id="editHospitalModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
 
@@ -358,11 +392,11 @@
     </div>
 
     <!-- View Hospita Modal -->
-    <div class="modal modalz fade" id="viewHospitaModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal modalz fade" id="viewHospitalModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document" >
         <div class="modal-content" >
         <div class="modal-header">
-            <h5 class="modal-title" id="modalTitle">View Doctor Data</h5>
+            <h5 class="modal-title" id="modalTitle">হাসপাতাল ভিউ ডাটা</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>

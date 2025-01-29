@@ -81,6 +81,13 @@ class AdminStaffController extends Controller //implements HasMiddleware
 
             // Handle image upload if provided
             if ($request->hasFile('image')) {
+
+                // Check if the directory exists, if not, create it
+                $directory = public_path('uploads/admins');
+                if (!File::exists($directory)) {
+                    File::makeDirectory($directory, 0777, true); // 0777 grants read, write, and execute permissions
+                }
+
                 // Delete old image if it exists
                 if ($admin->image) {
                     $oldImagePath = public_path('uploads/admins/' . $admin->image);
@@ -157,6 +164,11 @@ class AdminStaffController extends Controller //implements HasMiddleware
 
         // Handle image upload if provided
         if ($request->hasFile('image')) {
+
+            $directory = public_path('uploads/admins');
+            if (!File::exists($directory)) {
+                File::makeDirectory($directory, 0777, true);
+            }
             if ($admin->image) {
                 $oldImagePath = public_path('uploads/admins/' . $admin->image);
                 if (File::exists($oldImagePath)) {
