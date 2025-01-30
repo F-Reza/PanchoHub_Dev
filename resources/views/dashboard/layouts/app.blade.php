@@ -263,9 +263,9 @@
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="{{ route('admin.doctors.index') }}">ডাক্তারগন</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.hospitals.index') }}">হাসপাতাল সমূহ</a></li>
-                                <li><a class="nav-link" href="widget-data.html">ডায়াগনস্টিক সেন্টার</a></li>
-                                <li><a class="nav-link" href="widget-data.html">রক্তদাতা</a></li>
-                                <li><a class="nav-link" href="widget-data.html">রক্ত গ্রহীতা</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.diagnostics.index') }}">ডায়াগনস্টিক সেন্টার</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.donors.index') }}">রক্তদাতা</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.needers.index') }}">রক্ত গ্রহীতা</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">

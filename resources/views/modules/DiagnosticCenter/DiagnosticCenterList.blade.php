@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - হাসপাতাল সমূহ |</title>
+        <title>| পঞ্চহাব - ডায়াগনস্টিক সেন্টার সমূহ |</title>
     </x-slot>
 
     <!-- Main Content -->
@@ -15,9 +15,9 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4>হাসপাতাল সমূহ </h4>
+                                <h4>ডায়াগনস্টিক সেন্টার সমূহ</h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createHospitalModal">Create</a>
+                                    data-target="#createDiagnosticModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -36,7 +36,7 @@
                                                     </div>
                                                 </th>
                                                 <th>Logo</th>
-                                                <th class="align-left">Hospital Name</th>
+                                                <th class="align-left">Title</th>
                                                 <th class="align-left">Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">Added By</th>
@@ -46,40 +46,40 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($hospitals->isNotEmpty())
-                                                @foreach ($hospitals as $key => $hospital)
+                                            @if ($diagnostics->isNotEmpty())
+                                                @foreach ($diagnostics as $key => $diagnostic)
                                                     <tr>
                                                         <td> {{ ++$key }} </td>
                                                         <td class="text-center">
                                                             <div class="custom-checkbox custom-control">
                                                                 <input type="checkbox" data-checkboxes="mygroup"
                                                                     class="custom-control-input"
-                                                                    id="checkbox-{{ $hospital->id }}">
-                                                                <label for="checkbox-{{ $hospital->id }}"
+                                                                    id="checkbox-{{ $diagnostic->id }}">
+                                                                <label for="checkbox-{{ $diagnostic->id }}"
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            @if (!empty($hospital->image))
-                                                                <img class="user-img-radious-style" alt="image" title="Hospital Logo"
-                                                                    src="{{ asset('uploads/hospitals/' . $hospital->image) }}"
+                                                            @if (!empty($diagnostic->image))
+                                                                <img class="user-img-radious-style" alt="image" title="Logo"
+                                                                    src="{{ asset('uploads/diagnostics/' . $diagnostic->image) }}"
                                                                     width="35" height="35">
                                                             @else
-                                                                <img class="user-img-radious-style" alt="image" title="Hospital Logo"
+                                                                <img class="user-img-radious-style" alt="image" title="Logo"
                                                                     src="{{ asset('assets/dashboard/img/users/avatar.png') }}"
                                                                     width="35" height="35">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left"> {{ $hospital->hp_name }} </td>
-                                                        <td class="align-left"> {{ $hospital->contact }} </td>
-                                                        <td class="align-left"> {{ $hospital->upazila }} </td>
-                                                        <td class="align-left"> {{ $hospital->user_id }} </td>
+                                                        <td class="align-left"> {{ $diagnostic->title }} </td>
+                                                        <td class="align-left"> {{ $diagnostic->contact }} </td>
+                                                        <td class="align-left"> {{ $diagnostic->upazila }} </td>
+                                                        <td class="align-left"> {{ $diagnostic->user_id }} </td>
                                                         <td class="align-left">
-                                                            {{ \Carbon\Carbon::parse($hospital->created_at)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($diagnostic->created_at)->format('d M, Y') }}
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $statusClass = match ($hospital->status) {
+                                                                $statusClass = match ($diagnostic->status) {
                                                                     'Approved' => 'badge badge-secondary badge-shadow',
                                                                     'In Review' => 'badge badge-info badge-shadow',
                                                                     'Pending' => 'badge badge-warning badge-shadow',
@@ -88,40 +88,42 @@
                                                                 };
                                                             @endphp
                                                             <div class="{{ $statusClass }}">
-                                                                {{ $hospital->status }}
+                                                                {{ $diagnostic->status }}
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewHospitalModal"
-                                                                data-id="{{ $hospital->id }}"
-                                                                data-user_id="{{ $hospital->user_id }}"
-                                                                data-hp_name="{{ $hospital->hp_name }}"
-                                                                data-contact="{{ $hospital->contact }}"
-                                                                data-upazila="{{ $hospital->upazila }}"
-                                                                data-address="{{ $hospital->address }}"
-                                                                data-status="{{ $hospital->status }}"
-                                                                data-image="{{ $hospital->image ? asset('uploads/hospitals/' . $hospital->image) : '' }}"
-                                                                data-entry="{{ \Carbon\Carbon::parse($hospital->created_at)->format('d/m/Y') }}">
+                                                                data-toggle="modal" data-target="#viewDiagnosticModal"
+                                                                data-id="{{ $diagnostic->id }}"
+                                                                data-user_id="{{ $diagnostic->user_id }}"
+                                                                data-title="{{ $diagnostic->title }}"
+                                                                data-contact="{{ $diagnostic->contact }}"
+                                                                data-upazila="{{ $diagnostic->upazila }}"
+                                                                data-address="{{ $diagnostic->address }}"
+                                                                data-facilities="{{ $diagnostic->facilities }}"
+                                                                data-status="{{ $diagnostic->status }}"
+                                                                data-image="{{ $diagnostic->image ? asset('uploads/diagnostics/' . $diagnostic->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($diagnostic->created_at)->format('d/m/Y') }}">
                                                                 View
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editHospitalModal"
-                                                                data-id="{{ $hospital->id }}"
-                                                                data-user_id="{{ $hospital->user_id }}"
-                                                                data-hp_name="{{ $hospital->hp_name }}"
-                                                                data-contact="{{ $hospital->contact }}"
-                                                                data-upazila="{{ $hospital->upazila }}"
-                                                                data-address="{{ $hospital->address }}"
-                                                                data-status="{{ $hospital->status }}"
-                                                                data-image="{{ $hospital->image ? asset('uploads/hospitals/' . $hospital->image) : '' }}">
+                                                                data-toggle="modal" data-target="#editDiagnosticModal"
+                                                                data-id="{{ $diagnostic->id }}"
+                                                                data-user_id="{{ $diagnostic->user_id }}"
+                                                                data-title="{{ $diagnostic->title }}"
+                                                                data-contact="{{ $diagnostic->contact }}"
+                                                                data-upazila="{{ $diagnostic->upazila }}"
+                                                                data-address="{{ $diagnostic->address }}"
+                                                                data-facilities="{{ $diagnostic->facilities }}"
+                                                                data-status="{{ $diagnostic->status }}"
+                                                                data-image="{{ $diagnostic->image ? asset('uploads/diagnostics/' . $diagnostic->image) : '' }}">
                                                                 Edit
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteHospital({{ $hospital->id }})"
+                                                                onclick="deleteDiagnostic({{ $diagnostic->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -235,19 +237,19 @@
 
 
     <!-- Modal -->
-    <!-- Create Hospita Modal -->
-    <div class="modal modalz fade" id="createHospitalModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create Diagnostic Center Modal -->
+    <div class="modal modalz fade" id="createDiagnosticModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">নতুন হাসপাতাল যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle">নতুন ডায়াগনস্টিক সেন্টার যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Modal Content Goes Here -->
-                <form method="POST" action="{{ route('admin.hospitals.store') }}" id="modalForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.diagnostics.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
                     <!-- Picture Input with Preview -->
@@ -268,14 +270,14 @@
                         </div>
                     </div>
 
-                    <!-- HospitalName Field -->
+                    <!-- Title Field -->
                     <div class="form-group">
-                        <label for="HospitalName">হাসপাতালের নাম :* </label>
-                        <input type="text" name="hp_name" class="form-control" id="hospitalName" placeholder="নাম লিখুন">
+                        <label for="title">ডায়াগনস্টিক সেন্টারের নাম :* </label>
+                        <input type="text" name="title" class="form-control" id="title" placeholder="নাম লিখুন">
                     </div>
-                    <!-- HospitalContact Field -->
+                    <!-- Contact Field -->
                     <div class="form-group">
-                        <label for="hospitalontact">হাসপাতালের যোগাযোগ নম্বর :*</label>
+                        <label for="contact">ডায়াগনস্টিক সেন্টারের যোগাযোগ নম্বর :*</label>
                         <input type="text" name="contact" class="form-control" id="hospitalontact" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
@@ -293,10 +295,16 @@
                         </select>
                     </div>
 
-                    <!-- HospitalAddress Field -->
+                    <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address">হাসপাতালের সম্পূৰ্ণ ঠিকানা :*</label>
+                        <label for="address">ডায়াগনস্টিক সেন্টারের সম্পূৰ্ণ ঠিকানা :*</label>
                         <textarea class="form-control" id="address" name="address" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
+                    </div>
+
+                    <!-- Facilities Field -->
+                    <div class="form-group">
+                        <label for="facilities">ডায়াগনস্টিক সেন্টারের সুযোগ-সুবিধা :*</label>
+                        <textarea class="form-control" id="facilities" name="facilities" rows="3" placeholder="সুযোগ-সুবিধা লিখুন"></textarea>
                     </div>
 
                     <div class="modal-footer">
@@ -310,8 +318,8 @@
         </div>
     </div>
 
-    <!-- Edit Hospita Modal -->
-    <div class="modal modalz fade" id="editHospitalModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit Diagnostic Center Modal -->
+    <div class="modal modalz fade" id="editDiagnosticModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 
@@ -349,13 +357,13 @@
 
                     <!-- HospitalName Field -->
                     <div class="form-group">
-                        <label for="HospitalName">হাসপাতালের নাম :* </label>
-                        <input type="text" name="hp_name" class="form-control" id="hp_name" value="{{ old(key: 'hp_name') }}" placeholder="নাম লিখুন">
+                        <label for="title">ডায়াগনস্টিক সেন্টারের নাম :* </label>
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old(key: 'title') }}" placeholder="নাম লিখুন">
                     </div>
 
                     <!-- HospitalContact Field -->
                     <div class="form-group">
-                        <label for="hospitalContact">হাসপাতালের যোগাযোগ নম্বর :*</label>
+                        <label for="hospitalContact">ডায়াগনস্টিক সেন্টারের যোগাযোগ নম্বর :*</label>
                         <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
@@ -374,8 +382,14 @@
 
                     <!-- HospitalAddress Field -->
                     <div class="form-group">
-                        <label for="address">হাসপাতালের সম্পূৰ্ণ ঠিকানা :*</label>
+                        <label for="address">ডায়াগনস্টিক সেন্টারের সম্পূৰ্ণ ঠিকানা :*</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old(key: 'address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
+                    </div>
+
+                    <!-- Facilities Field -->
+                    <div class="form-group">
+                        <label for="facilities">ডায়াগনস্টিক সেন্টারের সুযোগ-সুবিধা :*</label>
+                        <textarea class="form-control" id="facilities" name="facilities" value="{{ old(key: 'facilities') }}" rows="3" placeholder="সুযোগ-সুবিধা লিখুন"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -399,17 +413,16 @@
     </div>
 
 
-    <!-- View Hospita Modal -->
-    <div class="modal modalz fade" id="viewHospitalModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- View Diagnostic Center Modal -->
+    <div class="modal modalz fade" id="viewDiagnosticModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">হাসপাতাল ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">ডায়াগনস্টিক সেন্টার ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-body pb-0">
                     <section class="section about-section gray-bg" id="about">
                         <div class="row align-items-center flex-column">
@@ -420,8 +433,9 @@
                                             <img id="modalImage" src="" style="width: 200px; height: 160px;" title="Hospital Logo" alt="logo">
                                         </div>
                                         <div class="p-2 flex-grow-1 bd-highlight">
-                                            <h4 class="dark-color"> <span id="xHp_name"></span> </h4>
+                                            <h4 class="dark-color"> <span id="xTitle"></span> </h4>
                                             <div><samp class="sampcolor">ফোন: </samp> <span id="xContact"></span></div>
+                                            <div><samp class="sampcolor">সুযোগ-সুবিধা: </samp> <span id="xFacilities"></span></div>
                                             <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
                                             <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
@@ -479,26 +493,28 @@
             });
 
 
-            //viewHospitaModal
-            $('#viewHospitalModal').on('show.bs.modal', function(event) {
+            //viewDiagnosticModal
+            $('#viewDiagnosticModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user_id = button.data('user_id');
-                var hp_name = button.data('hp_name');
+                var title = button.data('title');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
+                var facilities = button.data('facilities');
                 var status = button.data('status');
                 var entry = button.data('entry');
                 var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#xUser').text(user_id);
-                modal.find('#xHp_name').text(hp_name);
+                modal.find('#xTitle').text(title);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
+                modal.find('#xFacilities').text(facilities);
                 modal.find('#xStatus').text(status);
                 modal.find('#xEntry').text(entry);
 
@@ -511,24 +527,24 @@
                 }
             });
 
-            //editHospitaModal
-            $('#editHospitalModal').on('show.bs.modal', function(event) {
+            //editDiagnosticModal
+            $('#editDiagnosticModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
-                var user_id = button.data('user_id');
-                var hp_name = button.data('hp_name');
+                var title = button.data('title');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
+                var facilities = button.data('facilities');
                 var status = button.data('status');
-                var entry = button.data('entry');
                 var image = button.data('image');
 
                 var modal = $(this);
-                modal.find('#hp_name').val(hp_name);
+                modal.find('#title').val(title);
                 modal.find('#contact').val(contact);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
+                modal.find('#facilities').val(facilities);
                 modal.find('#status').val(status);
 
                 var imagePreview = modal.find('#imagePreviewX');
@@ -538,16 +554,16 @@
                     imagePreview.html('<i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/hospitals/' + id);
+                modal.find('#modalFormX').attr('action', '/admin/diagnostics/' + id);
 
 
             });
 
             //deleteHospital
-            function deleteHospital(id) {
-                if (confirm('Are you sure you want to delete this hospital?')) {
+            function deleteDiagnostic(id) {
+                if (confirm('Are you sure you want to delete this diagnostic center?')) {
                     $.ajax({
-                        url: '{{ route('admin.hospitals.destroy') }}',
+                        url: '{{ route('admin.diagnostics.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -564,7 +580,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete Hospital. Please try again.');
+                            alert('Failed to delete Diagnostics Center. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });

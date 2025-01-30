@@ -481,7 +481,6 @@
                         <div class="form-group">
                             <label for="upazila">উপজেলা :* </label>
                             <select class="form-control" id="upazila" name="upazila" required>
-                                <option value=""> নির্বাচন করুন </option>
                                 <option value="বোদা" {{ old('upazila') == 'বোদা' ? 'selected' : '' }}> বোদা</option>
                                 <option value="দেবীগঞ্জ" {{ old('upazila') == 'দেবীগঞ্জ' ? 'selected' : '' }}>দেবীগঞ্জ</option>
                                 <option value="আটোয়ারী" {{ old('upazila') == 'আটোয়ারী' ? 'selected' : '' }}>আটোয়ারী</option>
@@ -518,57 +517,58 @@
 
     <!-- View User Modal -->
     <div class="modal fade" id="viewUserModal" tabindex="-1" role="dialog" aria-labelledby="formModal"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="formModal">ইউজার প্রফাইল</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="d-flex bd-highlight">
-                            <div class="p-2 flex-fill bd-highlight">
-                                <div class="about-avatar mt-1 mb-0 p-2 pr-4">
-                                    <img id="modalImage" src=""
-                                        style="width: 135px; height: 165px;" alt="User Image">
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="formModal">ইউজার প্রফাইল</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="d-flex bd-highlight">
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <div class="about-avatar mt-1 mb-0 p-2 pr-4">
+                                        <img id="modalImage" src=""
+                                            style="width: 135px; height: 165px;" alt="User Image">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="p-2 flex-fill bd-highlight">
-                                <div class="row about-list">
-                                    <div class="d-flex flex-column">
-                                        <div>
-                                            <h4><samp class="sampcolor"> <span id="xName"></span> </samp></h4>
-                                        </div>
-                                        <div>
-                                            <p><samp class="sampcolor"> পেশা : </samp> <span id="xProfession"></span> </p>
-                                        </div>
-                                        <div>
-                                            <p><samp class="sampcolor"> মোবাইল : </samp> <span id="xPhone"></span> </p>
-                                        </div>
-                                        <div>
-                                            <p><samp class="sampcolor"> ইমেইল : </samp> <span id="xEmail"></span> </p>
-                                        </div>
-                                        <div>
-                                            <p><samp class="sampcolor"> লিঙ্গ :</samp> <span id="xGender"></span> </p>
-                                        </div>
-                                        <div>
-                                            <p><samp class="sampcolor"> উপজেলা : </samp> <span id="xUpazila"></span> </p>
-                                        </div>
-                                        <div>
-                                            <p><samp class="sampcolor"> ঠিকানা :</samp> <span id="xAddress"></span> </p>
-                                        </div>
-                                        <div>
-                                            <p><samp class="sampcolor"> সাবস্ক্রিপশন :</samp> <span id="xSubscription"></span> </p>
-                                        </div>
-                                        <div>
-                                            <p><samp class="sampcolor"> স্ট্যাটাস :</samp> <span id="xStatus"></span> </p>
-                                        </div>
-                                        <div>
-                                            <p><samp class="sampcolor"> নিবন্ধন তারিখ : </samp> <span id="xEntry"></span> </p>
+                                <div class="p-2 flex-fill bd-highlight">
+                                    <div class="row about-list">
+                                        <div class="d-flex flex-column">
+                                            <div>
+                                                <h4><samp class="sampcolor"> <span id="xName"></span> </samp></h4>
+                                            </div>
+                                            <div>
+                                                <p><samp class="sampcolor"> পেশা : </samp> <span id="xProfession"></span> </p>
+                                            </div>
+                                            <div>
+                                                <p><samp class="sampcolor"> মোবাইল : </samp> <span id="xPhone"></span> </p>
+                                            </div>
+                                            <div>
+                                                <p><samp class="sampcolor"> ইমেইল : </samp> <span id="xEmail"></span> </p>
+                                            </div>
+                                            <div>
+                                                <p><samp class="sampcolor"> লিঙ্গ :</samp> <span id="xGender"></span> </p>
+                                            </div>
+                                            <div>
+                                                <p><samp class="sampcolor"> উপজেলা : </samp> <span id="xUpazila"></span> </p>
+                                            </div>
+                                            <div>
+                                                <p><samp class="sampcolor"> ঠিকানা :</samp> <span id="xAddress"></span> </p>
+                                            </div>
+                                            <div>
+                                                <p><samp class="sampcolor"> সাবস্ক্রিপশন :</samp> <span id="xSubscription"></span> </p>
+                                            </div>
+                                            <div>
+                                                <p><samp class="sampcolor"> স্ট্যাটাস :</samp> <span id="xStatus"></span> </p>
+                                            </div>
+                                            <div>
+                                                <p><samp class="sampcolor"> নিবন্ধন তারিখ : </samp> <span id="xEntry"></span> </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -578,7 +578,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 

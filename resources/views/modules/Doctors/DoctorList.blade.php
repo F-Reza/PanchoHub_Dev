@@ -15,7 +15,7 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4>Multi Select</h4>
+                                <h4>ডাক্তারগন </h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
                                     data-target="#createDoctorModal">Create</a>
                             </div>

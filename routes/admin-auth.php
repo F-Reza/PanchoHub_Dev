@@ -16,6 +16,9 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DoctorsController;
 use App\Http\Controllers\HospitalsController;
+use App\Http\Controllers\DiagnosticCenterController;
+use App\Http\Controllers\BloodDonorsController;
+use App\Http\Controllers\BloodNeedersController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->middleware('guest:admin')->group(function () {
@@ -67,6 +70,24 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::post('/hospitals', [HospitalsController::class, 'store'])->name('hospitals.store');
     Route::put('/hospitals/{id}', [HospitalsController::class, 'update'])->name('hospitals.update');
     Route::delete('/hospitals', [HospitalsController::class, 'destroy'])->name('hospitals.destroy');
+
+    //Diagnostic Center Routes
+    Route::get('/diagnostics', [DiagnosticCenterController::class, 'index'])->name('diagnostics.index');
+    Route::post('/diagnostics', [DiagnosticCenterController::class, 'store'])->name('diagnostics.store');
+    Route::put('/diagnostics/{id}', [DiagnosticCenterController::class, 'update'])->name('diagnostics.update');
+    Route::delete('/diagnostics', [DiagnosticCenterController::class, 'destroy'])->name('diagnostics.destroy');
+
+    //Blood Donors Routes
+    Route::get('/donors', [BloodDonorsController::class, 'index'])->name('donors.index');
+    Route::post('/donors', [BloodDonorsController::class, 'store'])->name('donors.store');
+    Route::put('/donors/{id}', [BloodDonorsController::class, 'update'])->name('donors.update');
+    Route::delete('/donors', [BloodDonorsController::class, 'destroy'])->name('donors.destroy');
+
+    //Blood Needers Routes
+    Route::get('/needers', [BloodNeedersController::class, 'index'])->name('needers.index');
+    Route::post('/needers', [BloodNeedersController::class, 'store'])->name('needers.store');
+    Route::put('/needers/{id}', [BloodNeedersController::class, 'update'])->name('needers.update');
+    Route::delete('/needers', [BloodNeedersController::class, 'destroy'])->name('needers.destroy');
 
 
 

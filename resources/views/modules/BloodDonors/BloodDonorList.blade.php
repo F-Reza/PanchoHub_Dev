@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - হাসপাতাল সমূহ |</title>
+        <title>| পঞ্চহাব - রক্তদাতা সমূহ |</title>
     </x-slot>
 
     <!-- Main Content -->
@@ -15,9 +15,9 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4>হাসপাতাল সমূহ </h4>
+                                <h4>রক্তদাতা সমূহ</h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createHospitalModal">Create</a>
+                                    data-target="#createDonorModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -35,8 +35,10 @@
                                                             class="custom-control-label">&nbsp;</label>
                                                     </div>
                                                 </th>
-                                                <th>Logo</th>
-                                                <th class="align-left">Hospital Name</th>
+                                                <th class="align-left">Name</th>
+                                                <th class="align-left">Group</th>
+                                                <th class="align-left">Last Donate</th>
+                                                <th class="align-left">Gender</th>
                                                 <th class="align-left">Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">Added By</th>
@@ -46,40 +48,32 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($hospitals->isNotEmpty())
-                                                @foreach ($hospitals as $key => $hospital)
+                                            @if ($donors->isNotEmpty())
+                                                @foreach ($donors as $key => $donor)
                                                     <tr>
                                                         <td> {{ ++$key }} </td>
                                                         <td class="text-center">
                                                             <div class="custom-checkbox custom-control">
                                                                 <input type="checkbox" data-checkboxes="mygroup"
                                                                     class="custom-control-input"
-                                                                    id="checkbox-{{ $hospital->id }}">
-                                                                <label for="checkbox-{{ $hospital->id }}"
+                                                                    id="checkbox-{{ $donor->id }}">
+                                                                <label for="checkbox-{{ $donor->id }}"
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
-                                                        <td>
-                                                            @if (!empty($hospital->image))
-                                                                <img class="user-img-radious-style" alt="image" title="Hospital Logo"
-                                                                    src="{{ asset('uploads/hospitals/' . $hospital->image) }}"
-                                                                    width="35" height="35">
-                                                            @else
-                                                                <img class="user-img-radious-style" alt="image" title="Hospital Logo"
-                                                                    src="{{ asset('assets/dashboard/img/users/avatar.png') }}"
-                                                                    width="35" height="35">
-                                                            @endif
-                                                        </td>
-                                                        <td class="align-left"> {{ $hospital->hp_name }} </td>
-                                                        <td class="align-left"> {{ $hospital->contact }} </td>
-                                                        <td class="align-left"> {{ $hospital->upazila }} </td>
-                                                        <td class="align-left"> {{ $hospital->user_id }} </td>
+                                                        <td class="align-left"> {{ $donor->name }} </td>
+                                                        <td class="align-left"> {{ $donor->blood_gorup }} </td>
+                                                        <td class="align-left"> {{ $donor->last_donate }} </td>
+                                                        <td class="align-left"> {{ $donor->gender }} </td>
+                                                        <td class="align-left"> {{ $donor->contact }} </td>
+                                                        <td class="align-left"> {{ $donor->upazila }} </td>
+                                                        <td class="align-left"> {{ $donor->user_id }} </td>
                                                         <td class="align-left">
-                                                            {{ \Carbon\Carbon::parse($hospital->created_at)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($donor->created_at)->format('d M, Y') }}
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $statusClass = match ($hospital->status) {
+                                                                $statusClass = match ($donor->status) {
                                                                     'Approved' => 'badge badge-secondary badge-shadow',
                                                                     'In Review' => 'badge badge-info badge-shadow',
                                                                     'Pending' => 'badge badge-warning badge-shadow',
@@ -88,40 +82,46 @@
                                                                 };
                                                             @endphp
                                                             <div class="{{ $statusClass }}">
-                                                                {{ $hospital->status }}
+                                                                {{ $donor->status }}
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewHospitalModal"
-                                                                data-id="{{ $hospital->id }}"
-                                                                data-user_id="{{ $hospital->user_id }}"
-                                                                data-hp_name="{{ $hospital->hp_name }}"
-                                                                data-contact="{{ $hospital->contact }}"
-                                                                data-upazila="{{ $hospital->upazila }}"
-                                                                data-address="{{ $hospital->address }}"
-                                                                data-status="{{ $hospital->status }}"
-                                                                data-image="{{ $hospital->image ? asset('uploads/hospitals/' . $hospital->image) : '' }}"
-                                                                data-entry="{{ \Carbon\Carbon::parse($hospital->created_at)->format('d/m/Y') }}">
+                                                                data-toggle="modal" data-target="#viewDonorModal"
+                                                                data-id="{{ $donor->id }}"
+                                                                data-user_id="{{ $donor->user_id }}"
+                                                                data-name="{{ $donor->name }}"
+                                                                data-blood_gorup="{{ $donor->blood_gorup }}"
+                                                                data-last_donate="{{ $donor->last_donate }}"
+                                                                data-contact="{{ $donor->contact }}"
+                                                                data-gender="{{ $donor->gender }}"
+                                                                data-upazila="{{ $donor->upazila }}"
+                                                                data-address="{{ $donor->address ?? 'Empty'}}"
+                                                                data-comment="{{ $donor->comment ?? 'Empty'}}"
+                                                                data-status="{{ $donor->status }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($donor->created_at)->format('d/m/Y') }}">
                                                                 View
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editHospitalModal"
-                                                                data-id="{{ $hospital->id }}"
-                                                                data-user_id="{{ $hospital->user_id }}"
-                                                                data-hp_name="{{ $hospital->hp_name }}"
-                                                                data-contact="{{ $hospital->contact }}"
-                                                                data-upazila="{{ $hospital->upazila }}"
-                                                                data-address="{{ $hospital->address }}"
-                                                                data-status="{{ $hospital->status }}"
-                                                                data-image="{{ $hospital->image ? asset('uploads/hospitals/' . $hospital->image) : '' }}">
+                                                                data-toggle="modal" data-target="#editDonorModal"
+                                                                data-id="{{ $donor->id }}"
+                                                                data-user_id="{{ $donor->user_id }}"
+                                                                data-name="{{ $donor->name }}"
+                                                                data-blood_gorup="{{ $donor->blood_gorup }}"
+                                                                data-last_donate="{{ $donor->last_donate }}"
+                                                                data-contact="{{ $donor->contact }}"
+                                                                data-gender="{{ $donor->gender }}"
+                                                                data-upazila="{{ $donor->upazila }}"
+                                                                data-address="{{ $donor->address ?? ''}}"
+                                                                data-comment="{{ $donor->comment ?? ''}}"
+                                                                data-status="{{ $donor->status }}">
                                                                 Edit
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteHospital({{ $hospital->id }})"
+                                                                onclick="deleteDonor({{ $donor->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -235,48 +235,77 @@
 
 
     <!-- Modal -->
-    <!-- Create Hospita Modal -->
-    <div class="modal modalz fade" id="createHospitalModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create Blood Donor Modal -->
+    <div class="modal modalz fade" id="createDonorModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">নতুন হাসপাতাল যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle">নতুন রক্তদাতা যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Modal Content Goes Here -->
-                <form method="POST" action="{{ route('admin.hospitals.store') }}" id="modalForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.donors.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
-                    <!-- Picture Input with Preview -->
+                    <!-- Name Field -->
                     <div class="form-group">
-                        <div class="row justify-content-center">
-                            <div class="col-md-4 text-center">
-                                <div class="profile-container">
-                                    <div class="image-preview" id="imagePreview">
-                                        <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
-                                    </div>
-                                    <div class="edit-icon" id="editIcon">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </div>
-                                    <input type="file" value="{{ old('image') }}" name="image"
-                                        class="form-control d-none" id="fileInput" accept="image/*">
-                                </div>
-                            </div>
-                        </div>
+                        <label for="name"> নাম :* </label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="নাম লিখুন" required>
                     </div>
 
-                    <!-- HospitalName Field -->
+                    <!-- Blood Group Field -->
                     <div class="form-group">
-                        <label for="HospitalName">হাসপাতালের নাম :* </label>
-                        <input type="text" name="hp_name" class="form-control" id="hospitalName" placeholder="নাম লিখুন">
+                        <label for="blood_gorup">রক্তের গ্রুপ :*</label>
+                        <select class="form-control" id="blood_gorup" name="blood_gorup" required>
+                          <option value="">রক্তের গ্রুপ সিলেক্ট করুন</option>
+                          <option value="A+">A+</option>
+                          <option value="A-">A-</option>
+                          <option value="B+">B+</option>
+                          <option value="B-">B-</option>
+                          <option value="AB+">AB+</option>
+                          <option value="AB-">AB-</option>
+                          <option value="O+">O+</option>
+                          <option value="O-">O-</option>
+                        </select>
                     </div>
-                    <!-- HospitalContact Field -->
+
+                    <!-- Last Donate Field -->
                     <div class="form-group">
-                        <label for="hospitalontact">হাসপাতালের যোগাযোগ নম্বর :*</label>
-                        <input type="text" name="contact" class="form-control" id="hospitalontact" placeholder="ফোন নম্বর লিখুন">
+                        <label>সর্বশেষ রক্তদানের তারিখ :*</label>
+                        <input type="date" class="form-control" id="last_donate" name="last_donate" required>
+                    </div>
+
+                    <!-- Contact Field -->
+                    <div class="form-group">
+                        <label for="contact">যোগাযোগ নম্বর :*</label>
+                        <input type="text" name="contact" class="form-control" id="hospitalontact" placeholder="ফোন নম্বর লিখুন" required>
+                    </div>
+
+                    <!-- Gender Field -->
+                    <div class="form-group">
+                        <label for="gender"> লিঙ্গ :* </label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender" id="male" value="পুরুষ" checked>
+                          <label class="form-check-label" for="male">
+                            পুরুষ
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender" value="মহিলা" id="female">
+                          <label class="form-check-label" for="female">
+                            মহিলা
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender" value="অন্যান্য" id="others">
+                          <label class="form-check-label" for="others">
+                            অন্যান্য
+                          </label>
+                        </div>
                     </div>
 
                     <!-- Upazila Field -->
@@ -293,10 +322,16 @@
                         </select>
                     </div>
 
-                    <!-- HospitalAddress Field -->
+                    <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address">হাসপাতালের সম্পূৰ্ণ ঠিকানা :*</label>
+                        <label for="address">সম্পূৰ্ণ ঠিকানা :</label>
                         <textarea class="form-control" id="address" name="address" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
+                    </div>
+
+                    <!-- Comment Field -->
+                    <div class="form-group">
+                        <label for="comment">মন্তব্য (যদি থাকে) :</label>
+                        <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="মন্তব্য লিখুন"></textarea>
                     </div>
 
                     <div class="modal-footer">
@@ -310,8 +345,8 @@
         </div>
     </div>
 
-    <!-- Edit Hospita Modal -->
-    <div class="modal modalz fade" id="editHospitalModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit Blood Donor Modal -->
+    <div class="modal modalz fade" id="editDonorModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
 
@@ -321,42 +356,69 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">হাসপাতালের ডাটা পরিবর্তন </h5>
+                    <h5 class="modal-title" id="modalTitle">রক্তদাতার ডাটা পরিবর্তন </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
-                    <!-- Picture Input with Preview -->
+
+                    <!-- Name Field -->
                     <div class="form-group">
-                        <div class="row justify-content-center">
-                            <div class="col-md-4 text-center">
-                                <div class="profile-container">
-                                    <div class="image-preview" id="imagePreviewX">
-                                        <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
-                                    </div>
-                                    <div class="edit-icon" id="editIconX">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </div>
-                                    <input type="file" name="image" class="form-control d-none"
-                                        id="fileInputX" accept="image/*">
-                                </div>
-                            </div>
-                        </div>
+                        <label for="name"> নাম :* </label>
+                        <input type="text" name="name" class="form-control" id="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
                     </div>
 
-
-                    <!-- HospitalName Field -->
+                    <!-- Blood Group Field -->
                     <div class="form-group">
-                        <label for="HospitalName">হাসপাতালের নাম :* </label>
-                        <input type="text" name="hp_name" class="form-control" id="hp_name" value="{{ old(key: 'hp_name') }}" placeholder="নাম লিখুন">
+                        <label for="blood_gorup">রক্তের গ্রুপ :*</label>
+                        <select class="form-control" id="blood_gorup" name="blood_gorup" required>
+                          <option value="A+" {{ old('blood_gorup') == 'A+' ? 'selected' : '' }}> A+</option>
+                          <option value="A-" {{ old('blood_gorup') == 'A-' ? 'selected' : '' }}> A-</option>
+                          <option value="B+" {{ old('blood_gorup') == 'B+' ? 'selected' : '' }}> B+</option>
+                          <option value="B-" {{ old('blood_gorup') == 'B-' ? 'selected' : '' }}> B-</option>
+                          <option value="AB+" {{ old('blood_gorup') == 'AB+' ? 'selected' : '' }}> AB+</option>
+                          <option value="AB-" {{ old('blood_gorup') == 'AB-' ? 'selected' : '' }}> AB-</option>
+                          <option value="O+" {{ old('blood_gorup') == 'O+' ? 'selected' : '' }}> O+</option>
+                          <option value="O-" {{ old('blood_gorup') == 'O-' ? 'selected' : '' }}> O-</option>
+                        </select>
                     </div>
 
-                    <!-- HospitalContact Field -->
+                    <!-- Last Donate Field -->
                     <div class="form-group">
-                        <label for="hospitalContact">হাসপাতালের যোগাযোগ নম্বর :*</label>
+                        <label>সর্বশেষ রক্তদানের তারিখ :*</label>
+                        <input type="date" class="form-control" id="last_donate" value="{{ old(key: 'last_donate') }}" name="last_donate" required>
+                    </div>
+
+                    <!-- Contact Field -->
+                    <div class="form-group">
+                        <label for="contact">যোগাযোগ নম্বর :*</label>
                         <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
+                    </div>
+
+                    <!-- Gender Field -->
+                    <div class="form-group">
+                        <label for="gender"> লিঙ্গ :* </label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                          <input class="" type="radio" name="gender" id="male" value="পুরুষ">
+                          <label class="form-check-label" for="male">
+                            পুরুষ
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="" type="radio" name="gender" value="মহিলা" id="female">
+                          <label class="form-check-label" for="female">
+                            মহিলা
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="" type="radio" name="gender" value="অন্যান্য" id="others">
+                          <label class="form-check-label" for="others">
+                            অন্যান্য
+                          </label>
+                        </div>
                     </div>
 
                     <!-- Upazila Field -->
@@ -372,10 +434,16 @@
                         </select>
                     </div>
 
-                    <!-- HospitalAddress Field -->
+                    <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address">হাসপাতালের সম্পূৰ্ণ ঠিকানা :*</label>
+                        <label for="address">সম্পূৰ্ণ ঠিকানা :*</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old(key: 'address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
+                    </div>
+
+                    <!-- Comment Field -->
+                    <div class="form-group">
+                        <label for="comment">মন্তব্য (যদি থাকে) :</label>
+                        <textarea class="form-control" id="comment" name="comment" value="{{ old(key: 'comment') }}" rows="3" placeholder="মন্তব্য লিখুন"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -398,30 +466,32 @@
         </div>
     </div>
 
-
-    <!-- View Hospita Modal -->
-    <div class="modal modalz fade" id="viewHospitalModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
+    <!-- View Blood Donor Modal -->
+    <div class="modal modalz fade" id="viewDonorModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">হাসপাতাল ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">রক্তদাতা ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <div class="modal-body pb-0">
                     <section class="section about-section gray-bg" id="about">
                         <div class="row align-items-center flex-column">
                             <div class="col-lg-12">
                                 <div class="about-text about-list">
                                     <div class="d-flex bd-highlight">
-                                        <div class="p-2 align-self-center fixed-width" style="width: 200px; flex-shrink: 0;">
-                                            <img id="modalImage" src="" style="width: 200px; height: 160px;" title="Hospital Logo" alt="logo">
+                                        <div class="p-2 align-self-center fixed-width" style="width: 100px; flex-shrink: 0;">
+                                            <img id="modalImage" src="{{ asset('assets/dashboard/img/users/avatar.png') }}" style="width: 100px; height: 100px;" title="Hospital Logo" alt="logo">
                                         </div>
                                         <div class="p-2 flex-grow-1 bd-highlight">
-                                            <h4 class="dark-color"> <span id="xHp_name"></span> </h4>
+                                            <h4 class="dark-color"> <span id="xName"></span> </h4>
+                                            <div><samp class="sampcolor">রক্তের গ্রুপ: </samp> <span id="xBloodGorup"></span></div>
+                                            <div><samp class="sampcolor">সর্বশেষ রক্তদান: </samp> <span id="xLastDonate"></span></div>
+                                            <div><samp class="sampcolor">মন্তব্য: </samp> <span id="xComment"></span></div>
                                             <div><samp class="sampcolor">ফোন: </samp> <span id="xContact"></span></div>
+                                            <div><samp class="sampcolor">লিঙ্গ: </samp> <span id="xGender"></span></div>
                                             <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
                                             <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
@@ -445,109 +515,85 @@
     <x-slot name="script">
 
         <script type="text/javascript">
-            //imagePreview
-            document.getElementById('editIcon').addEventListener('click', function() {
-                document.getElementById('fileInput').click();
-            });
-
-            document.getElementById('fileInput').addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                const preview = document.getElementById('imagePreview');
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.innerHTML = `<img src="${e.target.result}" alt="Image Preview">`;
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-            //imagePreviewX
-            document.getElementById('editIconX').addEventListener('click', function() {
-                document.getElementById('fileInputX').click();
-            });
-
-            document.getElementById('fileInputX').addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                const preview = document.getElementById('imagePreviewX');
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        preview.innerHTML = `<img src="${e.target.result}" alt="Image Preview">`;
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-
-
-            //viewHospitaModal
-            $('#viewHospitalModal').on('show.bs.modal', function(event) {
+            //viewDonorModal
+            $('#viewDonorModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user_id = button.data('user_id');
-                var hp_name = button.data('hp_name');
+                var name = button.data('name');
+                var blood_gorup = button.data('blood_gorup');
+                var last_donate = button.data('last_donate');
                 var contact = button.data('contact');
+                var gender = button.data('gender');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
+                var comment = button.data('comment');
+                var status = button.data('status');
                 var status = button.data('status');
                 var entry = button.data('entry');
-                var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#xUser').text(user_id);
-                modal.find('#xHp_name').text(hp_name);
+                modal.find('#xName').text(name);
+                modal.find('#xBloodGorup').text(blood_gorup);
+                modal.find('#xLastDonate').text(last_donate);
                 modal.find('#xContact').text(contact);
+                modal.find('#xGender').text(gender);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
+                modal.find('#xComment').text(comment);
                 modal.find('#xStatus').text(status);
                 modal.find('#xEntry').text(entry);
-
-                // Set the image source correctly
-                var modalImage = modal.find('#modalImage');
-                if (image) {
-                    modalImage.attr('src', image);
-                } else {
-                    modalImage.attr('src', "{{ asset('assets/dashboard/img/users/avatar.png') }}");
-                }
             });
 
-            //editHospitaModal
-            $('#editHospitalModal').on('show.bs.modal', function(event) {
+            //editDonorModal
+            $('#editDonorModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
+
+                // Fetch data from the button
                 var id = button.data('id');
-                var user_id = button.data('user_id');
-                var hp_name = button.data('hp_name');
+                var name = button.data('name');
+                var blood_gorup = button.data('blood_gorup');
+                var last_donate = button.data('last_donate');
                 var contact = button.data('contact');
+                var gender = button.data('gender');
                 var upazila = button.data('upazila');
-                var address = button.data('address');
+                var address = button.data('address') || '';
+                var comment = button.data('comment') || '';
                 var status = button.data('status');
-                var entry = button.data('entry');
-                var image = button.data('image');
 
                 var modal = $(this);
-                modal.find('#hp_name').val(hp_name);
+
+                // Populate form fields with fetched data
+                modal.find('#name').val(name);
+                modal.find('#blood_gorup').val(blood_gorup);
+                modal.find('#last_donate').val(last_donate);
                 modal.find('#contact').val(contact);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
+                modal.find('#comment').val(comment);
                 modal.find('#status').val(status);
 
-                var imagePreview = modal.find('#imagePreviewX');
-                if (image) {
-                    imagePreview.html('<img src="' + image + '" class="img-fluid" />');
-                } else {
-                    imagePreview.html('<i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>');
+                // Handle gender selection
+                modal.find('input[name="gender"]').prop('checked', false);
+                if (gender) {
+                    modal.find('input[name="gender"]').each(function() {
+                        if ($(this).val() === gender) {
+                            $(this).prop('checked', true);
+                        }
+                    });
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/hospitals/' + id);
-
-
+                // Set form action URL dynamically
+                modal.find('#modalFormX').attr('action', '/admin/donors/' + id);
             });
 
-            //deleteHospital
-            function deleteHospital(id) {
-                if (confirm('Are you sure you want to delete this hospital?')) {
+            //deleteDonor
+            function deleteDonor(id) {
+                if (confirm('Are you sure you want to delete this donor?')) {
                     $.ajax({
-                        url: '{{ route('admin.hospitals.destroy') }}',
+                        url: '{{ route('admin.donors.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -564,7 +610,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete Hospital. Please try again.');
+                            alert('Failed to delete Blood Donor. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });

@@ -2,55 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hospitals;
+use App\Models\DiagnosticCenter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
-class HospitalsController extends Controller
+class DiagnosticCenterController extends Controller
 {
     public function index()
     {
-        $hospitals = Hospitals::latest()->paginate(25);
-        return view('modules.Hospitals.HospitalList',[
-            'hospitals' => $hospitals
+        $diagnostics = DiagnosticCenter::latest()->paginate(25);
+        return view('modules.DiagnosticCenter.DiagnosticCenterList',[
+            'diagnostics' => $diagnostics
         ]);
     }
-
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'hp_name' => 'required|min:4',
+            'title' => 'required|min:4',
             'contact' => 'required|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
             'address' => 'required|not_in:null,',
+            'facilities' => 'required|min:4',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
-            flash()->error('Failed to add new hospital.');
+            flash()->error('Failed to add new diagnostic center.');
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
-        $hospital = new Hospitals();
-        $hospital-> user_id = \Illuminate\Support\Facades\Auth::user()->id;
-        $hospital-> hp_name = $request->hp_name;
-        $hospital-> contact = $request->contact;
-        $hospital-> upazila = $request->upazila;
-        $hospital-> address = $request->address;
-        $hospital-> image = $request->image?? null;
+        $diagnostic = new DiagnosticCenter();
+        $diagnostic-> user_id = \Illuminate\Support\Facades\Auth::user()->id;
+        $diagnostic-> title = $request->title;
+        $diagnostic-> contact = $request->contact;
+        $diagnostic-> upazila = $request->upazila;
+        $diagnostic-> address = $request->address;
+        $diagnostic-> facilities = $request->facilities;
+        $diagnostic-> image = $request->image?? null;
 
         if ($request->hasFile('image')) {
 
-            $directory = public_path('uploads/hospitals');
+            $directory = public_path('uploads/diagnostics');
             if (!File::exists($directory)) {
                 File::makeDirectory($directory, 0777, true);
             }
 
-            if ($hospital->image) {
-                $oldImagePath = public_path('uploads/hospitals/' . $hospital->image);
+            if ($diagnostic->image) {
+                $oldImagePath = public_path('uploads/diagnostics/' . $diagnostic->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -58,7 +59,7 @@ class HospitalsController extends Controller
 
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = public_path('uploads/hospitals/' . $imageName);
+            $imagePath = public_path('uploads/diagnostics/' . $imageName);
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
@@ -74,48 +75,50 @@ class HospitalsController extends Controller
             } while ($imageSize > 100 * 1024 && $quality > 10);
 
             $img->save($imagePath, $quality);
-            $hospital->image = $imageName;
+            $diagnostic->image = $imageName;
         }
 
-        $hospital->save();
+        $diagnostic->save();
 
-        flash()->success('New hospital added successfully.');
+        flash()->success('New diagnostic center added successfully.');
         return redirect()->back();
     }
 
-    public function update($id, Request $request, Hospitals $hospitals)
+    public function update($id, Request $request, DiagnosticCenter $diagnosticCenter)
     {
-        $hospital = Hospitals::findOrFail($id);
+        $diagnostic = DiagnosticCenter::findOrFail($id);
 
         $validator = Validator::make($request->all(),[
-            'hp_name' => 'required|min:4',
+            'title' => 'required|min:4',
             'contact' => 'required|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
             'address' => 'required|not_in:null,',
+            'facilities' => 'required|min:4',
             'status' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
-            flash()->error('Failed to update hospital.');
+            flash()->error('Failed to update diagnostic center.');
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
-        $hospital-> hp_name = $request->hp_name;
-        $hospital-> contact = $request->contact;
-        $hospital-> upazila = $request->upazila;
-        $hospital-> address = $request->address;
-        $hospital-> image = $request->image?? null;
-        $hospital->status = $request->status;
+        $diagnostic-> title = $request->title;
+        $diagnostic-> contact = $request->contact;
+        $diagnostic-> upazila = $request->upazila;
+        $diagnostic-> address = $request->address;
+        $diagnostic-> facilities = $request->facilities;
+        $diagnostic-> image = $request->image?? null;
+        $diagnostic->status = $request->status;
 
         if ($request->hasFile('image')) {
 
-            $directory = public_path('uploads/hospitals');
+            $directory = public_path('uploads/diagnostics');
             if (!File::exists($directory)) {
                 File::makeDirectory($directory, 0777, true);
             }
-            if ($hospital->image) {
-                $oldImagePath = public_path('uploads/hospitals/' . $hospital->image);
+            if ($diagnostic->image) {
+                $oldImagePath = public_path('uploads/diagnostics/' . $diagnostic->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -123,7 +126,7 @@ class HospitalsController extends Controller
 
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = public_path('uploads/hospitals/' . $imageName);
+            $imagePath = public_path('uploads/diagnostics/' . $imageName);
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
@@ -139,39 +142,38 @@ class HospitalsController extends Controller
             } while ($imageSize > 100 * 1024 && $quality > 10);
 
             $img->save($imagePath, $quality);
-            $hospital->image = $imageName;
+            $diagnostic->image = $imageName;
         }
 
-        $hospital->save();
-        flash()->success(' Hospital updated successfully.');
+        $diagnostic->save();
+        flash()->success(' Diagnostic Center updated successfully.');
         return redirect()->back();
     }
 
-    public function destroy(Request $request, Hospitals $hospitals)
+    public function destroy(Request $request, DiagnosticCenter $diagnosticCenter)
     {
         $id = $request->id;
-        $hospital = Hospitals::find($id);
+        $diagnostic = DiagnosticCenter::find($id);
 
-        if (!$hospital) {
+        if (!$diagnostic) {
             return response()->json([
                 'status' => false,
                 'message' => 'Hospital not found.',
             ], 404);
         }
 
-        if ($hospital->image) {
-            $imagePath = public_path('uploads/hospitals/' . $hospital->image);
+        if ($diagnostic->image) {
+            $imagePath = public_path('uploads/diagnostics/' . $diagnostic->image);
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
         }
 
-        $hospital->delete();
-        flash()->success('Hospital deleted successfully.');
+        $diagnostic->delete();
 
         return response()->json([
             'status' => true,
-            'message' => 'Hospital deleted successfully.',
+            'message' => 'Diagnostic Center deleted successfully.',
         ], 200);
     }
 }
