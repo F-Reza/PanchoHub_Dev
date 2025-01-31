@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DiagnosticCenter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
@@ -35,13 +36,12 @@ class DiagnosticCenterController extends Controller
         }
 
         $diagnostic = new DiagnosticCenter();
-        $diagnostic-> user_id = \Illuminate\Support\Facades\Auth::user()->id;
+        $diagnostic-> user_id = Auth::user()->id;
         $diagnostic-> title = $request->title;
         $diagnostic-> contact = $request->contact;
         $diagnostic-> upazila = $request->upazila;
         $diagnostic-> address = $request->address;
         $diagnostic-> facilities = $request->facilities;
-        $diagnostic-> image = $request->image?? null;
 
         if ($request->hasFile('image')) {
 
@@ -108,7 +108,6 @@ class DiagnosticCenterController extends Controller
         $diagnostic-> upazila = $request->upazila;
         $diagnostic-> address = $request->address;
         $diagnostic-> facilities = $request->facilities;
-        $diagnostic-> image = $request->image?? null;
         $diagnostic->status = $request->status;
 
         if ($request->hasFile('image')) {

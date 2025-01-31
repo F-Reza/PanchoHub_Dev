@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('education_qualify');
             $table->string('current_servise');
             $table->string('spacialist');
-            $table->string('chambers')->nullable();
+            $table->json('chambers')->nullable();
             $table->string('image')->nullable();
             $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();

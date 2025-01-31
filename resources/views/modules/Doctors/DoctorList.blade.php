@@ -22,7 +22,7 @@
 
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-2">
+                                    <table class="table table table-striped text-center" id="table-2">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -36,151 +36,99 @@
                                                     </div>
                                                 </th>
                                                 <th>Image</th>
-                                                <th>Doctor Name</th>
-                                                <th>Category</th>
-                                                <th>Qulification</th>
-                                                <th>Added</th>
-                                                <th>Entry Date</th>
+                                                <th class="align-left">Doctor Name</th>
+                                                <th class="align-left">Category</th>
+                                                <th class="align-left">Qulification</th>
+                                                <th class="align-left">Added</th>
+                                                <th class="align-left">Entry Date</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td class="text-center align-middle">
-                                                    <!-- align-middle for vertical centering -->
-                                                    <div class="custom-checkbox custom-control">
-                                                        <input type="checkbox" data-checkboxes="mygroup"
-                                                            class="custom-control-input" id="checkbox-1">
-                                                        <label for="checkbox-1"
-                                                            class="custom-control-label">&nbsp;</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <img class="rounded-circle" alt="image"
-                                                        src="{{ asset('assets/dashboard/img/users/user-5.png') }}"
-                                                        width="35">
-                                                </td>
-                                                <td>Create a mobile app</td>
-                                                <td class="align-middle">
-                                                    Madicine
-                                                </td>
-                                                <td class="align-middle">
-                                                    Madicine
-                                                </td>
-                                                <td class="align-middle">
-                                                    Mr. Xyz Abcd
-                                                </td>
-                                                <td>2018-01-20</td>
-                                                <td>
-                                                    <div class="badge badge-success badge-shadow">Approved</div>
-                                                </td>
-                                                <td><a href="#" class="btn btn-success" data-toggle="modal"
-                                                        data-target="#viewDoctorModal">View</a><a href="#"
-                                                        class="btn mx-1 btn-primary" data-toggle="modal"
-                                                        data-target="#editDoctorModal">Edit</a><a href="#"
-                                                        class="btn btn-danger">Delete</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td class="text-center align-middle">
-                                                    <div class="custom-checkbox custom-control">
-                                                        <input type="checkbox" data-checkboxes="mygroup"
-                                                            class="custom-control-input" id="checkbox-2">
-                                                        <label for="checkbox-2"
-                                                            class="custom-control-label">&nbsp;</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <img class="rounded-circle" alt="image"
-                                                        src="{{ asset('assets/dashboard/img/users/user-5.png') }}"
-                                                        width="35">
-                                                </td>
-                                                <td>Redesign homepage</td>
-                                                <td class="align-middle">
-                                                    Madicine
-                                                </td>
-                                                <td class="align-middle">
-                                                    Madicine
-                                                </td>
-                                                <td class="align-middle">
-                                                    Mr. Xyz Abcd
-                                                </td>
-                                                <td>2018-04-10</td>
-                                                <td>
-                                                    <div class="badge badge-info badge-shadow">In Review</div>
-                                                </td>
-                                                <td><a href="#" class="btn btn-success">View</a><a href="#"
-                                                        class="btn mx-1 btn-primary">Edit</a><a href="#"
-                                                        class="btn btn-danger">Delete</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td class="text-center align-middle">
-                                                    <div class="custom-checkbox custom-control">
-                                                        <input type="checkbox" data-checkboxes="mygroup"
-                                                            class="custom-control-input" id="checkbox-3">
-                                                        <label for="checkbox-3"
-                                                            class="custom-control-label">&nbsp;</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <img class="rounded-circle" alt="image"
-                                                        src="{{ asset('assets/dashboard/img/users/user-5.png') }}"
-                                                        width="35">
-                                                </td>
-                                                <td>Backup database</td>
-                                                <td class="align-middle">
-                                                    Madicine
-                                                </td>
-                                                <td class="align-middle">
-                                                    Madicine
-                                                </td>
-                                                <td class="align-middle">
-                                                    Mr. Xyz Abcd
-                                                </td>
-                                                <td>2018-01-29</td>
-                                                <td>
-                                                    <div class="badge badge-warning badge-shadow">Pending</div>
-                                                </td>
-                                                <td><a href="#" class="btn btn-success">View</a><a href="#"
-                                                        class="btn mx-1 btn-primary">Edit</a><a href="#"
-                                                        class="btn btn-danger">Delete</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td class="text-center align-middle">
-                                                    <div class="custom-checkbox custom-control">
-                                                        <input type="checkbox" data-checkboxes="mygroup"
-                                                            class="custom-control-input" id="checkbox-4">
-                                                        <label for="checkbox-4"
-                                                            class="custom-control-label">&nbsp;</label>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <img class="rounded-circle" alt="image"
-                                                        src="{{ asset('assets/dashboard/img/users/user-5.png') }}"
-                                                        width="35">
-                                                </td>
-                                                <td>Input data</td>
-                                                <td class="align-middle">
-                                                    Madicine
-                                                </td>
-                                                <td class="align-middle">
-                                                    Madicine
-                                                </td>
-                                                <td class="align-middle">
-                                                    Mr. Xyz Abcd
-                                                </td>
-                                                <td>2018-01-16</td>
-                                                <td>
-                                                    <div class="badge badge-danger badge-shadow">Denied</div>
-                                                </td>
-                                                <td><a href="#" class="btn btn-success">View</a><a
-                                                        href="#" class="btn mx-1 btn-primary">Edit</a><a
-                                                        href="#" class="btn btn-danger">Delete</a></td>
-                                            </tr>
+                                            @if ($doctors->isNotEmpty())
+                                                @foreach ($doctors as $key => $doctor)
+                                                    <tr>
+                                                        <td> {{ ++$key }} </td>
+                                                        <td class="text-center">
+                                                            <div class="custom-checkbox custom-control">
+                                                                <input type="checkbox" data-checkboxes="mygroup"
+                                                                    class="custom-control-input"
+                                                                    id="checkbox-{{ $doctor->id }}">
+                                                                <label for="checkbox-{{ $doctor->id }}"
+                                                                    class="custom-control-label">&nbsp;</label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            @if (!empty($doctor->image))
+                                                                <img class="rounded-circle" alt="image" title="doctor Logo"
+                                                                    src="{{ asset('uploads/doctors/' . $doctor->image) }}"
+                                                                    width="38" height="38">
+                                                            @else
+                                                                <img class="rounded-circle" alt="image" title="doctor Logo"
+                                                                    src="{{ asset('assets/dashboard/img/users/avatar.png') }}"
+                                                                    width="38" height="38">
+                                                            @endif
+                                                        </td>
+                                                        <td class="align-left"> {{ $doctor->dr_name }} </td>
+                                                        <td class="align-left"> {{ $doctor->category }} </td>
+                                                        <td class="align-left"> {{ $doctor->education_qualify }} </td>
+                                                        <td class="align-left"> {{ $doctor->user->name ?? 'N/A' }}</td>
+                                                        <td class="align-left">
+                                                            {{ \Carbon\Carbon::parse($doctor->created_at)->format('d M, Y') }}
+                                                        </td>
+                                                        <td>
+                                                            @php
+                                                                $statusClass = match ($doctor->status) {
+                                                                    'Approved' => 'badge badge-secondary badge-shadow',
+                                                                    'In Review' => 'badge badge-info badge-shadow',
+                                                                    'Pending' => 'badge badge-warning badge-shadow',
+                                                                    'Denied' => 'badge badge-danger badge-shadow',
+                                                                    default => 'badge badge-success badge-shadow',
+                                                                };
+                                                            @endphp
+                                                            <div class="{{ $statusClass }}">
+                                                                {{ $doctor->status }}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-success"
+                                                                data-toggle="modal" data-target="#viewDoctorModal"
+                                                                data-id="{{ $doctor->id }}"
+                                                                data-user="{{ $doctor->user->name }}"
+                                                                data-dr_name="{{ $doctor->dr_name }}"
+                                                                data-category="{{ $doctor->category }}"
+                                                                data-education_qualify="{{ $doctor->education_qualify }}"
+                                                                data-current_servise="{{ $doctor->current_servise }}"
+                                                                data-spacialist="{{ $doctor->spacialist }}"
+                                                                data-status="{{ $doctor->status }}"
+                                                                data-image="{{ $doctor->image ? asset('uploads/doctors/' . $doctor->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($doctor->created_at)->format('d/m/Y') }}">
+                                                                View
+                                                            </a>
+
+                                                            <a href="#" class="btn btn-primary"
+                                                                data-toggle="modal" data-target="#editDoctorModal"
+                                                                data-id="{{ $doctor->id }}"
+                                                                data-dr_name="{{ $doctor->dr_name }}"
+                                                                data-category="{{ $doctor->category }}"
+                                                                data-education_qualify="{{ $doctor->education_qualify }}"
+                                                                data-current_servise="{{ $doctor->current_servise }}"
+                                                                data-spacialist="{{ $doctor->spacialist }}"
+                                                                data-chambers="{{ $doctor->chambers }}"
+                                                                {{-- data-chambers='@json($doctor->chambers)' --}}
+                                                                data-status="{{ $doctor->status }}"
+                                                                data-image="{{ $doctor->image ? asset('uploads/doctors/' . $doctor->image) : '' }}">
+                                                                Edit
+                                                            </a>
+
+                                                            <a href="javascript:void(0);"
+                                                                onclick="deleteDoctor({{ $doctor->id }})"
+                                                                class="btn btn-danger">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -302,7 +250,6 @@
                 </div>
                 <div class="modal-body">
                     <!-- Modal Content Goes Here -->
-
                     <form method="POST" action="{{ route('admin.doctors.store') }}" id="modalForm" enctype="multipart/form-data">
                         @csrf
 
@@ -325,69 +272,62 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="itemName">ডাক্তারের নাম :*</label>
-                            <input type="text" class="form-control" id="itemName"
-                                placeholder="নাম লিখুন">
+                            <label for="dr_name">ডাক্তারের নাম :*</label>
+                            <input type="text" class="form-control" id="drName" name="dr_name" placeholder="নাম লিখুন" required>
                         </div>
 
                         <div class="form-group">
                             <label for="itemCategory">কোন রোগের বিশেষজ্ঞ :*</label>
-                            <select class="form-control" id="itemCategory">
+                            <select class="form-control" id="Category" name="category" required>
                                 <option value="">নির্বাচন করুন</option>
-                                <option value="medicine">মনোরোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">হৃদরোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">পাইলস বিশেষজ্ঞ</option>
-                                <option value="medicine">ডেন্টিষ্ট</option>
-                                <option value="medicine">চর্ম ও যৌন রোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">ডায়াবেটিস ও হরমোন</option>
-                                <option value="medicine">নাক, কান ও গলা বিশেষজ্ঞ</option>
-                                <option value="medicine">চক্ষু বিশেষজ্ঞ</option>
-                                <option value="medicine">লিভার বিশেষজ্ঞ</option>
-                                <option value="medicine">ইউরোলজি</option>
-                                <option value="medicine">সার্জারি</option>
-                                <option value="medicine">গাইনি বিশেষজ্ঞ</option>
-                                <option value="medicine">রক্ত বিশেষজ্ঞ</option>
-                                <option value="medicine">হোমিওপ্যাথী </option>
-                                <option value="medicine">লেজার সার্জারি</option>
-                                <option value="medicine">মেডিসিন বিশেষজ্ঞ</option>
-                                <option value="medicine">কিডনি রোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">নিউরো-সার্জারি</option>
-                                <option value="medicine">স্নায়ু রোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">পুষ্টি বিশেষজ্ঞ</option>
-                                <option value="medicine">ক্যান্সার বিশেষজ্ঞ</option>
-                                <option value="medicine">অর্থোপেডিক</option>
-                                <option value="medicine">ব্যথা বিশেষজ্ঞ</option>
-                                <option value="medicine">শিশু রোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">ফিজিক্যাল মেডিসিন</option>
-                                <option value="medicine">ফিজিওথেরাপিস্ট</option>
-                                <option value="medicine">প্লাস্টিক সার্জারি</option>
-                                <option value="medicine">শিশু রোগ বিশেষজ্ঞ</option>
-                                <option value="surgery">যক্ষা, এ্যজমা ও বক্ষব্যাধি বিশেষজ্ঞ</option>
-
+                                <option value="মেডিসিন বিশেষজ্ঞ">মেডিসিন বিশেষজ্ঞ</option>
+                                <option value="মনোরোগ বিশেষজ্ঞ">মনোরোগ বিশেষজ্ঞ</option>
+                                <option value="হৃদরোগ বিশেষজ্ঞ">হৃদরোগ বিশেষজ্ঞ</option>
+                                <option value="চক্ষু বিশেষজ্ঞ">চক্ষু বিশেষজ্ঞ</option>
+                                <option value="নাক, কান ও গলা বিশেষজ্ঞ">নাক, কান ও গলা বিশেষজ্ঞ</option>
+                                <option value="চর্ম ও যৌন রোগ বিশেষজ্ঞ">চর্ম ও যৌন রোগ বিশেষজ্ঞ</option>
+                                <option value="পাইলস বিশেষজ্ঞ">পাইলস বিশেষজ্ঞ</option>
+                                <option value="ডেন্টিষ্ট">ডেন্টিষ্ট</option>
+                                <option value="গাইনি বিশেষজ্ঞ">গাইনি বিশেষজ্ঞ</option>
+                                <option value="ডায়াবেটিস ও হরমোন">ডায়াবেটিস ও হরমোন</option>
+                                <option value="লিভার বিশেষজ্ঞ">লিভার বিশেষজ্ঞ</option>
+                                <option value="ইউরোলজি">ইউরোলজি</option>
+                                <option value="সার্জারি">সার্জারি</option>
+                                <option value="রক্ত বিশেষজ্ঞ">রক্ত বিশেষজ্ঞ</option>
+                                <option value="হোমিওপ্যাথী">হোমিওপ্যাথী </option>
+                                <option value="লেজার সার্জারি">লেজার সার্জারি</option>
+                                <option value="কিডনি রোগ বিশেষজ্ঞ">কিডনি রোগ বিশেষজ্ঞ</option>
+                                <option value="নিউরো-সার্জারি">নিউরো-সার্জারি</option>
+                                <option value="স্নায়ু রোগ বিশেষজ্ঞ">স্নায়ু রোগ বিশেষজ্ঞ</option>
+                                <option value="পুষ্টি বিশেষজ্ঞ">পুষ্টি বিশেষজ্ঞ</option>
+                                <option value="ক্যান্সার বিশেষজ্ঞ">ক্যান্সার বিশেষজ্ঞ</option>
+                                <option value="অর্থোপেডিক">অর্থোপেডিক</option>
+                                <option value="ব্যথা বিশেষজ্ঞ">ব্যথা বিশেষজ্ঞ</option>
+                                <option value="শিশু রোগ বিশেষজ্ঞ">শিশু রোগ বিশেষজ্ঞ</option>
+                                <option value="ফিজিক্যাল মেডিসিন">ফিজিক্যাল মেডিসিন</option>
+                                <option value="ফিজিওথেরাপিস্ট">ফিজিওথেরাপিস্ট</option>
+                                <option value="প্লাস্টিক সার্জারি">প্লাস্টিক সার্জারি</option>
+                                <option value="যক্ষা, এ্যজমা ও বক্ষব্যাধি বিশেষজ্ঞ">যক্ষা, এ্যজমা ও বক্ষব্যাধি বিশেষজ্ঞ</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="itemName">ডাক্তারের শিক্ষাগত যোগ্যতা :*</label>
-                            <input type="text" class="form-control" id="itemName"
-                                placeholder="শিক্ষাগত যোগ্যতা লিখুন">
+                            <input type="text" class="form-control" id="educationQualify" name="education_qualify" placeholder="শিক্ষাগত যোগ্যতা লিখুন" required>
                         </div>
 
                         <div class="form-group">
                             <label for="itemName">ডাক্তারের বর্তমান কর্মস্থল :*</label>
-                            <input type="text" class="form-control" id="itemName"
-                                placeholder="বর্তমান কর্মস্থল লিখুন">
+                            <input type="text" class="form-control" id="currentServise" name="current_servise" placeholder="বর্তমান কর্মস্থল লিখুন" required>
                         </div>
 
                         <div class="form-group">
                             <label for="itemDescription">যেই যেই রোগের চিকিৎসা করেন :*</label>
-                            <textarea class="form-control" id="itemDescription" rows="3" placeholder="রোগের নাম লিখুন"></textarea>
+                            <textarea class="form-control" id="spacialist" name="spacialist" rows="3" placeholder="রোগের নাম লিখুন" required></textarea>
                         </div>
 
                         <!-- Chambers Section -->
                         <div id="chamberContainer">
-                            <div class="chamber-group mb-3" id="chamberGroup1">
-                            </div>
                         </div>
 
                         <!-- Add Chamber Buttons -->
@@ -413,138 +353,104 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Edit Doctor Data</h5>
+                    <h5 class="modal-title" id="modalTitle">ডাক্তারের ডাটা পরিবর্তন</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- Modal Content Goes Here -->
-                    <form id="modalForm">
-                        <div class="form-group">
-                            <label for="itemName">ডাক্তারের নাম</label>
-                            <input type="text" class="form-control" id="itemName"
-                                placeholder="Enter Doctor Name">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="itemCategory">বিভাগ</label>
-                            <select class="form-control" id="itemCategory">
-                                <option value="">কোন রোগের বিশেষজ্ঞ</option>
-                                <option value="medicine">মনোরোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">হৃদরোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">পাইলস বিশেষজ্ঞ</option>
-                                <option value="medicine">ডেন্টিষ্ট</option>
-                                <option value="medicine">চর্ম ও যৌন রোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">ডায়াবেটিস ও হরমোন</option>
-                                <option value="medicine">নাক, কান ও গলা বিশেষজ্ঞ</option>
-                                <option value="medicine">চক্ষু বিশেষজ্ঞ</option>
-                                <option value="medicine">লিভার বিশেষজ্ঞ</option>
-                                <option value="medicine">ইউরোলজি</option>
-                                <option value="medicine">সার্জারি</option>
-                                <option value="medicine">গাইনি বিশেষজ্ঞ</option>
-                                <option value="medicine">রক্ত বিশেষজ্ঞ</option>
-                                <option value="medicine">হোমিওপ্যাথী </option>
-                                <option value="medicine">লেজার সার্জারি</option>
-                                <option value="medicine">মেডিসিন বিশেষজ্ঞ</option>
-                                <option value="medicine">কিডনি রোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">নিউরো-সার্জারি</option>
-                                <option value="medicine">স্নায়ু রোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">পুষ্টি বিশেষজ্ঞ</option>
-                                <option value="medicine">ক্যান্সার বিশেষজ্ঞ</option>
-                                <option value="medicine">অর্থোপেডিক</option>
-                                <option value="medicine">ব্যথা বিশেষজ্ঞ</option>
-                                <option value="medicine">শিশু রোগ বিশেষজ্ঞ</option>
-                                <option value="medicine">ফিজিক্যাল মেডিসিন</option>
-                                <option value="medicine">ফিজিওথেরাপিস্ট</option>
-                                <option value="medicine">প্লাস্টিক সার্জারি</option>
-                                <option value="medicine">শিশু রোগ বিশেষজ্ঞ</option>
-                                <option value="surgery">যক্ষা, এ্যজমা ও বক্ষব্যাধি বিশেষজ্ঞ</option>
-
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="itemName">শিক্ষাগত যোগ্যতা</label>
-                            <input type="text" class="form-control" id="itemName"
-                                placeholder="Enter Doctor Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="itemName">বর্তমান সেবা</label>
-                            <input type="text" class="form-control" id="itemName"
-                                placeholder="Enter Doctor Name">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="itemDescription">যে যে রোগ চিকিৎসা করেন</label>
-                            <textarea class="form-control" id="itemDescription" rows="3" placeholder="Enter description"></textarea>
-                        </div>
+                    <form method="POST" action="" id="modalForm" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
 
                         <!-- Picture Input with Preview -->
                         <div class="form-group">
-                            <label for="itemImage">Item Image</label>
-                            <input type="file" class="form-control-file" id="itemImage" accept="image/*">
-                            <!-- Image Preview Area -->
-                            <div id="imagePreview" class="mt-2" style="display: none;">
-                                <img id="previewImg" src="" alt="Image Preview" class="img-fluid"
-                                    style="max-width: 200px;">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4 text-center">
+                                    <div class="profile-container">
+                                        <div class="image-preview" id="imagePreviewX">
+                                            <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
+                                        </div>
+                                        <div class="edit-icon" id="editIconX">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </div>
+                                        <input type="file" name="image" class="form-control d-none"
+                                            id="fileInputX" accept="image/*">
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="itemCategory">status</label>
-                            <select class="form-control" id="itemCategory">
-                                <option value="">Select Category</option>
-                                <option value="medicine">In Review</option>
-                                <option value="surgery">Pending</option>
-                                <option value="dentistry">Approved</option>
+                            <label for="dr_name">ডাক্তারের নাম :*</label>
+                            <input type="text" class="form-control" id="drName" name="dr_name" value="{{ old(key: 'dr_name') }}" placeholder="নাম লিখুন" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Category">কোন রোগের বিশেষজ্ঞ :*</label>
+                            <select class="form-control" id="category" name="category" required>
+                                <option value="মেডিসিন বিশেষজ্ঞ" {{ old('category') == 'মেডিসিন বিশেষজ্ঞ' ? 'selected' : '' }}> মেডিসিন বিশেষজ্ঞ</option>
+                                <option value="মনোরোগ বিশেষজ্ঞ" {{ old('category') == 'মনোরোগ বিশেষজ্ঞ' ? 'selected' : '' }}> মনোরোগ বিশেষজ্ঞ</option>
+                                <option value="হৃদরোগ বিশেষজ্ঞ" {{ old('category') == 'হৃদরোগ বিশেষজ্ঞ' ? 'selected' : '' }}> হৃদরোগ বিশেষজ্ঞ</option>
+                                <option value="চক্ষু বিশেষজ্ঞ" {{ old('category') == 'চক্ষু বিশেষজ্ঞ' ? 'selected' : '' }}> চক্ষু বিশেষজ্ঞ</option>
+                                <option value="নাক, কান ও গলা বিশেষজ্ঞ" {{ old('category') == 'নাক, কান ও গলা বিশেষজ্ঞ' ? 'selected' : '' }}> নাক, কান ও গলা বিশেষজ্ঞ</option>
+                                <option value="চর্ম ও যৌন রোগ বিশেষজ্ঞ" {{ old('category') == 'চর্ম ও যৌন রোগ বিশেষজ্ঞ' ? 'selected' : '' }}> চর্ম ও যৌন রোগ বিশেষজ্ঞ</option>
+                                <option value="পাইলস বিশেষজ্ঞ" {{ old('category') == 'পাইলস বিশেষজ্ঞ' ? 'selected' : '' }}> পাইলস বিশেষজ্ঞ</option>
+                                <option value="ডেন্টিষ্ট" {{ old('category') == 'ডেন্টিষ্ট' ? 'selected' : '' }}> ডেন্টিষ্ট</option>
+                                <option value="গাইনি বিশেষজ্ঞ" {{ old('category') == 'গাইনি বিশেষজ্ঞ' ? 'selected' : '' }}> গাইনি বিশেষজ্ঞ</option>
+                                <option value="ডায়াবেটিস ও হরমোন" {{ old('category') == 'ডায়াবেটিস ও হরমোন' ? 'selected' : '' }}> ডায়াবেটিস ও হরমোন</option>
+                                <option value="লিভার বিশেষজ্ঞ" {{ old('category') == 'লিভার বিশেষজ্ঞ' ? 'selected' : '' }}> লিভার বিশেষজ্ঞ</option>
+                                <option value="ইউরোলজি" {{ old('category') == 'ইউরোলজি' ? 'selected' : '' }}> ইউরোলজি</option>
+                                <option value="সার্জারি" {{ old('category') == 'সার্জারি' ? 'selected' : '' }}> সার্জারি</option>
+                                <option value="রক্ত বিশেষজ্ঞ" {{ old('category') == 'রক্ত বিশেষজ্ঞ' ? 'selected' : '' }}> রক্ত বিশেষজ্ঞ</option>
+                                <option value="হোমিওপ্যাথী" {{ old('category') == 'হোমিওপ্যাথী' ? 'selected' : '' }}> হোমিওপ্যাথী</option>
+                                <option value="লেজার সার্জারি" {{ old('category') == 'লেজার সার্জারি' ? 'selected' : '' }}> লেজার সার্জারি</option>
+                                <option value="কিডনি রোগ বিশেষজ্ঞ" {{ old('category') == 'কিডনি রোগ বিশেষজ্ঞ' ? 'selected' : '' }}> কিডনি রোগ বিশেষজ্ঞ</option>
+                                <option value="নিউরো-সার্জারি" {{ old('category') == 'নিউরো-সার্জারি' ? 'selected' : '' }}> নিউরো-সার্জারি</option>
+                                <option value="স্নায়ু রোগ বিশেষজ্ঞ" {{ old('category') == 'স্নায়ু রোগ বিশেষজ্ঞ' ? 'selected' : '' }}> স্নায়ু রোগ বিশেষজ্ঞ</option>
+                                <option value="পুষ্টি বিশেষজ্ঞ" {{ old('category') == 'পুষ্টি বিশেষজ্ঞ' ? 'selected' : '' }}> পুষ্টি বিশেষজ্ঞ</option>
+                                <option value="ক্যান্সার বিশেষজ্ঞ" {{ old('category') == 'ক্যান্সার বিশেষজ্ঞ' ? 'selected' : '' }}> ক্যান্সার বিশেষজ্ঞ</option>
+                                <option value="অর্থোপেডিক" {{ old('category') == 'অর্থোপেডিক' ? 'selected' : '' }}> অর্থোপেডিক</option>
+                                <option value="ব্যথা বিশেষজ্ঞ" {{ old('category') == 'ব্যথা বিশেষজ্ঞ' ? 'selected' : '' }}> ব্যথা বিশেষজ্ঞ</option>
+                                <option value="শিশু রোগ বিশেষজ্ঞ" {{ old('category') == 'শিশু রোগ বিশেষজ্ঞ' ? 'selected' : '' }}> শিশু রোগ বিশেষজ্ঞ</option>
+                                <option value="ফিজিক্যাল মেডিসিন" {{ old('category') == 'ফিজিক্যাল মেডিসিন' ? 'selected' : '' }}> ফিজিক্যাল মেডিসিন</option>
+                                <option value="ফিজিওথেরাপিস্ট" {{ old('category') == 'ফিজিওথেরাপিস্ট' ? 'selected' : '' }}> ফিজিওথেরাপিস্ট</option>
+                                <option value="প্লাস্টিক সার্জারি" {{ old('category') == 'প্লাস্টিক সার্জারি' ? 'selected' : '' }}> প্লাস্টিক সার্জারি</option>
+                                <option value="যক্ষা, এ্যজমা ও বক্ষব্যাধি বিশেষজ্ঞ" {{ old('category') == 'যক্ষা, এ্যজমা ও বক্ষব্যাধি বিশেষজ্ঞ' ? 'selected' : '' }}> যক্ষা, এ্যজমা ও বক্ষব্যাধি বিশেষজ্ঞ</option>
                             </select>
                         </div>
 
+                        <div class="form-group">
+                            <label for="education_qualify">ডাক্তারের শিক্ষাগত যোগ্যতা :*</label>
+                            <input type="text" class="form-control" id="educationQualify" name="education_qualify" value="{{ old(key: 'education_qualify') }}" placeholder="শিক্ষাগত যোগ্যতা লিখুন" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="current_servise">ডাক্তারের বর্তমান কর্মস্থল :*</label>
+                            <input type="text" class="form-control" id="currentServise" name="current_servise" value="{{ old(key: 'current_servise') }}" placeholder="বর্তমান কর্মস্থল লিখুন" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="spacialist">যেই যেই রোগের চিকিৎসা করেন :*</label>
+                            <textarea class="form-control" id="spacialist" name="spacialist"value="{{ old(key: 'spacialist') }}"  rows="3" placeholder="রোগের নাম লিখুন" required></textarea>
+                        </div>
+
                         <!-- Chambers Section -->
-                        <div id="chamberContainer">
-                            <div class="chamber-group mb-3" id="chamberGroup1">
-                                <h5>চেম্বার</h5>
-                                <div class="form-group">
-                                    <label for="chamberName">চেম্বারের নাম</label>
-                                    <input type="text" class="form-control" id="chamberName"
-                                        placeholder="Enter chamber name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="chamberAddress">চেম্বারের ঠিকানা</label>
-                                    <input type="text" class="form-control" id="chamberAddress"
-                                        placeholder="Enter chamber address">
-                                </div>
-                                <div class="form-group">
-                                    <label for="chamberContact">চেম্বারের যোগাযোগ</label>
-                                    <input type="text" class="form-control" id="chamberContact"
-                                        placeholder="Enter chamber contact">
-                                </div>
-                                <div class="form-group">
-                                    <label for="chamberDate">চেম্বারের তারিখ</label>
-                                    <input type="text" class="form-control" id="chamberDate">
-                                </div>
-                                <div class="form-group">
-                                    <label for="chamberTime">চেম্বার সময়</label>
-                                    <input type="text" class="form-control" id="chamberTime">
-                                </div>
-                            </div>
+                        <div id="chamberContainerX">
                         </div>
 
-                        <!-- Add More Chambers Button -->
+                        <!-- Add Chamber Buttons -->
                         <div class="d-flex justify-content-between align-items-center">
-                            <button type="button" class="btn btn-success" id="addChamberBtn">+ Add Another
-                                Chamber</button>
-                            <button type="button" class="btn btn-danger removeChamberBtn" id="removeChamberBtn">-
-                                Remove Chamber</button>
+                            <button type="button" class="btn btn-success" id="addChamberBtnX">+ Add Chamber</button>
                         </div>
 
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
 
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -569,72 +475,25 @@
                                 <div class="col-lg-11">
                                     <div class="about-text about-list">
                                         <div class="d-flex flex-fill bd-highlight about-list">
-
-                                            <div class="about-avatar mt-1 mb-0 p-2 ">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                                    style="width: 100px; height: 100px;" title=""
-                                                    alt="">
+                                            <div class="align-self-center fixed-width pr-2">
+                                                <img id="modalImage" src="" style="width: 100px; height: 100px;" title="Hospital Logo" alt="logo">
                                             </div>
                                             <div class="p-2 flex-shrink-1 bd-highlight mt-4">
-                                                <h5 class="dark-color">সহকারী অধ্যাপক ডাঃ মোঃ মাহমুদুল মোর্শেদ</h5>
-                                                <h6 class="theme-color lead"><samp class="sampcolor">বিশেষজ্ঞ: </samp>
-                                                    নিউরো সার্জন</h6>
+                                                <h4 class="dark-color"><span id="xDrName"></span></h4>
+                                                <h5 class="theme-color lead"><samp class="sampcolor">বিশেষজ্ঞ: </samp> <span id="xCategory"></span></h5>
                                             </div>
-
                                         </div>
-                                        <!-- <h4 class="dark-color">সহকারী অধ্যাপক ডাঃ মোঃ মাহমুদুল মোর্শেদ</h4> -->
-                                        <!-- <h6 class="theme-color lead"><samp class="sampcolor">বিশেষজ্ঞ: </samp> নিউরো সার্জন</h6> -->
                                         <div class="about-list">
                                             <div class="d-flex flex-column">
-                                                <div>
-
-                                                    <samp class="sampcolor">শিক্ষাগত যোগ্যতা: </samp>
-                                                    এমবিবিএস (ঢাকা), বিএলএস (এইচএ), এমসিপিএস (মেডিসিন), এমসিপিএস (সি),
-                                                    সিইসি (ইকো কার্ডিওগ্রাফি), ডি-কার্ড (কার্ডিওলজি)- বঙ্গবন্ধু শেখ
-                                                    মুজিব মেডিকেল বিশ্ববিদ্যালয়, ঢাকা।
-                                                </div>
-                                                <div>
-                                                    <samp class="sampcolor">বর্তমান কর্মস্থল: </samp>
-                                                    বঙ্গবন্ধু শেখ মুজিব মেডিকেল বিশ্ববিদ্যালয়, ঢাকা
-                                                </div>
-                                                <div>
-                                                    <samp class="sampcolor">চেম্বারসমূহ: </samp>
-                                                    মিরপুর হেলথ কেয়ার, কলওয়ালাপাড়া, মিরপুর-১, ঢাকা।
-                                                    সন্ধ্যা ৭:০০টা হতে রাত ৯:০০টা পর্যন্ত।
-
-                                                </div>
-                                                <div>
-                                                    <samp class="sampcolor">বিস্তারিত: </samp>
-
-                                                    হার্ট এ্যাটাক/হার্টব্লক, বুকে ব্যাথা। উচ্চ রক্ত চাপ (হাইপারটেনশন)।
-                                                    হাঁটতে হাপিয়ে যাওয়া/হার্ট ফেইলিওর।
-                                                    অ্যাঞ্জিওগ্রাম, রিংপ্রেসমেকারওবাইপাসরোগীরপরামর্শ।
-                                                    হাঁটতে যেয়ে মাথা ঘুরেপরে যাওয়া।
-                                                    শ্বাস কষ্টে রাতে ঘুমাতে না পারা।
-                                                    বুক ধড়ফড় করা (প্যালপিটিশন)।
-                                                    বাতজ্বর ও বাতজ্বর জনিত হৃদরোগ, জন্মগত হৃদরোগ।
-                                                    উচ্চ রক্তচাপ।
-                                                    নিম্ন রক্তচাপ।
-                                                    বুকে ব্যাথা।
-                                                    বুক ধড়ফড় করা।
-                                                    পেটে সমস্যা।
-                                                    রক্তে অতিরিক্ত চর্বি (Hyperlipidemia)।
-                                                    অকারণ দুর্বলতা, ক্ষুধামন্দা, বমিভাব ও বমি হওয়া।
-                                                    ঘন ঘন জ্বর আসা/কাঁপুনী দিয়ে জ্বর আসা।
-                                                    প্রস্রাবে ইনফেকশন।
-                                                    প্রেসার ওঠানামা।
-                                                    মেডিসিন জনিত সব ধরনের রোগ বিশেষজ্ঞ।
-
-                                                </div>
+                                                <div> <samp class="sampcolor">শিক্ষাগত যোগ্যতা: </samp> </samp> <span id="xEducationQualify"> </div>
+                                                <div> <samp class="sampcolor">বর্তমান কর্মস্থল: </samp> </samp> <span id="xCurrentServise"> </div>
+                                                <div> <samp class="sampcolor">চেম্বারসমূহ: </samp> </samp> <span id="xCategory">চেম্বারসমূহ </div>
+                                                <div> <samp class="sampcolor">বিস্তারিত: </samp> </samp> <span id="xCategory"> বিস্তারিত</div>
 
                                             </div>
-
                                         </div>
-
-
                                     </div>
                                 </div>
-
                             </div>
 
                             </br>
@@ -686,67 +545,16 @@
     <x-slot name="script">
 
         <script type="text/javascript">
-
-            // document.addEventListener("DOMContentLoaded", function () {
-            //     const chamberContainer = document.getElementById("chamberContainer");
-            //     const addChamberBtn = document.getElementById("addChamberBtn");
-            //     const removeChamberBtn = document.getElementById("removeChamberBtn");
-
-            //     addChamberBtn.addEventListener("click", function () {
-            //         const chamberCount = chamberContainer.getElementsByClassName("chamber-group").length;
-            //         const newChamberGroup = document.createElement("div");
-            //         newChamberGroup.classList.add("chamber-group", "mb-3");
-            //         newChamberGroup.innerHTML = `
-            //             <h6>চেম্বার ${chamberCount}</h6>
-            //             <div class="form-group">
-            //                 <label>চেম্বারের নাম :*</label>
-            //                 <input type="text" class="form-control" name="chamberName[]" placeholder="চেম্বারের নাম লিখুন">
-            //             </div>
-            //             <div class="form-group">
-            //                 <label>চেম্বারের ঠিকানা :*</label>
-            //                 <input type="text" class="form-control" name="chamberAddress[]" placeholder="চেম্বারের ঠিকানা লিখুন">
-            //             </div>
-            //             <div class="form-group">
-            //                 <label>চেম্বারের যোগাযোগ নম্বর :*</label>
-            //                 <input type="text" class="form-control" name="chamberContact[]" placeholder="ফোন নম্বর লিখুন">
-            //             </div>
-            //             <div class="form-group">
-            //                 <label>কোন কোন দিন খোলা থাকে :*</label>
-            //                 <input type="text" class="form-control" name="chamberDate[]" placeholder="দিন লিখুন">
-            //             </div>
-            //             <div class="form-group">
-            //                 <label>কয়টা থেকে কয়টা পর্যন্ত খোলা থাকে :*</label>
-            //                 <input type="text" class="form-control" name="chamberTime[]" placeholder="সময় লিখুন">
-            //             </div>
-            //             <button type="button" class="btn btn-danger remove-single-chamber">Remove</button>
-            //         `;
-            //         chamberContainer.appendChild(newChamberGroup);
-            //     });
-
-            //     chamberContainer.addEventListener("click", function (event) {
-            //         if (event.target.classList.contains("remove-single-chamber")) {
-            //             event.target.closest(".chamber-group").remove();
-            //         }
-            //     });
-
-            //     removeChamberBtn.addEventListener("click", function () {
-            //         const chambers = chamberContainer.getElementsByClassName("chamber-group");
-            //         if (chambers.length > 0) {
-            //             chamberContainer.removeChild(chambers[chambers.length - 1]);
-            //         }
-            //     });
-            // });
-
+            // Add Chamber
             document.addEventListener("DOMContentLoaded", function () {
                 const chamberContainer = document.getElementById("chamberContainer");
                 const addChamberBtn = document.getElementById("addChamberBtn");
-                const removeChamberBtn = document.getElementById("removeChamberBtn");
-                const MAX_CHAMBERS = 6;
+                const MAX_CHAMBERS = 5;
 
                 function updateChamberNumbers() {
                     const chambers = chamberContainer.getElementsByClassName("chamber-group");
                     for (let i = 0; i < chambers.length; i++) {
-                        chambers[i].querySelector("h6").textContent = `চেম্বার ${i}`;
+                        chambers[i].querySelector("h6").textContent = `চেম্বার ${i + 1}`;
                     }
                 }
 
@@ -763,59 +571,39 @@
                         <h6>চেম্বার ${chamberCount}</h6>
                         <div class="form-group">
                             <label>চেম্বারের নাম :*</label>
-                            <input type="text" class="form-control" id="chamberName" name="chamberName[]" placeholder="চেম্বারের নাম লিখুন">
+                            <input type="text" class="form-control" name="chambers[${chamberCount}][chamber_name]" placeholder="চেম্বারের নাম লিখুন" required>
                         </div>
                         <div class="form-group">
                             <label>চেম্বারের ঠিকানা :*</label>
-                            <input type="text" class="form-control" id="chamberAddress" name="chamberAddress[]" placeholder="চেম্বারের ঠিকানা লিখুন">
+                            <input type="text" class="form-control" name="chambers[${chamberCount}][chamber_address]" placeholder="চেম্বারের ঠিকানা লিখুন" required>
                         </div>
                         <div class="form-group">
                             <label>চেম্বারের যোগাযোগ নম্বর :*</label>
-                            <input type="text" class="form-control" id="chamberContact" name="chamberContact[]" placeholder="ফোন নম্বর লিখুন">
+                            <input type="text" class="form-control" name="chambers[${chamberCount}][chamber_contact]" placeholder="ফোন নম্বর লিখুন" required>
                         </div>
                         <div class="form-group">
                             <label>কোন কোন দিন খোলা থাকে :*</label>
-                            <input type="text" class="form-control" id="chamberDate" name="chamberDate[]" placeholder="দিন লিখুন">
+                            <input type="text" class="form-control" name="chambers[${chamberCount}][chamber_date]" placeholder="দিন লিখুন" required>
                         </div>
                         <div class="form-group">
                             <label>কয়টা থেকে কয়টা পর্যন্ত খোলা থাকে :*</label>
-                            <input type="text" class="form-control" id="chamberTime" name="chamberTime[]" placeholder="সময় লিখুন">
+                            <input type="text" class="form-control" name="chambers[${chamberCount}][chamber_time]" placeholder="সময় লিখুন" required>
                         </div>
                         <button type="button" class="btn btn-danger remove-single-chamber">Remove</button>
                     `;
 
                     chamberContainer.appendChild(newChamberGroup);
                     updateChamberNumbers();
-
-                    if (chamberContainer.getElementsByClassName("chamber-group").length >= MAX_CHAMBERS) {
-                        addChamberBtn.disabled = true;
-                    }
                 });
 
+                // Remove Chamber
                 chamberContainer.addEventListener("click", function (event) {
                     if (event.target.classList.contains("remove-single-chamber")) {
                         event.target.closest(".chamber-group").remove();
                         updateChamberNumbers();
-
-                        if (chamberContainer.getElementsByClassName("chamber-group").length < MAX_CHAMBERS) {
-                            addChamberBtn.disabled = false;
-                        }
-                    }
-                });
-
-                removeChamberBtn.addEventListener("click", function () {
-                    const chambers = chamberContainer.getElementsByClassName("chamber-group");
-                    if (chambers.length > 1) {
-                        chamberContainer.removeChild(chambers[chambers.length - 1]);
-                        updateChamberNumbers();
-
-                        if (chamberContainer.getElementsByClassName("chamber-group").length < MAX_CHAMBERS) {
-                            addChamberBtn.disabled = false;
-                        }
                     }
                 });
             });
-
 
             //imagePreview
             document.getElementById('editIcon').addEventListener('click', function() {
@@ -850,26 +638,28 @@
                 }
             });
 
-            //viewHospitaModal
-            $('#viewHospitalModal').on('show.bs.modal', function(event) {
+            //viewDoctorModal
+            $('#viewDoctorModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user = button.data('user');
-                var hp_name = button.data('hp_name');
-                var contact = button.data('contact');
-                var upazila = button.data('upazila');
-                var address = button.data('address');
+                var dr_name = button.data('dr_name');
+                var category = button.data('category');
+                var education_qualify = button.data('education_qualify');
+                var current_servise = button.data('current_servise');
+                var spacialist = button.data('spacialist');
                 var status = button.data('status');
                 var entry = button.data('entry');
                 var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#xUser').text(user);
-                modal.find('#xHp_name').text(hp_name);
-                modal.find('#xContact').text(contact);
-                modal.find('#xUpazila').text(upazila);
-                modal.find('#xAddress').text(address);
+                modal.find('#xDrName').text(dr_name);
+                modal.find('#xCategory').text(category);
+                modal.find('#xEducationQualify').text(education_qualify);
+                modal.find('#xCurrentServise').text(current_servise);
+                modal.find('#xSpacialist').text(spacialist);
                 modal.find('#xStatus').text(status);
                 modal.find('#xEntry').text(entry);
 
@@ -882,25 +672,32 @@
                 }
             });
 
-            //editHospitaModal
-            $('#editHospitalModal').on('show.bs.modal', function(event) {
+            //editDoctorModal
+            $('#editDoctorModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
-                var hp_name = button.data('hp_name');
-                var contact = button.data('contact');
-                var upazila = button.data('upazila');
-                var address = button.data('address');
+                var dr_name = button.data('dr_name');
+                var category = button.data('category');
+                var education_qualify = button.data('education_qualify');
+                var current_servise = button.data('current_servise');
+                var spacialist = button.data('spacialist');
+                // var chambers = button.data('chambers');
                 var status = button.data('status');
-                var entry = button.data('entry');
                 var image = button.data('image');
 
+                var chambers = '[{"chamber_name":"Korotoa Medicine Holl","chamber_address":"Panchagarh","chamber_contact":"01830996044","chamber_date":"Saterday to Wednesday","chamber_time":"10:30am to 4:00pm"}]';
+
                 var modal = $(this);
-                modal.find('#hp_name').val(hp_name);
-                modal.find('#contact').val(contact);
-                modal.find('#upazila').val(upazila);
-                modal.find('#address').val(address);
+
+                // Fill form fields
+                modal.find('#drName').val(dr_name);
+                modal.find('#category').val(category);
+                modal.find('#educationQualify').val(education_qualify);
+                modal.find('#currentServise').val(current_servise);
+                modal.find('#spacialist').val(spacialist);
                 modal.find('#status').val(status);
 
+                // Handle image preview
                 var imagePreview = modal.find('#imagePreviewX');
                 if (image) {
                     imagePreview.html('<img src="' + image + '" class="img-fluid" />');
@@ -908,16 +705,116 @@
                     imagePreview.html('<i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/hospitals/' + id);
+                // Clear existing chambers
+                var chamberContainer = modal.find('#chamberContainerX');
+                chamberContainer.empty();
 
+                // Populate chambers dynamically
+                if (chambers && typeof chambers === 'string' && chambers.trim() !== '') {
+                    try {
+                        var chamberData = JSON.parse(chambers);
+                        chamberData.forEach((chamber, index) => {
+                            chamberContainer.append(`
+                                <div class="chamber-group mb-3">
+                                    <div class="form-group">
+                                        <label>চেম্বারের নাম :*</label>
+                                        <input type="text" class="form-control" name="chambers[${index}][chamber_name]" value="${chamber.chamber_name || ''}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>চেম্বারের ঠিকানা :*</label>
+                                        <input type="text" class="form-control" name="chambers[${index}][chamber_address]" value="${chamber.chamber_address || ''}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>চেম্বারের যোগাযোগ নম্বর :*</label>
+                                        <input type="text" class="form-control" name="chambers[${index}][chamber_contact]" value="${chamber.chamber_contact || ''}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>কোন কোন দিন খোলা থাকে :*</label>
+                                        <input type="text" class="form-control" name="chambers[${index}][chamber_date]" value="${chamber.chamber_date || ''}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>কয়টা থেকে কয়টা পর্যন্ত খোলা থাকে :*</label>
+                                        <input type="text" class="form-control" name="chambers[${index}][chamber_time]" value="${chamber.chamber_time || ''}" required>
+                                    </div>
+                                    <button type="button" class="btn btn-danger remove-single-chamberX">Remove</button>
+                                </div>
+                            `);
+                        });
+                    } catch (error) {
+                        console.error("Error parsing chambers JSON:", error);
+                    }
+                }
+
+                modal.find('#modalForm').attr('action', '/admin/doctors/' + id);
 
             });
 
-            //deleteHospital
-            function deleteHospital(id) {
-                if (confirm('Are you sure you want to delete this hospital?')) {
+
+            // Add ChamberX
+            document.addEventListener("DOMContentLoaded", function () {
+                const chamberContainerX = document.getElementById("chamberContainerX");
+                const addChamberBtnX = document.getElementById("addChamberBtnX");
+                const MAX_CHAMBERS = 5;
+
+                function updateChamberNumbers() {
+                    const chambers = chamberContainerX.getElementsByClassName("chamber-group");
+                    for (let i = 0; i < chambers.length; i++) {
+                        chambers[i].querySelector("h6").textContent = `চেম্বার ${i + 1}`;
+                    }
+                }
+
+                addChamberBtnX.addEventListener("click", function () {
+                    const chamberCount = chamberContainerX.getElementsByClassName("chamber-group").length;
+                    if (chamberCount >= MAX_CHAMBERS) {
+                        alert("আপনি সর্বোচ্চ ৫টি চেম্বার যোগ করতে পারবেন!");
+                        return;
+                    }
+
+                    const newChamberGroup = document.createElement("div");
+                    newChamberGroup.classList.add("chamber-group", "mb-3");
+                    newChamberGroup.innerHTML = `
+                        <h6>চেম্বার ${chamberCount}</h6>
+                        <div class="form-group">
+                            <label>চেম্বারের নাম :*</label>
+                            <input type="text" class="form-control" name="chambers[${chamberCount}][chamber_name]" placeholder="চেম্বারের নাম লিখুন" required>
+                        </div>
+                        <div class="form-group">
+                            <label>চেম্বারের ঠিকানা :*</label>
+                            <input type="text" class="form-control" name="chambers[${chamberCount}][chamber_address]" placeholder="চেম্বারের ঠিকানা লিখুন" required>
+                        </div>
+                        <div class="form-group">
+                            <label>চেম্বারের যোগাযোগ নম্বর :*</label>
+                            <input type="text" class="form-control" name="chambers[${chamberCount}][chamber_contact]" placeholder="ফোন নম্বর লিখুন" required>
+                        </div>
+                        <div class="form-group">
+                            <label>কোন কোন দিন খোলা থাকে :*</label>
+                            <input type="text" class="form-control" name="chambers[${chamberCount}][chamber_date]" placeholder="দিন লিখুন" required>
+                        </div>
+                        <div class="form-group">
+                            <label>কয়টা থেকে কয়টা পর্যন্ত খোলা থাকে :*</label>
+                            <input type="text" class="form-control" name="chambers[${chamberCount}][chamber_time]" placeholder="সময় লিখুন" required>
+                        </div>
+                        <button type="button" class="btn btn-danger remove-single-chamberX">Remove</button>
+                    `;
+
+                    chamberContainerX.appendChild(newChamberGroup);
+                    updateChamberNumbers();
+                });
+
+                // Remove Chamber
+                chamberContainerX.addEventListener("click", function (event) {
+                    if (event.target.classList.contains("remove-single-chamberX")) {
+                        event.target.closest(".chamber-group").remove();
+                        updateChamberNumbers();
+                    }
+                });
+            });
+
+            //deleteDoctor
+            function deleteDoctor(id) {
+                if (confirm('Are you sure you want to delete this doctor?')) {
                     $.ajax({
-                        url: '{{ route('admin.hospitals.destroy') }}',
+                        url: '{{ route('admin.doctors.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -934,7 +831,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete Hospital. Please try again.');
+                            alert('Failed to delete Doctor. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hospitals;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
@@ -13,7 +14,6 @@ class HospitalsController extends Controller
 {
     public function index()
     {
-        // $hospitals = Hospitals::latest()->paginate(25);
         $hospitals = Hospitals::with('user')->latest()->paginate(25);
         return view('modules.Hospitals.HospitalList',[
             'hospitals' => $hospitals
@@ -36,12 +36,11 @@ class HospitalsController extends Controller
         }
 
         $hospital = new Hospitals();
-        $hospital-> user_id = \Illuminate\Support\Facades\Auth::user()->id;
+        $hospital->user_id = Auth::user()->id;
         $hospital-> hp_name = $request->hp_name;
         $hospital-> contact = $request->contact;
         $hospital-> upazila = $request->upazila;
         $hospital-> address = $request->address;
-        $hospital-> image = $request->image?? null;
 
         if ($request->hasFile('image')) {
 
@@ -106,7 +105,6 @@ class HospitalsController extends Controller
         $hospital-> contact = $request->contact;
         $hospital-> upazila = $request->upazila;
         $hospital-> address = $request->address;
-        $hospital-> image = $request->image?? null;
         $hospital->status = $request->status;
 
         if ($request->hasFile('image')) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BloodNeeders;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class BloodNeedersController extends Controller
@@ -33,7 +34,7 @@ class BloodNeedersController extends Controller
         }
 
         $needer = new BloodNeeders();
-        $needer-> user_id = \Illuminate\Support\Facades\Auth::user()->id;
+        $needer-> user_id = Auth::user()->id;
         $needer-> name = $request->name;
         $needer-> blood_gorup = $request->blood_gorup;
         $needer-> bag_amounts = $request->bag_amounts;

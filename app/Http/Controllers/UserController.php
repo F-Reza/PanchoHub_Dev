@@ -60,7 +60,6 @@ class UserController extends Controller //implements HasMiddleware
         $user-> gender = $request->gender;
         $user-> upazila = $request->upazila;
         $user-> address = $request->address ?? null;
-        $user-> image = $request->image?? null;
         $user-> subscription = $request->subscription ?? null;
         $user-> password = Hash::make($request->password);
 
@@ -133,7 +132,6 @@ class UserController extends Controller //implements HasMiddleware
         $user-> gender = $request->gender;
         $user-> upazila = $request->upazila;
         $user-> address = $request->address ?? null;
-        $user-> image = $request->image?? null;
         $user-> subscription = $request->subscription ?? null;
         $user->status = $request->status ? 'Active' : 'Deactive';
 

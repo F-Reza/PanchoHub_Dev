@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BloodDonors;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class BloodDonorsController extends Controller
@@ -34,7 +35,7 @@ class BloodDonorsController extends Controller
         }
 
         $donor = new BloodDonors();
-        $donor-> user_id = \Illuminate\Support\Facades\Auth::user()->id;
+        $donor-> user_id = Auth::user()->id;
         $donor-> name = $request->name;
         $donor-> blood_gorup = $request->blood_gorup;
         $donor-> last_donate = $request->last_donate;
