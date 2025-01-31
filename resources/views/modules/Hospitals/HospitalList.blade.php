@@ -73,7 +73,7 @@
                                                         <td class="align-left"> {{ $hospital->hp_name }} </td>
                                                         <td class="align-left"> {{ $hospital->contact }} </td>
                                                         <td class="align-left"> {{ $hospital->upazila }} </td>
-                                                        <td class="align-left"> {{ $hospital->user_id }} </td>
+                                                        <td class="align-left"> {{ $hospital->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
                                                             {{ \Carbon\Carbon::parse($hospital->created_at)->format('d M, Y') }}
                                                         </td>
@@ -96,7 +96,7 @@
                                                             <a href="#" class="btn btn-success"
                                                                 data-toggle="modal" data-target="#viewHospitalModal"
                                                                 data-id="{{ $hospital->id }}"
-                                                                data-user_id="{{ $hospital->user_id }}"
+                                                                data-user="{{ $hospital->user->name }}"
                                                                 data-hp_name="{{ $hospital->hp_name }}"
                                                                 data-contact="{{ $hospital->contact }}"
                                                                 data-upazila="{{ $hospital->upazila }}"
@@ -110,7 +110,7 @@
                                                             <a href="#" class="btn btn-primary"
                                                                 data-toggle="modal" data-target="#editHospitalModal"
                                                                 data-id="{{ $hospital->id }}"
-                                                                data-user_id="{{ $hospital->user_id }}"
+                                                                data-user="{{ $hospital->user->name }}"
                                                                 data-hp_name="{{ $hospital->hp_name }}"
                                                                 data-contact="{{ $hospital->contact }}"
                                                                 data-upazila="{{ $hospital->upazila }}"
@@ -484,7 +484,7 @@
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
-                var user_id = button.data('user_id');
+                var user = button.data('user');
                 var hp_name = button.data('hp_name');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
@@ -494,7 +494,7 @@
                 var image = button.data('image');
 
                 var modal = $(this);
-                modal.find('#xUser').text(user_id);
+                modal.find('#xUser').text(user);
                 modal.find('#xHp_name').text(hp_name);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
@@ -515,7 +515,6 @@
             $('#editHospitalModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
-                var user_id = button.data('user_id');
                 var hp_name = button.data('hp_name');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');

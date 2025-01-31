@@ -73,7 +73,7 @@
                                                         <td class="align-left"> {{ $diagnostic->title }} </td>
                                                         <td class="align-left"> {{ $diagnostic->contact }} </td>
                                                         <td class="align-left"> {{ $diagnostic->upazila }} </td>
-                                                        <td class="align-left"> {{ $diagnostic->user_id }} </td>
+                                                        <td class="align-left"> {{ $diagnostic->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
                                                             {{ \Carbon\Carbon::parse($diagnostic->created_at)->format('d M, Y') }}
                                                         </td>
@@ -96,7 +96,7 @@
                                                             <a href="#" class="btn btn-success"
                                                                 data-toggle="modal" data-target="#viewDiagnosticModal"
                                                                 data-id="{{ $diagnostic->id }}"
-                                                                data-user_id="{{ $diagnostic->user_id }}"
+                                                                data-user="{{ $diagnostic->user->name }}"
                                                                 data-title="{{ $diagnostic->title }}"
                                                                 data-contact="{{ $diagnostic->contact }}"
                                                                 data-upazila="{{ $diagnostic->upazila }}"
@@ -111,7 +111,7 @@
                                                             <a href="#" class="btn btn-primary"
                                                                 data-toggle="modal" data-target="#editDiagnosticModal"
                                                                 data-id="{{ $diagnostic->id }}"
-                                                                data-user_id="{{ $diagnostic->user_id }}"
+                                                                data-user="{{ $diagnostic->user->name }}"
                                                                 data-title="{{ $diagnostic->title }}"
                                                                 data-contact="{{ $diagnostic->contact }}"
                                                                 data-upazila="{{ $diagnostic->upazila }}"
@@ -278,7 +278,7 @@
                     <!-- Contact Field -->
                     <div class="form-group">
                         <label for="contact">ডায়াগনস্টিক সেন্টারের যোগাযোগ নম্বর :*</label>
-                        <input type="text" name="contact" class="form-control" id="hospitalontact" placeholder="ফোন নম্বর লিখুন">
+                        <input type="text" name="contact" class="form-control" id="contact" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
                     <!-- Upazila Field -->
@@ -355,15 +355,15 @@
                     </div>
 
 
-                    <!-- HospitalName Field -->
+                    <!-- DiagnosticCenterName Field -->
                     <div class="form-group">
                         <label for="title">ডায়াগনস্টিক সেন্টারের নাম :* </label>
                         <input type="text" name="title" class="form-control" id="title" value="{{ old(key: 'title') }}" placeholder="নাম লিখুন">
                     </div>
 
-                    <!-- HospitalContact Field -->
+                    <!-- Contact Field -->
                     <div class="form-group">
-                        <label for="hospitalContact">ডায়াগনস্টিক সেন্টারের যোগাযোগ নম্বর :*</label>
+                        <label for="contact">ডায়াগনস্টিক সেন্টারের যোগাযোগ নম্বর :*</label>
                         <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
@@ -380,7 +380,7 @@
                         </select>
                     </div>
 
-                    <!-- HospitalAddress Field -->
+                    <!-- Address Field -->
                     <div class="form-group">
                         <label for="address">ডায়াগনস্টিক সেন্টারের সম্পূৰ্ণ ঠিকানা :*</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old(key: 'address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
@@ -498,7 +498,7 @@
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
-                var user_id = button.data('user_id');
+                var user = button.data('user');
                 var title = button.data('title');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
@@ -509,7 +509,7 @@
                 var image = button.data('image');
 
                 var modal = $(this);
-                modal.find('#xUser').text(user_id);
+                modal.find('#xUser').text(user);
                 modal.find('#xTitle').text(title);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
@@ -559,7 +559,7 @@
 
             });
 
-            //deleteHospital
+            //deleteDiagnostic
             function deleteDiagnostic(id) {
                 if (confirm('Are you sure you want to delete this diagnostic center?')) {
                     $.ajax({

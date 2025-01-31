@@ -13,7 +13,8 @@ class HospitalsController extends Controller
 {
     public function index()
     {
-        $hospitals = Hospitals::latest()->paginate(25);
+        // $hospitals = Hospitals::latest()->paginate(25);
+        $hospitals = Hospitals::with('user')->latest()->paginate(25);
         return view('modules.Hospitals.HospitalList',[
             'hospitals' => $hospitals
         ]);

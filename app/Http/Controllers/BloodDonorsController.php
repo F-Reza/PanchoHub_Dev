@@ -10,7 +10,7 @@ class BloodDonorsController extends Controller
 {
     public function index()
     {
-        $donors = BloodDonors::latest()->paginate(25);
+        $donors = BloodDonors::with('user')->latest()->paginate(25);
         return view('modules.BloodDonors.BloodDonorList',[
             'donors' => $donors
         ]);

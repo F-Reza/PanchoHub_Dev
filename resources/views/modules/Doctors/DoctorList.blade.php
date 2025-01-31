@@ -295,24 +295,45 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">Create New Doctor</h5>
+                    <h5 class="modal-title" id="modalTitle">নতুন ডাক্তার যোগ করন </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- Modal Content Goes Here -->
-                    <form id="modalForm">
+
+                    <form method="POST" action="{{ route('admin.doctors.store') }}" id="modalForm" enctype="multipart/form-data">
+                        @csrf
+
+                        <!-- Picture Input with Preview -->
                         <div class="form-group">
-                            <label for="itemName">ডাক্তারের নাম</label>
-                            <input type="text" class="form-control" id="itemName"
-                                placeholder="Enter Doctor Name">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4 text-center">
+                                    <div class="profile-container">
+                                        <div class="image-preview" id="imagePreview">
+                                            <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
+                                        </div>
+                                        <div class="edit-icon" id="editIcon">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </div>
+                                        <input type="file" value="{{ old('image') }}" name="image"
+                                            class="form-control d-none" id="fileInput" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="itemCategory">বিভাগ</label>
+                            <label for="itemName">ডাক্তারের নাম :*</label>
+                            <input type="text" class="form-control" id="itemName"
+                                placeholder="নাম লিখুন">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="itemCategory">কোন রোগের বিশেষজ্ঞ :*</label>
                             <select class="form-control" id="itemCategory">
-                                <option value="">কোন রোগের বিশেষজ্ঞ</option>
+                                <option value="">নির্বাচন করুন</option>
                                 <option value="medicine">মনোরোগ বিশেষজ্ঞ</option>
                                 <option value="medicine">হৃদরোগ বিশেষজ্ঞ</option>
                                 <option value="medicine">পাইলস বিশেষজ্ঞ</option>
@@ -347,86 +368,40 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="itemName">শিক্ষাগত যোগ্যতা</label>
+                            <label for="itemName">ডাক্তারের শিক্ষাগত যোগ্যতা :*</label>
                             <input type="text" class="form-control" id="itemName"
-                                placeholder="Enter Doctor Name">
+                                placeholder="শিক্ষাগত যোগ্যতা লিখুন">
                         </div>
+
                         <div class="form-group">
-                            <label for="itemName">বর্তমান সেবা</label>
+                            <label for="itemName">ডাক্তারের বর্তমান কর্মস্থল :*</label>
                             <input type="text" class="form-control" id="itemName"
-                                placeholder="Enter Doctor Name">
+                                placeholder="বর্তমান কর্মস্থল লিখুন">
                         </div>
 
                         <div class="form-group">
-                            <label for="itemDescription">যে যে রোগ চিকিৎসা করেন</label>
-                            <textarea class="form-control" id="itemDescription" rows="3" placeholder="Enter description"></textarea>
-                        </div>
-
-                        <!-- Picture Input with Preview -->
-                        <div class="form-group">
-                            <label for="itemImage">Item Image</label>
-                            <input type="file" class="form-control-file" id="itemImage" accept="image/*">
-                            <!-- Image Preview Area -->
-                            <div id="imagePreview" class="mt-2" style="display: none;">
-                                <img id="previewImg" src="" alt="Image Preview" class="img-fluid"
-                                    style="max-width: 200px;">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="itemCategory">status</label>
-                            <select class="form-control" id="itemCategory">
-                                <option value="">Select Category</option>
-                                <option value="medicine">In Review</option>
-                                <option value="surgery">Pending</option>
-                                <option value="dentistry">Approved</option>
-                            </select>
+                            <label for="itemDescription">যেই যেই রোগের চিকিৎসা করেন :*</label>
+                            <textarea class="form-control" id="itemDescription" rows="3" placeholder="রোগের নাম লিখুন"></textarea>
                         </div>
 
                         <!-- Chambers Section -->
                         <div id="chamberContainer">
                             <div class="chamber-group mb-3" id="chamberGroup1">
-                                <h5>চেম্বার</h5>
-                                <div class="form-group">
-                                    <label for="chamberName">চেম্বারের নাম</label>
-                                    <input type="text" class="form-control" id="chamberName"
-                                        placeholder="Enter chamber name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="chamberAddress">চেম্বারের ঠিকানা</label>
-                                    <input type="text" class="form-control" id="chamberAddress"
-                                        placeholder="Enter chamber address">
-                                </div>
-                                <div class="form-group">
-                                    <label for="chamberContact">চেম্বারের যোগাযোগ</label>
-                                    <input type="text" class="form-control" id="chamberContact"
-                                        placeholder="Enter chamber contact">
-                                </div>
-                                <div class="form-group">
-                                    <label for="chamberDate">চেম্বারের তারিখ</label>
-                                    <input type="text" class="form-control" id="chamberDate">
-                                </div>
-                                <div class="form-group">
-                                    <label for="chamberTime">চেম্বার সময়</label>
-                                    <input type="text" class="form-control" id="chamberTime">
-                                </div>
                             </div>
                         </div>
 
-                        <!-- Add More Chambers Button -->
+                        <!-- Add Chamber Buttons -->
                         <div class="d-flex justify-content-between align-items-center">
-                            <button type="button" class="btn btn-success" id="addChamberBtn">+ Add Another
-                                Chamber</button>
-                            <button type="button" class="btn btn-danger removeChamberBtn" id="removeChamberBtn">-
-                                Remove Chamber</button>
+                            <button type="button" class="btn btn-success" id="addChamberBtn">+ Add Chamber</button>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
 
 
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -708,4 +683,264 @@
         </div>
     </div>
 
+    <x-slot name="script">
+
+        <script type="text/javascript">
+
+            // document.addEventListener("DOMContentLoaded", function () {
+            //     const chamberContainer = document.getElementById("chamberContainer");
+            //     const addChamberBtn = document.getElementById("addChamberBtn");
+            //     const removeChamberBtn = document.getElementById("removeChamberBtn");
+
+            //     addChamberBtn.addEventListener("click", function () {
+            //         const chamberCount = chamberContainer.getElementsByClassName("chamber-group").length;
+            //         const newChamberGroup = document.createElement("div");
+            //         newChamberGroup.classList.add("chamber-group", "mb-3");
+            //         newChamberGroup.innerHTML = `
+            //             <h6>চেম্বার ${chamberCount}</h6>
+            //             <div class="form-group">
+            //                 <label>চেম্বারের নাম :*</label>
+            //                 <input type="text" class="form-control" name="chamberName[]" placeholder="চেম্বারের নাম লিখুন">
+            //             </div>
+            //             <div class="form-group">
+            //                 <label>চেম্বারের ঠিকানা :*</label>
+            //                 <input type="text" class="form-control" name="chamberAddress[]" placeholder="চেম্বারের ঠিকানা লিখুন">
+            //             </div>
+            //             <div class="form-group">
+            //                 <label>চেম্বারের যোগাযোগ নম্বর :*</label>
+            //                 <input type="text" class="form-control" name="chamberContact[]" placeholder="ফোন নম্বর লিখুন">
+            //             </div>
+            //             <div class="form-group">
+            //                 <label>কোন কোন দিন খোলা থাকে :*</label>
+            //                 <input type="text" class="form-control" name="chamberDate[]" placeholder="দিন লিখুন">
+            //             </div>
+            //             <div class="form-group">
+            //                 <label>কয়টা থেকে কয়টা পর্যন্ত খোলা থাকে :*</label>
+            //                 <input type="text" class="form-control" name="chamberTime[]" placeholder="সময় লিখুন">
+            //             </div>
+            //             <button type="button" class="btn btn-danger remove-single-chamber">Remove</button>
+            //         `;
+            //         chamberContainer.appendChild(newChamberGroup);
+            //     });
+
+            //     chamberContainer.addEventListener("click", function (event) {
+            //         if (event.target.classList.contains("remove-single-chamber")) {
+            //             event.target.closest(".chamber-group").remove();
+            //         }
+            //     });
+
+            //     removeChamberBtn.addEventListener("click", function () {
+            //         const chambers = chamberContainer.getElementsByClassName("chamber-group");
+            //         if (chambers.length > 0) {
+            //             chamberContainer.removeChild(chambers[chambers.length - 1]);
+            //         }
+            //     });
+            // });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const chamberContainer = document.getElementById("chamberContainer");
+                const addChamberBtn = document.getElementById("addChamberBtn");
+                const removeChamberBtn = document.getElementById("removeChamberBtn");
+                const MAX_CHAMBERS = 6;
+
+                function updateChamberNumbers() {
+                    const chambers = chamberContainer.getElementsByClassName("chamber-group");
+                    for (let i = 0; i < chambers.length; i++) {
+                        chambers[i].querySelector("h6").textContent = `চেম্বার ${i}`;
+                    }
+                }
+
+                addChamberBtn.addEventListener("click", function () {
+                    const chamberCount = chamberContainer.getElementsByClassName("chamber-group").length;
+                    if (chamberCount >= MAX_CHAMBERS) {
+                        alert("আপনি সর্বোচ্চ ৫টি চেম্বার যোগ করতে পারবেন!");
+                        return;
+                    }
+
+                    const newChamberGroup = document.createElement("div");
+                    newChamberGroup.classList.add("chamber-group", "mb-3");
+                    newChamberGroup.innerHTML = `
+                        <h6>চেম্বার ${chamberCount}</h6>
+                        <div class="form-group">
+                            <label>চেম্বারের নাম :*</label>
+                            <input type="text" class="form-control" id="chamberName" name="chamberName[]" placeholder="চেম্বারের নাম লিখুন">
+                        </div>
+                        <div class="form-group">
+                            <label>চেম্বারের ঠিকানা :*</label>
+                            <input type="text" class="form-control" id="chamberAddress" name="chamberAddress[]" placeholder="চেম্বারের ঠিকানা লিখুন">
+                        </div>
+                        <div class="form-group">
+                            <label>চেম্বারের যোগাযোগ নম্বর :*</label>
+                            <input type="text" class="form-control" id="chamberContact" name="chamberContact[]" placeholder="ফোন নম্বর লিখুন">
+                        </div>
+                        <div class="form-group">
+                            <label>কোন কোন দিন খোলা থাকে :*</label>
+                            <input type="text" class="form-control" id="chamberDate" name="chamberDate[]" placeholder="দিন লিখুন">
+                        </div>
+                        <div class="form-group">
+                            <label>কয়টা থেকে কয়টা পর্যন্ত খোলা থাকে :*</label>
+                            <input type="text" class="form-control" id="chamberTime" name="chamberTime[]" placeholder="সময় লিখুন">
+                        </div>
+                        <button type="button" class="btn btn-danger remove-single-chamber">Remove</button>
+                    `;
+
+                    chamberContainer.appendChild(newChamberGroup);
+                    updateChamberNumbers();
+
+                    if (chamberContainer.getElementsByClassName("chamber-group").length >= MAX_CHAMBERS) {
+                        addChamberBtn.disabled = true;
+                    }
+                });
+
+                chamberContainer.addEventListener("click", function (event) {
+                    if (event.target.classList.contains("remove-single-chamber")) {
+                        event.target.closest(".chamber-group").remove();
+                        updateChamberNumbers();
+
+                        if (chamberContainer.getElementsByClassName("chamber-group").length < MAX_CHAMBERS) {
+                            addChamberBtn.disabled = false;
+                        }
+                    }
+                });
+
+                removeChamberBtn.addEventListener("click", function () {
+                    const chambers = chamberContainer.getElementsByClassName("chamber-group");
+                    if (chambers.length > 1) {
+                        chamberContainer.removeChild(chambers[chambers.length - 1]);
+                        updateChamberNumbers();
+
+                        if (chamberContainer.getElementsByClassName("chamber-group").length < MAX_CHAMBERS) {
+                            addChamberBtn.disabled = false;
+                        }
+                    }
+                });
+            });
+
+
+            //imagePreview
+            document.getElementById('editIcon').addEventListener('click', function() {
+                document.getElementById('fileInput').click();
+            });
+
+            document.getElementById('fileInput').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                const preview = document.getElementById('imagePreview');
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.innerHTML = `<img src="${e.target.result}" alt="Image Preview">`;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            //imagePreviewX
+            document.getElementById('editIconX').addEventListener('click', function() {
+                document.getElementById('fileInputX').click();
+            });
+
+            document.getElementById('fileInputX').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                const preview = document.getElementById('imagePreviewX');
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        preview.innerHTML = `<img src="${e.target.result}" alt="Image Preview">`;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            //viewHospitaModal
+            $('#viewHospitalModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                // Fetch data from the button
+                var id = button.data('id');
+                var user = button.data('user');
+                var hp_name = button.data('hp_name');
+                var contact = button.data('contact');
+                var upazila = button.data('upazila');
+                var address = button.data('address');
+                var status = button.data('status');
+                var entry = button.data('entry');
+                var image = button.data('image');
+
+                var modal = $(this);
+                modal.find('#xUser').text(user);
+                modal.find('#xHp_name').text(hp_name);
+                modal.find('#xContact').text(contact);
+                modal.find('#xUpazila').text(upazila);
+                modal.find('#xAddress').text(address);
+                modal.find('#xStatus').text(status);
+                modal.find('#xEntry').text(entry);
+
+                // Set the image source correctly
+                var modalImage = modal.find('#modalImage');
+                if (image) {
+                    modalImage.attr('src', image);
+                } else {
+                    modalImage.attr('src', "{{ asset('assets/dashboard/img/users/avatar.png') }}");
+                }
+            });
+
+            //editHospitaModal
+            $('#editHospitalModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var hp_name = button.data('hp_name');
+                var contact = button.data('contact');
+                var upazila = button.data('upazila');
+                var address = button.data('address');
+                var status = button.data('status');
+                var entry = button.data('entry');
+                var image = button.data('image');
+
+                var modal = $(this);
+                modal.find('#hp_name').val(hp_name);
+                modal.find('#contact').val(contact);
+                modal.find('#upazila').val(upazila);
+                modal.find('#address').val(address);
+                modal.find('#status').val(status);
+
+                var imagePreview = modal.find('#imagePreviewX');
+                if (image) {
+                    imagePreview.html('<img src="' + image + '" class="img-fluid" />');
+                } else {
+                    imagePreview.html('<i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>');
+                }
+
+                modal.find('#modalFormX').attr('action', '/admin/hospitals/' + id);
+
+
+            });
+
+            //deleteHospital
+            function deleteHospital(id) {
+                if (confirm('Are you sure you want to delete this hospital?')) {
+                    $.ajax({
+                        url: '{{ route('admin.hospitals.destroy') }}',
+                        type: 'DELETE',
+                        data: {
+                            id: id,
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        success: function(response) {
+                            if (response.status) {
+                                alert(response.message);
+                                location.reload();
+                            } else {
+                                alert(response.message);
+                            }
+                        },
+                        error: function(xhr) {
+                            alert('Failed to delete Hospital. Please try again.');
+                            console.error(xhr.responseText);
+                        },
+                    });
+                }
+            }
+
+        </script>
+    </x-slot>
 </x-dashboard-app-layout>

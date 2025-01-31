@@ -13,6 +13,7 @@ class DoctorsController extends Controller
     public function index()
     {
         // $doctors = Doctors::latest()->paginate(25);
+        //$doctors = Doctors::with('user')->latest()->paginate(25);
         // return view('modules.Doctors.DoctorList',[
         //     'doctors' => $doctors
         // ]);

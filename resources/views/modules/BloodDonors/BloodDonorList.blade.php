@@ -67,7 +67,7 @@
                                                         <td class="align-left"> {{ $donor->gender }} </td>
                                                         <td class="align-left"> {{ $donor->contact }} </td>
                                                         <td class="align-left"> {{ $donor->upazila }} </td>
-                                                        <td class="align-left"> {{ $donor->user_id }} </td>
+                                                        <td class="align-left"> {{ $donor->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
                                                             {{ \Carbon\Carbon::parse($donor->created_at)->format('d M, Y') }}
                                                         </td>
@@ -90,7 +90,7 @@
                                                             <a href="#" class="btn btn-success"
                                                                 data-toggle="modal" data-target="#viewDonorModal"
                                                                 data-id="{{ $donor->id }}"
-                                                                data-user_id="{{ $donor->user_id }}"
+                                                                data-user="{{ $donor->user->name }}"
                                                                 data-name="{{ $donor->name }}"
                                                                 data-blood_gorup="{{ $donor->blood_gorup }}"
                                                                 data-last_donate="{{ $donor->last_donate }}"
@@ -107,7 +107,7 @@
                                                             <a href="#" class="btn btn-primary"
                                                                 data-toggle="modal" data-target="#editDonorModal"
                                                                 data-id="{{ $donor->id }}"
-                                                                data-user_id="{{ $donor->user_id }}"
+                                                                data-user="{{ $donor->user->name }}"
                                                                 data-name="{{ $donor->name }}"
                                                                 data-blood_gorup="{{ $donor->blood_gorup }}"
                                                                 data-last_donate="{{ $donor->last_donate }}"
@@ -281,7 +281,7 @@
                     <!-- Contact Field -->
                     <div class="form-group">
                         <label for="contact">যোগাযোগ নম্বর :*</label>
-                        <input type="text" name="contact" class="form-control" id="hospitalontact" placeholder="ফোন নম্বর লিখুন" required>
+                        <input type="text" name="contact" class="form-control" id="contact" placeholder="ফোন নম্বর লিখুন" required>
                     </div>
 
                     <!-- Gender Field -->
@@ -483,7 +483,7 @@
                                 <div class="about-text about-list">
                                     <div class="d-flex bd-highlight">
                                         <div class="p-2 align-self-center fixed-width" style="width: 100px; flex-shrink: 0;">
-                                            <img id="modalImage" src="{{ asset('assets/dashboard/img/users/avatar.png') }}" style="width: 100px; height: 100px;" title="Hospital Logo" alt="logo">
+                                            <img id="modalImage" src="{{ asset('assets/dashboard/img/users/avatar.png') }}" style="width: 100px; height: 100px;" title="Logo" alt="logo">
                                         </div>
                                         <div class="p-2 flex-grow-1 bd-highlight">
                                             <h4 class="dark-color"> <span id="xName"></span> </h4>
@@ -520,7 +520,7 @@
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
-                var user_id = button.data('user_id');
+                var user = button.data('user');
                 var name = button.data('name');
                 var blood_gorup = button.data('blood_gorup');
                 var last_donate = button.data('last_donate');
@@ -534,7 +534,7 @@
                 var entry = button.data('entry');
 
                 var modal = $(this);
-                modal.find('#xUser').text(user_id);
+                modal.find('#xUser').text(user);
                 modal.find('#xName').text(name);
                 modal.find('#xBloodGorup').text(blood_gorup);
                 modal.find('#xLastDonate').text(last_donate);

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class BloodNeedersController extends Controller
 {    public function index()
     {
-        $needers = BloodNeeders::latest()->paginate(25);
+        $needers = BloodNeeders::with('user')->latest()->paginate(25);
         return view('modules.BloodNeeders.BloodNeederList',[
             'needers' => $needers
         ]);
