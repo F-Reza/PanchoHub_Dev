@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hospitals;
+use App\Models\Notifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -10,47 +10,46 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
-class HospitalsController extends Controller
+class NotificationsController extends Controller
 {
     public function index()
     {
-        $hospitals = Hospitals::with('user')->latest()->paginate(25);
-        return view('modules.Hospitals.HospitalList',[
-            'hospitals' => $hospitals
+        $notifications = Notifications::with('user')->latest()->paginate(25);
+        return view('modules.Notifications.NotificationList',[
+            'notifications' => $notifications
         ]);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'hp_name' => 'required|min:4',
-            'contact' => 'required|regex:/^[0-9]+$/',
+            'title' => 'required|min:4|string|max:255',
+            'discription' => 'required|min:4|string|max:255',
             'upazila' => 'required|not_in:null,',
-            'address' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
-            flash()->error('Failed to add new hospital.');
+            flash()->error('Failed to add new notification.');
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
-        $hospital = new Hospitals();
-        $hospital->user_id = Auth::user()->id;
-        $hospital-> hp_name = $request->hp_name;
-        $hospital-> contact = $request->contact;
-        $hospital-> upazila = $request->upazila;
-        $hospital-> address = $request->address;
+        $notifications = new Notifications();
+        $notifications->user_id = Auth::user()->id;
+        $notifications-> title = $request->title;
+        $notifications-> discription = $request->discription;
+        $notifications-> upazila = $request->upazila;
+        $notifications-> address = $request->address?? null;
 
         if ($request->hasFile('image')) {
 
-            $directory = public_path('uploads/hospitals');
+            $directory = public_path('uploads/notifications');
             if (!File::exists($directory)) {
                 File::makeDirectory($directory, 0777, true);
             }
 
-            if ($hospital->image) {
-                $oldImagePath = public_path('uploads/hospitals/' . $hospital->image);
+            if ($notifications->image) {
+                $oldImagePath = public_path('uploads/notifications/' . $notifications->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -58,11 +57,11 @@ class HospitalsController extends Controller
 
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = public_path('uploads/hospitals/' . $imageName);
+            $imagePath = public_path('uploads/notifications/' . $imageName);
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(600, 480);
+            $img->resize(450, 250);
             $quality = 90;
             do {
                 ob_start();
@@ -74,47 +73,47 @@ class HospitalsController extends Controller
             } while ($imageSize > 100 * 1024 && $quality > 10);
 
             $img->save($imagePath, $quality);
-            $hospital->image = $imageName;
+            $notifications->image = $imageName;
         }
 
-        $hospital->save();
+        $notifications->save();
 
-        flash()->success('New hospital added successfully.');
+        flash()->success('Notification added successfully.');
         return redirect()->back();
     }
 
-    public function update($id, Request $request, Hospitals $hospitals)
+    public function update($id, Request $request, Notifications $notifications)
     {
-        $hospital = Hospitals::findOrFail($id);
+        $notifications = Notifications::findOrFail($id);
 
         $validator = Validator::make($request->all(),[
-            'hp_name' => 'required|min:4',
-            'contact' => 'required|regex:/^[0-9]+$/',
+            'title' => 'required|min:4|string|max:255',
+            'discription' => 'required|min:4|string|max:255',
             'upazila' => 'required|not_in:null,',
-            'address' => 'required|not_in:null,',
-            'status' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
-            flash()->error('Failed to update hospital.');
+            flash()->error('Failed to update notification.');
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
-        $hospital-> hp_name = $request->hp_name;
-        $hospital-> contact = $request->contact;
-        $hospital-> upazila = $request->upazila;
-        $hospital-> address = $request->address;
-        $hospital->status = $request->status;
+        $notifications->user_id = Auth::user()->id;
+        $notifications-> title = $request->title;
+        $notifications-> discription = $request->discription;
+        $notifications-> upazila = $request->upazila;
+        $notifications-> address = $request->address?? null;
+        $notifications->status = $request->status;
 
         if ($request->hasFile('image')) {
 
-            $directory = public_path('uploads/hospitals');
+            $directory = public_path('uploads/notifications');
             if (!File::exists($directory)) {
                 File::makeDirectory($directory, 0777, true);
             }
-            if ($hospital->image) {
-                $oldImagePath = public_path('uploads/hospitals/' . $hospital->image);
+
+            if ($notifications->image) {
+                $oldImagePath = public_path('uploads/notifications/' . $notifications->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -122,11 +121,11 @@ class HospitalsController extends Controller
 
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = public_path('uploads/hospitals/' . $imageName);
+            $imagePath = public_path('uploads/notifications/' . $imageName);
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(600, 480);
+            $img->resize(450, 250);
             $quality = 90;
             do {
                 ob_start();
@@ -138,39 +137,40 @@ class HospitalsController extends Controller
             } while ($imageSize > 100 * 1024 && $quality > 10);
 
             $img->save($imagePath, $quality);
-            $hospital->image = $imageName;
+            $notifications->image = $imageName;
         }
 
-        $hospital->save();
-        flash()->success('Hospital updated successfully.');
+        $notifications->save();
+
+        flash()->success('Notification updated successfully.');
         return redirect()->back();
     }
 
-    public function destroy(Request $request, Hospitals $hospitals)
+    public function destroy(Request $request, Notifications $notifications)
     {
         $id = $request->id;
-        $hospital = Hospitals::find($id);
+        $notification = Notifications::find($id);
 
-        if (!$hospital) {
+        if (!$notifications) {
             return response()->json([
                 'status' => false,
-                'message' => 'Hospital not found.',
+                'message' => 'Notifications not found.',
             ], 404);
         }
 
-        if ($hospital->image) {
-            $imagePath = public_path('uploads/hospitals/' . $hospital->image);
+        if ($notification->image) {
+            $imagePath = public_path('uploads/notifications/' . $notification->image);
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
         }
 
-        $hospital->delete();
-        flash()->success('Hospital deleted successfully.');
+        $notification->delete();
+        flash()->success('Notification deleted successfully.');
 
         return response()->json([
             'status' => true,
-            'message' => 'Hospital deleted successfully.',
+            'message' => 'Notification deleted successfully.',
         ], 200);
     }
 }

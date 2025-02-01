@@ -82,7 +82,7 @@ class BloodDonorsController extends Controller
 
         $donor->save();
 
-        flash()->success(' Blood Donor updated successfully.');
+        flash()->success('Blood Donor updated successfully.');
         return redirect()->back();
     }
 

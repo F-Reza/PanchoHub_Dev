@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TodayNews extends Model
+class JobNews extends Model
 {
     public function user()
     {
-        return $this->belongsTo(Admin::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -19,6 +19,12 @@ use App\Http\Controllers\HospitalsController;
 use App\Http\Controllers\DiagnosticCenterController;
 use App\Http\Controllers\BloodDonorsController;
 use App\Http\Controllers\BloodNeedersController;
+use App\Http\Controllers\TodayNewsController;
+use App\Http\Controllers\JobNewsController;
+use App\Http\Controllers\NotificationsController;
+use App\Http\Controllers\SlidersController;
+use App\Http\Controllers\ScrollsController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->middleware('guest:admin')->group(function () {
@@ -88,6 +94,40 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::post('/needers', [BloodNeedersController::class, 'store'])->name('needers.store');
     Route::put('/needers/{id}', [BloodNeedersController::class, 'update'])->name('needers.update');
     Route::delete('/needers', [BloodNeedersController::class, 'destroy'])->name('needers.destroy');
+
+    //Today News Routes
+    Route::get('/todaynews', [TodayNewsController::class, 'index'])->name('todaynews.index');
+    Route::post('/todaynews', [TodayNewsController::class, 'store'])->name('todaynews.store');
+    Route::put('/todaynews/{id}', [TodayNewsController::class, 'update'])->name('todaynews.update');
+    Route::delete('/todaynews', [TodayNewsController::class, 'destroy'])->name('todaynews.destroy');
+
+    //Job News Routes
+    Route::get('/jobnews', [JobNewsController::class, 'index'])->name('jobnews.index');
+    Route::post('/jobnews', [JobNewsController::class, 'store'])->name('jobnews.store');
+    Route::put('/jobnews/{id}', [JobNewsController::class, 'update'])->name('jobnews.update');
+    Route::delete('/jobnews', [JobNewsController::class, 'destroy'])->name('jobnews.destroy');
+
+    //Notifications Routes
+    Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications', [NotificationsController::class, 'store'])->name('notifications.store');
+    Route::put('/notifications/{id}', [NotificationsController::class, 'update'])->name('notifications.update');
+    Route::delete('/notifications', [NotificationsController::class, 'destroy'])->name('notifications.destroy');
+
+    //Sliders Routes
+    Route::get('/sliders', [SlidersController::class, 'index'])->name('sliders.index');
+    Route::post('/sliders', [SlidersController::class, 'store'])->name('sliders.store');
+    Route::put('/sliders/{id}', [SlidersController::class, 'update'])->name('sliders.update');
+    Route::delete('/sliders', [SlidersController::class, 'destroy'])->name('sliders.destroy');
+
+    //Scrolls Routes
+    Route::get('/scrolls', [ScrollsController::class, 'index'])->name('scrolls.index');
+    Route::post('/scrolls', [ScrollsController::class, 'store'])->name('scrolls.store');
+    Route::put('/scrolls/{id}', [ScrollsController::class, 'update'])->name('scrolls.update');
+    Route::delete('/scrolls', [ScrollsController::class, 'destroy'])->name('scrolls.destroy');
+
+
+
+
 
 
 

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TodayNews extends Model
+class Sliders extends Model
 {
     public function user()
     {

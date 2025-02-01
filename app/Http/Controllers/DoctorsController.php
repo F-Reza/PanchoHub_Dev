@@ -132,6 +132,7 @@ class DoctorsController extends Controller
         $doctor-> current_servise = $request->current_servise;
         $doctor-> spacialist = $request->spacialist;
         $doctor->chambers = $request->chambers;
+        $doctor->status = $request->status;
 
         if ($request->hasFile('image')) {
 
@@ -170,7 +171,7 @@ class DoctorsController extends Controller
 
         $doctor->save();
 
-        flash()->success('New doctor updated successfully.');
+        flash()->success('Doctor updated successfully.');
         return redirect()->back();
     }
 

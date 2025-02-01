@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('today_news', function (Blueprint $table) {
+        Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('title');
-            $table->string('discription');
-            $table->string('upazila');
-            $table->string('address')->nullable();
-            $table->string('image')->nullable();
-            $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
+            $table->string('category');
+            $table->string('discription')->nullable();
+            $table->string('image');
+            $table->enum('status', ['Active', 'Deactive'])->default('Deactive');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('today_news');
+        Schema::dropIfExists('sliders');
     }
 };

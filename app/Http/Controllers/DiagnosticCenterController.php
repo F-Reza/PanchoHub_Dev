@@ -145,7 +145,7 @@ class DiagnosticCenterController extends Controller
         }
 
         $diagnostic->save();
-        flash()->success(' Diagnostic Center updated successfully.');
+        flash()->success('Diagnostic Center updated successfully.');
         return redirect()->back();
     }
 

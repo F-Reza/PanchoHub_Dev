@@ -11,13 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('today_news', function (Blueprint $table) {
+        Schema::create('job_news', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->string('title');
-            $table->string('discription');
+            $table->string('job_title');
+            $table->string('org_name');
+            $table->string('position');
+            $table->string('quantity');
+            $table->string('education_qualify');
+            $table->string('experience');
             $table->string('upazila');
             $table->string('address')->nullable();
+            $table->string('contact');
+            $table->string('email')->nullable();
+            $table->string('salary');
+            $table->string('dateline');
+            $table->string('others_info')->nullable();
             $table->string('image')->nullable();
             $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();
@@ -29,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('today_news');
+        Schema::dropIfExists('job_news');
     }
 };

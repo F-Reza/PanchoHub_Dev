@@ -272,11 +272,11 @@
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="tag"></i><span>নিউজ ডেস্ক</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="chat.html">আজকের খবর</a></li>
-                                <li><a class="nav-link" href="portfolio.html">চাকরির খবর</a></li>
-                                <li><a class="nav-link" href="blog.html"> নিজস্ব সংবাদ </a></li>
-                                <li><a class="nav-link" href="basic-form.html"> স্লাইডার </a></li>
-                                <li><a class="nav-link" href="forms-advanced-form.html"> স্ক্রোল </a></li>
+                                <li><a class="nav-link" href="{{ route('admin.todaynews.index') }}">আজকের খবর</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.jobnews.index') }}">চাকরির খবর</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.notifications.index') }}"> নিজস্ব সংবাদ </a></li>
+                                <li><a class="nav-link" href="{{ route('admin.sliders.index') }}"> স্লাইডার </a></li>
+                                <li><a class="nav-link" href="{{ route('admin.scrolls.index') }}"> স্ক্রোল </a></li>
                             </ul>
                         </li>
                         <li class="dropdown">

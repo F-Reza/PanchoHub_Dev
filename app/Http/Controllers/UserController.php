@@ -172,7 +172,7 @@ class UserController extends Controller //implements HasMiddleware
 
 
         $user->save();
-        flash()->success(' User updated successfully.');
+        flash()->success('User updated successfully.');
         return redirect()->back();
     }
 

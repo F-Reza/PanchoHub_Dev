@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hospitals;
+use App\Models\Sliders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -10,47 +10,43 @@ use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
-class HospitalsController extends Controller
+class SlidersController extends Controller
 {
     public function index()
     {
-        $hospitals = Hospitals::with('user')->latest()->paginate(25);
-        return view('modules.Hospitals.HospitalList',[
-            'hospitals' => $hospitals
+        $sliders = Sliders::with('user')->latest()->paginate(25);
+        return view('modules.Sliders.SliderList',[
+            'sliders' => $sliders
         ]);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'hp_name' => 'required|min:4',
-            'contact' => 'required|regex:/^[0-9]+$/',
+            'category' => 'required|not_in:null,',
             'upazila' => 'required|not_in:null,',
-            'address' => 'required|not_in:null,',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
 
         if ($validator->fails()) {
-            flash()->error('Failed to add new hospital.');
+            flash()->error('Failed to add new slider.');
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
-        $hospital = new Hospitals();
-        $hospital->user_id = Auth::user()->id;
-        $hospital-> hp_name = $request->hp_name;
-        $hospital-> contact = $request->contact;
-        $hospital-> upazila = $request->upazila;
-        $hospital-> address = $request->address;
+        $slider = new Sliders();
+        $slider->user_id = Auth::user()->id;
+        $slider-> category = $request->category;
+        $slider-> discription = $request->discription?? null;
 
         if ($request->hasFile('image')) {
 
-            $directory = public_path('uploads/hospitals');
+            $directory = public_path('uploads/sliders');
             if (!File::exists($directory)) {
                 File::makeDirectory($directory, 0777, true);
             }
 
-            if ($hospital->image) {
-                $oldImagePath = public_path('uploads/hospitals/' . $hospital->image);
+            if ($slider->image) {
+                $oldImagePath = public_path('uploads/sliders/' . $slider->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -58,11 +54,11 @@ class HospitalsController extends Controller
 
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = public_path('uploads/hospitals/' . $imageName);
+            $imagePath = public_path('uploads/sliders/' . $imageName);
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(600, 480);
+            $img->resize(450, 250);
             $quality = 90;
             do {
                 ob_start();
@@ -74,47 +70,43 @@ class HospitalsController extends Controller
             } while ($imageSize > 100 * 1024 && $quality > 10);
 
             $img->save($imagePath, $quality);
-            $hospital->image = $imageName;
+            $slider->image = $imageName;
         }
 
-        $hospital->save();
+        $slider->save();
 
-        flash()->success('New hospital added successfully.');
+        flash()->success('Slider added successfully.');
         return redirect()->back();
     }
 
-    public function update($id, Request $request, Hospitals $hospitals)
+    public function update($id, Request $request, Sliders $sliders)
     {
-        $hospital = Hospitals::findOrFail($id);
+        $slider = Sliders::findOrFail($id);
 
         $validator = Validator::make($request->all(),[
-            'hp_name' => 'required|min:4',
-            'contact' => 'required|regex:/^[0-9]+$/',
+            'category' => 'required|not_in:null,',
             'upazila' => 'required|not_in:null,',
-            'address' => 'required|not_in:null,',
-            'status' => 'required|not_in:null,',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
 
         if ($validator->fails()) {
-            flash()->error('Failed to update hospital.');
+            flash()->error('Failed to update slider.');
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
 
-        $hospital-> hp_name = $request->hp_name;
-        $hospital-> contact = $request->contact;
-        $hospital-> upazila = $request->upazila;
-        $hospital-> address = $request->address;
-        $hospital->status = $request->status;
+        $slider-> category = $request->category;
+        $slider-> discription = $request->discription?? null;
+        $slider->status = $request->status;
 
         if ($request->hasFile('image')) {
 
-            $directory = public_path('uploads/hospitals');
+            $directory = public_path('uploads/sliders');
             if (!File::exists($directory)) {
                 File::makeDirectory($directory, 0777, true);
             }
-            if ($hospital->image) {
-                $oldImagePath = public_path('uploads/hospitals/' . $hospital->image);
+
+            if ($slider->image) {
+                $oldImagePath = public_path('uploads/sliders/' . $slider->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -122,11 +114,11 @@ class HospitalsController extends Controller
 
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = public_path('uploads/hospitals/' . $imageName);
+            $imagePath = public_path('uploads/sliders/' . $imageName);
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(600, 480);
+            $img->resize(450, 250);
             $quality = 90;
             do {
                 ob_start();
@@ -138,39 +130,39 @@ class HospitalsController extends Controller
             } while ($imageSize > 100 * 1024 && $quality > 10);
 
             $img->save($imagePath, $quality);
-            $hospital->image = $imageName;
+            $slider->image = $imageName;
         }
 
-        $hospital->save();
-        flash()->success('Hospital updated successfully.');
+        $slider->save();
+
+        flash()->success('Slider added successfully.');
         return redirect()->back();
     }
-
-    public function destroy(Request $request, Hospitals $hospitals)
+    public function destroy(Request $request, Sliders $sliders)
     {
         $id = $request->id;
-        $hospital = Hospitals::find($id);
+        $slider = Sliders::find($id);
 
-        if (!$hospital) {
+        if (!$slider) {
             return response()->json([
                 'status' => false,
-                'message' => 'Hospital not found.',
+                'message' => 'Slider not found.',
             ], 404);
         }
 
-        if ($hospital->image) {
-            $imagePath = public_path('uploads/hospitals/' . $hospital->image);
+        if ($slider->image) {
+            $imagePath = public_path('uploads/sliders/' . $slider->image);
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
         }
 
-        $hospital->delete();
-        flash()->success('Hospital deleted successfully.');
+        $slider->delete();
+        flash()->success('Slider deleted successfully.');
 
         return response()->json([
             'status' => true,
-            'message' => 'Hospital deleted successfully.',
+            'message' => 'Slider deleted successfully.',
         ], 200);
     }
 }

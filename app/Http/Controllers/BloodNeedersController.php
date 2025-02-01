@@ -85,7 +85,7 @@ class BloodNeedersController extends Controller
 
         $needer->save();
 
-        flash()->success(' Blood Needer updated successfully.');
+        flash()->success('Blood Needer updated successfully.');
         return redirect()->back();
     }
 
