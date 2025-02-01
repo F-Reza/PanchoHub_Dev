@@ -22,11 +22,20 @@
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/app.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/bundles/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/bundles/izitoast/css/iziToast.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('assets/dashboard/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
+
+    <<link rel="stylesheet" href="{{ asset('assets/dashboard/bundles/summernote/summernote-bs4.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/bundles/codemirror/lib/codemirror.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/bundles/codemirror/theme/duotone-dark.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/bundles/jquery-selectric/selectric.css') }}">
+
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- CKEditor 5 -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.0/classic/ckeditor.js"></script>
+
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/components.css') }}">
@@ -385,9 +394,10 @@
     <!-- JS Libraries -->
     <script src="{{ asset('assets/dashboard/bundles/izitoast/js/iziToast.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/bundles/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('assets/dashboard/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}">
-    </script>
+    <script src="{{ asset('assets/dashboard/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/dashboard/bundles/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/bundles/summernote/summernote-bs4.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/bundles/codemirror/lib/codemirror.js') }}"></script>
 
     <!-- Remove the CDN version of jQuery if it's already included in app.min.js -->
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->

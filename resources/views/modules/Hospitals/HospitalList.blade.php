@@ -110,7 +110,6 @@
                                                             <a href="#" class="btn btn-primary"
                                                                 data-toggle="modal" data-target="#editHospitalModal"
                                                                 data-id="{{ $hospital->id }}"
-                                                                data-user="{{ $hospital->user->name }}"
                                                                 data-hp_name="{{ $hospital->hp_name }}"
                                                                 data-contact="{{ $hospital->contact }}"
                                                                 data-upazila="{{ $hospital->upazila }}"

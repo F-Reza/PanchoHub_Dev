@@ -19,6 +19,42 @@ class TodayNewsController extends Controller
             'newsToday' => $newsToday
         ]);
     }
+
+
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+
+            $directory = public_path('uploads/todayNews');
+            if (!File::exists($directory)) {
+                File::makeDirectory($directory, 0777, true);
+            }
+
+            $file = $request->file('upload');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($file);
+
+            $img->resize(450, 250);
+
+            $filePath = public_path('uploads/todayNews/' . $fileName);
+
+            $quality = 90;
+            do {
+                $img->save($filePath, $quality);
+                $imageSize = filesize($filePath);
+                $quality -= 5;
+            } while ($imageSize > 100 * 1024 && $quality > 10);
+
+            // Return the URL for CKEditor
+            $url = asset('uploads/todayNews/' . $fileName);
+            return response()->json(['fileName' => $fileName, 'uploaded' => 1, 'url' => $url]);
+        }
+
+        return response()->json(['uploaded' => 0, 'error' => ['message' => 'No file uploaded.']]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[

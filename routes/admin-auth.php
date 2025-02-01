@@ -97,6 +97,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
     //Today News Routes
     Route::get('/todaynews', [TodayNewsController::class, 'index'])->name('todaynews.index');
+    Route::post('/todaynews/upload', [TodayNewsController::class, 'upload'])->name('todaynews.upload');
     Route::post('/todaynews', [TodayNewsController::class, 'store'])->name('todaynews.store');
     Route::put('/todaynews/{id}', [TodayNewsController::class, 'update'])->name('todaynews.update');
     Route::delete('/todaynews', [TodayNewsController::class, 'destroy'])->name('todaynews.destroy');
