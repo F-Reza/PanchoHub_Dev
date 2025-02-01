@@ -101,6 +101,7 @@
                                                                 data-education_qualify="{{ $doctor->education_qualify }}"
                                                                 data-current_servise="{{ $doctor->current_servise }}"
                                                                 data-spacialist="{{ $doctor->spacialist }}"
+                                                                data-chambers='@json($doctor->chambers)'
                                                                 data-status="{{ $doctor->status }}"
                                                                 data-image="{{ $doctor->image ? asset('uploads/doctors/' . $doctor->image) : '' }}"
                                                                 data-entry="{{ \Carbon\Carbon::parse($doctor->created_at)->format('d/m/Y') }}">
@@ -115,8 +116,7 @@
                                                                 data-education_qualify="{{ $doctor->education_qualify }}"
                                                                 data-current_servise="{{ $doctor->current_servise }}"
                                                                 data-spacialist="{{ $doctor->spacialist }}"
-                                                                data-chambers="{{ $doctor->chambers }}"
-                                                                {{-- data-chambers='@json($doctor->chambers)' --}}
+                                                                data-chambers='@json($doctor->chambers)'
                                                                 data-status="{{ $doctor->status }}"
                                                                 data-image="{{ $doctor->image ? asset('uploads/doctors/' . $doctor->image) : '' }}">
                                                                 Edit
@@ -270,6 +270,20 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- <!-- Picture Input with Preview -->
+                        <div class="form-group">
+                            <div class="row justify-content-center">
+                                <div class="position-relative">
+                                    <div class="image-preview" id="imagePreview" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
+                                        <i class="bi bi-image" style="font-size: 80px; color: #ccc;"></i>
+                                    </div>
+                                    <div class="edit-icon position-absolute" id="editIcon" style="bottom: 10px; right: 10px; border-radius: 50%; padding: 5px; cursor: pointer;">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </div>
+                                    <input type="file" value="{{ old('image') }}" name="image" class="form-control d-none" id="fileInput" accept="image/*">
+                                </div>
+                            </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label for="dr_name">ডাক্তারের নাম :*</label>
@@ -485,13 +499,20 @@
                                         </div>
                                         <div class="about-list">
                                             <div class="d-flex flex-column">
-                                                <div> <samp class="sampcolor">শিক্ষাগত যোগ্যতা: </samp> </samp> <span id="xEducationQualify"> </div>
-                                                <div> <samp class="sampcolor">বর্তমান কর্মস্থল: </samp> </samp> <span id="xCurrentServise"> </div>
-                                                <div> <samp class="sampcolor">চেম্বারসমূহ: </samp> </samp> <span id="xCategory">চেম্বারসমূহ </div>
-                                                <div> <samp class="sampcolor">বিস্তারিত: </samp> </samp> <span id="xCategory"> বিস্তারিত</div>
-
+                                                <div> <samp class="sampcolor">শিক্ষাগত যোগ্যতা: </samp> <span id="xEducationQualify"> </div>
+                                                <div> <samp class="sampcolor">বর্তমান কর্মস্থল: </samp> <span id="xCurrentServise"> </div>
+                                                <div> <samp class="sampcolor">বিস্তারিত: </samp> <span id="xSpacialist"> </div>
                                             </div>
                                         </div>
+
+                                        <div class="about-list">
+                                            <div class="d-flex flex-column">
+                                                <div class="h6 pb-0 mb-0 mt-1">চেম্বারসমূহ</div>
+                                                <div><hr/></div>
+                                                <div id="chamberContainer"></div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -640,37 +661,58 @@
 
             //viewDoctorModal
             $('#viewDoctorModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget);
-                // Fetch data from the button
-                var id = button.data('id');
-                var user = button.data('user');
-                var dr_name = button.data('dr_name');
-                var category = button.data('category');
-                var education_qualify = button.data('education_qualify');
-                var current_servise = button.data('current_servise');
-                var spacialist = button.data('spacialist');
-                var status = button.data('status');
-                var entry = button.data('entry');
-                var image = button.data('image');
+            var button = $(event.relatedTarget);
+            // Fetch data from the button
+            var id = button.data('id');
+            var user = button.data('user');
+            var dr_name = button.data('dr_name');
+            var category = button.data('category');
+            var education_qualify = button.data('education_qualify');
+            var current_servise = button.data('current_servise');
+            var spacialist = button.data('spacialist');
+            var chambers = button.data('chambers');
+            var status = button.data('status');
+            var entry = button.data('entry');
+            var image = button.data('image');
 
-                var modal = $(this);
-                modal.find('#xUser').text(user);
-                modal.find('#xDrName').text(dr_name);
-                modal.find('#xCategory').text(category);
-                modal.find('#xEducationQualify').text(education_qualify);
-                modal.find('#xCurrentServise').text(current_servise);
-                modal.find('#xSpacialist').text(spacialist);
-                modal.find('#xStatus').text(status);
-                modal.find('#xEntry').text(entry);
+            var modal = $(this);
+            modal.find('#xUser').text(user);
+            modal.find('#xDrName').text(dr_name);
+            modal.find('#xCategory').text(category);
+            modal.find('#xEducationQualify').text(education_qualify);
+            modal.find('#xCurrentServise').text(current_servise);
+            modal.find('#xSpacialist').text(spacialist);
+            modal.find('#xStatus').text(status);
+            modal.find('#xEntry').text(entry);
 
-                // Set the image source correctly
-                var modalImage = modal.find('#modalImage');
-                if (image) {
-                    modalImage.attr('src', image);
-                } else {
-                    modalImage.attr('src', "{{ asset('assets/dashboard/img/users/avatar.png') }}");
-                }
-            });
+            // Set the image source correctly
+            var modalImage = modal.find('#modalImage');
+            if (image) {
+                modalImage.attr('src', image);
+            } else {
+                modalImage.attr('src', "{{ asset('assets/dashboard/img/users/avatar.png') }}");
+            }
+
+            // Populate chambers dynamically
+            var chamberContainer = modal.find('#chamberContainer');
+            chamberContainer.empty();  // Clear previous chambers
+
+            if (chambers && Array.isArray(chambers) && chambers.length > 0) {
+                chambers.forEach((chamber, index) => {
+                    chamberContainer.append(`
+                        <div> <samp class="sampcolor">চেম্বারের নাম: </samp> <span>${chamber.chamber_name}</span> </div>
+                        <div> <samp class="sampcolor">চেম্বারের ঠিকানা: </samp> <span>${chamber.chamber_address}</span> </div>
+                        <div> <samp class="sampcolor">চেম্বারের যোগাযোগ নম্বর: </samp> <span>${chamber.chamber_contact}</span> </div>
+                        <div> <samp class="sampcolor">কোন কোন দিন খোলা থাকে: </samp> <span>${chamber.chamber_date}</span> </div>
+                        <div> <samp class="sampcolor">কয়টা থেকে কয়টা পর্যন্ত খোলা থাকে: </samp> <span>${chamber.chamber_time}</span> </div>
+                        <hr>
+                    `);
+                });
+            } else {
+                chamberContainer.append('<p>No chambers available.</p>');
+            }
+        });
+
 
             //editDoctorModal
             $('#editDoctorModal').on('show.bs.modal', function (event) {
@@ -681,14 +723,11 @@
                 var education_qualify = button.data('education_qualify');
                 var current_servise = button.data('current_servise');
                 var spacialist = button.data('spacialist');
-                // var chambers = button.data('chambers');
+                var chambers = button.data('chambers');
                 var status = button.data('status');
                 var image = button.data('image');
 
-                var chambers = '[{"chamber_name":"Korotoa Medicine Holl","chamber_address":"Panchagarh","chamber_contact":"01830996044","chamber_date":"Saterday to Wednesday","chamber_time":"10:30am to 4:00pm"}]';
-
                 var modal = $(this);
-
                 // Fill form fields
                 modal.find('#drName').val(dr_name);
                 modal.find('#category').val(category);
@@ -705,50 +744,56 @@
                     imagePreview.html('<i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
+                console.log("Chambers raw data:", chambers);
+                console.log("Chambers type:", typeof chambers);
+
+                // Clear existing chambers
                 // Clear existing chambers
                 var chamberContainer = modal.find('#chamberContainerX');
                 chamberContainer.empty();
 
+                // Ensure chambers is an array before processing
+                var chamberData = Array.isArray(chambers) ? chambers : JSON.parse(chambers || '[]');
+
+                // Debugging: Confirm parsed data
+                console.log("Parsed Chamber Data:", chamberData);
+
+                let chamberCount = 1;
                 // Populate chambers dynamically
-                if (chambers && typeof chambers === 'string' && chambers.trim() !== '') {
-                    try {
-                        var chamberData = JSON.parse(chambers);
-                        chamberData.forEach((chamber, index) => {
-                            chamberContainer.append(`
-                                <div class="chamber-group mb-3">
-                                    <div class="form-group">
-                                        <label>চেম্বারের নাম :*</label>
-                                        <input type="text" class="form-control" name="chambers[${index}][chamber_name]" value="${chamber.chamber_name || ''}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>চেম্বারের ঠিকানা :*</label>
-                                        <input type="text" class="form-control" name="chambers[${index}][chamber_address]" value="${chamber.chamber_address || ''}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>চেম্বারের যোগাযোগ নম্বর :*</label>
-                                        <input type="text" class="form-control" name="chambers[${index}][chamber_contact]" value="${chamber.chamber_contact || ''}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>কোন কোন দিন খোলা থাকে :*</label>
-                                        <input type="text" class="form-control" name="chambers[${index}][chamber_date]" value="${chamber.chamber_date || ''}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>কয়টা থেকে কয়টা পর্যন্ত খোলা থাকে :*</label>
-                                        <input type="text" class="form-control" name="chambers[${index}][chamber_time]" value="${chamber.chamber_time || ''}" required>
-                                    </div>
-                                    <button type="button" class="btn btn-danger remove-single-chamberX">Remove</button>
-                                </div>
-                            `);
-                        });
-                    } catch (error) {
-                        console.error("Error parsing chambers JSON:", error);
-                    }
-                }
+                chamberData.forEach((chamber, index) => {
+                    chamberContainer.append(`
+                        <div class="chamber-group mb-3">
+                            <h6>চেম্বার ${chamberCount}</h6>
+                            <div class="form-group">
+                                <label>চেম্বারের নাম :*</label>
+                                <input type="text" class="form-control" name="chambers[${index}][chamber_name]" value="${chamber.chamber_name || ''}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>চেম্বারের ঠিকানা :*</label>
+                                <input type="text" class="form-control" name="chambers[${index}][chamber_address]" value="${chamber.chamber_address || ''}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>চেম্বারের যোগাযোগ নম্বর :*</label>
+                                <input type="text" class="form-control" name="chambers[${index}][chamber_contact]" value="${chamber.chamber_contact || ''}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>কোন কোন দিন খোলা থাকে :*</label>
+                                <input type="text" class="form-control" name="chambers[${index}][chamber_date]" value="${chamber.chamber_date || ''}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>কয়টা থেকে কয়টা পর্যন্ত খোলা থাকে :*</label>
+                                <input type="text" class="form-control" name="chambers[${index}][chamber_time]" value="${chamber.chamber_time || ''}" required>
+                            </div>
+                            <button type="button" class="btn btn-danger remove-single-chamberX">Remove</button>
+                        </div>
+                    `);
+                    chamberCount++;
+                });
+
 
                 modal.find('#modalForm').attr('action', '/admin/doctors/' + id);
 
             });
-
 
             // Add ChamberX
             document.addEventListener("DOMContentLoaded", function () {

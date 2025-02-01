@@ -43,7 +43,6 @@ class DoctorsController extends Controller
         ]);
 
         if ($validator->fails()) {
-            dd ($validator->errors());
             flash()->error('Failed to add new doctor.');
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
@@ -56,7 +55,8 @@ class DoctorsController extends Controller
         $doctor-> current_servise = $request->current_servise;
         $doctor-> spacialist = $request->spacialist;
         // $doctor->chambers = json_encode($request->chambers, JSON_UNESCAPED_UNICODE);
-        $doctor->chambers = json_encode($request->chambers, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        // $doctor->chambers = json_encode($request->chambers, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        $doctor->chambers = $request->chambers;
 
 
         if ($request->hasFile('image')) {
@@ -131,7 +131,7 @@ class DoctorsController extends Controller
         $doctor-> education_qualify = $request->education_qualify;
         $doctor-> current_servise = $request->current_servise;
         $doctor-> spacialist = $request->spacialist;
-        $doctor->chambers = json_encode($request->chambers, JSON_UNESCAPED_UNICODE);
+        $doctor->chambers = $request->chambers;
 
         if ($request->hasFile('image')) {
 
