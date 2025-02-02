@@ -411,12 +411,9 @@
                                 <div class="about-text about-list">
                                     <div class="d-flex bd-highlight p-2">
                                         <div class="p-2 flex-grow-1 bd-highlight">
-                                            {{-- <div class="d-flex justify-content-center mb-3">
-                                                <img id="modalImage" src="" style="width: 300px; height: 160px;" title="todayNews Logo" alt="logo">
-                                            </div> --}}
 
                                             <div class="d-flex bd-highlight">
-                                                <div class="flex-fill bd-highlight mb-3">
+                                                <div class="flex-fill bd-highlight mb-3 mr-3">
                                                     <img id="modalImage" src="" style="width: 300px; height: 160px;" title="todayNews Logo" alt="logo">
                                                 </div>
                                                 <div class="flex-fill bd-highlight align-self-center">
@@ -450,23 +447,45 @@
 
             //CKEditor with Image Upload
             ClassicEditor
-            .create(document.querySelector('#editor'), {
-                ckfinder: {
-                    uploadUrl: '{{ route('admin.todaynews.upload').'?_token='.csrf_token() }}'
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
+                .create(document.querySelector('#editor'), {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'imageUpload', 'imageStyle:alignLeft', 'imageStyle:full',
+                        'imageStyle:alignCenter', 'imageStyle:alignRight', 'resizeImage',
+                        'insertTable', 'mediaEmbed', 'alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'indent', 'undo', 'redo'
+                    ],
+                    ckfinder: {
+                        uploadUrl: '{{ route('admin.todaynews.upload').'?_token='.csrf_token() }}'
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
 
-            ClassicEditor
-            .create(document.querySelector('#editorX'), {
-                ckfinder: {
-                    uploadUrl: '{{ route('admin.todaynews.upload').'?_token='.csrf_token() }}'
+            // Function to initialize CKEditor
+            function initializeCKEditor() {
+                return ClassicEditor
+                    .create(document.querySelector('#editorX'), {
+                        ckfinder: {
+                            uploadUrl: '{{ route('admin.todaynews.upload').'?_token='.csrf_token() }}'
+                        }
+                    });
+            }
+
+            // Variable to hold the CKEditor instance
+            let editorInstance;
+
+            // Event listener for when the edit modal is hidden
+            $('#editTodayNewsModal').on('hidden.bs.modal', function() {
+                if (editorInstance) {
+                    editorInstance.destroy();
+                    editorInstance = null;
                 }
-            })
-            .catch(error => {
-                console.error(error);
             });
 
             //imagePreview
@@ -520,7 +539,7 @@
                 var modal = $(this);
                 modal.find('#xUser').text(user);
                 modal.find('#xTitle').text(title);
-                modal.find('#xDescription').text(description);
+                modal.find('#xDescription').html(description);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
                 modal.find('#xStatus').text(status);
@@ -549,10 +568,19 @@
 
                 var modal = $(this);
                 modal.find('#title').val(title);
-                modal.find('#description').val(description);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
                 modal.find('#status').val(status);
+
+                // Initialize CKEditor if it hasn't been initialized yet
+                if (!editorInstance) {
+                    initializeCKEditor().then(editor => {
+                        editorInstance = editor;
+                        editorInstance.setData(description);
+                    });
+                } else {
+                    editorInstance.setData(description);
+                }
 
                 var imagePreview = modal.find('#imagePreviewX');
                 if (image) {
