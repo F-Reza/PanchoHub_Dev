@@ -455,8 +455,19 @@
                         </div>
 
                         <!-- Add Chamber Buttons -->
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
                             <button type="button" class="btn btn-success" id="addChamberBtnX">+ Add Chamber</button>
+                        </div>
+
+                        <!-- Status Field -->
+                        <div class="form-group">
+                            <label for="status">স্ট্যাটাস </label>
+                            <select class="form-control" id="status" name="status" required>
+                                <option value="Pending" {{ old('status') == 'Pending' ? 'selected' : '' }}> Pending </option>
+                                <option value="In Review" {{ old('status') == 'In Review' ? 'selected' : '' }}> In Review </option>
+                                <option value="Approved" {{ old('status') == 'Approved' ? 'selected' : '' }}> Approved </option>
+                                <option value="Denied" {{ old('status') == 'Denied' ? 'selected' : '' }}> Denied </option>
+                            </select>
                         </div>
 
                         <div class="modal-footer">

@@ -19,14 +19,14 @@ return new class extends Migration
             $table->string('position');
             $table->string('quantity');
             $table->string('education_qualify');
-            $table->string('experience');
+            $table->text('experience');
             $table->string('upazila');
-            $table->string('address')->nullable();
+            $table->text('address')->nullable();
             $table->string('contact');
             $table->string('email')->nullable();
             $table->string('salary');
             $table->string('dateline');
-            $table->string('others_info')->nullable();
+            $table->text('others_info')->nullable();
             $table->string('image')->nullable();
             $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('contact');
             $table->string('upazila');
-            $table->string('address');
-            $table->string('facilities');
+            $table->text('address');
+            $table->text('facilities');
             $table->string('image')->nullable();
             $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();

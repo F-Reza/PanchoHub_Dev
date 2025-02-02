@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('category');
-            $table->string('discription')->nullable();
+            $table->string('description')->nullable();
             $table->string('image');
             $table->enum('status', ['Active', 'Deactive'])->default('Deactive');
             $table->timestamps();

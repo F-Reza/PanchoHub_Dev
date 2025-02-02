@@ -25,8 +25,8 @@ class DiagnosticCenterController extends Controller
             'title' => 'required|min:4',
             'contact' => 'required|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
-            'address' => 'required|not_in:null,',
-            'facilities' => 'required|min:4',
+            'address' => 'required|min:4|string',
+            'facilities' => 'required|min:4|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -92,8 +92,8 @@ class DiagnosticCenterController extends Controller
             'title' => 'required|min:4',
             'contact' => 'required|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
-            'address' => 'required|not_in:null,',
-            'facilities' => 'required|min:4',
+            'address' => 'required|min:4|string',
+            'facilities' => 'required|min:4|string',
             'status' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);

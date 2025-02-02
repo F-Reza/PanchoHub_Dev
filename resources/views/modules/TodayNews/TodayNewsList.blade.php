@@ -97,7 +97,7 @@
                                                                 data-id="{{ $todayNews->id }}"
                                                                 data-user="{{ $todayNews->user->name }}"
                                                                 data-title="{{ $todayNews->title }}"
-                                                                data-discription="{{ $todayNews->discription }}"
+                                                                data-description="{{ $todayNews->description }}"
                                                                 data-upazila="{{ $todayNews->upazila }}"
                                                                 data-address="{{ $todayNews->address ?? 'Empty' }}"
                                                                 data-status="{{ $todayNews->status }}"
@@ -110,7 +110,7 @@
                                                                 data-toggle="modal" data-target="#editTodayNewsModal"
                                                                 data-id="{{ $todayNews->id }}"
                                                                 data-title="{{ $todayNews->title }}"
-                                                                data-discription="{{ $todayNews->discription }}"
+                                                                data-description="{{ $todayNews->description }}"
                                                                 data-upazila="{{ $todayNews->upazila }}"
                                                                 data-address="{{ $todayNews->address ?? 'Empty' }}"
                                                                 data-status="{{ $todayNews->status }}"
@@ -253,10 +253,10 @@
                         <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন">
                     </div>
 
-                    <!-- Discription Field -->
+                    <!-- Description Field -->
                     <div class="form-group ">
                         <label for="itemName">বিস্তারিত খবর :*</label>
-                        <textarea class="" id="editor" name="discription" value="{{ old('discription') }}" placeholder="বিস্তারিত খবর"></textarea>
+                        <textarea class="" id="editor" name="description" value="{{ old('description') }}" placeholder="বিস্তারিত খবর"></textarea>
                     </div>
 
                     <!-- Upazila Field -->
@@ -308,7 +308,7 @@
 
     <!-- Edit TodayNews Modal -->
     <div class="modal modalz fade" id="editTodayNewsModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
 
             <!-- Modal Content Goes Here -->
@@ -324,35 +324,17 @@
                 </div>
 
                 <div class="modal-body">
-                    <!-- Picture Input with Preview -->
+
+                    <!-- Title Field -->
                     <div class="form-group">
-                        <div class="row justify-content-center">
-                            <div class="col-md-4 text-center">
-                                <div class="profile-container">
-                                    <div class="image-preview" id="imagePreviewX">
-                                        <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
-                                    </div>
-                                    <div class="edit-icon" id="editIconX">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </div>
-                                    <input type="file" name="image" class="form-control d-none"
-                                        id="fileInputX" accept="image/*">
-                                </div>
-                            </div>
-                        </div>
+                        <label for="title">খবরের শিরোনাম :* </label>
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন">
                     </div>
 
-
-                    <!-- todayNewsName Field -->
-                    <div class="form-group">
-                        <label for="todayNewsName">হাসপাতালের নাম :* </label>
-                        <input type="text" name="hp_name" class="form-control" id="hp_name" value="{{ old(key: 'hp_name') }}" placeholder="নাম লিখুন">
-                    </div>
-
-                    <!-- todayNewsContact Field -->
-                    <div class="form-group">
-                        <label for="todayNewsContact">হাসপাতালের যোগাযোগ নম্বর :*</label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
+                    <!-- Description Field -->
+                    <div class="form-group ">
+                        <label for="itemName">বিস্তারিত খবর :*</label>
+                        <textarea class="" id="editorX" name="description" value="{{ old('description') }}" placeholder="বিস্তারিত খবর"></textarea>
                     </div>
 
                     <!-- Upazila Field -->
@@ -368,12 +350,29 @@
                         </select>
                     </div>
 
-                    <!-- todayNewsAddress Field -->
+                    <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address">হাসপাতালের সম্পূৰ্ণ ঠিকানা :*</label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old(key: 'address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
+                        <label for="address"> বিস্তারিত ঠিকানা :*</label>
+                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
                     </div>
 
+                    <!-- Picture Input with Preview -->
+                    <div class="form-group">
+                        <label class="row justify-content-center" for="image-upload" id="image-label">থাম্বনেইল</label>
+                        <div class="row justify-content-center">
+                            <div class="position-relative">
+                                <div class="image-preview" id="imagePreviewX" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
+                                    <i class="bi bi-image" style="font-size: 80px; color: #ccc;"></i>
+                                </div>
+                                <div class="edit-icon position-absolute" id="editIconX" style="bottom: 10px; right: 10px; border-radius: 50%; padding: 5px; cursor: pointer;">
+                                    <i class="bi bi-pencil-square"></i>
+                                </div>
+                                <input type="file" name="image" class="form-control d-none" id="fileInputX" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status Field -->
                     <div class="form-group">
                         <label for="status">স্ট্যাটাস </label>
                         <select class="form-control" id="status" name="status" required>
@@ -410,19 +409,27 @@
                         <div class="row align-items-center flex-column">
                             <div class="col-lg-12">
                                 <div class="about-text about-list">
-                                    <div class="d-flex bd-highlight">
-                                        <div class="p-2 align-self-center fixed-width" style="width: 200px; flex-shrink: 0;">
-                                            <img id="modalImage" src="" style="width: 200px; height: 160px;" title="todayNews Logo" alt="logo">
-                                        </div>
+                                    <div class="d-flex bd-highlight p-2">
                                         <div class="p-2 flex-grow-1 bd-highlight">
-                                            <h4 class="dark-color"> <span id="xTitle"></span> </h4>
-                                            <div><samp class="sampcolor">বিস্তারিত খবর: </samp> <span id="xDiscription"></span></div>
-                                            <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
-                                            <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
-                                            <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
-                                            <div><samp class="sampcolor">যোগ করেছেন: </samp> <span id="xUser"></span></div>
-                                            <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
+                                            {{-- <div class="d-flex justify-content-center mb-3">
+                                                <img id="modalImage" src="" style="width: 300px; height: 160px;" title="todayNews Logo" alt="logo">
+                                            </div> --}}
 
+                                            <div class="d-flex bd-highlight">
+                                                <div class="flex-fill bd-highlight mb-3">
+                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="todayNews Logo" alt="logo">
+                                                </div>
+                                                <div class="flex-fill bd-highlight align-self-center">
+                                                    <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
+                                                    <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
+                                                    <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
+                                                    <div><samp class="sampcolor">যোগ করেছেন: </samp> <span id="xUser"></span></div>
+                                                    <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
+                                                </div>
+                                            </div>
+
+                                            <h6 class="dark-color"> <span id="xTitle"></span> </h6>
+                                            <div><samp class="sampcolor">বিস্তারিত খবর: </samp> <span id="xDescription"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -444,6 +451,16 @@
             //CKEditor with Image Upload
             ClassicEditor
             .create(document.querySelector('#editor'), {
+                ckfinder: {
+                    uploadUrl: '{{ route('admin.todaynews.upload').'?_token='.csrf_token() }}'
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+            ClassicEditor
+            .create(document.querySelector('#editorX'), {
                 ckfinder: {
                     uploadUrl: '{{ route('admin.todaynews.upload').'?_token='.csrf_token() }}'
                 }
@@ -493,7 +510,7 @@
                 var id = button.data('id');
                 var user = button.data('user');
                 var title = button.data('title');
-                var discription = button.data('discription');
+                var description = button.data('description');
                 var upazila = button.data('upazila');
                 var address = button.data('address') || '';
                 var status = button.data('status');
@@ -503,7 +520,7 @@
                 var modal = $(this);
                 modal.find('#xUser').text(user);
                 modal.find('#xTitle').text(title);
-                modal.find('#xDiscription').text(discription);
+                modal.find('#xDescription').text(description);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
                 modal.find('#xStatus').text(status);
@@ -523,7 +540,7 @@
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
                 var title = button.data('title');
-                var discription = button.data('discription');
+                var description = button.data('description');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
                 var status = button.data('status');
@@ -532,7 +549,7 @@
 
                 var modal = $(this);
                 modal.find('#title').val(title);
-                modal.find('#discription').val(discription);
+                modal.find('#description').val(description);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
                 modal.find('#status').val(status);
@@ -541,7 +558,7 @@
                 if (image) {
                     imagePreview.html('<img src="' + image + '" class="img-fluid" />');
                 } else {
-                    imagePreview.html('<i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>');
+                    imagePreview.html('<i class="bi bi-image" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
                 modal.find('#modalFormX').attr('action', '/admin/todaynews/' + id);

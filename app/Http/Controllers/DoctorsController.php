@@ -30,7 +30,7 @@ class DoctorsController extends Controller
             'category' => 'required|not_in:null,',
             'education_qualify' => 'required|min:4|string|max:255',
             'current_servise' => 'required|min:4|string|max:255',
-            'spacialist' => 'required|min:4|string|max:255',
+            'spacialist' => 'required|min:4|string',
 
             'chambers' => 'array|min:1',
             'chambers.*.chamber_name' => 'string|max:255',
@@ -109,7 +109,7 @@ class DoctorsController extends Controller
             'category' => 'required|not_in:null,',
             'education_qualify' => 'required|min:4|string|max:255',
             'current_servise' => 'required|min:4|string|max:255',
-            'spacialist' => 'required|min:4|string|max:255',
+            'spacialist' => 'required|min:4|string',
 
             'chambers' => 'array|min:1',
             'chambers.*.chamber_name' => 'string|max:255',

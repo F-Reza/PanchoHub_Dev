@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('contact');
             $table->string('gender');
             $table->string('upazila');
-            $table->string('address')->nullable();
-            $table->string('comment')->nullable();
+            $table->text('address')->nullable();
+            $table->text('comment')->nullable();
             $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();
         });

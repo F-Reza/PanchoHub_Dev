@@ -24,7 +24,7 @@ class NotificationsController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'title' => 'required|min:4|string|max:255',
-            'discription' => 'required|min:4|string|max:255',
+            'description' => 'required|min:4|string',
             'upazila' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -37,7 +37,7 @@ class NotificationsController extends Controller
         $notifications = new Notifications();
         $notifications->user_id = Auth::user()->id;
         $notifications-> title = $request->title;
-        $notifications-> discription = $request->discription;
+        $notifications-> description = $request->description;
         $notifications-> upazila = $request->upazila;
         $notifications-> address = $request->address?? null;
 
@@ -88,7 +88,7 @@ class NotificationsController extends Controller
 
         $validator = Validator::make($request->all(),[
             'title' => 'required|min:4|string|max:255',
-            'discription' => 'required|min:4|string|max:255',
+            'description' => 'required|min:4|string',
             'upazila' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -100,7 +100,7 @@ class NotificationsController extends Controller
 
         $notifications->user_id = Auth::user()->id;
         $notifications-> title = $request->title;
-        $notifications-> discription = $request->discription;
+        $notifications-> description = $request->description;
         $notifications-> upazila = $request->upazila;
         $notifications-> address = $request->address?? null;
         $notifications->status = $request->status;

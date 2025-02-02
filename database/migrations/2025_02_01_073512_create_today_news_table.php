@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('title');
-            $table->string('discription');
+            $table->text('description');
             $table->string('upazila');
             $table->string('address')->nullable();
             $table->string('image')->nullable();

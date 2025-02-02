@@ -19,8 +19,6 @@ class TodayNewsController extends Controller
             'newsToday' => $newsToday
         ]);
     }
-
-
     public function upload(Request $request)
     {
         if ($request->hasFile('upload')) {
@@ -57,9 +55,10 @@ class TodayNewsController extends Controller
 
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(),[
             'title' => 'required|min:4|string|max:255',
-            'discription' => 'required|min:4|string|max:255',
+            'description' => 'required|min:4|string',
             'upazila' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -72,7 +71,7 @@ class TodayNewsController extends Controller
         $todayNews = new TodayNews();
         $todayNews->user_id = Auth::user()->id;
         $todayNews-> title = $request->title;
-        $todayNews-> discription = $request->discription;
+        $todayNews-> description = $request->description;
         $todayNews-> upazila = $request->upazila;
         $todayNews-> address = $request->address?? null;
 
@@ -123,7 +122,7 @@ class TodayNewsController extends Controller
 
         $validator = Validator::make($request->all(),[
             'title' => 'required|min:4|string|max:255',
-            'discription' => 'required|min:4|string|max:255',
+            'description' => 'required|min:4|string',
             'upazila' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -135,7 +134,7 @@ class TodayNewsController extends Controller
 
         $todayNews->user_id = Auth::user()->id;
         $todayNews-> title = $request->title;
-        $todayNews-> discription = $request->discription;
+        $todayNews-> description = $request->description;
         $todayNews-> upazila = $request->upazila;
         $todayNews-> address = $request->address?? null;
         $todayNews->status = $request->status;

@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('contact');
             $table->string('gender');
             $table->string('upazila');
-            $table->string('hp_address');
-            $table->string('details')->nullable();
+            $table->text('hp_address');
+            $table->text('details')->nullable();
             $table->string('gift')->nullable();
             $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();

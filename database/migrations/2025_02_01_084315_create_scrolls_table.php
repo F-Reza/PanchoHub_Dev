@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('category');
-            $table->string('text');
+            $table->text('text');
             $table->enum('status', ['Active', 'Deactive'])->default('Deactive');
             $table->timestamps();
         });

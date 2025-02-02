@@ -36,7 +36,7 @@ class SlidersController extends Controller
         $slider = new Sliders();
         $slider->user_id = Auth::user()->id;
         $slider-> category = $request->category;
-        $slider-> discription = $request->discription?? null;
+        $slider-> description = $request->description?? null;
 
         if ($request->hasFile('image')) {
 
@@ -95,7 +95,7 @@ class SlidersController extends Controller
         }
 
         $slider-> category = $request->category;
-        $slider-> discription = $request->discription?? null;
+        $slider-> description = $request->description?? null;
         $slider->status = $request->status;
 
         if ($request->hasFile('image')) {
