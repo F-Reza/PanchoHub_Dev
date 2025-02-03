@@ -112,7 +112,7 @@
                                                                 data-title="{{ $todayNews->title }}"
                                                                 data-description="{{ $todayNews->description }}"
                                                                 data-upazila="{{ $todayNews->upazila }}"
-                                                                data-address="{{ $todayNews->address ?? 'Empty' }}"
+                                                                data-address="{{ $todayNews->address ?? '' }}"
                                                                 data-status="{{ $todayNews->status }}"
                                                                 data-image="{{ $todayNews->image ? asset('uploads/todayNews/' . $todayNews->image) : '' }}">
                                                                 Edit
@@ -250,7 +250,7 @@
                     <!-- Title Field -->
                     <div class="form-group">
                         <label for="title">খবরের শিরোনাম :* </label>
-                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন">
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
                     <!-- Description Field -->
@@ -275,7 +275,7 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> বিস্তারিত ঠিকানা :*</label>
+                        <label for="address"> বিস্তারিত ঠিকানা :</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
                     </div>
 
@@ -328,7 +328,7 @@
                     <!-- Title Field -->
                     <div class="form-group">
                         <label for="title">খবরের শিরোনাম :* </label>
-                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন">
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
                     <!-- Description Field -->
@@ -352,7 +352,7 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> বিস্তারিত ঠিকানা :*</label>
+                        <label for="address"> বিস্তারিত ঠিকানা :</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
                     </div>
 

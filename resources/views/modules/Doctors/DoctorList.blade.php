@@ -270,20 +270,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <!-- Picture Input with Preview -->
-                        <div class="form-group">
-                            <div class="row justify-content-center">
-                                <div class="position-relative">
-                                    <div class="image-preview" id="imagePreview" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
-                                        <i class="bi bi-image" style="font-size: 80px; color: #ccc;"></i>
-                                    </div>
-                                    <div class="edit-icon position-absolute" id="editIcon" style="bottom: 10px; right: 10px; border-radius: 50%; padding: 5px; cursor: pointer;">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </div>
-                                    <input type="file" value="{{ old('image') }}" name="image" class="form-control d-none" id="fileInput" accept="image/*">
-                                </div>
-                            </div>
-                        </div> --}}
 
                         <div class="form-group">
                             <label for="dr_name">ডাক্তারের নাম :*</label>

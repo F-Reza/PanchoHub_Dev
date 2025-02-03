@@ -115,6 +115,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::post('/notifications', [NotificationsController::class, 'store'])->name('notifications.store');
     Route::put('/notifications/{id}', [NotificationsController::class, 'update'])->name('notifications.update');
     Route::delete('/notifications', [NotificationsController::class, 'destroy'])->name('notifications.destroy');
+    Route::post('/notifications/upload', [NotificationsController::class, 'upload'])->name('notifications.upload');
+    Route::post('/notifications/delete', [NotificationsController::class, 'delete'])->name('notifications.delete');
 
     //Sliders Routes
     Route::get('/sliders', [SlidersController::class, 'index'])->name('sliders.index');

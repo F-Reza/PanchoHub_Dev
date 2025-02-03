@@ -209,7 +209,7 @@
 
                             @if (!empty(Auth::user()->image))
                                 <img alt="image" src="{{ asset('uploads/admins/' . Auth::user()->image) }}"
-                                    class="rounded-circle">
+                                    class="user-img-radious-style">
                             @else
                                 <img alt="image" src="{{ asset('assets/dashboard/img/users/avatar.png') }}"
                                     class="user-img-radious-style">

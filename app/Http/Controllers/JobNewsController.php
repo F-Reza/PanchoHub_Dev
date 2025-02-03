@@ -24,16 +24,15 @@ class JobNewsController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'job_title' => 'required|min:4|string|max:255',
-            'discription' => 'required|min:4|string|max:255',
             'org_name' => 'required|min:2|string|max:255',
             'position' => 'required|min:2|string|max:255',
-            'quantity' => 'required|min:1|string|max:255',
+            'vacancy' => 'required|min:1|string|max:255',
             'education_qualify' => 'required|min:2|string|max:255',
             'experience' => 'required|min:2|string',
             'upazila' => 'required|not_in:null,',
             'contact' => 'required|regex:/^[0-9]+$/',
             'salary' => 'required|min:2|string|max:255',
-            'dateline' => 'required|min:2|string|max:255',
+            'dateline' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -47,7 +46,7 @@ class JobNewsController extends Controller
         $jobNews-> job_title = $request->job_title;
         $jobNews-> org_name = $request->org_name;
         $jobNews-> position = $request->position;
-        $jobNews-> quantity = $request->quantity;
+        $jobNews-> vacancy = $request->vacancy;
         $jobNews-> education_qualify = $request->education_qualify;
         $jobNews-> experience = $request->experience;
         $jobNews-> upazila = $request->upazila;
@@ -78,7 +77,7 @@ class JobNewsController extends Controller
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(550, 550);
+            $img->resize(150, 150);
             $quality = 90;
             do {
                 ob_start();
@@ -105,16 +104,15 @@ class JobNewsController extends Controller
 
         $validator = Validator::make($request->all(),[
             'job_title' => 'required|min:4|string|max:255',
-            'discription' => 'required|min:4|string|max:255',
             'org_name' => 'required|min:2|string|max:255',
             'position' => 'required|min:2|string|max:255',
-            'quantity' => 'required|min:1|string|max:255',
+            'vacancy' => 'required|min:1|string|max:255',
             'education_qualify' => 'required|min:2|string|max:255',
             'experience' => 'required|min:2|string',
             'upazila' => 'required|not_in:null,',
             'contact' => 'required|regex:/^[0-9]+$/',
             'salary' => 'required|min:2|string|max:255',
-            'dateline' => 'required|min:2|string|max:255',
+            'dateline' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -126,7 +124,7 @@ class JobNewsController extends Controller
         $jobNews-> job_title = $request->job_title;
         $jobNews-> org_name = $request->org_name;
         $jobNews-> position = $request->position;
-        $jobNews-> quantity = $request->quantity;
+        $jobNews-> vacancy = $request->vacancy;
         $jobNews-> education_qualify = $request->education_qualify;
         $jobNews-> experience = $request->experience;
         $jobNews-> upazila = $request->upazila;
@@ -158,7 +156,7 @@ class JobNewsController extends Controller
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(550, 550);
+            $img->resize(150, 150);
             $quality = 90;
             do {
                 ob_start();

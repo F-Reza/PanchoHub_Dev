@@ -7,6 +7,17 @@
 	}
 }
 
+.ck.ck-editor__editable_inline > :first-child {
+  margin-top: var(--ck-spacing-large);
+  display: none;
+}
+.ck .ck-evaluation-badge__label {
+  display: none;
+}
+.ck .ck-content .ck-editor__editable .ck-rounded-corners .ck-editor__editable_inline .ck-focused {
+	display: none;
+}
+
 .main-container {
 	font-family: 'Lato';
 	width: fit-content;

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('job_title');
             $table->string('org_name');
             $table->string('position');
-            $table->string('quantity');
+            $table->string('vacancy');
             $table->string('education_qualify');
             $table->text('experience');
             $table->string('upazila');
