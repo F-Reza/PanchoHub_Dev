@@ -63,7 +63,7 @@ class DiagnosticCenterController extends Controller
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(600, 480);
+            $img->resize(450, 250);
             $quality = 90;
             do {
                 ob_start();
@@ -129,7 +129,7 @@ class DiagnosticCenterController extends Controller
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(600, 480);
+            $img->resize(450, 250);
             $quality = 90;
             do {
                 ob_start();

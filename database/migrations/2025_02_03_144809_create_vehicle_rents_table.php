@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->string('category');
             $table->string('title');
-            $table->string('capacity');
-            $table->text('facilities');
+            $table->string('capacity')->nullable();
+            $table->text('facilities')->nullable();
             $table->string('driver_name')->nullable();
             $table->string('contact')->nullable();
             $table->string('upazila');

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('category');
             $table->string('title');
             $table->text('details');
-            $table->string('price');
+            $table->string('price')->nullable();
             $table->string('contact')->nullable();
             $table->string('upazila');
             $table->text('address');
