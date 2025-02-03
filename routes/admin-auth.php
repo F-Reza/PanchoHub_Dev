@@ -24,6 +24,16 @@ use App\Http\Controllers\JobNewsController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\SlidersController;
 use App\Http\Controllers\ScrollsController;
+use App\Http\Controllers\HotelsController;
+use App\Http\Controllers\RestaurentsController;
+use App\Http\Controllers\SalonParlourController;
+use App\Http\Controllers\ShoppingController;
+use App\Http\Controllers\VehicleRentController;
+use App\Http\Controllers\HouseRentController;
+use App\Http\Controllers\PlotSalesController;
+use App\Http\Controllers\TechniciansController;
+use App\Http\Controllers\NurseryController;
+use App\Http\Controllers\EntrepreneursController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -63,9 +73,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/dashboard', function () {
         return view('dashboard.dashboard');
     })->middleware(['verified'])->name('dashboard');
+//--------------------------------------------------------------------------------------------------------------------------------------------
 
 
-    //Doctors Routes
+//--------------------------------------------------------------------------------------------------------------------------------------------
     Route::get('/doctors', [DoctorsController::class, 'index'])->name('doctors.index');
     Route::post('/doctors', [DoctorsController::class, 'store'])->name('doctors.store');
     Route::put('/doctors/{id}', [DoctorsController::class, 'update'])->name('doctors.update');
@@ -131,11 +142,82 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::delete('/scrolls', [ScrollsController::class, 'destroy'])->name('scrolls.destroy');
 
 
+    //Hotels Routes
+    Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels.index');
+    Route::post('/hotels', [HotelsController::class, 'store'])->name('hotels.store');
+    Route::put('/hotels/{id}', [HotelsController::class, 'update'])->name('hotels.update');
+    Route::delete('/hotels', [HotelsController::class, 'destroy'])->name('hotels.destroy');
+
+    //Restaurents Routes
+    Route::get('/restaurents', [RestaurentsController::class, 'index'])->name('restaurents.index');
+    Route::post('/restaurents', [RestaurentsController::class, 'store'])->name('restaurents.store');
+    Route::put('/restaurents/{id}', [RestaurentsController::class, 'update'])->name('restaurents.update');
+    Route::delete('/restaurents', [RestaurentsController::class, 'destroy'])->name('restaurents.destroy');
+
+    //SalonParlour Routes
+    Route::get('/salon_parlour', [SalonParlourController::class, 'index'])->name('salon_parlour.index');
+    Route::post('/salon_parlour', [SalonParlourController::class, 'store'])->name('salon_parlour.store');
+    Route::put('/salon_parlour/{id}', [SalonParlourController::class, 'update'])->name('salon_parlour.update');
+    Route::delete('/salon_parlour', [SalonParlourController::class, 'destroy'])->name('salon_parlour.destroy');
+
+    //Shopping Routes
+    Route::get('/shopping', [ShoppingController::class, 'index'])->name('shopping.index');
+    Route::post('/shopping', [ShoppingController::class, 'store'])->name('shopping.store');
+    Route::put('/shopping/{id}', [ShoppingController::class, 'update'])->name('shopping.update');
+    Route::delete('/shopping', [ShoppingController::class, 'destroy'])->name('shopping.destroy');
+
+    //VehicleRent Routes
+    Route::get('/vehicle_rent', [VehicleRentController::class, 'index'])->name('vehicle_rent.index');
+    Route::post('/vehicle_rent', [VehicleRentController::class, 'store'])->name('vehicle_rent.store');
+    Route::put('/vehicle_rent/{id}', [VehicleRentController::class, 'update'])->name('vehicle_rent.update');
+    Route::delete('/vehicle_rent', [VehicleRentController::class, 'destroy'])->name('vehicle_rent.destroy');
+
+    //HouseRent Routes
+    Route::get('/house_rent', [HouseRentController::class, 'index'])->name('house_rent.index');
+    Route::post('/house_rent', [HouseRentController::class, 'store'])->name('house_rent.store');
+    Route::put('/house_rent/{id}', [HouseRentController::class, 'update'])->name('house_rent.update');
+    Route::delete('/house_rent', [HouseRentController::class, 'destroy'])->name('house_rent.destroy');
+
+    //PlotSales Routes
+    Route::get('/plot_sales', [PlotSalesController::class, 'index'])->name('plot_sales.index');
+    Route::post('/plot_sales', [PlotSalesController::class, 'store'])->name('plot_sales.store');
+    Route::put('/plot_sales/{id}', [PlotSalesController::class, 'update'])->name('plot_sales.update');
+    Route::delete('/plot_sales', [PlotSalesController::class, 'destroy'])->name('plot_sales.destroy');
+
+    //Technicians Routes
+    Route::get('/technicians', [TechniciansController::class, 'index'])->name('technicians.index');
+    Route::post('/technicians', [TechniciansController::class, 'store'])->name('technicians.store');
+    Route::put('/technicians/{id}', [TechniciansController::class, 'update'])->name('technicians.update');
+    Route::delete('/technicians', [TechniciansController::class, 'destroy'])->name('technicians.destroy');
+
+    //Nursery Routes
+    Route::get('/nursery', [NurseryController::class, 'index'])->name('nursery.index');
+    Route::post('/nursery', [NurseryController::class, 'store'])->name('nursery.store');
+    Route::put('/nursery/{id}', [NurseryController::class, 'update'])->name('nursery.update');
+    Route::delete('/nursery', [NurseryController::class, 'destroy'])->name('nursery.destroy');
+
+    //Entrepreneurs Routes
+    Route::get('/entrepreneurs', [EntrepreneursController::class, 'index'])->name('entrepreneurs.index');
+    Route::post('/entrepreneurs', [EntrepreneursController::class, 'store'])->name('entrepreneurs.store');
+    Route::put('/entrepreneurs/{id}', [EntrepreneursController::class, 'update'])->name('entrepreneurs.update');
+    Route::delete('/entrepreneurs', [EntrepreneursController::class, 'destroy'])->name('entrepreneurs.destroy');
+
+    //Institutions Routes
+    Route::get('/institutions', [EntrepreneursController::class, 'index'])->name('institutions.index');
+    Route::post('/institutions', [EntrepreneursController::class, 'store'])->name('institutions.store');
+    Route::put('/institutions/{id}', [EntrepreneursController::class, 'update'])->name('institutions.update');
+    Route::delete('/institutions', [EntrepreneursController::class, 'destroy'])->name('institutions.destroy');
+
+    //Teachers Routes
+    Route::get('/teachers', [EntrepreneursController::class, 'index'])->name('teachers.index');
+    Route::post('/teachers', [EntrepreneursController::class, 'store'])->name('teachers.store');
+    Route::put('/teachers/{id}', [EntrepreneursController::class, 'update'])->name('teachers.update');
+    Route::delete('/teachers', [EntrepreneursController::class, 'destroy'])->name('teachers.destroy');
 
 
 
 
-
+//--------------------------------------------------------------------------------------------------------------------------------------------
     //Users Routes
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
