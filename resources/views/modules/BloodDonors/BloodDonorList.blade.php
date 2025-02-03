@@ -61,7 +61,7 @@
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
-                                                        <td class="align-left"> {{ $donor->name }} </td>
+                                                        <td class="align-left" style=" max-width: 120px;"> {{ $donor->name }} </td>
                                                         <td class="align-left"> {{ $donor->blood_gorup }} </td>
                                                         <td class="align-left"> {{ $donor->last_donate }} </td>
                                                         <td class="align-left"> {{ $donor->gender }} </td>

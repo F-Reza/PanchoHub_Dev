@@ -70,7 +70,7 @@
                                                                     width="70" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left"> {{ $todayNews->title }} </td>
+                                                        <td class="align-left" style=" max-width: 400px;"> {{ $todayNews->title }} </td>
                                                         <td class="align-left"> {{ $todayNews->upazila }} </td>
                                                         <td class="align-left"> {{ $todayNews->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
@@ -563,7 +563,6 @@
                 var upazila = button.data('upazila');
                 var address = button.data('address');
                 var status = button.data('status');
-                var entry = button.data('entry');
                 var image = button.data('image');
 
                 var modal = $(this);

@@ -24,8 +24,7 @@ class SlidersController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'category' => 'required|not_in:null,',
-            'upazila' => 'required|not_in:null,',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -58,7 +57,7 @@ class SlidersController extends Controller
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(450, 250);
+            $img->resize(1728, 500);
             $quality = 90;
             do {
                 ob_start();
@@ -67,7 +66,7 @@ class SlidersController extends Controller
                 ob_end_clean();
 
                 $quality -= 5;
-            } while ($imageSize > 100 * 1024 && $quality > 10);
+            } while ($imageSize > 2 * 1024 * 1024 && $quality > 10);
 
             $img->save($imagePath, $quality);
             $slider->image = $imageName;
@@ -85,8 +84,7 @@ class SlidersController extends Controller
 
         $validator = Validator::make($request->all(),[
             'category' => 'required|not_in:null,',
-            'upazila' => 'required|not_in:null,',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -96,7 +94,7 @@ class SlidersController extends Controller
 
         $slider-> category = $request->category;
         $slider-> description = $request->description?? null;
-        $slider->status = $request->status;
+        $slider->status = $request->status ? 'Active' : 'Deactive';
 
         if ($request->hasFile('image')) {
 
@@ -118,7 +116,7 @@ class SlidersController extends Controller
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
-            $img->resize(450, 250);
+            $img->resize(1728, 500);
             $quality = 90;
             do {
                 ob_start();

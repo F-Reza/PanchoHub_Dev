@@ -62,7 +62,7 @@
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
-                                                        <td class="align-left"> {{ $needer->name }} </td>
+                                                        <td class="align-left" style=" max-width: 120px;"> {{ $needer->name }} </td>
                                                         <td class="align-left"> {{ $needer->blood_gorup }} </td>
                                                         <td class="align-left"> {{ $needer->bag_amounts }} </td>
                                                         <td class="align-left"> {{ $needer->dateline }} </td>

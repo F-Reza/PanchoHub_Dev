@@ -36,7 +36,7 @@
                                                     </div>
                                                 </th>
                                                 <th>Logo</th>
-                                                <th class="align-left">Title</th>
+                                                <th class="align-left" style=" max-width: 250px;">Title</th>
                                                 <th class="align-left">Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">Added By</th>
@@ -63,11 +63,11 @@
                                                             @if (!empty($diagnostic->image))
                                                                 <img class="user-img-radious-style" alt="image" title="Logo"
                                                                     src="{{ asset('uploads/diagnostics/' . $diagnostic->image) }}"
-                                                                    width="35" height="35">
+                                                                    width="70" height="40">
                                                             @else
                                                                 <img class="user-img-radious-style" alt="image" title="Logo"
                                                                     src="{{ asset('assets/dashboard/img/users/avatar.png') }}"
-                                                                    width="35" height="35">
+                                                                    width="70" height="40">
                                                             @endif
                                                         </td>
                                                         <td class="align-left"> {{ $diagnostic->title }} </td>

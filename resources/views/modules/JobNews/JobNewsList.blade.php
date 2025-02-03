@@ -72,8 +72,8 @@
                                                                     width="50" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left"> {{ $jobNews->job_title }} </td>
-                                                        <td class="align-left"> {{ $jobNews->org_name }} </td>
+                                                        <td class="align-left" style=" max-width: 240px;"> {{ $jobNews->job_title }} </td>
+                                                        <td class="align-left" style=" max-width: 160px;"> {{ $jobNews->org_name }} </td>
                                                         <td class="align-left"> {{ $jobNews->vacancy }} </td>
                                                         <td class="align-left"> {{ $jobNews->upazila }} </td>
                                                         <td class="align-left"> {{ $jobNews->user->name ?? 'N/A' }}</td>
@@ -695,7 +695,6 @@
                 var dateline = button.data('dateline');
                 var others_info = button.data('others_info');
                 var status = button.data('status');
-                var entry = button.data('entry');
                 var image = button.data('image');
 
                 var modal = $(this);

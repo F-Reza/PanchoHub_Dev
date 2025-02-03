@@ -55,7 +55,7 @@ class ScrollsController extends Controller
 
         $scroll-> category = $request->category;
         $scroll-> text = $request->text;
-        $scroll->status = $request->status;
+        $scroll->status = $request->status ? 'Active' : 'Deactive';
 
         $scroll->save();
 

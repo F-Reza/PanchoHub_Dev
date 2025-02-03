@@ -70,7 +70,7 @@
                                                                     width="70" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left"> {{ $notification->title }} </td>
+                                                        <td class="align-left" style=" max-width: 400px;"> {{ $notification->title }} </td>
                                                         <td class="align-left"> {{ $notification->upazila }} </td>
                                                         <td class="align-left"> {{ $notification->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
@@ -563,7 +563,6 @@
                 var upazila = button.data('upazila');
                 var address = button.data('address');
                 var status = button.data('status');
-                var entry = button.data('entry');
                 var image = button.data('image');
 
                 var modal = $(this);
