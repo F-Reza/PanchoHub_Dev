@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Restaurents extends Model
+class Restaurants extends Model
 {
     public function user()
     {

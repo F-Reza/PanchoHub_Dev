@@ -25,7 +25,7 @@ use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\SlidersController;
 use App\Http\Controllers\ScrollsController;
 use App\Http\Controllers\HotelsController;
-use App\Http\Controllers\RestaurentsController;
+use App\Http\Controllers\RestaurantsController;
 use App\Http\Controllers\SalonParlourController;
 use App\Http\Controllers\ShoppingController;
 use App\Http\Controllers\VehicleRentController;
@@ -143,16 +143,16 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
 
     //Hotels Routes
-    Route::get('/hotels', [HotelsController::class, 'index'])->name('hotels.index');
-    Route::post('/hotels', [HotelsController::class, 'store'])->name('hotels.store');
-    Route::put('/hotels/{id}', [HotelsController::class, 'update'])->name('hotels.update');
-    Route::delete('/hotels', [HotelsController::class, 'destroy'])->name('hotels.destroy');
+    Route::get('/hoteles', [HotelsController::class, 'index'])->name('hoteles.index');
+    Route::post('/hoteles', [HotelsController::class, 'store'])->name('hoteles.store');
+    Route::put('/hoteles/{id}', [HotelsController::class, 'update'])->name('hoteles.update');
+    Route::delete('/hoteles', [HotelsController::class, 'destroy'])->name('hoteles.destroy');
 
     //Restaurents Routes
-    Route::get('/restaurents', [RestaurentsController::class, 'index'])->name('restaurents.index');
-    Route::post('/restaurents', [RestaurentsController::class, 'store'])->name('restaurents.store');
-    Route::put('/restaurents/{id}', [RestaurentsController::class, 'update'])->name('restaurents.update');
-    Route::delete('/restaurents', [RestaurentsController::class, 'destroy'])->name('restaurents.destroy');
+    Route::get('/restaurants', [RestaurantsController::class, 'index'])->name('restaurants.index');
+    Route::post('/restaurants', [RestaurantsController::class, 'store'])->name('restaurants.store');
+    Route::put('/restaurants/{id}', [RestaurantsController::class, 'update'])->name('restaurants.update');
+    Route::delete('/restaurants', [RestaurantsController::class, 'destroy'])->name('restaurants.destroy');
 
     //SalonParlour Routes
     Route::get('/salon_parlour', [SalonParlourController::class, 'index'])->name('salon_parlour.index');

@@ -289,16 +289,16 @@
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="grid"></i><span>বিজনেস পয়েন্ট</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="email-inbox.html">হোস্টেল সমুহ</a></li>
-                                <li><a class="nav-link" href="email-compose.html">রেস্টুরেন্ট </a></li>
-                                <li><a class="nav-link" href="email-read.html">পার্লার-সেলুন</a></li>
-                                <li><a class="nav-link" href="email-read.html">কেনাকাটা</a></li>
-                                <li><a class="nav-link" href="email-read.html">গাড়ি ভাড়া</a></li>
-                                <li><a class="nav-link" href="email-read.html">বাসা ভাড়া</a></li>
-                                <li><a class="nav-link" href="email-read.html">ফ্লাট ও জমি বিক্রয়</a></li>
-                                <li><a class="nav-link" href="email-read.html">মিস্ত্রি</a></li>
-                                <li><a class="nav-link" href="email-read.html">নার্সারি</a></li>
-                                <li><a class="nav-link" href="email-read.html">উদ্যোক্তা</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.hoteles.index') }}">হোটেল সমুহ</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.restaurants.index') }}">রেস্টুরেন্ট </a></li>
+                                <li><a class="nav-link" href="{{ route('admin.salon_parlour.index') }}">পার্লার-সেলুন</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.shopping.index') }}">কেনাকাটা</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.vehicle_rent.index') }}">গাড়ি ভাড়া</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.house_rent.index') }}">বাসা ভাড়া</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.plot_sales.index') }}">ফ্লাট ও জমি বিক্রয়</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.technicians.index') }}">মিস্ত্রি</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.nursery.index') }}">নার্সারি</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.entrepreneurs.index') }}">উদ্যোক্তা</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">

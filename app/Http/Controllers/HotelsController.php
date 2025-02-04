@@ -15,9 +15,9 @@ class HotelsController extends Controller
 
     public function index()
     {
-        $hotels = Hotels::with('user')->latest()->paginate(25);
-        return view('modules.Hotels.HotellList',[
-            'hotels' => $hotels
+        $hoteles = Hotels::with('user')->latest()->paginate(25);
+        return view('modules.Hoteles.HotelList',[
+            'hoteles' => $hoteles
         ]);
     }
 
@@ -47,13 +47,13 @@ class HotelsController extends Controller
 
         if ($request->hasFile('image')) {
 
-            $directory = public_path('uploads/hotels');
+            $directory = public_path('uploads/hoteles');
             if (!File::exists($directory)) {
                 File::makeDirectory($directory, 0777, true);
             }
 
             if ($hotel->image) {
-                $oldImagePath = public_path('uploads/hotels/' . $hotel->image);
+                $oldImagePath = public_path('uploads/hoteles/' . $hotel->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -61,7 +61,7 @@ class HotelsController extends Controller
 
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = public_path('uploads/hotels/' . $imageName);
+            $imagePath = public_path('uploads/hoteles/' . $imageName);
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
@@ -113,12 +113,12 @@ class HotelsController extends Controller
 
         if ($request->hasFile('image')) {
 
-            $directory = public_path('uploads/hotels');
+            $directory = public_path('uploads/hoteles');
             if (!File::exists($directory)) {
                 File::makeDirectory($directory, 0777, true);
             }
             if ($hotel->image) {
-                $oldImagePath = public_path('uploads/hotels/' . $hotel->image);
+                $oldImagePath = public_path('uploads/hoteles/' . $hotel->image);
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
@@ -126,7 +126,7 @@ class HotelsController extends Controller
 
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = public_path('uploads/hotels/' . $imageName);
+            $imagePath = public_path('uploads/hoteles/' . $imageName);
 
             $manager = new ImageManager(new Driver());
             $img = $manager->read($image);
@@ -163,7 +163,7 @@ class HotelsController extends Controller
         }
 
         if ($hotel->image) {
-            $imagePath = public_path('uploads/hotels/' . $hotel->image);
+            $imagePath = public_path('uploads/hoteles/' . $hotel->image);
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
