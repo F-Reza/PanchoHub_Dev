@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - রেস্টুরেন্ট সমূহ |</title>
+        <title>| পঞ্চহাব - সেলুন/পার্লার সমূহ |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 
@@ -16,9 +16,9 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4> রেস্টুরেন্ট সমূহ </h4>
+                                <h4> পার্লার-সেলুন সমূহ </h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createRestaurantModal">Create</a>
+                                    data-target="#createSalonParlourModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -37,7 +37,8 @@
                                                     </div>
                                                 </th>
                                                 <th>Image</th>
-                                                <th class="align-left">Restaurant Name</th>
+                                                <th class="align-left">Category</th>
+                                                <th class="align-left">Title</th>
                                                 <th class="align-left">	Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">	Added By</th>
@@ -47,23 +48,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($restaurants->isNotEmpty())
-                                                @foreach ($restaurants as $key => $restaurant)
+                                            @if ($salonParlours->isNotEmpty())
+                                                @foreach ($salonParlours as $key => $salonParlour)
                                                     <tr>
                                                         <td> {{ ++$key }} </td>
                                                         <td class="text-center">
                                                             <div class="custom-checkbox custom-control">
                                                                 <input type="checkbox" data-checkboxes="mygroup"
                                                                     class="custom-control-input"
-                                                                    id="checkbox-{{ $restaurant->id }}">
-                                                                <label for="checkbox-{{ $restaurant->id }}"
+                                                                    id="checkbox-{{ $salonParlour->id }}">
+                                                                <label for="checkbox-{{ $salonParlour->id }}"
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                                      @if (!empty($restaurant->image))
+                                                                      @if (!empty($salonParlour->image))
                                                                 <img class="article-image" alt="image" title="News Image"
-                                                                    src="{{ asset('uploads/restaurants/' . $restaurant->image) }}"
+                                                                    src="{{ asset('uploads/salonParlours/' . $salonParlour->image) }}"
                                                                     width="70" height="40">
                                                             @else
                                                                 <img class="article-image" alt="image" title="News Image"
@@ -71,16 +72,17 @@
                                                                     width="70" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left" style=" max-width: 250px;"> {{ $restaurant->title }} </td>
-                                                        <td class="align-left"> {{ $restaurant->contact }} </td>
-                                                        <td class="align-left"> {{ $restaurant->upazila }} </td>
-                                                        <td class="align-left"> {{ $restaurant->user->name ?? 'N/A' }}</td>
+                                                        <td class="align-left"> {{ $salonParlour->category }} </td>
+                                                        <td class="align-left" style=" max-width: 250px;"> {{ $salonParlour->title }} </td>
+                                                        <td class="align-left"> {{ $salonParlour->contact }} </td>
+                                                        <td class="align-left"> {{ $salonParlour->upazila }} </td>
+                                                        <td class="align-left"> {{ $salonParlour->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
-                                                            {{ \Carbon\Carbon::parse($restaurant->created_at)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($salonParlour->created_at)->format('d M, Y') }}
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $statusClass = match ($restaurant->status) {
+                                                                $statusClass = match ($salonParlour->status) {
                                                                     'Approved' => 'badge badge-secondary badge-shadow',
                                                                     'In Review' => 'badge badge-info badge-shadow',
                                                                     'Pending' => 'badge badge-warning badge-shadow',
@@ -89,45 +91,45 @@
                                                                 };
                                                             @endphp
                                                             <div class="{{ $statusClass }}">
-                                                                {{ $restaurant->status }}
+                                                                {{ $salonParlour->status }}
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewRestaurantModal"
-                                                                data-id="{{ $restaurant->id }}"
-                                                                data-user="{{ $restaurant->user->name }}"
-                                                                data-title="{{ $restaurant->title }}"
-                                                                data-menus="{{ $restaurant->menus }}"
-                                                                data-servies="{{ $restaurant->servies }}"
-                                                                data-timetable="{{ $restaurant->timetable }}"
-                                                                data-contact="{{ $restaurant->contact?? 'Empty' }}"
-                                                                data-upazila="{{ $restaurant->upazila }}"
-                                                                data-address="{{ $restaurant->address }}"
-                                                                data-status="{{ $restaurant->status }}"
-                                                                data-image="{{ $restaurant->image ? asset('uploads/restaurants/' . $restaurant->image) : '' }}"
-                                                                data-entry="{{ \Carbon\Carbon::parse($restaurant->created_at)->format('d/m/Y') }}">
+                                                                data-toggle="modal" data-target="#viewSalonParlourModal"
+                                                                data-id="{{ $salonParlour->id }}"
+                                                                data-user="{{ $salonParlour->user->name }}"
+                                                                data-category="{{ $salonParlour->category }}"
+                                                                data-title="{{ $salonParlour->title }}"
+                                                                data-servies="{{ $salonParlour->servies }}"
+                                                                data-timetable="{{ $salonParlour->timetable }}"
+                                                                data-contact="{{ $salonParlour->contact?? 'Empty' }}"
+                                                                data-upazila="{{ $salonParlour->upazila }}"
+                                                                data-address="{{ $salonParlour->address }}"
+                                                                data-status="{{ $salonParlour->status }}"
+                                                                data-image="{{ $salonParlour->image ? asset('uploads/salonParlours/' . $salonParlour->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($salonParlour->created_at)->format('d/m/Y') }}">
                                                                 View
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editRestaurantModal"
-                                                                data-id="{{ $restaurant->id }}"
-                                                                data-title="{{ $restaurant->title }}"
-                                                                data-menus="{{ $restaurant->menus }}"
-                                                                data-servies="{{ $restaurant->servies }}"
-                                                                data-timetable="{{ $restaurant->timetable }}"
-                                                                data-contact="{{ $restaurant->contact?? '' }}"
-                                                                data-upazila="{{ $restaurant->upazila }}"
-                                                                data-address="{{ $restaurant->address }}"
-                                                                data-status="{{ $restaurant->status }}"
-                                                                data-image="{{ $restaurant->image ? asset('uploads/restaurants/' . $restaurant->image) : '' }}">
+                                                                data-toggle="modal" data-target="#editSalonParlourModal"
+                                                                data-id="{{ $salonParlour->id }}"
+                                                                data-category="{{ $salonParlour->category }}"
+                                                                data-title="{{ $salonParlour->title }}"
+                                                                data-servies="{{ $salonParlour->servies }}"
+                                                                data-timetable="{{ $salonParlour->timetable }}"
+                                                                data-contact="{{ $salonParlour->contact?? '' }}"
+                                                                data-upazila="{{ $salonParlour->upazila }}"
+                                                                data-address="{{ $salonParlour->address }}"
+                                                                data-status="{{ $salonParlour->status }}"
+                                                                data-image="{{ $salonParlour->image ? asset('uploads/salonParlours/' . $salonParlour->image) : '' }}">
                                                                 Edit
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteRestaurant({{ $restaurant->id }})"
+                                                                onclick="deleteSalonParlour({{ $salonParlour->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -240,42 +242,48 @@
     </div>
 
     <!-- Modal -->
-    <!-- Create Restaurant Modal -->
-    <div class="modal modalz fade" id="createRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create SalonParlour Modal -->
+    <div class="modal modalz fade" id="createSalonParlourModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle"> রেস্টুরেন্ট যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle"> সেলুন/পার্লার যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Modal Content Goes Here -->
-                <form method="POST" action="{{ route('admin.restaurants.store') }}" id="modalForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.salon_parlour.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
+
+
+                    <!-- Category Field -->
+                    <div class="form-group">
+                        <label for="category"> ক্যাটাগরি :* </label>
+                        <select class="form-control" id="category" name="category" required>
+                            <option value=""> সিলেক্ট করুন </option>
+                            <option value="সেলুন">সেলুন</option>
+                            <option value="পার্লার">পার্লার</option>
+                            <option value="পার্লার ও সেলুন">পার্লার ও সেলুন</option>
+                        </select>
+                    </div>
 
                     <!-- Title Field -->
                     <div class="form-group">
-                        <label for="title">রেস্টুরেন্টের নাম :* </label>
+                        <label for="title">সেলুন/পার্লারের নাম :* </label>
                         <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
                     <!-- Servies Field -->
-                    <div class="form-group">
-                        <label for="servies"> সার্ভিস সমূহ :* </label>
-                        <input type="text" name="servies" class="form-control" id="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন" required>
-                    </div>
-
-                    <!-- Menus Field -->
                     <div class="form-group ">
-                        <label for="menus">রেস্টুরেন্টের মেনু আইটেম :*</label>
-                        <textarea class="" id="editor" name="menus" value="{{ old('menus') }}" placeholder="মেনু আইটেম সমূহ লিখুন"></textarea>
+                        <label for="servies">সার্ভিস সমূহ :*</label>
+                        <textarea class="" id="editor" name="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন"></textarea>
                     </div>
 
                     <!-- TimeTable Field -->
                     <div class="form-group">
-                        <label for="timetable"> রেস্টুরেন্ট খোলা ও বন্ধের সময় :* </label>
+                        <label for="timetable"> সেলুন/পার্লার খোলা ও বন্ধের সময় :* </label>
                         <input type="text" name="timetable" class="form-control" id="timetable" value="{{ old('timetable') }}" placeholder="সময় লিখুন" required>
                     </div>
 
@@ -296,19 +304,19 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> রেস্টুরেন্টের বিস্তারিত ঠিকানা :*</label>
+                        <label for="address"> সেলুন/পার্লারের বিস্তারিত ঠিকানা :*</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
                     </div>
 
                     <!-- Contact Field -->
                     <div class="form-group">
-                        <label for="contact">রেস্টুরেন্টের যোগাযোগ নম্বর : </label>
+                        <label for="contact">সেলুন/পার্লারের যোগাযোগ নম্বর : </label>
                         <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label">রেস্টুরেন্টের ছবি যুক্ত করুন </label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label">সেলুন/পার্লারের ছবি যুক্ত করুন </label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
                                 <div class="image-preview" id="imagePreview" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
@@ -333,8 +341,8 @@
         </div>
     </div>
 
-    <!-- Edit Restaurant Modal -->
-    <div class="modal modalz fade" id="editRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit SalonParlour Modal -->
+    <div class="modal modalz fade" id="editSalonParlourModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
 
@@ -344,7 +352,7 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">রেস্টুরেন্ট ডাটা পরিবর্তন </h5>
+                    <h5 class="modal-title" id="modalTitle">সেলুন/পার্লার ডাটা পরিবর্তন </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -353,30 +361,33 @@
                 <div class="modal-body">
 
 
+                    <!-- Category Field -->
+                    <div class="form-group">
+                        <label for="category"> ক্যাটাগরি :* </label>
+                        <select class="form-control" id="category" name="category" required>
+                            <option value="সেলুন" {{ old('category') == 'সেলুন' ? 'selected' : '' }}> সেলুন</option>
+                            <option value="পার্লার" {{ old('category') == 'পার্লার' ? 'selected' : '' }}> পার্লার</option>
+                            <option value="পার্লার ও সেলুন" {{ old('category') == 'পার্লার ও সেলুন' ? 'selected' : '' }}> পার্লার ও সেলুন</option>
+                        </select>
+                    </div>
+
                     <!-- Title Field -->
                     <div class="form-group">
-                        <label for="title">রেস্টুরেন্টের নাম :* </label>
+                        <label for="title">সেলুন/পার্লারের নাম :* </label>
                         <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
                     <!-- Servies Field -->
-                    <div class="form-group">
-                        <label for="servies"> সার্ভিস সমূহ :* </label>
-                        <input type="text" name="servies" class="form-control" id="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন" required>
-                    </div>
-
-                    <!-- Menus Field -->
                     <div class="form-group ">
-                        <label for="menus">রেস্টুরেন্টের মেনু আইটেম :*</label>
-                        <textarea class="" id="editorX" name="menus" value="{{ old('menus') }}" placeholder="মেনু আইটেম সমূহ লিখুন"></textarea>
+                        <label for="servies">সার্ভিস সমূহ :*</label>
+                        <textarea class="" id="editorX" name="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন"></textarea>
                     </div>
 
                     <!-- TimeTable Field -->
                     <div class="form-group">
-                        <label for="timetable"> রেস্টুরেন্ট খোলা ও বন্ধের সময় :* </label>
+                        <label for="timetable"> সেলুন/পার্লার খোলা ও বন্ধের সময় :* </label>
                         <input type="text" name="timetable" class="form-control" id="timetable" value="{{ old('timetable') }}" placeholder="সময় লিখুন" required>
                     </div>
-
 
                     <!-- Upazila Field -->
                     <div class="form-group">
@@ -393,13 +404,13 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> রেস্টুরেন্টের বিস্তারিত ঠিকানা :*</label>
+                        <label for="address"> সেলুন/পার্লারের বিস্তারিত ঠিকানা :*</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
                     </div>
 
                     <!-- Contact Field -->
                     <div class="form-group">
-                        <label for="contact">রেস্টুরেন্টের যোগাযোগ নম্বর : </label>
+                        <label for="contact">সেলুন/পার্লারের যোগাযোগ নম্বর : </label>
                         <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
@@ -440,12 +451,12 @@
         </div>
     </div>
 
-    <!-- View Restaurant Modal -->
-    <div class="modal modalz fade" id="viewRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- View salonParlour Modal -->
+    <div class="modal modalz fade" id="viewSalonParlourModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">রেস্টুরেন্ট ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">সেলুন/পার্লার ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -461,7 +472,7 @@
 
                                             <div class="d-flex bd-highlight">
                                                 <div class="flex-fill bd-highlight mb-3 mr-3">
-                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="restaurant Logo" alt="logo">
+                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="salonParlour Logo" alt="logo">
                                                 </div>
                                                 <div class="flex-fill bd-highlight align-self-center">
                                                     <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
@@ -473,12 +484,11 @@
                                             </div>
 
                                             <h6 class="dark-color"> <span id="xTitle"></span> </h6>
+                                            <div><samp class="sampcolor">ক্যাটাগরি: </samp> <span id="xCategory"></span></div>
+                                            <div><samp class="sampcolor">সেলুন/পার্লার খোলা ও বন্ধের সময়: </samp> <span id="xTimetable"></span></div>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
-                                            <div><samp class="sampcolor">রেস্টুরেন্ট খোলা ও বন্ধের সময়: </samp> <span id="xTimetable"></span></div>
                                             <div><hr/></div>
                                             <div><samp class="sampcolor">সার্ভিস সমূহ: </samp> <span id="xServies"></span></div>
-                                            <div><hr/></div>
-                                            <div><samp class="sampcolor">রেস্টুরেন্টের মেনু আইটেম: </samp> <span id="xMenus"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -536,7 +546,7 @@
             let editorInstance;
 
             // Event listener for when the edit modal is hidden
-            $('#editRestaurantModal').on('hidden.bs.modal', function() {
+            $('#editsalonParlourModal').on('hidden.bs.modal', function() {
                 if (editorInstance) {
                     editorInstance.destroy();
                     editorInstance = null;
@@ -577,14 +587,14 @@
             });
 
 
-            //viewRestaurantModal
-            $('#viewRestaurantModal').on('show.bs.modal', function(event) {
+            //viewSalonParlourModal
+            $('#viewSalonParlourModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user = button.data('user');
+                var category = button.data('category');
                 var title = button.data('title');
-                var menus = button.data('menus');
                 var servies = button.data('servies');
                 var timetable = button.data('timetable');
                 var contact = button.data('contact') || '';
@@ -596,9 +606,9 @@
 
                 var modal = $(this);
                 modal.find('#xUser').text(user);
+                modal.find('#xCategory').text(category);
                 modal.find('#xTitle').text(title);
-                modal.find('#xMenus').html(menus);
-                modal.find('#xServies').text(servies);
+                modal.find('#xServies').html(servies);
                 modal.find('#xTimetable').text(timetable);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
@@ -615,12 +625,12 @@
                 }
             });
 
-            //editRestaurantModal
-            $('#editRestaurantModal').on('show.bs.modal', function(event) {
+            //editSalonParlourModal
+            $('#editSalonParlourModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
+                var category = button.data('category');
                 var title = button.data('title');
-                var menus = button.data('menus');
                 var servies = button.data('servies');
                 var timetable = button.data('timetable');
                 var contact = button.data('contact');
@@ -630,8 +640,8 @@
                 var image = button.data('image');
 
                 var modal = $(this);
+                modal.find('#category').val(category);
                 modal.find('#title').val(title);
-                modal.find('#servies').val(servies);
                 modal.find('#timetable').val(timetable);
                 modal.find('#contact').val(contact);
                 modal.find('#upazila').val(upazila);
@@ -642,10 +652,10 @@
                 if (!editorInstance) {
                     initializeCKEditor().then(editor => {
                         editorInstance = editor;
-                        editorInstance.setData(menus);
+                        editorInstance.setData(servies);
                     });
                 } else {
-                    editorInstance.setData(menus);
+                    editorInstance.setData(servies);
                 }
 
                 var imagePreview = modal.find('#imagePreviewX');
@@ -655,16 +665,16 @@
                     imagePreview.html('<i class="bi bi-image" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/restaurants/' + id);
+                modal.find('#modalFormX').attr('action', '/admin/salon_parlour/' + id);
 
 
             });
 
-            //deleteRestaurant
-            function deleteRestaurant(id) {
-                if (confirm('Are you sure you want to delete this Restaurant?')) {
+            //deleteSalonParlour
+            function deleteSalonParlour(id) {
+                if (confirm('Are you sure you want to delete this SalonParlour?')) {
                     $.ajax({
-                        url: '{{ route('admin.restaurants.destroy') }}',
+                        url: '{{ route('admin.salon_parlour.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -681,7 +691,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete Restaurant. Please try again.');
+                            alert('Failed to delete SalonParlour. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });

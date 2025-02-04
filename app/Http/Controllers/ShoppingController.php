@@ -15,7 +15,7 @@ class ShoppingController extends Controller
     public function index()
     {
         $shoppings = Shopping::with('user')->latest()->paginate(25);
-        return view('modules.Shopping.ShoppingList',[
+        return view('modules.Shoppings.ShoppingList',[
             'shoppings' => $shoppings
         ]);
     }
@@ -46,7 +46,6 @@ class ShoppingController extends Controller
         $shopping-> contact = $request->contact?? null;
         $shopping-> upazila = $request->upazila;
         $shopping-> address = $request->address;
-        $shopping-> others_info = $request->others_info?? null;
 
         if ($request->hasFile('image')) {
 
@@ -104,6 +103,7 @@ class ShoppingController extends Controller
         ]);
 
         if ($validator->fails()) {
+            dd ($validator->errors());
             flash()->error('Failed to update Shopping.');
             return redirect()->back()->withErrors($validator->errors())->withInput();
         }
@@ -115,7 +115,6 @@ class ShoppingController extends Controller
         $shopping-> contact = $request->contact?? null;
         $shopping-> upazila = $request->upazila;
         $shopping-> address = $request->address;
-        $shopping-> others_info = $request->others_info?? null;
         $shopping->status = $request->status;
 
         if ($request->hasFile('image')) {

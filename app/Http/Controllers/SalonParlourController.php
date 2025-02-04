@@ -15,7 +15,7 @@ class SalonParlourController extends Controller
     public function index()
     {
         $salonParlours = SalonParlour::with('user')->latest()->paginate(25);
-        return view('modules.SalonParlour.SalonParlourtList',[
+        return view('modules.SalonParlour.SalonParlourList',[
             'salonParlours' => $salonParlours
         ]);
     }

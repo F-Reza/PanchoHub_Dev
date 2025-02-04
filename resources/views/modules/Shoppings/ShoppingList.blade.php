@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - রেস্টুরেন্ট সমূহ |</title>
+        <title>| পঞ্চহাব - কেনাকাটা সমূহ |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 
@@ -16,9 +16,9 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4> রেস্টুরেন্ট সমূহ </h4>
+                                <h4> কেনাকাটা সমূহ </h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createRestaurantModal">Create</a>
+                                    data-target="#createShoppingModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -37,7 +37,8 @@
                                                     </div>
                                                 </th>
                                                 <th>Image</th>
-                                                <th class="align-left">Restaurant Name</th>
+                                                <th class="align-left">Category</th>
+                                                <th class="align-left">Title</th>
                                                 <th class="align-left">	Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">	Added By</th>
@@ -47,23 +48,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($restaurants->isNotEmpty())
-                                                @foreach ($restaurants as $key => $restaurant)
+                                            @if ($shoppings->isNotEmpty())
+                                                @foreach ($shoppings as $key => $shopping)
                                                     <tr>
                                                         <td> {{ ++$key }} </td>
                                                         <td class="text-center">
                                                             <div class="custom-checkbox custom-control">
                                                                 <input type="checkbox" data-checkboxes="mygroup"
                                                                     class="custom-control-input"
-                                                                    id="checkbox-{{ $restaurant->id }}">
-                                                                <label for="checkbox-{{ $restaurant->id }}"
+                                                                    id="checkbox-{{ $shopping->id }}">
+                                                                <label for="checkbox-{{ $shopping->id }}"
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                                      @if (!empty($restaurant->image))
+                                                                      @if (!empty($shopping->image))
                                                                 <img class="article-image" alt="image" title="News Image"
-                                                                    src="{{ asset('uploads/restaurants/' . $restaurant->image) }}"
+                                                                    src="{{ asset('uploads/shoppings/' . $shopping->image) }}"
                                                                     width="70" height="40">
                                                             @else
                                                                 <img class="article-image" alt="image" title="News Image"
@@ -71,16 +72,17 @@
                                                                     width="70" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left" style=" max-width: 250px;"> {{ $restaurant->title }} </td>
-                                                        <td class="align-left"> {{ $restaurant->contact }} </td>
-                                                        <td class="align-left"> {{ $restaurant->upazila }} </td>
-                                                        <td class="align-left"> {{ $restaurant->user->name ?? 'N/A' }}</td>
+                                                        <td class="align-left"> {{ $shopping->category }} </td>
+                                                        <td class="align-left" style=" max-width: 250px;"> {{ $shopping->title }} </td>
+                                                        <td class="align-left"> {{ $shopping->contact }} </td>
+                                                        <td class="align-left"> {{ $shopping->upazila }} </td>
+                                                        <td class="align-left"> {{ $shopping->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
-                                                            {{ \Carbon\Carbon::parse($restaurant->created_at)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($shopping->created_at)->format('d M, Y') }}
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $statusClass = match ($restaurant->status) {
+                                                                $statusClass = match ($shopping->status) {
                                                                     'Approved' => 'badge badge-secondary badge-shadow',
                                                                     'In Review' => 'badge badge-info badge-shadow',
                                                                     'Pending' => 'badge badge-warning badge-shadow',
@@ -89,45 +91,45 @@
                                                                 };
                                                             @endphp
                                                             <div class="{{ $statusClass }}">
-                                                                {{ $restaurant->status }}
+                                                                {{ $shopping->status }}
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewRestaurantModal"
-                                                                data-id="{{ $restaurant->id }}"
-                                                                data-user="{{ $restaurant->user->name }}"
-                                                                data-title="{{ $restaurant->title }}"
-                                                                data-menus="{{ $restaurant->menus }}"
-                                                                data-servies="{{ $restaurant->servies }}"
-                                                                data-timetable="{{ $restaurant->timetable }}"
-                                                                data-contact="{{ $restaurant->contact?? 'Empty' }}"
-                                                                data-upazila="{{ $restaurant->upazila }}"
-                                                                data-address="{{ $restaurant->address }}"
-                                                                data-status="{{ $restaurant->status }}"
-                                                                data-image="{{ $restaurant->image ? asset('uploads/restaurants/' . $restaurant->image) : '' }}"
-                                                                data-entry="{{ \Carbon\Carbon::parse($restaurant->created_at)->format('d/m/Y') }}">
+                                                                data-toggle="modal" data-target="#viewShoppingModal"
+                                                                data-id="{{ $shopping->id }}"
+                                                                data-user="{{ $shopping->user->name }}"
+                                                                data-category="{{ $shopping->category }}"
+                                                                data-title="{{ $shopping->title }}"
+                                                                data-details="{{ $shopping->details }}"
+                                                                data-price="{{ $shopping->price?? 'Empty' }}"
+                                                                data-contact="{{ $shopping->contact?? 'Empty' }}"
+                                                                data-upazila="{{ $shopping->upazila }}"
+                                                                data-address="{{ $shopping->address }}"
+                                                                data-status="{{ $shopping->status }}"
+                                                                data-image="{{ $shopping->image ? asset('uploads/shoppings/' . $shopping->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($shopping->created_at)->format('d/m/Y') }}">
                                                                 View
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editRestaurantModal"
-                                                                data-id="{{ $restaurant->id }}"
-                                                                data-title="{{ $restaurant->title }}"
-                                                                data-menus="{{ $restaurant->menus }}"
-                                                                data-servies="{{ $restaurant->servies }}"
-                                                                data-timetable="{{ $restaurant->timetable }}"
-                                                                data-contact="{{ $restaurant->contact?? '' }}"
-                                                                data-upazila="{{ $restaurant->upazila }}"
-                                                                data-address="{{ $restaurant->address }}"
-                                                                data-status="{{ $restaurant->status }}"
-                                                                data-image="{{ $restaurant->image ? asset('uploads/restaurants/' . $restaurant->image) : '' }}">
+                                                                data-toggle="modal" data-target="#editShoppingModal"
+                                                                data-id="{{ $shopping->id }}"
+                                                                data-category="{{ $shopping->category }}"
+                                                                data-title="{{ $shopping->title }}"
+                                                                data-details="{{ $shopping->details }}"
+                                                                data-price="{{ $shopping->price?? '' }}"
+                                                                data-contact="{{ $shopping->contact?? '' }}"
+                                                                data-upazila="{{ $shopping->upazila }}"
+                                                                data-address="{{ $shopping->address }}"
+                                                                data-status="{{ $shopping->status }}"
+                                                                data-image="{{ $shopping->image ? asset('uploads/shoppings/' . $shopping->image) : '' }}">
                                                                 Edit
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteRestaurant({{ $restaurant->id }})"
+                                                                onclick="deleteShopping({{ $shopping->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -240,43 +242,50 @@
     </div>
 
     <!-- Modal -->
-    <!-- Create Restaurant Modal -->
-    <div class="modal modalz fade" id="createRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create Shopping Modal -->
+    <div class="modal modalz fade" id="createShoppingModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle"> রেস্টুরেন্ট যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle"> কেনাকাটা যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Modal Content Goes Here -->
-                <form method="POST" action="{{ route('admin.restaurants.store') }}" id="modalForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.shopping.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
+
+
+                    <!-- Category Field -->
+                    <div class="form-group">
+                        <label for="category"> ক্যাটাগরি :* </label>
+                        <select class="form-control" id="category" name="category" required>
+                            <option value=""> সিলেক্ট করুন </option>
+                            <option value="স্টোর">স্টোর </option>
+                            <option value="নতুন পণ্য">নতুন পণ্য</option>
+                            <option value="পুরাতন পণ্য">পুরাতন পণ্য</option>
+                        </select>
+                    </div>
+
 
                     <!-- Title Field -->
                     <div class="form-group">
-                        <label for="title">রেস্টুরেন্টের নাম :* </label>
+                        <label for="title"> স্টোর বা পণ্যের নাম :* </label>
                         <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
-                    <div class="form-group">
-                        <label for="servies"> সার্ভিস সমূহ :* </label>
-                        <input type="text" name="servies" class="form-control" id="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন" required>
+                    <!-- Price Field -->
+                    <div class="form-group" id="priceField" style="display: none;">
+                        <label for="price">পণ্যের মূল্য :*</label>
+                        <input type="text" class="form-control" id="price" name="price" placeholder="মূল্য লিখুন">
                     </div>
 
-                    <!-- Menus Field -->
+                    <!-- Details Field -->
                     <div class="form-group ">
-                        <label for="menus">রেস্টুরেন্টের মেনু আইটেম :*</label>
-                        <textarea class="" id="editor" name="menus" value="{{ old('menus') }}" placeholder="মেনু আইটেম সমূহ লিখুন"></textarea>
-                    </div>
-
-                    <!-- TimeTable Field -->
-                    <div class="form-group">
-                        <label for="timetable"> রেস্টুরেন্ট খোলা ও বন্ধের সময় :* </label>
-                        <input type="text" name="timetable" class="form-control" id="timetable" value="{{ old('timetable') }}" placeholder="সময় লিখুন" required>
+                        <label for="details">স্টোর বা পণ্যের বেপারে বিস্তারিত :*</label>
+                        <textarea class="" id="editor" name="details" value="{{ old('details') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Upazila Field -->
@@ -293,22 +302,21 @@
                         </select>
                     </div>
 
-
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> রেস্টুরেন্টের বিস্তারিত ঠিকানা :*</label>
+                        <label for="address"> বিস্তারিত ঠিকানা :*</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
                     </div>
 
                     <!-- Contact Field -->
                     <div class="form-group">
-                        <label for="contact">রেস্টুরেন্টের যোগাযোগ নম্বর : </label>
+                        <label for="contact"> যোগাযোগ নম্বর : </label>
                         <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label">রেস্টুরেন্টের ছবি যুক্ত করুন </label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label"> স্টোর বা পণ্যের ছবি যুক্ত করুন </label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
                                 <div class="image-preview" id="imagePreview" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
@@ -333,8 +341,8 @@
         </div>
     </div>
 
-    <!-- Edit Restaurant Modal -->
-    <div class="modal modalz fade" id="editRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit Shopping Modal -->
+    <div class="modal modalz fade" id="editShoppingModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
 
@@ -344,7 +352,7 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">রেস্টুরেন্ট ডাটা পরিবর্তন </h5>
+                    <h5 class="modal-title" id="modalTitle">কেনাকাটা ডাটা পরিবর্তন </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -353,30 +361,36 @@
                 <div class="modal-body">
 
 
+                    <!-- Category Field -->
+                    <div class="form-group">
+                        <label for="category"> ক্যাটাগরি :* </label>
+                        <select class="form-control" id="categoryX" name="category" required>
+                            <option value="স্টোর" {{ old('category') == 'স্টোর' ? 'selected' : '' }}> স্টোর</option>
+                            <option value="নতুন পণ্য" {{ old('category') == 'নতুন পণ্য' ? 'selected' : '' }}> নতুন পণ্য</option>
+                            <option value="পুরাতন পণ্য" {{ old('category') == 'পুরাতন পণ্য' ? 'selected' : '' }}> পুরাতন পণ্য</option>
+                        </select>
+                    </div>
+
+
                     <!-- Title Field -->
                     <div class="form-group">
-                        <label for="title">রেস্টুরেন্টের নাম :* </label>
+                        <label for="title"> স্টোর বা পণ্যের নাম :* </label>
                         <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
+                    <!-- Price Field -->
                     <div class="form-group">
-                        <label for="servies"> সার্ভিস সমূহ :* </label>
-                        <input type="text" name="servies" class="form-control" id="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন" required>
+                        *(যদি ক্যাটাগরি <samp class="sampcolor">স্টোর</samp> সিলেক্ট করে থাকেন তাহলে পণ্যের মূল্য খালি রাখুন)*<br/>
+                        <label for="price">পণ্যের মূল্য :</label>
+                        <input type="text" class="form-control" id="price" name="price" placeholder="মূল্য লিখুন">
                     </div>
 
-                    <!-- Menus Field -->
+
+                    <!-- Details Field -->
                     <div class="form-group ">
-                        <label for="menus">রেস্টুরেন্টের মেনু আইটেম :*</label>
-                        <textarea class="" id="editorX" name="menus" value="{{ old('menus') }}" placeholder="মেনু আইটেম সমূহ লিখুন"></textarea>
+                        <label for="details">স্টোর বা পণ্যের বেপারে বিস্তারিত :*</label>
+                        <textarea class="" id="editorX" name="details" value="{{ old('details') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
-
-                    <!-- TimeTable Field -->
-                    <div class="form-group">
-                        <label for="timetable"> রেস্টুরেন্ট খোলা ও বন্ধের সময় :* </label>
-                        <input type="text" name="timetable" class="form-control" id="timetable" value="{{ old('timetable') }}" placeholder="সময় লিখুন" required>
-                    </div>
-
 
                     <!-- Upazila Field -->
                     <div class="form-group">
@@ -393,13 +407,13 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> রেস্টুরেন্টের বিস্তারিত ঠিকানা :*</label>
+                        <label for="address"> বিস্তারিত ঠিকানা :*</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
                     </div>
 
                     <!-- Contact Field -->
                     <div class="form-group">
-                        <label for="contact">রেস্টুরেন্টের যোগাযোগ নম্বর : </label>
+                        <label for="contact"> যোগাযোগ নম্বর : </label>
                         <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
@@ -434,18 +448,19 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
+
                 </form>
             </div>
         </div>
         </div>
     </div>
 
-    <!-- View Restaurant Modal -->
-    <div class="modal modalz fade" id="viewRestaurantModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- View Shopping Modal -->
+    <div class="modal modalz fade" id="viewShoppingModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">রেস্টুরেন্ট ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">কেনাকাটা ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -461,7 +476,7 @@
 
                                             <div class="d-flex bd-highlight">
                                                 <div class="flex-fill bd-highlight mb-3 mr-3">
-                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="restaurant Logo" alt="logo">
+                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="shopping Logo" alt="logo">
                                                 </div>
                                                 <div class="flex-fill bd-highlight align-self-center">
                                                     <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
@@ -472,13 +487,12 @@
                                                 </div>
                                             </div>
 
-                                            <h6 class="dark-color"> <span id="xTitle"></span> </h6>
-                                            <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
-                                            <div><samp class="sampcolor">রেস্টুরেন্ট খোলা ও বন্ধের সময়: </samp> <span id="xTimetable"></span></div>
+                                            <h6 class="dark-color mb-1"> <span id="xTitle"></span> </h6>
+                                            <div><samp class="sampcolor">ঠিকানা: </samp> <span id="xAddress"></span></div>
+                                            <div><samp class="sampcolor">ক্যাটাগরি: </samp> <span id="xCategory"> </span></div>
+                                            <div><samp class="sampcolor">পণ্যের মূল্য: </samp> <span id="xPrice"> </span></div>
                                             <div><hr/></div>
-                                            <div><samp class="sampcolor">সার্ভিস সমূহ: </samp> <span id="xServies"></span></div>
-                                            <div><hr/></div>
-                                            <div><samp class="sampcolor">রেস্টুরেন্টের মেনু আইটেম: </samp> <span id="xMenus"></span></div>
+                                            <div><samp class="sampcolor">স্টোর বা পণ্যের বেপারে বিস্তারিত: </samp> <span id="xDetails"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -496,6 +510,21 @@
     <x-slot name="script">
 
         <script type="text/javascript">
+
+            //PriceField Enable/Disable
+            document.addEventListener('DOMContentLoaded', function () {
+                const categorySelect = document.getElementById('category');
+                const priceField = document.getElementById('priceField');
+
+                categorySelect.addEventListener('change', function () {
+                    const selectedValue = this.value;
+                    if (selectedValue === 'নতুন পণ্য' || selectedValue === 'পুরাতন পণ্য') {
+                        priceField.style.display = 'block';
+                    } else {
+                        priceField.style.display = 'none';
+                    }
+                });
+            });
 
             //CKEditor with Image Upload
             ClassicEditor
@@ -536,7 +565,7 @@
             let editorInstance;
 
             // Event listener for when the edit modal is hidden
-            $('#editRestaurantModal').on('hidden.bs.modal', function() {
+            $('#editshoppingModal').on('hidden.bs.modal', function() {
                 if (editorInstance) {
                     editorInstance.destroy();
                     editorInstance = null;
@@ -577,16 +606,16 @@
             });
 
 
-            //viewRestaurantModal
-            $('#viewRestaurantModal').on('show.bs.modal', function(event) {
+            //viewShoppingModal
+            $('#viewShoppingModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user = button.data('user');
+                var category = button.data('category');
                 var title = button.data('title');
-                var menus = button.data('menus');
-                var servies = button.data('servies');
-                var timetable = button.data('timetable');
+                var details = button.data('details');
+                var price = button.data('price');
                 var contact = button.data('contact') || '';
                 var upazila = button.data('upazila');
                 var address = button.data('address');
@@ -596,10 +625,10 @@
 
                 var modal = $(this);
                 modal.find('#xUser').text(user);
+                modal.find('#xCategory').text(category);
                 modal.find('#xTitle').text(title);
-                modal.find('#xMenus').html(menus);
-                modal.find('#xServies').text(servies);
-                modal.find('#xTimetable').text(timetable);
+                modal.find('#xDetails').html(details);
+                modal.find('#xPrice').text(price);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
@@ -615,14 +644,14 @@
                 }
             });
 
-            //editRestaurantModal
-            $('#editRestaurantModal').on('show.bs.modal', function(event) {
+            //editShoppingModal
+            $('#editShoppingModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
+                var category = button.data('category');
                 var title = button.data('title');
-                var menus = button.data('menus');
-                var servies = button.data('servies');
-                var timetable = button.data('timetable');
+                var details = button.data('details');
+                var price = button.data('price');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
@@ -630,9 +659,9 @@
                 var image = button.data('image');
 
                 var modal = $(this);
+                modal.find('#category').val(category);
                 modal.find('#title').val(title);
-                modal.find('#servies').val(servies);
-                modal.find('#timetable').val(timetable);
+                modal.find('#price').val(price);
                 modal.find('#contact').val(contact);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
@@ -642,10 +671,10 @@
                 if (!editorInstance) {
                     initializeCKEditor().then(editor => {
                         editorInstance = editor;
-                        editorInstance.setData(menus);
+                        editorInstance.setData(details);
                     });
                 } else {
-                    editorInstance.setData(menus);
+                    editorInstance.setData(details);
                 }
 
                 var imagePreview = modal.find('#imagePreviewX');
@@ -655,16 +684,16 @@
                     imagePreview.html('<i class="bi bi-image" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/restaurants/' + id);
+                modal.find('#modalFormX').attr('action', '/admin/shopping/' + id);
 
 
             });
 
-            //deleteRestaurant
-            function deleteRestaurant(id) {
-                if (confirm('Are you sure you want to delete this Restaurant?')) {
+            //deleteShopping
+            function deleteShopping(id) {
+                if (confirm('Are you sure you want to delete this Shopping?')) {
                     $.ajax({
-                        url: '{{ route('admin.restaurants.destroy') }}',
+                        url: '{{ route('admin.shopping.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -681,7 +710,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete Restaurant. Please try again.');
+                            alert('Failed to delete Shopping. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });
