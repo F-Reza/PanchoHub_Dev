@@ -257,6 +257,11 @@
                 <form method="POST" action="{{ route('admin.shopping.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
+                    <!-- Title Field -->
+                    <div class="form-group">
+                        <label for="title"> স্টোর বা পণ্যের নাম :* </label>
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
+                    </div>
 
                     <!-- Category Field -->
                     <div class="form-group">
@@ -267,13 +272,6 @@
                             <option value="নতুন পণ্য">নতুন পণ্য</option>
                             <option value="পুরাতন পণ্য">পুরাতন পণ্য</option>
                         </select>
-                    </div>
-
-
-                    <!-- Title Field -->
-                    <div class="form-group">
-                        <label for="title"> স্টোর বা পণ্যের নাম :* </label>
-                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
                     <!-- Price Field -->
@@ -360,6 +358,11 @@
 
                 <div class="modal-body">
 
+                    <!-- Title Field -->
+                    <div class="form-group">
+                        <label for="title"> স্টোর বা পণ্যের নাম :* </label>
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
+                    </div>
 
                     <!-- Category Field -->
                     <div class="form-group">
@@ -371,16 +374,9 @@
                         </select>
                     </div>
 
-
-                    <!-- Title Field -->
-                    <div class="form-group">
-                        <label for="title"> স্টোর বা পণ্যের নাম :* </label>
-                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
-                    </div>
-
                     <!-- Price Field -->
                     <div class="form-group">
-                        *(যদি ক্যাটাগরি <samp class="sampcolor">স্টোর</samp> সিলেক্ট করে থাকেন তাহলে পণ্যের মূল্য খালি রাখুন)*<br/>
+                        <span class="theme-color">*(যদি ক্যাটাগরি <samp class="sampcolor">স্টোর</samp> সিলেক্ট করে থাকেন তাহলে পণ্যের মূল্য খালি রাখুন)*</span><br/>
                         <label for="price">পণ্যের মূল্য :</label>
                         <input type="text" class="form-control" id="price" name="price" placeholder="মূল্য লিখুন">
                     </div>
@@ -475,19 +471,20 @@
                                         <div class="p-2 flex-grow-1 bd-highlight">
 
                                             <div class="d-flex bd-highlight">
-                                                <div class="flex-fill bd-highlight mb-3 mr-3">
+                                                <div class="flex-fill bd-highlight mr-3">
                                                     <img id="modalImage" src="" style="width: 300px; height: 160px;" title="shopping Logo" alt="logo">
                                                 </div>
                                                 <div class="flex-fill bd-highlight align-self-center">
-                                                    <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
+                                                    <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
+                                                    <div><hr/></div>
                                                     <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
                                                     <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
                                                     <div><samp class="sampcolor">যোগ করেছেন: </samp> <span id="xUser"></span></div>
-                                                    <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
                                                 </div>
                                             </div>
 
-                                            <h6 class="dark-color mb-1"> <span id="xTitle"></span> </h6>
+                                            <h6 class="dark-color mt-3 mb-2"> <span id="xTitle"></span> </h6>
+                                            <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
                                             <div><samp class="sampcolor">ঠিকানা: </samp> <span id="xAddress"></span></div>
                                             <div><samp class="sampcolor">ক্যাটাগরি: </samp> <span id="xCategory"> </span></div>
                                             <div><samp class="sampcolor">পণ্যের মূল্য: </samp> <span id="xPrice"> </span></div>

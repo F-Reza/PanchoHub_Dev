@@ -295,7 +295,7 @@
                                 <li><a class="nav-link" href="{{ route('admin.shopping.index') }}">কেনাকাটা</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.vehicle_rent.index') }}">গাড়ি ভাড়া</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.house_rent.index') }}">বাসা ভাড়া</a></li>
-                                <li><a class="nav-link" href="{{ route('admin.plot_sales.index') }}">ফ্লাট ও জমি বিক্রয়</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.plot_sales.index') }}">ফ্লাট ও জমি</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.technicians.index') }}">মিস্ত্রি</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.nursery.index') }}">নার্সারি</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.entrepreneurs.index') }}">উদ্যোক্তা</a></li>

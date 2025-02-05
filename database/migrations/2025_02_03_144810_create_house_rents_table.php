@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('category');
-            $table->string('area')->nullable();
+            $table->string('area');
             $table->string('number_of_rooms');
             $table->string('number_of_bath');
             $table->string('rent_amount');
@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('rent_available');
             $table->string('contact');
             $table->string('upazila');
-            $table->text('address');
-            $table->text('others_info')->nullable();
+            $table->string('address');
+            $table->string('others_info')->nullable();
             $table->string('image')->nullable();
             $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();

@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - সেলুন/পার্লার সমূহ |</title>
+        <title>| পঞ্চহাব - বাড়িভাড়া সমূহ |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 
@@ -16,9 +16,9 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4> পার্লার-সেলুন সমূহ </h4>
+                                <h4> বাড়িভাড়া সমূহ </h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createSalonParlourModal">Create</a>
+                                    data-target="#createHouseRentModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -38,7 +38,7 @@
                                                 </th>
                                                 <th>Image</th>
                                                 <th class="align-left">Category</th>
-                                                <th class="align-left">Title</th>
+                                                <th class="align-left">Available</th>
                                                 <th class="align-left">	Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">	Added By</th>
@@ -48,41 +48,41 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($salonParlours->isNotEmpty())
-                                                @foreach ($salonParlours as $key => $salonParlour)
+                                            @if ($houseRents->isNotEmpty())
+                                                @foreach ($houseRents as $key => $houseRent)
                                                     <tr>
                                                         <td> {{ ++$key }} </td>
                                                         <td class="text-center">
                                                             <div class="custom-checkbox custom-control">
                                                                 <input type="checkbox" data-checkboxes="mygroup"
                                                                     class="custom-control-input"
-                                                                    id="checkbox-{{ $salonParlour->id }}">
-                                                                <label for="checkbox-{{ $salonParlour->id }}"
+                                                                    id="checkbox-{{ $houseRent->id }}">
+                                                                <label for="checkbox-{{ $houseRent->id }}"
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                                      @if (!empty($salonParlour->image))
-                                                                <img class="article-image" alt="image" title="News Image"
-                                                                    src="{{ asset('uploads/salonParlours/' . $salonParlour->image) }}"
+                                                            @if (!empty($houseRent->image))
+                                                                <img class="article-image" alt="image" title="Image"
+                                                                    src="{{ asset('uploads/houseRents/' . $houseRent->image) }}"
                                                                     width="70" height="40">
                                                             @else
-                                                                <img class="article-image" alt="image" title="News Image"
+                                                                <img class="article-image" alt="image" title="Image"
                                                                     src="{{ asset('assets/dashboard/img/users/avatar.png') }}"
                                                                     width="70" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left"> {{ $salonParlour->category }} </td>
-                                                        <td class="align-left" style=" max-width: 250px;"> {{ $salonParlour->title }} </td>
-                                                        <td class="align-left"> {{ $salonParlour->contact }} </td>
-                                                        <td class="align-left"> {{ $salonParlour->upazila }} </td>
-                                                        <td class="align-left"> {{ $salonParlour->user->name ?? 'N/A' }}</td>
+                                                        <td class="align-left"> {{ $houseRent->category }} </td>
+                                                        <td class="align-left" style=" max-width: 250px;"> {{ $houseRent->rent_available }} </td>
+                                                        <td class="align-left"> {{ $houseRent->contact }} </td>
+                                                        <td class="align-left"> {{ $houseRent->upazila }} </td>
+                                                        <td class="align-left"> {{ $houseRent->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
-                                                            {{ \Carbon\Carbon::parse($salonParlour->created_at)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($houseRent->created_at)->format('d M, Y') }}
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $statusClass = match ($salonParlour->status) {
+                                                                $statusClass = match ($houseRent->status) {
                                                                     'Approved' => 'badge badge-secondary badge-shadow',
                                                                     'In Review' => 'badge badge-info badge-shadow',
                                                                     'Pending' => 'badge badge-warning badge-shadow',
@@ -91,45 +91,53 @@
                                                                 };
                                                             @endphp
                                                             <div class="{{ $statusClass }}">
-                                                                {{ $salonParlour->status }}
+                                                                {{ $houseRent->status }}
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewSalonParlourModal"
-                                                                data-id="{{ $salonParlour->id }}"
-                                                                data-user="{{ $salonParlour->user->name }}"
-                                                                data-category="{{ $salonParlour->category }}"
-                                                                data-title="{{ $salonParlour->title }}"
-                                                                data-servies="{{ $salonParlour->servies }}"
-                                                                data-timetable="{{ $salonParlour->timetable }}"
-                                                                data-contact="{{ $salonParlour->contact?? 'Empty' }}"
-                                                                data-upazila="{{ $salonParlour->upazila }}"
-                                                                data-address="{{ $salonParlour->address }}"
-                                                                data-status="{{ $salonParlour->status }}"
-                                                                data-image="{{ $salonParlour->image ? asset('uploads/salonParlours/' . $salonParlour->image) : '' }}"
-                                                                data-entry="{{ \Carbon\Carbon::parse($salonParlour->created_at)->format('d/m/Y') }}">
+                                                                data-toggle="modal" data-target="#viewHouseRentModal"
+                                                                data-id="{{ $houseRent->id }}"
+                                                                data-user="{{ $houseRent->user->name }}"
+                                                                data-category="{{ $houseRent->category }}"
+                                                                data-area="{{ $houseRent->area }}"
+                                                                data-number_of_rooms="{{ $houseRent->number_of_rooms }}"
+                                                                data-number_of_bath="{{ $houseRent->number_of_bath }}"
+                                                                data-rent_amount="{{ $houseRent->rent_amount }}"
+                                                                data-facilities="{{ $houseRent->facilities }}"
+                                                                data-rent_available="{{ $houseRent->rent_available }}"
+                                                                data-contact="{{ $houseRent->contact }}"
+                                                                data-upazila="{{ $houseRent->upazila }}"
+                                                                data-address="{{ $houseRent->address}}"
+                                                                data-others_info="{{ $houseRent->others_info?? 'Empty' }}"
+                                                                data-status="{{ $houseRent->status }}"
+                                                                data-image="{{ $houseRent->image ? asset('uploads/houseRents/' . $houseRent->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($houseRent->created_at)->format('d/m/Y') }}">
                                                                 View
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editSalonParlourModal"
-                                                                data-id="{{ $salonParlour->id }}"
-                                                                data-category="{{ $salonParlour->category }}"
-                                                                data-title="{{ $salonParlour->title }}"
-                                                                data-servies="{{ $salonParlour->servies }}"
-                                                                data-timetable="{{ $salonParlour->timetable }}"
-                                                                data-contact="{{ $salonParlour->contact?? '' }}"
-                                                                data-upazila="{{ $salonParlour->upazila }}"
-                                                                data-address="{{ $salonParlour->address }}"
-                                                                data-status="{{ $salonParlour->status }}"
-                                                                data-image="{{ $salonParlour->image ? asset('uploads/salonParlours/' . $salonParlour->image) : '' }}">
+                                                                data-toggle="modal" data-target="#editHouseRentModal"
+                                                                data-id="{{ $houseRent->id }}"
+                                                                data-category="{{ $houseRent->category }}"
+                                                                data-area="{{ $houseRent->area }}"
+                                                                data-number_of_rooms="{{ $houseRent->number_of_rooms }}"
+                                                                data-number_of_bath="{{ $houseRent->number_of_bath }}"
+                                                                data-rent_amount="{{ $houseRent->rent_amount }}"
+                                                                data-facilities="{{ $houseRent->facilities }}"
+                                                                data-rent_available="{{ $houseRent->rent_available }}"
+                                                                data-contact="{{ $houseRent->contact }}"
+                                                                data-upazila="{{ $houseRent->upazila }}"
+                                                                data-address="{{ $houseRent->address}}"
+                                                                data-others_info="{{ $houseRent->others_info?? '' }}"
+                                                                data-status="{{ $houseRent->status }}"
+                                                                data-image="{{ $houseRent->image ? asset('uploads/houseRents/' . $houseRent->image) : '' }}">
                                                                 Edit
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteSalonParlour({{ $salonParlour->id }})"
+                                                                onclick="deleteHouseRent({{ $houseRent->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -242,49 +250,78 @@
     </div>
 
     <!-- Modal -->
-    <!-- Create SalonParlour Modal -->
-    <div class="modal modalz fade" id="createSalonParlourModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create HouseRent Modal -->
+    <div class="modal modalz fade" id="createHouseRentModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle"> সেলুন/পার্লার যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle"> বাড়িভাড়া যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Modal Content Goes Here -->
-                <form method="POST" action="{{ route('admin.salon_parlour.store') }}" id="modalForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.house_rent.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
-
 
                     <!-- Category Field -->
                     <div class="form-group">
-                        <label for="category"> ক্যাটাগরি :* </label>
+                        <label for="category"> বাসার ধরণ :* </label>
                         <select class="form-control" id="category" name="category" required>
-                            <option value=""> সিলেক্ট করুন </option>
-                            <option value="সেলুন">সেলুন</option>
-                            <option value="পার্লার">পার্লার</option>
-                            <option value="পার্লার ও সেলুন">পার্লার ও সেলুন</option>
+                            <option value=""> নির্বাচন করুন </option>
+                            <option value="ফ্লাট বাসা">ফ্লাট বাসা</option>
+                            <option value="এপার্টমেন্ট">এপার্টমেন্ট </option>
+                            <option value="অফিস ">অফিস </option>
+                            <option value="সাবলেট">সাবলেট </option>
+                            <option value="হোস্টেল">হোস্টেল </option>
+                            <option value="মেস">মেস </option>
+                            <option value="গ্যারেজ">গ্যারেজ</option>
                         </select>
                     </div>
 
-                    <!-- Title Field -->
+                    <!-- RentAvailable Field -->
                     <div class="form-group">
-                        <label for="title">সেলুন/পার্লারের নাম :* </label>
-                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
+                        <label for="rent_available">কোন মাস থেকে ভাড়া হবে :*</label>
+                        <input type="text" class="form-control" id="rent_available" name="rent_available" value="{{ old(key: 'rent_available') }}" placeholder="মাস লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
-                    <div class="form-group ">
-                        <label for="servies">সার্ভিস সমূহ :*</label>
-                        <textarea class="" id="editor" name="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন"></textarea>
+
+                    <!-- Area Field -->
+                    <div class="form-group">
+                        <label for="area"> আয়তন :* </label>
+                        <input type="text" name="area" class="form-control" id="area" value="{{ old('area') }}" placeholder="আয়তন লিখুন" required>
                     </div>
 
-                    <!-- TimeTable Field -->
+                    <!-- NumberOfRooms Field -->
                     <div class="form-group">
-                        <label for="timetable"> সেলুন/পার্লার খোলা ও বন্ধের সময় :* </label>
-                        <input type="text" name="timetable" class="form-control" id="timetable" value="{{ old('timetable') }}" placeholder="সময় লিখুন" required>
+                        <label for="number_of_rooms"> রুম সংখ্যা :* </label>
+                        <input type="text" name="number_of_rooms" class="form-control" id="number_of_rooms" value="{{ old('number_of_rooms') }}" placeholder="রুম সংখ্যা লিখুন" required>
+                    </div>
+
+                    <!-- NumberOfBath Field -->
+                    <div class="form-group">
+                        <label for="number_of_bath"> বাথরুম সংখ্যা :* </label>
+                        <input type="text" class="form-control" name="number_of_bath" id="number_of_bath" value="{{ old('number_of_bath') }}" placeholder="বাথরুম সংখ্যা লিখুন" required>
+                    </div>
+
+
+                    <!-- RentAmount Field -->
+                    <div class="form-group">
+                        <label for="rent_amount">ভাড়ার পরিমান :*</label>
+                        <input type="text" class="form-control" id="rent_amount" name="rent_amount" value="{{ old(key: 'rent_amount') }}" placeholder="ভাড়ার পরিমান লিখুন" required>
+                    </div>
+
+                    <!-- Facilities Field -->
+                    <div class="form-group">
+                        <label for="facilities">সুযোগ-সুবিধা :*</label>
+                        <textarea class="" id="editor" name="facilities" value="{{ old('facilities') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                    </div>
+
+                    <!-- Contact Field -->
+                    <div class="form-group">
+                        <label for="contact"> যোগাযোগ নম্বর :* </label>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
                     </div>
 
                     <!-- Upazila Field -->
@@ -297,26 +334,24 @@
                             <option value="আটোয়ারী">আটোয়ারী</option>
                             <option value="তেঁতুলিয়া">তেঁতুলিয়া</option>
                             <option value="পঞ্চগড় সদর">পঞ্চগড় সদর</option>
-
                         </select>
                     </div>
 
-
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> সেলুন/পার্লারের বিস্তারিত ঠিকানা :*</label>
+                        <label for="address"> বিস্তারিত ঠিকানা :* </label>
                         <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
                     </div>
 
-                    <!-- Contact Field -->
-                    <div class="form-group">
-                        <label for="contact">সেলুন/পার্লারের যোগাযোগ নম্বর : </label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
+                    <!-- OthersInfo Field -->
+                    <div class="form-group ">
+                        <label for="others_info">অন্যান তথ্য : (যদি থাকে)</label>
+                        <textarea class="form-control" id="others_info" name="others_info" rows="3" value="{{ old(key: 'others_info') }}" placeholder="অন্যান তথ্য লিখুন"></textarea>
                     </div>
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label">সেলুন/পার্লারের ছবি যুক্ত করুন </label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label"> ছবি যুক্ত করুন </label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
                                 <div class="image-preview" id="imagePreview" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
@@ -330,6 +365,7 @@
                         </div>
                     </div>
 
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save Now</button>
@@ -341,8 +377,8 @@
         </div>
     </div>
 
-    <!-- Edit SalonParlour Modal -->
-    <div class="modal modalz fade" id="editSalonParlourModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit HouseRent Modal -->
+    <div class="modal modalz fade" id="editHouseRentModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
 
@@ -352,7 +388,7 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">সেলুন/পার্লার ডাটা পরিবর্তন </h5>
+                    <h5 class="modal-title" id="modalTitle">বাড়িভাড়া ডাটা পরিবর্তন </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -360,33 +396,62 @@
 
                 <div class="modal-body">
 
-
                     <!-- Category Field -->
                     <div class="form-group">
-                        <label for="category"> ক্যাটাগরি :* </label>
+                        <label for="category"> বাসার ধরণ :* </label>
                         <select class="form-control" id="category" name="category" required>
-                            <option value="সেলুন" {{ old('category') == 'সেলুন' ? 'selected' : '' }}> সেলুন</option>
-                            <option value="পার্লার" {{ old('category') == 'পার্লার' ? 'selected' : '' }}> পার্লার</option>
-                            <option value="পার্লার ও সেলুন" {{ old('category') == 'পার্লার ও সেলুন' ? 'selected' : '' }}> পার্লার ও সেলুন</option>
+                            <option value="ফ্লাট বাসা" {{ old('category') == 'ফ্লাট বাসা' ? 'selected' : '' }}>ফ্লাট বাসা</option>
+                            <option value="এপার্টমেন্ট" {{ old('category') == 'এপার্টমেন্ট' ? 'selected' : '' }}>এপার্টমেন্ট </option>
+                            <option value="অফিস " {{ old('category') == 'অফিস ' ? 'selected' : '' }}>অফিস </option>
+                            <option value="সাবলেট" {{ old('category') == 'সাবলেট' ? 'selected' : '' }}>সাবলেট </option>
+                            <option value="হোস্টেল" {{ old('category') == 'হোস্টেল' ? 'selected' : '' }}>হোস্টেল </option>
+                            <option value="মেস" {{ old('category') == 'মেস' ? 'selected' : '' }}>মেস </option>
+                            <option value="গ্যারেজ" {{ old('category') == 'গ্যারেজ' ? 'selected' : '' }}>গ্যারেজ</option>
                         </select>
                     </div>
 
-                    <!-- Title Field -->
+                    <!-- RentAvailable Field -->
                     <div class="form-group">
-                        <label for="title">সেলুন/পার্লারের নাম :* </label>
-                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
+                        <label for="rent_available">কোন মাস থেকে ভাড়া হবে :*</label>
+                        <input type="text" class="form-control" id="rent_available" name="rent_available" value="{{ old(key: 'rent_available') }}" placeholder="মাস লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
-                    <div class="form-group ">
-                        <label for="servies">সার্ভিস সমূহ :*</label>
-                        <textarea class="" id="editorX" name="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন"></textarea>
+
+                    <!-- Area Field -->
+                    <div class="form-group">
+                        <label for="area"> আয়তন :* </label>
+                        <input type="text" name="area" class="form-control" id="area" value="{{ old('area') }}" placeholder="আয়তন লিখুন" required>
                     </div>
 
-                    <!-- TimeTable Field -->
+                    <!-- NumberOfRooms Field -->
                     <div class="form-group">
-                        <label for="timetable"> সেলুন/পার্লার খোলা ও বন্ধের সময় :* </label>
-                        <input type="text" name="timetable" class="form-control" id="timetable" value="{{ old('timetable') }}" placeholder="সময় লিখুন" required>
+                        <label for="number_of_rooms"> রুম সংখ্যা :* </label>
+                        <input type="text" name="number_of_rooms" class="form-control" id="number_of_rooms" value="{{ old('number_of_rooms') }}" placeholder="রুম সংখ্যা লিখুন" required>
+                    </div>
+
+                    <!-- NumberOfBath Field -->
+                    <div class="form-group">
+                        <label for="number_of_bath"> বাথরুম সংখ্যা :* </label>
+                        <input type="text" class="form-control" name="number_of_bath" id="number_of_bath" value="{{ old('number_of_bath') }}" placeholder="বাথরুম সংখ্যা লিখুন" required>
+                    </div>
+
+
+                    <!-- RentAmount Field -->
+                    <div class="form-group">
+                        <label for="rent_amount">ভাড়ার পরিমান :*</label>
+                        <input type="text" class="form-control" id="rent_amount" name="rent_amount" value="{{ old(key: 'rent_amount') }}" placeholder="ভাড়ার পরিমান লিখুন" required>
+                    </div>
+
+                    <!-- Facilities Field -->
+                    <div class="form-group">
+                        <label for="facilities">সুযোগ-সুবিধা :*</label>
+                        <textarea class="" id="editorX" name="facilities" value="{{ old('facilities') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                    </div>
+
+                    <!-- Contact Field -->
+                    <div class="form-group">
+                        <label for="contact"> যোগাযোগ নম্বর :* </label>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
                     </div>
 
                     <!-- Upazila Field -->
@@ -404,19 +469,19 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> সেলুন/পার্লারের বিস্তারিত ঠিকানা :*</label>
+                        <label for="address"> বিস্তারিত ঠিকানা :* </label>
                         <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
                     </div>
 
-                    <!-- Contact Field -->
-                    <div class="form-group">
-                        <label for="contact">সেলুন/পার্লারের যোগাযোগ নম্বর : </label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
+                    <!-- OthersInfo Field -->
+                    <div class="form-group ">
+                        <label for="others_info">অন্যান তথ্য : (যদি থাকে)</label>
+                        <textarea class="form-control" id="others_info" name="others_info" rows="3" value="{{ old(key: 'others_info') }}" placeholder="অন্যান তথ্য লিখুন"></textarea>
                     </div>
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label">রেস্টুরেন্টের ছবি যুক্ত করুন </label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label"> গাড়ির ছবি যুক্ত করুন </label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
                                 <div class="image-preview" id="imagePreviewX" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
@@ -445,18 +510,19 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
+
                 </form>
             </div>
         </div>
         </div>
     </div>
 
-    <!-- View salonParlour Modal -->
-    <div class="modal modalz fade" id="viewSalonParlourModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- View HouseRent Modal -->
+    <div class="modal modalz fade" id="viewHouseRentModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">সেলুন/পার্লার ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">বাড়িভাড়া ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -472,7 +538,7 @@
 
                                             <div class="d-flex bd-highlight">
                                                 <div class="flex-fill bd-highlight mr-3">
-                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="salonParlour Logo" alt="logo">
+                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="houseRent Logo" alt="logo">
                                                 </div>
                                                 <div class="flex-fill bd-highlight align-self-center">
                                                     <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
@@ -484,12 +550,17 @@
                                                 </div>
                                             </div>
 
-                                            <h6 class="dark-color mt-3 mb-2"> <span id="xTitle"></span> </h6>
-                                            <div><samp class="sampcolor">ক্যাটাগরি: </samp> <span id="xCategory"></span></div>
-                                            <div><samp class="sampcolor">সেলুন/পার্লার খোলা ও বন্ধের সময়: </samp> <span id="xTimetable"></span></div>
+                                            <h6 class="dark-color mt-3 mb-2"> ভাড়ার পরিমান: <span id="xRentAmount"></span> </h6>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
+                                            <div><samp class="sampcolor">বাসার ধরণ: </samp> <span id="xCategory"> </span></div>
+                                            <div><samp class="sampcolor">কোন মাস থেকে ভাড়া হবে: </samp> <span id="xRentAvailable"> </span></div>
+                                            <div><samp class="sampcolor">আয়তন: </samp> <span id="xArea"> </span></div>
+                                            <div><samp class="sampcolor">রুম সংখ্যা: </samp> <span id="xNoOfRooms"> </span></div>
+                                            <div><samp class="sampcolor">বাথরুম সংখ্যা: </samp> <span id="xNoOfBath"> </span></div>
                                             <div><hr/></div>
-                                            <div><samp class="sampcolor">সার্ভিস সমূহ: </samp> <span id="xServies"></span></div>
+                                            <div><samp class="sampcolor">সুযোগ-সুবিধা: </samp> <br/><span id="xFacilities"> </span></div>
+                                            <div><hr/></div>
+                                            <div><samp class="sampcolor">অন্যান তথ্য: </samp> <br/><span id="xOthersInfo"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -508,8 +579,8 @@
 
         <script type="text/javascript">
 
-            //CKEditor with Image Upload
-            ClassicEditor
+             //CKEditor with Image Upload
+             ClassicEditor
                 .create(document.querySelector('#editor'), {
                     toolbar: [
                         'heading', '|',
@@ -547,7 +618,16 @@
             let editorInstance;
 
             // Event listener for when the edit modal is hidden
-            $('#editsalonParlourModal').on('hidden.bs.modal', function() {
+            $('#editHouseRentModal').on('hidden.bs.modal', function() {
+                if (editorInstance) {
+                    editorInstance.destroy();
+                    editorInstance = null;
+                }
+            });
+
+
+            // Event listener for when the edit modal is hidden
+            $('#editTodayNewsModal').on('hidden.bs.modal', function() {
                 if (editorInstance) {
                     editorInstance.destroy();
                     editorInstance = null;
@@ -588,19 +668,23 @@
             });
 
 
-            //viewSalonParlourModal
-            $('#viewSalonParlourModal').on('show.bs.modal', function(event) {
+            //viewHouseRentModal
+            $('#viewHouseRentModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user = button.data('user');
                 var category = button.data('category');
-                var title = button.data('title');
-                var servies = button.data('servies');
-                var timetable = button.data('timetable');
-                var contact = button.data('contact') || '';
+                var area = button.data('area');
+                var number_of_rooms = button.data('number_of_rooms');
+                var number_of_bath = button.data('number_of_bath');
+                var rent_amount = button.data('rent_amount');
+                var facilities = button.data('facilities');
+                var rent_available = button.data('rent_available');
+                var contact = button.data('contact');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
+                var others_info = button.data('others_info') || '';
                 var status = button.data('status');
                 var entry = button.data('entry');
                 var image = button.data('image');
@@ -608,12 +692,16 @@
                 var modal = $(this);
                 modal.find('#xUser').text(user);
                 modal.find('#xCategory').text(category);
-                modal.find('#xTitle').text(title);
-                modal.find('#xServies').html(servies);
-                modal.find('#xTimetable').text(timetable);
+                modal.find('#xArea').text(area);
+                modal.find('#xNoOfRooms').text(number_of_rooms);
+                modal.find('#xNoOfBath').text(number_of_bath);
+                modal.find('#xRentAmount').text(rent_amount);
+                modal.find('#xFacilities').html(facilities);
+                modal.find('#xRentAvailable').text(rent_available);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
+                modal.find('#xOthersInfo').text(others_info);
                 modal.find('#xStatus').text(status);
                 modal.find('#xEntry').text(entry);
 
@@ -626,37 +714,46 @@
                 }
             });
 
-            //editSalonParlourModal
-            $('#editSalonParlourModal').on('show.bs.modal', function(event) {
+            //editHouseRentModal
+            $('#editHouseRentModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
                 var category = button.data('category');
-                var title = button.data('title');
-                var servies = button.data('servies');
-                var timetable = button.data('timetable');
+                var area = button.data('area');
+                var number_of_rooms = button.data('number_of_rooms');
+                var number_of_bath = button.data('number_of_bath');
+                var rent_amount = button.data('rent_amount');
+                var facilities = button.data('facilities');
+                var rent_available = button.data('rent_available');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
+                var others_info = button.data('others_info');
                 var status = button.data('status');
                 var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#category').val(category);
-                modal.find('#title').val(title);
-                modal.find('#timetable').val(timetable);
+                modal.find('#area').val(area);
+                modal.find('#number_of_rooms').val(number_of_rooms);
+                modal.find('#number_of_bath').val(number_of_bath);
+                modal.find('#rent_amount').val(rent_amount);
+                modal.find('#rent_available').val(rent_available);
                 modal.find('#contact').val(contact);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
+                modal.find('#others_info').val(others_info);
                 modal.find('#status').val(status);
+
 
                 // Initialize CKEditor if it hasn't been initialized yet
                 if (!editorInstance) {
                     initializeCKEditor().then(editor => {
                         editorInstance = editor;
-                        editorInstance.setData(servies);
+                        editorInstance.setData(facilities);
                     });
                 } else {
-                    editorInstance.setData(servies);
+                    editorInstance.setData(facilities);
                 }
 
                 var imagePreview = modal.find('#imagePreviewX');
@@ -666,16 +763,16 @@
                     imagePreview.html('<i class="bi bi-image" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/salon_parlour/' + id);
+                modal.find('#modalFormX').attr('action', '/admin/house_rent/' + id);
 
 
             });
 
-            //deleteSalonParlour
-            function deleteSalonParlour(id) {
-                if (confirm('Are you sure you want to delete this SalonParlour?')) {
+            //deleteHouseRent
+            function deleteHouseRent(id) {
+                if (confirm('Are you sure you want to delete this HouseRent?')) {
                     $.ajax({
-                        url: '{{ route('admin.salon_parlour.destroy') }}',
+                        url: '{{ route('admin.house_rent.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -692,7 +789,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete SalonParlour. Please try again.');
+                            alert('Failed to delete HouseRent. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });

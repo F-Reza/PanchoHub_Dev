@@ -25,7 +25,7 @@ class TechniciansController extends Controller
             'name' => 'required|min:2|string',
             'type' => 'required|min:2|string',
             'experience' => 'required|min:2|string',
-            'contact' => 'nullable|regex:/^[0-9]+$/',
+            'contact' => 'required|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -40,7 +40,7 @@ class TechniciansController extends Controller
         $technician-> name = $request->name;
         $technician-> type = $request->type;
         $technician-> experience = $request->experience;
-        $technician-> contact = $request->contact?? null;
+        $technician-> contact = $request->contact;
         $technician-> upazila = $request->upazila;
         $technician-> address = $request->address?? null;
         $technician-> others_info = $request->others_info?? null;
@@ -93,7 +93,7 @@ class TechniciansController extends Controller
             'name' => 'required|min:2|string|max:255',
             'type' => 'required|min:2|string|max:255',
             'experience' => 'required|min:2|string',
-            'contact' => 'nullable|regex:/^[0-9]+$/',
+            'contact' => 'required|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -106,7 +106,7 @@ class TechniciansController extends Controller
         $technician-> name = $request->name;
         $technician-> type = $request->type;
         $technician-> experience = $request->experience;
-        $technician-> contact = $request->contact?? null;
+        $technician-> contact = $request->contact;
         $technician-> upazila = $request->upazila;
         $technician-> address = $request->address?? null;
         $technician-> others_info = $request->others_info?? null;

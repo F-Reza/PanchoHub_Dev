@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('name');
-            $table->string('contact');
+            $table->string('contact')->nullable();
             $table->string('email')->nullable();
             $table->string('fb_page_name')->nullable();
             $table->string('page_link')->nullable();

@@ -485,8 +485,16 @@
                             <div class="row align-items-center flex-column">
                                 <div class="col-lg-11">
                                     <div class="about-text about-list">
+                                        <div class="d-flex bd-highlight">
+                                            <div class="flex-fill bd-highlight align-self-center">
+                                                <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
+                                                <div><hr/></div>
+                                                <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
+                                                <div><samp class="sampcolor">যোগ করেছেন: </samp> <span id="xUser"></span></div>
+                                            </div>
+                                        </div>
                                         <div class="d-flex flex-fill bd-highlight about-list">
-                                            <div class="align-self-center fixed-width pr-2">
+                                            <div class="align-self-center fixed-width pr-2" style="flex-shrink: 0;">
                                                 <img id="modalImage" src="" style="width: 100px; height: 100px;" title="Hospital Logo" alt="logo">
                                             </div>
                                             <div class="p-2 flex-shrink-1 bd-highlight mt-4">

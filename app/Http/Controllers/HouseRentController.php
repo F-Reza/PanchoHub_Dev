@@ -15,7 +15,7 @@ class HouseRentController extends Controller
         public function index()
     {
         $houseRents = HouseRent::with('user')->latest()->paginate(25);
-        return view('modules.HouseRent.HouseRentList',[
+        return view('modules.HouseRents.HouseRentList',[
             'houseRents' => $houseRents
         ]);
     }
@@ -24,6 +24,7 @@ class HouseRentController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'category' => 'required|not_in:null,',
+            'area' => 'required|min:1|string',
             'number_of_rooms' => 'required|min:1|string',
             'number_of_bath' => 'required|min:1|string',
             'rent_amount' => 'required|min:1|string',
@@ -43,7 +44,7 @@ class HouseRentController extends Controller
         $houseRent = new HouseRent();
         $houseRent->user_id = Auth::user()->id;
         $houseRent-> category = $request->category;
-        $houseRent-> area = $request->area?? null;
+        $houseRent-> area = $request->area;
         $houseRent-> number_of_rooms = $request->number_of_rooms;
         $houseRent-> number_of_bath = $request->number_of_bath;
         $houseRent-> rent_amount = $request->rent_amount;
@@ -101,6 +102,7 @@ class HouseRentController extends Controller
 
         $validator = Validator::make($request->all(),[
             'category' => 'required|not_in:null,',
+            'area' => 'required|min:1|string',
             'number_of_rooms' => 'required|min:1|string',
             'number_of_bath' => 'required|min:1|string',
             'rent_amount' => 'required|min:1|string',
@@ -118,7 +120,7 @@ class HouseRentController extends Controller
         }
 
         $houseRent-> category = $request->category;
-        $houseRent-> area = $request->area?? null;
+        $houseRent-> area = $request->area;
         $houseRent-> number_of_rooms = $request->number_of_rooms;
         $houseRent-> number_of_bath = $request->number_of_bath;
         $houseRent-> rent_amount = $request->rent_amount;

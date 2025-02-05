@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - সেলুন/পার্লার সমূহ |</title>
+        <title>| পঞ্চহাব - গাড়িভাড়া সমূহ |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 
@@ -16,9 +16,9 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4> পার্লার-সেলুন সমূহ </h4>
+                                <h4> গাড়িভাড়া সমূহ </h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createSalonParlourModal">Create</a>
+                                    data-target="#createVehicleRentModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -37,8 +37,8 @@
                                                     </div>
                                                 </th>
                                                 <th>Image</th>
-                                                <th class="align-left">Category</th>
                                                 <th class="align-left">Title</th>
+                                                <th class="align-left">Category</th>
                                                 <th class="align-left">	Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">	Added By</th>
@@ -48,41 +48,41 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($salonParlours->isNotEmpty())
-                                                @foreach ($salonParlours as $key => $salonParlour)
+                                            @if ($vehicleRents->isNotEmpty())
+                                                @foreach ($vehicleRents as $key => $vehicleRent)
                                                     <tr>
                                                         <td> {{ ++$key }} </td>
                                                         <td class="text-center">
                                                             <div class="custom-checkbox custom-control">
                                                                 <input type="checkbox" data-checkboxes="mygroup"
                                                                     class="custom-control-input"
-                                                                    id="checkbox-{{ $salonParlour->id }}">
-                                                                <label for="checkbox-{{ $salonParlour->id }}"
+                                                                    id="checkbox-{{ $vehicleRent->id }}">
+                                                                <label for="checkbox-{{ $vehicleRent->id }}"
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                                      @if (!empty($salonParlour->image))
-                                                                <img class="article-image" alt="image" title="News Image"
-                                                                    src="{{ asset('uploads/salonParlours/' . $salonParlour->image) }}"
+                                                            @if (!empty($vehicleRent->image))
+                                                                <img class="article-image" alt="image" title="Image"
+                                                                    src="{{ asset('uploads/vehicleRents/' . $vehicleRent->image) }}"
                                                                     width="70" height="40">
                                                             @else
-                                                                <img class="article-image" alt="image" title="News Image"
+                                                                <img class="article-image" alt="image" title="Image"
                                                                     src="{{ asset('assets/dashboard/img/users/avatar.png') }}"
                                                                     width="70" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left"> {{ $salonParlour->category }} </td>
-                                                        <td class="align-left" style=" max-width: 250px;"> {{ $salonParlour->title }} </td>
-                                                        <td class="align-left"> {{ $salonParlour->contact }} </td>
-                                                        <td class="align-left"> {{ $salonParlour->upazila }} </td>
-                                                        <td class="align-left"> {{ $salonParlour->user->name ?? 'N/A' }}</td>
+                                                        <td class="align-left" style=" max-width: 250px;"> {{ $vehicleRent->title }} </td>
+                                                        <td class="align-left"> {{ $vehicleRent->category }} </td>
+                                                        <td class="align-left"> {{ $vehicleRent->contact }} </td>
+                                                        <td class="align-left"> {{ $vehicleRent->upazila }} </td>
+                                                        <td class="align-left"> {{ $vehicleRent->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
-                                                            {{ \Carbon\Carbon::parse($salonParlour->created_at)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($vehicleRent->created_at)->format('d M, Y') }}
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $statusClass = match ($salonParlour->status) {
+                                                                $statusClass = match ($vehicleRent->status) {
                                                                     'Approved' => 'badge badge-secondary badge-shadow',
                                                                     'In Review' => 'badge badge-info badge-shadow',
                                                                     'Pending' => 'badge badge-warning badge-shadow',
@@ -91,45 +91,51 @@
                                                                 };
                                                             @endphp
                                                             <div class="{{ $statusClass }}">
-                                                                {{ $salonParlour->status }}
+                                                                {{ $vehicleRent->status }}
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewSalonParlourModal"
-                                                                data-id="{{ $salonParlour->id }}"
-                                                                data-user="{{ $salonParlour->user->name }}"
-                                                                data-category="{{ $salonParlour->category }}"
-                                                                data-title="{{ $salonParlour->title }}"
-                                                                data-servies="{{ $salonParlour->servies }}"
-                                                                data-timetable="{{ $salonParlour->timetable }}"
-                                                                data-contact="{{ $salonParlour->contact?? 'Empty' }}"
-                                                                data-upazila="{{ $salonParlour->upazila }}"
-                                                                data-address="{{ $salonParlour->address }}"
-                                                                data-status="{{ $salonParlour->status }}"
-                                                                data-image="{{ $salonParlour->image ? asset('uploads/salonParlours/' . $salonParlour->image) : '' }}"
-                                                                data-entry="{{ \Carbon\Carbon::parse($salonParlour->created_at)->format('d/m/Y') }}">
+                                                                data-toggle="modal" data-target="#viewVehicleRentModal"
+                                                                data-id="{{ $vehicleRent->id }}"
+                                                                data-user="{{ $vehicleRent->user->name }}"
+                                                                data-category="{{ $vehicleRent->category }}"
+                                                                data-title="{{ $vehicleRent->title }}"
+                                                                data-capacity="{{ $vehicleRent->capacity?? 'Empty' }}"
+                                                                data-seats="{{ $vehicleRent->seats?? 'Empty' }}"
+                                                                data-facilities="{{ $vehicleRent->facilities?? 'Empty' }}"
+                                                                data-driver_name="{{ $vehicleRent->driver_name?? 'Empty' }}"
+                                                                data-contact="{{ $vehicleRent->contact }}"
+                                                                data-upazila="{{ $vehicleRent->upazila }}"
+                                                                data-address="{{ $vehicleRent->address ?? 'Empty' }}"
+                                                                data-others_info="{{ $vehicleRent->others_info?? 'Empty' }}"
+                                                                data-status="{{ $vehicleRent->status }}"
+                                                                data-image="{{ $vehicleRent->image ? asset('uploads/vehicleRents/' . $vehicleRent->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($vehicleRent->created_at)->format('d/m/Y') }}">
                                                                 View
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editSalonParlourModal"
-                                                                data-id="{{ $salonParlour->id }}"
-                                                                data-category="{{ $salonParlour->category }}"
-                                                                data-title="{{ $salonParlour->title }}"
-                                                                data-servies="{{ $salonParlour->servies }}"
-                                                                data-timetable="{{ $salonParlour->timetable }}"
-                                                                data-contact="{{ $salonParlour->contact?? '' }}"
-                                                                data-upazila="{{ $salonParlour->upazila }}"
-                                                                data-address="{{ $salonParlour->address }}"
-                                                                data-status="{{ $salonParlour->status }}"
-                                                                data-image="{{ $salonParlour->image ? asset('uploads/salonParlours/' . $salonParlour->image) : '' }}">
+                                                                data-toggle="modal" data-target="#editVehicleRentModal"
+                                                                data-id="{{ $vehicleRent->id }}"
+                                                                data-category="{{ $vehicleRent->category }}"
+                                                                data-title="{{ $vehicleRent->title }}"
+                                                                data-capacity="{{ $vehicleRent->capacity?? '' }}"
+                                                                data-seats="{{ $vehicleRent->seats?? '' }}"
+                                                                data-facilities="{{ $vehicleRent->facilities?? '' }}"
+                                                                data-driver_name="{{ $vehicleRent->driver_name?? '' }}"
+                                                                data-contact="{{ $vehicleRent->contact }}"
+                                                                data-upazila="{{ $vehicleRent->upazila }}"
+                                                                data-address="{{ $vehicleRent->address ?? '' }}"
+                                                                data-others_info="{{ $vehicleRent->others_info?? '' }}"
+                                                                data-status="{{ $vehicleRent->status }}"
+                                                                data-image="{{ $vehicleRent->image ? asset('uploads/vehicleRents/' . $vehicleRent->image) : '' }}">
                                                                 Edit
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteSalonParlour({{ $salonParlour->id }})"
+                                                                onclick="deleteVehicleRent({{ $vehicleRent->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -242,49 +248,75 @@
     </div>
 
     <!-- Modal -->
-    <!-- Create SalonParlour Modal -->
-    <div class="modal modalz fade" id="createSalonParlourModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create VehicleRent Modal -->
+    <div class="modal modalz fade" id="createVehicleRentModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle"> সেলুন/পার্লার যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle"> গাড়িভাড়া যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Modal Content Goes Here -->
-                <form method="POST" action="{{ route('admin.salon_parlour.store') }}" id="modalForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.vehicle_rent.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
+                    <!-- Title Field -->
+                    <div class="form-group">
+                        <label for="title"> গাড়ির নাম বা টাইটেল :* </label>
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
+                    </div>
+
+                    <!-- Contact Field -->
+                    <div class="form-group">
+                        <label for="contact"> যোগাযোগ নম্বর :* </label>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
+                    </div>
+
+                    <!-- DriverName Field -->
+                    <div class="form-group">
+                        <label for="driver_name">ড্রাইভারের নাম :</label>
+                        <input type="text" class="form-control" id="driver_name" name="driver_name" value="{{ old(key: 'driver_name') }}" placeholder="ড্রাইভারের নাম লিখুন">
+                    </div>
 
                     <!-- Category Field -->
                     <div class="form-group">
                         <label for="category"> ক্যাটাগরি :* </label>
-                        <select class="form-control" id="category" name="category" required>
+                        <select class="form-control" id="category" name="category" required onchange="toggleFields()">
                             <option value=""> সিলেক্ট করুন </option>
-                            <option value="সেলুন">সেলুন</option>
-                            <option value="পার্লার">পার্লার</option>
-                            <option value="পার্লার ও সেলুন">পার্লার ও সেলুন</option>
+                            <option value="অ্যাম্বুলেন্স">অ্যাম্বুলেন্স</option>
+                            <option value="প্রাইভেট কার">প্রাইভেট কার</option>
+                            <option value="মাইক্রো বাস">মাইক্রো বাস</option>
+                            <option value="পিকাপ">পিকাপ</option>
+                            <option value="ট্রাক">ট্রাক</option>
+                            <option value="অটো">অটো</option>
+                            <option value="সি এন জি">সি এন জি</option>
+                            <option value="বাস">বাস</option>
                         </select>
                     </div>
 
-                    <!-- Title Field -->
-                    <div class="form-group">
-                        <label for="title">সেলুন/পার্লারের নাম :* </label>
-                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
+                    <!-- Capacity Field (Hidden by Default) -->
+                    <div class="form-group" id="capacityField" style="display: none;">
+                        <label for="capacity">গাড়ির ধারণ ক্ষমতা :</label>
+                        <input type="text" class="form-control" id="capacity" name="capacity" value="{{ old('capacity') }}" placeholder="ধারণ ক্ষমতা লিখুন">
                     </div>
 
-                    <!-- Servies Field -->
-                    <div class="form-group ">
-                        <label for="servies">সার্ভিস সমূহ :*</label>
-                        <textarea class="" id="editor" name="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন"></textarea>
+                    <!-- Seats Field (Hidden by Default) -->
+                    <div class="form-group" id="seatsField" style="display: none;">
+                        <label for="seats">গাড়ির সিট সংখ্যা :</label>
+                        <input type="text" class="form-control" id="seats" name="seats" value="{{ old('seats') }}" placeholder="সিট সংখ্যা লিখুন">
                     </div>
 
-                    <!-- TimeTable Field -->
-                    <div class="form-group">
-                        <label for="timetable"> সেলুন/পার্লার খোলা ও বন্ধের সময় :* </label>
-                        <input type="text" name="timetable" class="form-control" id="timetable" value="{{ old('timetable') }}" placeholder="সময় লিখুন" required>
+                    <!-- Facilities Field (Hidden by Default) -->
+                    <div class="form-group" id="facilitiesField" style="display: none;">
+                        <label for="facilities">সার্ভিস :</label>
+                        <select class="form-control" id="facilities" name="facilities">
+                        <option value="">সিলেক্ট করুন</option>
+                        <option value="এসি">এসি</option>
+                        <option value="ননএসি">ননএসি</option>
+                        </select>
                     </div>
 
                     <!-- Upazila Field -->
@@ -297,26 +329,24 @@
                             <option value="আটোয়ারী">আটোয়ারী</option>
                             <option value="তেঁতুলিয়া">তেঁতুলিয়া</option>
                             <option value="পঞ্চগড় সদর">পঞ্চগড় সদর</option>
-
                         </select>
                     </div>
 
+                    <!-- OthersInfo Field -->
+                    <div class="form-group ">
+                        <label for="others_info">গাড়ি ভাড়ার বেপারে বিস্তারিত :</label>
+                        <textarea class="form-control" id="others_info" name="others_info" rows="3" value="{{ old(key: 'others_info') }}" placeholder="ভাড়া লিখুন"></textarea>
+                    </div>
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> সেলুন/পার্লারের বিস্তারিত ঠিকানা :*</label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
-                    </div>
-
-                    <!-- Contact Field -->
-                    <div class="form-group">
-                        <label for="contact">সেলুন/পার্লারের যোগাযোগ নম্বর : </label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
+                        <label for="address"> বিস্তারিত ঠিকানা : </label>
+                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
                     </div>
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label">সেলুন/পার্লারের ছবি যুক্ত করুন </label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label"> গাড়ির ছবি যুক্ত করুন </label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
                                 <div class="image-preview" id="imagePreview" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
@@ -330,6 +360,7 @@
                         </div>
                     </div>
 
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save Now</button>
@@ -341,8 +372,8 @@
         </div>
     </div>
 
-    <!-- Edit SalonParlour Modal -->
-    <div class="modal modalz fade" id="editSalonParlourModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit VhicleRent Modal -->
+    <div class="modal modalz fade" id="editVehicleRentModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
 
@@ -352,7 +383,7 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">সেলুন/পার্লার ডাটা পরিবর্তন </h5>
+                    <h5 class="modal-title" id="modalTitle">গাড়িভাড়া ডাটা পরিবর্তন </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -361,32 +392,62 @@
                 <div class="modal-body">
 
 
+                    <!-- Title Field -->
+                    <div class="form-group">
+                        <label for="title"> গাড়ির নাম বা টাইটেল :* </label>
+                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
+                    </div>
+
+                    <!-- Contact Field -->
+                    <div class="form-group">
+                        <label for="contact"> যোগাযোগ নম্বর :* </label>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
+                    </div>
+
+                    <!-- DriverName Field -->
+                    <div class="form-group">
+                        <label for="driver_name">ড্রাইভারের নাম :</label>
+                        <input type="text" class="form-control" id="driver_name" name="driver_name" value="{{ old(key: 'driver_name') }}" placeholder="ড্রাইভারের নাম লিখুন">
+                    </div>
+
                     <!-- Category Field -->
                     <div class="form-group">
                         <label for="category"> ক্যাটাগরি :* </label>
                         <select class="form-control" id="category" name="category" required>
-                            <option value="সেলুন" {{ old('category') == 'সেলুন' ? 'selected' : '' }}> সেলুন</option>
-                            <option value="পার্লার" {{ old('category') == 'পার্লার' ? 'selected' : '' }}> পার্লার</option>
-                            <option value="পার্লার ও সেলুন" {{ old('category') == 'পার্লার ও সেলুন' ? 'selected' : '' }}> পার্লার ও সেলুন</option>
+                            <option value="অ্যাম্বুলেন্স" {{ old('category') == 'অ্যাম্বুলেন্স' ? 'selected' : '' }}> অ্যাম্বুলেন্স</option>
+                            <option value="প্রাইভেট কার" {{ old('category') == 'প্রাইভেট কার' ? 'selected' : '' }}> প্রাইভেট কার</option>
+                            <option value="মাইক্রো বাস" {{ old('category') == 'মাইক্রো বাস' ? 'selected' : '' }}> মাইক্রো বাস</option>
+                            <option value="পিকাপ" {{ old('category') == 'পিকাপ' ? 'selected' : '' }}> পিকাপ</option>
+                            <option value="ট্রাক" {{ old('category') == 'ট্রাক' ? 'selected' : '' }}> ট্রাক</option>
+                            <option value="অটো" {{ old('category') == 'অটো' ? 'selected' : '' }}> অটো</option>
+                            <option value="সি এন জি" {{ old('category') == 'সি এন জি' ? 'selected' : '' }}> সি এন জি</option>
+                            <option value="বাস" {{ old('category') == 'বাস' ? 'selected' : '' }}> বাস</option>
                         </select>
                     </div>
 
-                    <!-- Title Field -->
+                    <!-- Capacity Field -->
                     <div class="form-group">
-                        <label for="title">সেলুন/পার্লারের নাম :* </label>
-                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
+                        <span class="theme-color">*(যদি ক্যাটাগরি <samp class="sampcolor"> ট্রাক বা পিকাপ </samp> সিলেক্ট করে থাকেন তাহলে ধারণ ক্ষমতা লিখুন)*</span><br/>
+                        <label for="capacity">গাড়ির ধারণ ক্ষমতা :</label>
+                        <input type="text" class="form-control" id="capacity" name="capacity" value="{{ old(key: 'capacity') }}" placeholder="ধারণ ক্ষমতা লিখুন">
                     </div>
 
-                    <!-- Servies Field -->
-                    <div class="form-group ">
-                        <label for="servies">সার্ভিস সমূহ :*</label>
-                        <textarea class="" id="editorX" name="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন"></textarea>
+                     <!-- Seats Field -->
+                    <div class="form-group">
+                        <span class="theme-color">*(যদি ক্যাটাগরি <samp class="sampcolor"> অ্যাম্বুলেন্স,ট্রাক,পিকাপ </samp> সিলেক্ট করে থাকেন তাহলে এটি খালি রাখুন)*</span><br/>
+                        <label for="seats">গাড়ির সিট সংখ্যা :</label>
+                        <input type="text" class="form-control" id="seats" name="seats" value="{{ old(key: 'seats') }}" placeholder="সিট সংখ্যা লিখুন">
                     </div>
 
-                    <!-- TimeTable Field -->
+                    <!--Facilities Field -->
                     <div class="form-group">
-                        <label for="timetable"> সেলুন/পার্লার খোলা ও বন্ধের সময় :* </label>
-                        <input type="text" name="timetable" class="form-control" id="timetable" value="{{ old('timetable') }}" placeholder="সময় লিখুন" required>
+                        <span class="theme-color">*(যদি ক্যাটাগরি <samp class="sampcolor"> ট্রাক,পিকাপ,অটো,সি এন জি </samp> সিলেক্ট করে থাকেন তাহলে এটি খালি রাখুন)*</span><br/>
+                        <label for="facilities">সার্ভিস :</label>
+                        <select class="form-control" id="facilities" name="facilities">
+                          <option value="">সিলেক্ট করুন</option>
+                          <option value="এসি" {{ old('facilities') == 'এসি' ? 'selected' : '' }}> এসি</option>
+                          <option value="ননএসি" {{ old('facilities') == 'ননএসি' ? 'selected' : '' }}> ননএসি</option>
+                        </select>
                     </div>
 
                     <!-- Upazila Field -->
@@ -402,21 +463,21 @@
                         </select>
                     </div>
 
-                    <!-- Address Field -->
-                    <div class="form-group">
-                        <label for="address"> সেলুন/পার্লারের বিস্তারিত ঠিকানা :*</label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
+                    <!-- OthersInfo Field -->
+                    <div class="form-group ">
+                        <label for="others_info">গাড়ি ভাড়ার বেপারে বিস্তারিত :</label>
+                        <textarea class="form-control" id="others_info" name="others_info" rows="3" value="{{ old(key: 'others_info') }}" placeholder="ভাড়া লিখুন"></textarea>
                     </div>
 
-                    <!-- Contact Field -->
+                    <!-- Address Field -->
                     <div class="form-group">
-                        <label for="contact">সেলুন/পার্লারের যোগাযোগ নম্বর : </label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
+                        <label for="address"> বিস্তারিত ঠিকানা : </label>
+                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
                     </div>
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label">রেস্টুরেন্টের ছবি যুক্ত করুন </label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label"> গাড়ির ছবি যুক্ত করুন </label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
                                 <div class="image-preview" id="imagePreviewX" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
@@ -445,18 +506,19 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
+
                 </form>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
-    <!-- View salonParlour Modal -->
-    <div class="modal modalz fade" id="viewSalonParlourModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- View VehicleRent Modal -->
+    <div class="modal modalz fade" id="viewVehicleRentModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">সেলুন/পার্লার ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">গাড়িভাড়া ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -472,24 +534,28 @@
 
                                             <div class="d-flex bd-highlight">
                                                 <div class="flex-fill bd-highlight mr-3">
-                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="salonParlour Logo" alt="logo">
+                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="vehicleRent Logo" alt="logo">
                                                 </div>
                                                 <div class="flex-fill bd-highlight align-self-center">
                                                     <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
                                                     <div><hr/></div>
-                                                    <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
                                                     <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
+                                                    <div><samp class="sampcolor">ঠিকানা: </samp> <span id="xAddress"></span></div>
                                                     <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
                                                     <div><samp class="sampcolor">যোগ করেছেন: </samp> <span id="xUser"></span></div>
                                                 </div>
                                             </div>
 
                                             <h6 class="dark-color mt-3 mb-2"> <span id="xTitle"></span> </h6>
-                                            <div><samp class="sampcolor">ক্যাটাগরি: </samp> <span id="xCategory"></span></div>
-                                            <div><samp class="sampcolor">সেলুন/পার্লার খোলা ও বন্ধের সময়: </samp> <span id="xTimetable"></span></div>
-                                            <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
+                                            <div><samp class="sampcolor">ক্যাটাগরি: </samp> <span id="xCategory"> </span></div>
+                                            <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
+                                            <div><samp class="sampcolor">ড্রাইভারের নাম: </samp> <span id="xDriverName"> </span></div>
+                                            <div><samp class="sampcolor">ধারণ ক্ষমতা: </samp> <span id="xCapacity"> </span></div>
+                                            <div><samp class="sampcolor">সিট সংখ্যা: </samp> <span id="xSeats"> </span></div>
+                                            <div><samp class="sampcolor">সার্ভিস: </samp> <span id="xFacilities"> </span></div>
+
                                             <div><hr/></div>
-                                            <div><samp class="sampcolor">সার্ভিস সমূহ: </samp> <span id="xServies"></span></div>
+                                            <div><samp class="sampcolor">গাড়ি ভাড়ার বেপারে বিস্তারিত: </samp> <br/><span id="xOthersInfo"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -506,53 +572,26 @@
 
     <x-slot name="script">
 
-        <script type="text/javascript">
+        <!-- JavaScript for Dynamic Field Handling -->
+        <script>
+            function toggleFields() {
+                let category = document.getElementById("category").value;
 
-            //CKEditor with Image Upload
-            ClassicEditor
-                .create(document.querySelector('#editor'), {
-                    toolbar: [
-                        'heading', '|',
-                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
-                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
-                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
-                        'bulletedList', 'numberedList', 'todoList', '|',
-                        'insertTable','alignment', 'horizontalLine', '|',
-                        'specialCharacters', 'undo', 'redo'
-                    ],
+                // Show Capacity Field if category is 'ট্রাক' or 'পিকাপ'
+                document.getElementById("capacityField").style.display =
+                    (category === "ট্রাক" || category === "পিকাপ") ? "block" : "none";
 
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+                // Show Seats Field if category is 'প্রাইভেট কার', 'মাইক্রো বাস', 'অটো', 'সি এন জি', or 'বাস'
+                document.getElementById("seatsField").style.display =
+                    (["প্রাইভেট কার", "মাইক্রো বাস", "অটো", "সি এন জি", "বাস"].includes(category)) ? "block" : "none";
 
-            // Function to initialize CKEditor
-            function initializeCKEditor() {
-                return ClassicEditor
-                    .create(document.querySelector('#editorX'), {
-                        toolbar: [
-                        'heading', '|',
-                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
-                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
-                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
-                        'bulletedList', 'numberedList', 'todoList', '|',
-                        'insertTable','alignment', 'horizontalLine', '|',
-                        'specialCharacters', 'undo', 'redo'
-                    ],
-
-                    });
+                // Show Facilities Field if category is 'অ্যাম্বুলেন্স', 'প্রাইভেট কার', 'মাইক্রো বাস', or 'বাস'
+                document.getElementById("facilitiesField").style.display =
+                    (["অ্যাম্বুলেন্স", "প্রাইভেট কার", "মাইক্রো বাস", "বাস"].includes(category)) ? "block" : "none";
             }
+        </script>
 
-            // Variable to hold the CKEditor instance
-            let editorInstance;
-
-            // Event listener for when the edit modal is hidden
-            $('#editsalonParlourModal').on('hidden.bs.modal', function() {
-                if (editorInstance) {
-                    editorInstance.destroy();
-                    editorInstance = null;
-                }
-            });
+        <script type="text/javascript">
 
             //imagePreview
             document.getElementById('editIcon').addEventListener('click', function() {
@@ -588,19 +627,22 @@
             });
 
 
-            //viewSalonParlourModal
-            $('#viewSalonParlourModal').on('show.bs.modal', function(event) {
+            //viewVehicleRentModal
+            $('#viewVehicleRentModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user = button.data('user');
                 var category = button.data('category');
                 var title = button.data('title');
-                var servies = button.data('servies');
-                var timetable = button.data('timetable');
-                var contact = button.data('contact') || '';
+                var capacity = button.data('capacity') || '';
+                var seats = button.data('seats') || '';
+                var facilities = button.data('facilities') || '';
+                var driver_name = button.data('driver_name') || '';
+                var contact = button.data('contact');
                 var upazila = button.data('upazila');
-                var address = button.data('address');
+                var address = button.data('address') || '';
+                var others_info = button.data('others_info') || '';
                 var status = button.data('status');
                 var entry = button.data('entry');
                 var image = button.data('image');
@@ -609,11 +651,14 @@
                 modal.find('#xUser').text(user);
                 modal.find('#xCategory').text(category);
                 modal.find('#xTitle').text(title);
-                modal.find('#xServies').html(servies);
-                modal.find('#xTimetable').text(timetable);
+                modal.find('#xCapacity').text(capacity);
+                modal.find('#xSeats').text(seats);
+                modal.find('#xFacilities').text(facilities);
+                modal.find('#xDriverName').text(driver_name);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
+                modal.find('#xOthersInfo').text(others_info);
                 modal.find('#xStatus').text(status);
                 modal.find('#xEntry').text(entry);
 
@@ -626,38 +671,35 @@
                 }
             });
 
-            //editSalonParlourModal
-            $('#editSalonParlourModal').on('show.bs.modal', function(event) {
+            //editVehicleRentModal
+            $('#editVehicleRentModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
                 var category = button.data('category');
                 var title = button.data('title');
-                var servies = button.data('servies');
-                var timetable = button.data('timetable');
+                var capacity = button.data('capacity');
+                var seats = button.data('seats');
+                var facilities = button.data('facilities');
+                var driver_name = button.data('driver_name');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
+                var others_info = button.data('others_info');
                 var status = button.data('status');
                 var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#category').val(category);
                 modal.find('#title').val(title);
-                modal.find('#timetable').val(timetable);
+                modal.find('#capacity').val(capacity);
+                modal.find('#seats').val(seats);
+                modal.find('#facilities').val(facilities);
+                modal.find('#driver_name').val(driver_name);
                 modal.find('#contact').val(contact);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
+                modal.find('#others_info').val(others_info);
                 modal.find('#status').val(status);
-
-                // Initialize CKEditor if it hasn't been initialized yet
-                if (!editorInstance) {
-                    initializeCKEditor().then(editor => {
-                        editorInstance = editor;
-                        editorInstance.setData(servies);
-                    });
-                } else {
-                    editorInstance.setData(servies);
-                }
 
                 var imagePreview = modal.find('#imagePreviewX');
                 if (image) {
@@ -666,16 +708,16 @@
                     imagePreview.html('<i class="bi bi-image" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/salon_parlour/' + id);
+                modal.find('#modalFormX').attr('action', '/admin/vehicle_rent/' + id);
 
 
             });
 
-            //deleteSalonParlour
-            function deleteSalonParlour(id) {
-                if (confirm('Are you sure you want to delete this SalonParlour?')) {
+            //deleteVehicleRent
+            function deleteVehicleRent(id) {
+                if (confirm('Are you sure you want to delete this VehicleRent?')) {
                     $.ajax({
-                        url: '{{ route('admin.salon_parlour.destroy') }}',
+                        url: '{{ route('admin.vehicle_rent.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -692,7 +734,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete SalonParlour. Please try again.');
+                            alert('Failed to delete VehicleRent. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });

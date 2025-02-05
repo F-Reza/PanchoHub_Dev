@@ -16,11 +16,11 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->string('name');
             $table->string('type');
-            $table->text('experience');
-            $table->string('contact')->nullable();
+            $table->string('experience');
+            $table->string('contact');
             $table->string('upazila');
             $table->string('address')->nullable();
-            $table->text('others_info')->nullable();
+            $table->string('others_info')->nullable();
             $table->string('image')->nullable();
             $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();

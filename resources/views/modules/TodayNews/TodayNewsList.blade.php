@@ -60,7 +60,7 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                                      @if (!empty($todayNews->image))
+                                                            @if (!empty($todayNews->image))
                                                                 <img class="article-image" alt="image" title="News Image"
                                                                     src="{{ asset('uploads/todayNews/' . $todayNews->image) }}"
                                                                     width="70" height="40">
@@ -413,19 +413,20 @@
                                         <div class="p-2 flex-grow-1 bd-highlight">
 
                                             <div class="d-flex bd-highlight">
-                                                <div class="flex-fill bd-highlight mb-3 mr-3">
+                                                <div class="flex-fill bd-highlight mr-3">
                                                     <img id="modalImage" src="" style="width: 300px; height: 160px;" title="todayNews Logo" alt="logo">
                                                 </div>
                                                 <div class="flex-fill bd-highlight align-self-center">
+                                                    <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
+                                                    <div><hr/></div>
                                                     <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
                                                     <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
                                                     <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
                                                     <div><samp class="sampcolor">যোগ করেছেন: </samp> <span id="xUser"></span></div>
-                                                    <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
                                                 </div>
                                             </div>
 
-                                            <h6 class="dark-color"> <span id="xTitle"></span> </h6>
+                                            <h6 class="dark-color mt-3"> <span id="xTitle"></span> </h6>
                                             <div><samp class="sampcolor">বিস্তারিত খবর: </samp> <span id="xDescription"></span></div>
                                         </div>
                                     </div>

@@ -17,11 +17,12 @@ return new class extends Migration
             $table->string('category');
             $table->string('title');
             $table->string('capacity')->nullable();
-            $table->text('facilities')->nullable();
+            $table->string('seats')->nullable();
+            $table->string('facilities')->nullable();
             $table->string('driver_name')->nullable();
-            $table->string('contact')->nullable();
+            $table->string('contact');
             $table->string('upazila');
-            $table->text('address')->nullable();
+            $table->string('address')->nullable();
             $table->text('others_info')->nullable();
             $table->string('image')->nullable();
             $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');

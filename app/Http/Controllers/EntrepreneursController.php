@@ -24,7 +24,7 @@ class EntrepreneursController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'name' => 'required|min:2|string',
-            'contact' => 'required|regex:/^[0-9]+$/',
+            'contact' => 'nullable|regex:/^[0-9]+$/',
             'servies' => 'required|min:4|string',
             'upazila' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -38,7 +38,7 @@ class EntrepreneursController extends Controller
         $entrepreneur = new Entrepreneurs();
         $entrepreneur->user_id = Auth::user()->id;
         $entrepreneur-> name = $request->name;
-        $entrepreneur-> contact = $request->contact;
+        $entrepreneur-> contact = $request->contact?? null;
         $entrepreneur-> email = $request->email?? null;
         $entrepreneur-> fb_page_name = $request->fb_page_name?? null;
         $entrepreneur-> page_link = $request->page_link?? null;
@@ -92,7 +92,7 @@ class EntrepreneursController extends Controller
 
         $validator = Validator::make($request->all(),[
             'name' => 'required|min:2|string',
-            'contact' => 'required|regex:/^[0-9]+$/',
+            'contact' => 'nullable|regex:/^[0-9]+$/',
             'servies' => 'required|min:4|string',
             'upazila' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -104,7 +104,7 @@ class EntrepreneursController extends Controller
         }
 
         $entrepreneur-> name = $request->name;
-        $entrepreneur-> contact = $request->contact;
+        $entrepreneur-> contact = $request->contact?? null;
         $entrepreneur-> email = $request->email?? null;
         $entrepreneur-> fb_page_name = $request->fb_page_name?? null;
         $entrepreneur-> page_link = $request->page_link?? null;

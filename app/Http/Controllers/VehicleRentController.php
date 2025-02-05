@@ -15,7 +15,7 @@ class VehicleRentController extends Controller
     public function index()
     {
         $vehicleRents = VehicleRent::with('user')->latest()->paginate(25);
-        return view('modules.VehicleRent.VehicleRentList',[
+        return view('modules.VehicleRents.VehicleRentList',[
             'vehicleRents' => $vehicleRents
         ]);
     }
@@ -40,9 +40,10 @@ class VehicleRentController extends Controller
         $vehicleRent-> title = $request->title;
         $vehicleRent-> category = $request->category;
         $vehicleRent-> capacity = $request->capacity?? null;
+        $vehicleRent-> seats = $request->seats?? null;
         $vehicleRent-> facilities = $request->facilities?? null;
         $vehicleRent-> driver_name = $request->driver_name?? null;
-        $vehicleRent-> contact = $request->contact?? null;
+        $vehicleRent-> contact = $request->contact;
         $vehicleRent-> upazila = $request->upazila;
         $vehicleRent-> address = $request->address?? null;
         $vehicleRent-> others_info = $request->others_info?? null;
@@ -108,9 +109,10 @@ class VehicleRentController extends Controller
         $vehicleRent-> title = $request->title;
         $vehicleRent-> category = $request->category;
         $vehicleRent-> capacity = $request->capacity?? null;
+        $vehicleRent-> seats = $request->seats?? null;
         $vehicleRent-> facilities = $request->facilities?? null;
         $vehicleRent-> driver_name = $request->driver_name?? null;
-        $vehicleRent-> contact = $request->contact?? null;
+        $vehicleRent-> contact = $request->contact;
         $vehicleRent-> upazila = $request->upazila;
         $vehicleRent-> address = $request->address?? null;
         $vehicleRent-> others_info = $request->others_info?? null;
