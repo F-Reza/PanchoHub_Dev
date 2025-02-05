@@ -16,9 +16,9 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->string('name');
             $table->string('contact')->nullable();
-            $table->string('email')->nullable();
             $table->string('fb_page_name')->nullable();
             $table->string('page_link')->nullable();
+            $table->string('email')->nullable();
             $table->text('servies');
             $table->string('upazila');
             $table->string('address')->nullable();
