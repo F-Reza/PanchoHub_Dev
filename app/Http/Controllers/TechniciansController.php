@@ -24,7 +24,7 @@ class TechniciansController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|min:2|string',
             'type' => 'required|min:2|string',
-            'experience' => 'required|min:2|string',
+            'experience' => 'required|min:1|string',
             'contact' => 'required|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -92,7 +92,7 @@ class TechniciansController extends Controller
         $validator = Validator::make($request->all(),[
             'name' => 'required|min:2|string|max:255',
             'type' => 'required|min:2|string|max:255',
-            'experience' => 'required|min:2|string',
+            'experience' => 'required|min:1|string',
             'contact' => 'required|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

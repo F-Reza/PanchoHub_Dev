@@ -41,6 +41,7 @@ class NurseryController extends Controller
         $nursery-> title = $request->title;
         $nursery-> details = $request->details;
         $nursery-> contact = $request->contact?? null;
+        $nursery-> owner_name = $request->owner_name?? null;
         $nursery-> upazila = $request->upazila;
         $nursery-> address = $request->address;
 
@@ -106,6 +107,7 @@ class NurseryController extends Controller
         $nursery-> title = $request->title;
         $nursery-> details = $request->details;
         $nursery-> contact = $request->contact?? null;
+        $nursery-> owner_name = $request->owner_name?? null;
         $nursery-> upazila = $request->upazila;
         $nursery-> address = $request->address;
         $nursery->status = $request->status;

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('details');
             $table->string('contact')->nullable();
+            $table->string('owner_name')->nullable();
             $table->string('upazila');
             $table->string('address');
             $table->string('image')->nullable();

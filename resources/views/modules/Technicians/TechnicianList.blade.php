@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - ফ্ল্যাট ও জমি বিক্রয় |</title>
+        <title>| পঞ্চহাব - মিস্ত্রী সমূহ |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 
@@ -16,9 +16,9 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4> ফ্ল্যাট ও জমি বিক্রয়</h4>
+                                <h4>মিস্ত্রী সমূহ</h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createPlotSaleModal">Create</a>
+                                    data-target="#createTechnicianModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -37,8 +37,8 @@
                                                     </div>
                                                 </th>
                                                 <th>Image</th>
-                                                <th class="align-left">Category</th>
-                                                <th class="align-left">Sale Price</th>
+                                                <th class="align-left">Name</th>
+                                                <th class="align-left">Type</th>
                                                 <th class="align-left">	Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">	Added By</th>
@@ -48,23 +48,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($plotSales->isNotEmpty())
-                                                @foreach ($plotSales as $key => $plotSale)
+                                            @if ($technicians->isNotEmpty())
+                                                @foreach ($technicians as $key => $technician)
                                                     <tr>
                                                         <td> {{ ++$key }} </td>
                                                         <td class="text-center">
                                                             <div class="custom-checkbox custom-control">
                                                                 <input type="checkbox" data-checkboxes="mygroup"
                                                                     class="custom-control-input"
-                                                                    id="checkbox-{{ $plotSale->id }}">
-                                                                <label for="checkbox-{{ $plotSale->id }}"
+                                                                    id="checkbox-{{ $technician->id }}">
+                                                                <label for="checkbox-{{ $technician->id }}"
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            @if (!empty($plotSale->image))
+                                                            @if (!empty($technician->image))
                                                                 <img class="article-image" alt="image" title="Image"
-                                                                    src="{{ asset('uploads/plotSales/' . $plotSale->image) }}"
+                                                                    src="{{ asset('uploads/technicians/' . $technician->image) }}"
                                                                     width="70" height="40">
                                                             @else
                                                                 <img class="article-image" alt="image" title="Image"
@@ -72,17 +72,17 @@
                                                                     width="70" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left"> {{ $plotSale->category }} </td>
-                                                        <td class="align-left" style=" max-width: 250px;"> {{ $plotSale->sale_price }} </td>
-                                                        <td class="align-left"> {{ $plotSale->contact }} </td>
-                                                        <td class="align-left"> {{ $plotSale->upazila }} </td>
-                                                        <td class="align-left"> {{ $plotSale->user->name ?? 'N/A' }}</td>
+                                                        <td class="align-left" style=" max-width: 250px;"> {{ $technician->name }} </td>
+                                                        <td class="align-left" style=" max-width: 250px;"> {{ $technician->type }} </td>
+                                                        <td class="align-left"> {{ $technician->contact }} </td>
+                                                        <td class="align-left"> {{ $technician->upazila }} </td>
+                                                        <td class="align-left"> {{ $technician->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
-                                                            {{ \Carbon\Carbon::parse($plotSale->created_at)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($technician->created_at)->format('d M, Y') }}
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $statusClass = match ($plotSale->status) {
+                                                                $statusClass = match ($technician->status) {
                                                                     'Approved' => 'badge badge-secondary badge-shadow',
                                                                     'In Review' => 'badge badge-info badge-shadow',
                                                                     'Pending' => 'badge badge-warning badge-shadow',
@@ -91,47 +91,45 @@
                                                                 };
                                                             @endphp
                                                             <div class="{{ $statusClass }}">
-                                                                {{ $plotSale->status }}
+                                                                {{ $technician->status }}
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewPlotSaleModal"
-                                                                data-id="{{ $plotSale->id }}"
-                                                                data-user="{{ $plotSale->user->name }}"
-                                                                data-category="{{ $plotSale->category }}"
-                                                                data-title="{{ $plotSale->title }}"
-                                                                data-area="{{ $plotSale->area }}"
-                                                                data-sale_price="{{ $plotSale->sale_price }}"
-                                                                data-details="{{ $plotSale->details }}"
-                                                                data-contact="{{ $plotSale->contact }}"
-                                                                data-upazila="{{ $plotSale->upazila }}"
-                                                                data-address="{{ $plotSale->address}}"
-                                                                data-status="{{ $plotSale->status }}"
-                                                                data-image="{{ $plotSale->image ? asset('uploads/plotSales/' . $plotSale->image) : '' }}"
-                                                                data-entry="{{ \Carbon\Carbon::parse($plotSale->created_at)->format('d/m/Y') }}">
+                                                                data-toggle="modal" data-target="#viewTechnicianModal"
+                                                                data-id="{{ $technician->id }}"
+                                                                data-user="{{ $technician->user->name }}"
+                                                                data-name="{{ $technician->name }}"
+                                                                data-type="{{ $technician->type }}"
+                                                                data-experience="{{ $technician->experience }}"
+                                                                data-contact="{{ $technician->contact }}"
+                                                                data-upazila="{{ $technician->upazila }}"
+                                                                data-address="{{ $technician->address?? 'Empty' }}"
+                                                                data-others_info="{{ $technician->others_info?? 'Empty' }}"
+                                                                data-status="{{ $technician->status }}"
+                                                                data-image="{{ $technician->image ? asset('uploads/technicians/' . $technician->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($technician->created_at)->format('d/m/Y') }}">
                                                                 View
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editPlotSaleModal"
-                                                                data-id="{{ $plotSale->id }}"
-                                                                data-category="{{ $plotSale->category }}"
-                                                                data-title="{{ $plotSale->title }}"
-                                                                data-area="{{ $plotSale->area }}"
-                                                                data-sale_price="{{ $plotSale->sale_price }}"
-                                                                data-details="{{ $plotSale->details }}"
-                                                                data-contact="{{ $plotSale->contact }}"
-                                                                data-upazila="{{ $plotSale->upazila }}"
-                                                                data-address="{{ $plotSale->address}}"
-                                                                data-status="{{ $plotSale->status }}"
-                                                                data-image="{{ $plotSale->image ? asset('uploads/plotSales/' . $plotSale->image) : '' }}">
+                                                                data-toggle="modal" data-target="#editTechnicianModal"
+                                                                data-id="{{ $technician->id }}"
+                                                                data-name="{{ $technician->name }}"
+                                                                data-type="{{ $technician->type }}"
+                                                                data-experience="{{ $technician->experience }}"
+                                                                data-contact="{{ $technician->contact }}"
+                                                                data-upazila="{{ $technician->upazila }}"
+                                                                data-address="{{ $technician->address?? '' }}"
+                                                                data-others_info="{{ $technician->others_info?? '' }}"
+                                                                data-status="{{ $technician->status }}"
+                                                                data-image="{{ $technician->image ? asset('uploads/technicians/' . $technician->image) : '' }}">
                                                                 Edit
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deletePlotSale({{ $plotSale->id }})"
+                                                                onclick="deleteTechnician({{ $technician->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -244,55 +242,37 @@
     </div>
 
     <!-- Modal -->
-    <!-- Create PlotSale Modal -->
-    <div class="modal modalz fade" id="createPlotSaleModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create Technician Modal -->
+    <div class="modal modalz fade" id="createTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle"> ফ্ল্যাট ও জমি যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle"> মিস্ত্রী যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Modal Content Goes Here -->
-                <form method="POST" action="{{ route('admin.plot_sales.store') }}" id="modalForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.technicians.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
-                    <!-- Category Field -->
+                    <!-- Type Field -->
                     <div class="form-group">
-                        <label for="category"> ক্যাটাগরি :* </label>
-                        <select class="form-control" id="category" name="category" required>
-                            <option value=""> নির্বাচন করুন </option>
-                            <option value="ফ্লাট">ফ্লাট</option>
-                            <option value="জমি">জমি</option>
-                            <option value="জমি">ফ্লাট ও জমি</option>
-                        </select>
+                        <label for="type">কিসের মিস্ত্রী :*</label>
+                        <input type="text" class="form-control" id="type" name="type" value="{{ old(key: 'type') }}" placeholder="মিস্ত্রীর ধরন লিখুন" required>
                     </div>
 
-                    <!-- Title Field -->
+                    <!-- Name Field -->
                     <div class="form-group">
-                        <label for="title">বিজ্ঞাপন টাইটেল :*</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="টাইটেল লিখুন" required>
+                        <label for="name">মিস্ত্রীর নাম :*</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
                     </div>
 
-
-                    <!-- Area Field -->
+                    <!-- Experience Field -->
                     <div class="form-group">
-                        <label for="area"> আয়তন :* </label>
-                        <input type="text" name="area" class="form-control" id="area" value="{{ old('area') }}" placeholder="আয়তন লিখুন" required>
-                    </div>
-
-                     <!-- SalePrice Field -->
-                     <div class="form-group">
-                        <label for="sale_price">সম্ভাব্য মূল্য :*</label>
-                        <input type="text" class="form-control" id="sale_price" name="sale_price" value="{{ old(key: 'sale_price') }}" placeholder="মূল্য লিখুন" required>
-                    </div>
-
-                    <!-- Details Field -->
-                    <div class="form-group ">
-                        <label for="details">বিস্তারিত তথ্য :*</label>
-                        <textarea class="form-control" id="details" name="details" rows="3" value="{{ old(key: 'details') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                        <label for="experience"> কত বছরের অভিজ্ঞতা :* </label>
+                        <input type="text" name="experience" class="form-control" id="experience" value="{{ old('experience') }}" placeholder="অভিজ্ঞতা সম্পর্কে লিখুন" required>
                     </div>
 
                     <!-- Contact Field -->
@@ -316,8 +296,14 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> বিস্তারিত ঠিকানা :* </label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
+                        <label for="address"> বিস্তারিত ঠিকানা : </label>
+                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
+                    </div>
+
+                    <!-- OthersInfo Field -->
+                    <div class="form-group ">
+                        <label for="others_info">অন্যান তথ্য : (যদি থাকে)</label>
+                        <textarea class="form-control" id="others_info" name="others_info" rows="3" value="{{ old(key: 'others_info') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Picture Input with Preview -->
@@ -348,8 +334,8 @@
         </div>
     </div>
 
-    <!-- Edit PlotSale Modal -->
-    <div class="modal modalz fade" id="editPlotSaleModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit Technician Modal -->
+    <div class="modal modalz fade" id="editTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
 
@@ -359,7 +345,7 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">ফ্ল্যাট ও জমি ডাটা পরিবর্তন </h5>
+                    <h5 class="modal-title" id="modalTitle">মিস্ত্রী ডাটা পরিবর্তন </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -367,40 +353,22 @@
 
                 <div class="modal-body">
 
-                    <!-- Category Field -->
+                    <!-- Type Field -->
                     <div class="form-group">
-                        <label for="category"> ক্যাটাগরি :* </label>
-                        <select class="form-control" id="category" name="category" required>
-                            <option value="ফ্লাট" {{ old('category') == 'ফ্লাট' ? 'selected' : '' }}>ফ্লাট</option>
-                            <option value="জমি" {{ old('category') == 'জমি' ? 'selected' : '' }}>জমি</option>
-                            <option value="ফ্লাট ও জমি" {{ old('category') == 'ফ্লাট ও জমি' ? 'selected' : '' }}>ফ্লাট ও জমি</option>
-                        </select>
+                        <label for="type">কিসের মিস্ত্রী :*</label>
+                        <input type="text" class="form-control" id="type" name="type" value="{{ old(key: 'type') }}" placeholder="মিস্ত্রীর ধরন লিখুন" required>
                     </div>
 
-
-                    <!-- Title Field -->
+                    <!-- Name Field -->
                     <div class="form-group">
-                        <label for="title">বিজ্ঞাপন টাইটেল :*</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="টাইটেল লিখুন" required>
+                        <label for="name">মিস্ত্রীর নাম :*</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
                     </div>
 
-
-                    <!-- Area Field -->
+                    <!-- Experience Field -->
                     <div class="form-group">
-                        <label for="area"> আয়তন :* </label>
-                        <input type="text" name="area" class="form-control" id="area" value="{{ old('area') }}" placeholder="আয়তন লিখুন" required>
-                    </div>
-
-                     <!-- SalePrice Field -->
-                     <div class="form-group">
-                        <label for="sale_price">সম্ভাব্য মূল্য :*</label>
-                        <input type="text" class="form-control" id="sale_price" name="sale_price" value="{{ old(key: 'sale_price') }}" placeholder="মূল্য লিখুন" required>
-                    </div>
-
-                    <!-- Details Field -->
-                    <div class="form-group ">
-                        <label for="details">বিস্তারিত তথ্য :*</label>
-                        <textarea class="form-control" id="details" name="details" rows="3" value="{{ old(key: 'details') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                        <label for="experience"> কত বছরের অভিজ্ঞতা :* </label>
+                        <input type="text" name="experience" class="form-control" id="experience" value="{{ old('experience') }}" placeholder="অভিজ্ঞতা সম্পর্কে লিখুন" required>
                     </div>
 
                     <!-- Contact Field -->
@@ -424,8 +392,14 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address"> বিস্তারিত ঠিকানা :* </label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
+                        <label for="address"> বিস্তারিত ঠিকানা : </label>
+                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
+                    </div>
+
+                    <!-- OthersInfo Field -->
+                    <div class="form-group ">
+                        <label for="others_info">অন্যান তথ্য : (যদি থাকে)</label>
+                        <textarea class="form-control" id="others_info" name="others_info" rows="3" value="{{ old(key: 'others_info') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Picture Input with Preview -->
@@ -466,12 +440,12 @@
         </div>
     </div>
 
-    <!-- View PlotSale Modal -->
-    <div class="modal modalz fade" id="viewPlotSaleModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- View Technician Modal -->
+    <div class="modal modalz fade" id="viewTechnicianModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">ফ্ল্যাট ও জমি ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">মিস্ত্রী ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -487,25 +461,24 @@
 
                                             <div class="d-flex bd-highlight">
                                                 <div class="flex-fill bd-highlight mr-3">
-                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="plotSale Logo" alt="logo">
+                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="technician Logo" alt="logo">
                                                 </div>
                                                 <div class="flex-fill bd-highlight align-self-center">
                                                     <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
                                                     <div><hr/></div>
-                                                    <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
                                                     <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
                                                     <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
                                                     <div><samp class="sampcolor">যোগ করেছেন: </samp> <span id="xUser"></span></div>
                                                 </div>
                                             </div>
 
-                                            <h6 class="dark-color mt-3 mb-2"><span id="xTitle"></span> </h6>
+                                            <h6 class="dark-color mt-3 mb-2"><span id="xType"></span> </h6>
+                                            <div><samp class="sampcolor">নাম: </samp> <span id="xName"></span></div>
+                                            <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
-                                            <div><samp class="sampcolor">ক্যাটাগরি: </samp> <span id="xCategory"> </span></div>
-                                            <div><samp class="sampcolor">আয়তন: </samp> <span id="xArea"> </span></div>
-                                            <div><samp class="sampcolor">সম্ভাব্য মূল্য: </samp> <span id="xSalePrice"></span></div>
+                                            <div><samp class="sampcolor">অভিজ্ঞতা: </samp> <span id="xExperience"></span></div>
                                             <div><hr/></div>
-                                            <div><samp class="sampcolor">অন্যান তথ্য: </samp> <br/><span id="xDetails"></span></div>
+                                            <div><samp class="sampcolor">অন্যান তথ্য: </samp> <br/><span id="xOthersInfo"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -558,34 +531,32 @@
             });
 
 
-            //viewPlotSaleModal
-            $('#viewPlotSaleModal').on('show.bs.modal', function(event) {
+            //viewTechnicianModal
+            $('#viewTechnicianModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user = button.data('user');
-                var category = button.data('category');
-                var title = button.data('title');
-                var area = button.data('area');
-                var sale_price = button.data('sale_price');
-                var details = button.data('details');
+                var name = button.data('name');
+                var type = button.data('type');
+                var experience = button.data('experience');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
-                var address = button.data('address');
+                var address = button.data('address') || '';
+                var others_info = button.data('others_info') || '';
                 var status = button.data('status');
                 var entry = button.data('entry');
                 var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#xUser').text(user);
-                modal.find('#xCategory').text(category);
-                modal.find('#xTitle').text(title);
-                modal.find('#xArea').text(area);
-                modal.find('#xSalePrice').text(sale_price);
-                modal.find('#xDetails').text(details);
+                modal.find('#xName').text(name);
+                modal.find('#xType').text(type);
+                modal.find('#xExperience').text(experience);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
+                modal.find('#xOthersInfo').text(others_info);
                 modal.find('#xStatus').text(status);
                 modal.find('#xEntry').text(entry);
 
@@ -598,30 +569,28 @@
                 }
             });
 
-            //editPlotSaleModal
-            $('#editPlotSaleModal').on('show.bs.modal', function(event) {
+            //editTechnicianModal
+            $('#editTechnicianModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
-                var category = button.data('category');
-                var title = button.data('title');
-                var area = button.data('area');
-                var sale_price = button.data('sale_price');
-                var details = button.data('details');
+                var name = button.data('name');
+                var type = button.data('type');
+                var experience = button.data('experience');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
+                var others_info = button.data('others_info');
                 var status = button.data('status');
                 var image = button.data('image');
 
                 var modal = $(this);
-                modal.find('#category').val(category);
-                modal.find('#title').val(title);
-                modal.find('#area').val(area);
-                modal.find('#sale_price').val(sale_price);
-                modal.find('#details').val(details);
+                modal.find('#name').val(name);
+                modal.find('#type').val(type);
+                modal.find('#experience').val(experience);
                 modal.find('#contact').val(contact);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
+                modal.find('#others_info').val(others_info);
                 modal.find('#status').val(status);
 
                 var imagePreview = modal.find('#imagePreviewX');
@@ -631,16 +600,16 @@
                     imagePreview.html('<i class="bi bi-image" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/plot_sales/' + id);
+                modal.find('#modalFormX').attr('action', '/admin/technicians/' + id);
 
 
             });
 
-            //deletePlotSale
-            function deletePlotSale(id) {
-                if (confirm('Are you sure you want to delete this PlotSale?')) {
+            //deleteTechnician
+            function deleteTechnician(id) {
+                if (confirm('Are you sure you want to delete this Technician?')) {
                     $.ajax({
-                        url: '{{ route('admin.plot_sales.destroy') }}',
+                        url: '{{ route('admin.technicians.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -657,7 +626,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete PlotSale. Please try again.');
+                            alert('Failed to delete Technician. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });
