@@ -252,29 +252,12 @@
                 <form method="POST" action="{{ route('admin.diagnostics.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
-                    <!-- Picture Input with Preview -->
-                    <div class="form-group">
-                        <div class="row justify-content-center">
-                            <div class="col-md-4 text-center">
-                                <div class="profile-container">
-                                    <div class="image-preview" id="imagePreview">
-                                        <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
-                                    </div>
-                                    <div class="edit-icon" id="editIcon">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </div>
-                                    <input type="file" value="{{ old('image') }}" name="image"
-                                        class="form-control d-none" id="fileInput" accept="image/*">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Title Field -->
+                    <!-- DiagnosticCenterName Field -->
                     <div class="form-group">
                         <label for="title">ডায়াগনস্টিক সেন্টারের নাম :* </label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="নাম লিখুন">
                     </div>
+
                     <!-- Contact Field -->
                     <div class="form-group">
                         <label for="contact">ডায়াগনস্টিক সেন্টারের যোগাযোগ নম্বর :*</label>
@@ -304,7 +287,23 @@
                     <!-- Facilities Field -->
                     <div class="form-group">
                         <label for="facilities">ডায়াগনস্টিক সেন্টারের সুযোগ-সুবিধা :*</label>
-                        <textarea class="form-control" id="facilities" name="facilities" rows="3" placeholder="সুযোগ-সুবিধা লিখুন"></textarea>
+                        <textarea class="" id="editor" name="facilities" value="{{ old('facilities') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                    </div>
+
+                    <!-- Picture Input with Preview -->
+                    <div class="form-group">
+                        <label class="row justify-content-center" for="image-upload" id="image-label">ছবি যুক্ত করুন</label>
+                        <div class="row justify-content-center">
+                            <div class="position-relative">
+                                <div class="image-preview" id="imagePreview" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
+                                    <i class="bi bi-image" style="font-size: 80px; color: #ccc;"></i>
+                                </div>
+                                <div class="edit-icon position-absolute" id="editIcon" style="bottom: 10px; right: 10px; border-radius: 50%; padding: 5px; cursor: pointer;">
+                                    <i class="bi bi-pencil-square"></i>
+                                </div>
+                                <input type="file" value="{{ old('image') }}" name="image" class="form-control d-none" id="fileInput" accept="image/*">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
@@ -336,24 +335,6 @@
                 </div>
 
                 <div class="modal-body">
-                    <!-- Picture Input with Preview -->
-                    <div class="form-group">
-                        <div class="row justify-content-center">
-                            <div class="col-md-4 text-center">
-                                <div class="profile-container">
-                                    <div class="image-preview" id="imagePreviewX">
-                                        <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
-                                    </div>
-                                    <div class="edit-icon" id="editIconX">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </div>
-                                    <input type="file" name="image" class="form-control d-none"
-                                        id="fileInputX" accept="image/*">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <!-- DiagnosticCenterName Field -->
                     <div class="form-group">
@@ -389,9 +370,26 @@
                     <!-- Facilities Field -->
                     <div class="form-group">
                         <label for="facilities">ডায়াগনস্টিক সেন্টারের সুযোগ-সুবিধা :*</label>
-                        <textarea class="form-control" id="facilities" name="facilities" value="{{ old(key: 'facilities') }}" rows="3" placeholder="সুযোগ-সুবিধা লিখুন"></textarea>
+                        <textarea class="" id="editorX" name="facilities" value="{{ old('facilities') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
+                    <!-- Picture Input with Preview -->
+                    <div class="form-group">
+                        <label class="row justify-content-center" for="image-upload" id="image-label">ছবি যুক্ত করুন</label>
+                        <div class="row justify-content-center">
+                            <div class="position-relative">
+                                <div class="image-preview" id="imagePreviewX" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
+                                    <i class="bi bi-image" style="font-size: 80px; color: #ccc;"></i>
+                                </div>
+                                <div class="edit-icon position-absolute" id="editIconX" style="bottom: 10px; right: 10px; border-radius: 50%; padding: 5px; cursor: pointer;">
+                                    <i class="bi bi-pencil-square"></i>
+                                </div>
+                                <input type="file" name="image" class="form-control d-none" id="fileInputX" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Picture Input with Preview -->
                     <div class="form-group">
                         <label for="status">স্ট্যাটাস </label>
                         <select class="form-control" id="status" name="status" required>
@@ -459,6 +457,54 @@
     <x-slot name="script">
 
         <script type="text/javascript">
+
+             //CKEditor with Image Upload
+             ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'insertTable','alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'undo', 'redo'
+                    ],
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            // Function to initialize CKEditor
+            function initializeCKEditor() {
+                return ClassicEditor
+                    .create(document.querySelector('#editorX'), {
+                        toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'insertTable','alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'undo', 'redo'
+                    ],
+
+                    });
+            }
+
+            // Variable to hold the CKEditor instance
+            let editorInstance;
+
+            // Event listener for when the edit modal is hidden
+            $('#editshoppingModal').on('hidden.bs.modal', function() {
+                if (editorInstance) {
+                    editorInstance.destroy();
+                    editorInstance = null;
+                }
+            });
+
+
             //imagePreview
             document.getElementById('editIcon').addEventListener('click', function() {
                 document.getElementById('fileInput').click();
@@ -514,7 +560,7 @@
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
-                modal.find('#xFacilities').text(facilities);
+                modal.find('#xFacilities').html(facilities);
                 modal.find('#xStatus').text(status);
                 modal.find('#xEntry').text(entry);
 
@@ -544,8 +590,17 @@
                 modal.find('#contact').val(contact);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
-                modal.find('#facilities').val(facilities);
                 modal.find('#status').val(status);
+
+                // Initialize CKEditor if it hasn't been initialized yet
+                if (!editorInstance) {
+                    initializeCKEditor().then(editor => {
+                        editorInstance = editor;
+                        editorInstance.setData(facilities);
+                    });
+                } else {
+                    editorInstance.setData(facilities);
+                }
 
                 var imagePreview = modal.find('#imagePreviewX');
                 if (image) {

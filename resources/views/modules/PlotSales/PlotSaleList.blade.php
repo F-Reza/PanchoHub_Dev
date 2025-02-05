@@ -292,7 +292,7 @@
                     <!-- Details Field -->
                     <div class="form-group ">
                         <label for="details">বিস্তারিত তথ্য :*</label>
-                        <textarea class="form-control" id="details" name="details" rows="3" value="{{ old(key: 'details') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                        <textarea class="" id="editor" name="details" value="{{ old('details') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Contact Field -->
@@ -400,7 +400,7 @@
                     <!-- Details Field -->
                     <div class="form-group ">
                         <label for="details">বিস্তারিত তথ্য :*</label>
-                        <textarea class="form-control" id="details" name="details" rows="3" value="{{ old(key: 'details') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                        <textarea class="" id="editorX" name="details" value="{{ old('details') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Contact Field -->
@@ -430,7 +430,7 @@
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label"> গাড়ির ছবি যুক্ত করুন </label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label">ছবি যুক্ত করুন</label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
                                 <div class="image-preview" id="imagePreviewX" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
@@ -524,6 +524,53 @@
 
         <script type="text/javascript">
 
+        //CKEditor with Image Upload
+        ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'insertTable','alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'undo', 'redo'
+                    ],
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            // Function to initialize CKEditor
+            function initializeCKEditor() {
+                return ClassicEditor
+                    .create(document.querySelector('#editorX'), {
+                        toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'insertTable','alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'undo', 'redo'
+                    ],
+
+                    });
+            }
+
+            // Variable to hold the CKEditor instance
+            let editorInstance;
+
+            // Event listener for when the edit modal is hidden
+            $('#editshoppingModal').on('hidden.bs.modal', function() {
+                if (editorInstance) {
+                    editorInstance.destroy();
+                    editorInstance = null;
+                }
+            });
+
+
             //imagePreview
             document.getElementById('editIcon').addEventListener('click', function() {
                 document.getElementById('fileInput').click();
@@ -582,7 +629,7 @@
                 modal.find('#xTitle').text(title);
                 modal.find('#xArea').text(area);
                 modal.find('#xSalePrice').text(sale_price);
-                modal.find('#xDetails').text(details);
+                modal.find('#xDetails').html(details);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
@@ -618,11 +665,20 @@
                 modal.find('#title').val(title);
                 modal.find('#area').val(area);
                 modal.find('#sale_price').val(sale_price);
-                modal.find('#details').val(details);
                 modal.find('#contact').val(contact);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
                 modal.find('#status').val(status);
+
+                // Initialize CKEditor if it hasn't been initialized yet
+                if (!editorInstance) {
+                    initializeCKEditor().then(editor => {
+                        editorInstance = editor;
+                        editorInstance.setData(details);
+                    });
+                } else {
+                    editorInstance.setData(details);
+                }
 
                 var imagePreview = modal.find('#imagePreviewX');
                 if (image) {

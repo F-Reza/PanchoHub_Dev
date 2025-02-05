@@ -314,7 +314,7 @@
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label"> ছবি যুক্ত করুন </label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label">ছবি যুক্ত করুন </label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
                                 <div class="image-preview" id="imagePreview" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
@@ -416,7 +416,7 @@
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label"> গাড়ির ছবি যুক্ত করুন </label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label"> ছবি যুক্ত করুন </label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
                                 <div class="image-preview" id="imagePreviewX" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">

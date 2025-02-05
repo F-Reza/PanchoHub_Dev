@@ -249,24 +249,6 @@
                 <form method="POST" action="{{ route('admin.hospitals.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
-                    <!-- Picture Input with Preview -->
-                    <div class="form-group">
-                        <div class="row justify-content-center">
-                            <div class="col-md-4 text-center">
-                                <div class="profile-container">
-                                    <div class="image-preview" id="imagePreview">
-                                        <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
-                                    </div>
-                                    <div class="edit-icon" id="editIcon">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </div>
-                                    <input type="file" value="{{ old('image') }}" name="image"
-                                        class="form-control d-none" id="fileInput" accept="image/*">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- HospitalName Field -->
                     <div class="form-group">
                         <label for="HospitalName">হাসপাতালের নাম :* </label>
@@ -298,6 +280,23 @@
                         <textarea class="form-control" id="address" name="address" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
                     </div>
 
+                    <!-- Picture Input with Preview -->
+                    <div class="form-group">
+                        <label class="row justify-content-center" for="image-upload" id="image-label"> হাসপাতালের ছবি যুক্ত করুন </label>
+                        <div class="row justify-content-center">
+                            <div class="position-relative">
+                                <div class="image-preview" id="imagePreview" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
+                                    <i class="bi bi-image" style="font-size: 80px; color: #ccc;"></i>
+                                </div>
+                                <div class="edit-icon position-absolute" id="editIcon" style="bottom: 10px; right: 10px; border-radius: 50%; padding: 5px; cursor: pointer;">
+                                    <i class="bi bi-pencil-square"></i>
+                                </div>
+                                <input type="file" value="{{ old('image') }}" name="image" class="form-control d-none" id="fileInput" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save Now</button>
@@ -327,24 +326,6 @@
                 </div>
 
                 <div class="modal-body">
-                    <!-- Picture Input with Preview -->
-                    <div class="form-group">
-                        <div class="row justify-content-center">
-                            <div class="col-md-4 text-center">
-                                <div class="profile-container">
-                                    <div class="image-preview" id="imagePreviewX">
-                                        <i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>
-                                    </div>
-                                    <div class="edit-icon" id="editIconX">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </div>
-                                    <input type="file" name="image" class="form-control d-none"
-                                        id="fileInputX" accept="image/*">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <!-- HospitalName Field -->
                     <div class="form-group">
@@ -377,6 +358,23 @@
                         <textarea class="form-control" id="address" name="address" value="{{ old(key: 'address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
                     </div>
 
+                    <!-- Picture Input with Preview -->
+                    <div class="form-group">
+                        <label class="row justify-content-center" for="image-upload" id="image-label"> হাসপাতালের ছবি যুক্ত করুন </label>
+                        <div class="row justify-content-center">
+                            <div class="position-relative">
+                                <div class="image-preview" id="imagePreviewX" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
+                                    <i class="bi bi-image" style="font-size: 80px; color: #ccc;"></i>
+                                </div>
+                                <div class="edit-icon position-absolute" id="editIconX" style="bottom: 10px; right: 10px; border-radius: 50%; padding: 5px; cursor: pointer;">
+                                    <i class="bi bi-pencil-square"></i>
+                                </div>
+                                <input type="file" name="image" class="form-control d-none" id="fileInputX" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
                     <div class="form-group">
                         <label for="status">স্ট্যাটাস </label>
                         <select class="form-control" id="status" name="status" required>

@@ -322,8 +322,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="itemDescription">যেই যেই রোগের চিকিৎসা করেন :*</label>
-                            <textarea class="form-control" id="spacialist" name="spacialist" rows="3" placeholder="রোগের নাম লিখুন" required></textarea>
+                            <label for="spacialist">যেই যেই রোগের চিকিৎসা করেন :*</label>
+                            <textarea class="" id="editor" name="spacialist" value="{{ old('spacialist') }}" placeholder="রোগের নাম লিখুন"></textarea>
                         </div>
 
                         <!-- Chambers Section -->
@@ -433,7 +433,7 @@
 
                         <div class="form-group">
                             <label for="spacialist">যেই যেই রোগের চিকিৎসা করেন :*</label>
-                            <textarea class="form-control" id="spacialist" name="spacialist"value="{{ old(key: 'spacialist') }}"  rows="3" placeholder="রোগের নাম লিখুন" required></textarea>
+                            <textarea class="" id="editorX" name="spacialist" value="{{ old('spacialist') }}" placeholder="রোগের নাম লিখুন"></textarea>
                         </div>
 
                         <!-- Chambers Section -->
@@ -571,6 +571,54 @@
     <x-slot name="script">
 
         <script type="text/javascript">
+
+            //CKEditor with Image Upload
+            ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'insertTable','alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'undo', 'redo'
+                    ],
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            // Function to initialize CKEditor
+            function initializeCKEditor() {
+                return ClassicEditor
+                    .create(document.querySelector('#editorX'), {
+                        toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'insertTable','alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'undo', 'redo'
+                    ],
+
+                    });
+            }
+
+            // Variable to hold the CKEditor instance
+            let editorInstance;
+
+            // Event listener for when the edit modal is hidden
+            $('#editshoppingModal').on('hidden.bs.modal', function() {
+                if (editorInstance) {
+                    editorInstance.destroy();
+                    editorInstance = null;
+                }
+            });
+
+
             // Add Chamber
             document.addEventListener("DOMContentLoaded", function () {
                 const chamberContainer = document.getElementById("chamberContainer");
@@ -686,7 +734,7 @@
             modal.find('#xCategory').text(category);
             modal.find('#xEducationQualify').text(education_qualify);
             modal.find('#xCurrentServise').text(current_servise);
-            modal.find('#xSpacialist').text(spacialist);
+            modal.find('#xSpacialist').html(spacialist);
             modal.find('#xStatus').text(status);
             modal.find('#xEntry').text(entry);
 
@@ -738,8 +786,17 @@
                 modal.find('#category').val(category);
                 modal.find('#educationQualify').val(education_qualify);
                 modal.find('#currentServise').val(current_servise);
-                modal.find('#spacialist').val(spacialist);
                 modal.find('#status').val(status);
+
+                // Initialize CKEditor if it hasn't been initialized yet
+                if (!editorInstance) {
+                    initializeCKEditor().then(editor => {
+                        editorInstance = editor;
+                        editorInstance.setData(spacialist);
+                    });
+                } else {
+                    editorInstance.setData(spacialist);
+                }
 
                 // Handle image preview
                 var imagePreview = modal.find('#imagePreviewX');
