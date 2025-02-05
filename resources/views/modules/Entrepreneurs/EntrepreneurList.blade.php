@@ -257,28 +257,40 @@
                 <form method="POST" action="{{ route('admin.entrepreneurs.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
-                    <!-- Title Field -->
+                    <!-- Name Field -->
                     <div class="form-group">
-                        <label for="title">উদ্যোক্তা নাম বা টাইটেল :*</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="টাইটেল লিখুন" required>
+                        <label for="name">উদ্যোক্তার নাম :*</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
                     </div>
 
-                    <!-- Details Field -->
+                    <!-- Servies Field -->
                     <div class="form-group ">
-                        <label for="details">উদ্যোক্তা  বেপারে বিস্তারিত তথ্য :*</label>
-                        <textarea class="form-control" id="details" name="details" rows="3" value="{{ old(key: 'details') }}" placeholder="বিস্তারিত লিখুন" required></textarea>
+                        <label for="servies">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য :*</label>
+                        <textarea class="" id="editor" name="servies" value="{{ old('servies') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Contact Field -->
                     <div class="form-group">
                         <label for="contact">যোগাযোগ নম্বর :</label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
-                    <!-- OwnerName Field -->
+                    <!-- FB_PageName Field -->
                     <div class="form-group">
-                        <label for="owner_name">মালিকের নাম :</label>
-                        <input type="text" name="owner_name" class="form-control" id="owner_name" value="{{ old(key: 'owner_name') }}" placeholder="নাম লিখুন" required>
+                        <label for="fb_page_name">ফেসবুক পেজের নাম :</label>
+                        <input type="text" name="fb_page_name" class="form-control" id="fb_page_name" value="{{ old(key: 'fb_page_name') }}" placeholder="পেজের নাম লিখুন">
+                    </div>
+
+                    <!-- PageLink Field -->
+                    <div class="form-group">
+                        <label for="page_link">পেজের লিংক :</label>
+                        <input type="text" name="page_link" class="form-control" id="page_link" value="{{ old(key: 'page_link') }}" placeholder="লিংক লিখুন">
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email">ইমেল : (যদিন থাকে)</label>
+                        <input type="text" name="email" class="form-control" id="email" value="{{ old(key: 'email') }}" placeholder="ইমেল লিখুন">
                     </div>
 
                     <!-- Upazila Field -->
@@ -296,10 +308,9 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address">বিস্তারিত ঠিকানা :*</label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
+                        <label for="address">বিস্তারিত ঠিকানা :</label>
+                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
                     </div>
-
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
@@ -348,28 +359,40 @@
 
                 <div class="modal-body">
 
-                    <!-- Title Field -->
+                    <!-- Name Field -->
                     <div class="form-group">
-                        <label for="title">উদ্যোক্তা নাম বা টাইটেল :*</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="টাইটেল লিখুন" required>
+                        <label for="name">উদ্যোক্তার নাম :*</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
                     </div>
 
-                    <!-- Details Field -->
+                    <!-- Servies Field -->
                     <div class="form-group ">
-                        <label for="details">উদ্যোক্তা  বেপারে বিস্তারিত তথ্য :*</label>
-                        <textarea class="form-control" id="details" name="details" rows="3" value="{{ old(key: 'details') }}" placeholder="বিস্তারিত লিখুন" required></textarea>
+                        <label for="servies">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য :*</label>
+                        <textarea class="" id="editorX" name="servies" value="{{ old('servies') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Contact Field -->
                     <div class="form-group">
                         <label for="contact">যোগাযোগ নম্বর :</label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
-                    <!-- OwnerName Field -->
+                    <!-- FB_PageName Field -->
                     <div class="form-group">
-                        <label for="owner_name">মালিকের নাম :</label>
-                        <input type="text" name="owner_name" class="form-control" id="owner_name" value="{{ old(key: 'owner_name') }}" placeholder="নাম লিখুন" required>
+                        <label for="fb_page_name">ফেসবুক পেজের নাম :</label>
+                        <input type="text" name="fb_page_name" class="form-control" id="fb_page_name" value="{{ old(key: 'fb_page_name') }}" placeholder="পেজের নাম লিখুন">
+                    </div>
+
+                    <!-- PageLink Field -->
+                    <div class="form-group">
+                        <label for="page_link">পেজের লিংক :</label>
+                        <input type="text" name="page_link" class="form-control" id="page_link" value="{{ old(key: 'page_link') }}" placeholder="লিংক লিখুন">
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email">ইমেল : (যদিন থাকে)</label>
+                        <input type="text" name="email" class="form-control" id="email" value="{{ old(key: 'email') }}" placeholder="ইমেল লিখুন">
                     </div>
 
                     <!-- Upazila Field -->
@@ -387,8 +410,8 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address">বিস্তারিত ঠিকানা :*</label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
+                        <label for="address">বিস্তারিত ঠিকানা :</label>
+                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
                     </div>
 
                     <!-- Picture Input with Preview -->
@@ -461,12 +484,14 @@
                                                 </div>
                                             </div>
 
-                                            <h6 class="dark-color mt-3 mb-2"><span id="xTitle"></span> </h6>
-                                            <div><samp class="sampcolor">মালিকের নাম: </samp> <span id="xOwnerName"></span></div>
+                                            <h6 class="dark-color mt-3 mb-2">নাম: <span id="xName"></span> </h6>
+                                            <div><samp class="sampcolor">পেজের নাম: </samp> <span id="xFbPageName"></span></div>
+                                            <div><samp class="sampcolor">পেজের লিংক: </samp> <span id="xPageLink"></span></div>
                                             <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
+                                            <div><samp class="sampcolor">ইমেল: </samp> <span id="xEmail"></span></div>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
                                             <div><hr/></div>
-                                            <div><samp class="sampcolor">বিস্তারিত তথ্য: </samp> <br/><span id="xDetails"></span></div>
+                                            <div><samp class="sampcolor">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য: </samp> <br/><span id="xServies"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -484,6 +509,53 @@
     <x-slot name="script">
 
         <script type="text/javascript">
+
+            //CKEditor with Image Upload
+            ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'insertTable','alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'undo', 'redo'
+                    ],
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            // Function to initialize CKEditor
+            function initializeCKEditor() {
+                return ClassicEditor
+                    .create(document.querySelector('#editorX'), {
+                        toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'insertTable','alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'undo', 'redo'
+                    ],
+
+                    });
+            }
+
+            // Variable to hold the CKEditor instance
+            let editorInstance;
+
+            // Event listener for when the edit modal is hidden
+            $('#editshoppingModal').on('hidden.bs.modal', function() {
+                if (editorInstance) {
+                    editorInstance.destroy();
+                    editorInstance = null;
+                }
+            });
+
 
             //imagePreview
             document.getElementById('editIcon').addEventListener('click', function() {
@@ -525,22 +597,26 @@
                 // Fetch data from the button
                 var id = button.data('id');
                 var user = button.data('user');
-                var title = button.data('title');
-                var details = button.data('details');
+                var name = button.data('name');
                 var contact = button.data('contact') || '';
-                var owner_name = button.data('owner_name') || '';
+                var fb_page_name = button.data('fb_page_name') || '';
+                var page_link = button.data('page_link') || '';
+                var email = button.data('email') || '';
+                var servies = button.data('servies');
                 var upazila = button.data('upazila');
-                var address = button.data('address');
+                var address = button.data('address') || '';
                 var status = button.data('status');
                 var entry = button.data('entry');
                 var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#xUser').text(user);
-                modal.find('#xTitle').text(title);
-                modal.find('#xDetails').text(details);
+                modal.find('#xName').text(name);
                 modal.find('#xContact').text(contact);
-                modal.find('#xOwnerName').text(owner_name);
+                modal.find('#xFbPageName').text(fb_page_name);
+                modal.find('#xPageLink').text(page_link);
+                modal.find('#xEmail').text(email);
+                modal.find('#xServies').html(servies);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
                 modal.find('#xStatus').text(status);
@@ -559,23 +635,36 @@
             $('#editEntrepreneurModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
-                var title = button.data('title');
-                var details = button.data('details');
+                var name = button.data('name');
                 var contact = button.data('contact');
-                var owner_name = button.data('owner_name');
+                var fb_page_name = button.data('fb_page_name');
+                var page_link = button.data('page_link');
+                var email = button.data('email');
+                var servies = button.data('servies');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
                 var status = button.data('status');
                 var image = button.data('image');
 
                 var modal = $(this);
-                modal.find('#title').val(title);
-                modal.find('#details').val(details);
+                modal.find('#name').val(name);
                 modal.find('#contact').val(contact);
-                modal.find('#owner_name').val(owner_name);
+                modal.find('#fb_page_name').val(fb_page_name);
+                modal.find('#page_link').val(page_link);
+                modal.find('#email').val(email);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
                 modal.find('#status').val(status);
+
+                // Initialize CKEditor if it hasn't been initialized yet
+                if (!editorInstance) {
+                    initializeCKEditor().then(editor => {
+                        editorInstance = editor;
+                        editorInstance.setData(servies);
+                    });
+                } else {
+                    editorInstance.setData(servies);
+                }
 
                 var imagePreview = modal.find('#imagePreviewX');
                 if (image) {

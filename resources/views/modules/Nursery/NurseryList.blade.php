@@ -268,13 +268,13 @@
                     <!-- Contact Field -->
                     <div class="form-group">
                         <label for="contact">যোগাযোগ নম্বর :</label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
                     <!-- OwnerName Field -->
                     <div class="form-group">
                         <label for="owner_name">মালিকের নাম :</label>
-                        <input type="text" name="owner_name" class="form-control" id="owner_name" value="{{ old(key: 'owner_name') }}" placeholder="নাম লিখুন" required>
+                        <input type="text" name="owner_name" class="form-control" id="owner_name" value="{{ old(key: 'owner_name') }}" placeholder="নাম লিখুন">
                     </div>
 
                     <!-- Upazila Field -->
@@ -359,13 +359,13 @@
                     <!-- Contact Field -->
                     <div class="form-group">
                         <label for="contact">যোগাযোগ নম্বর :</label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
                     <!-- OwnerName Field -->
                     <div class="form-group">
                         <label for="owner_name">মালিকের নাম :</label>
-                        <input type="text" name="owner_name" class="form-control" id="owner_name" value="{{ old(key: 'owner_name') }}" placeholder="নাম লিখুন" required>
+                        <input type="text" name="owner_name" class="form-control" id="owner_name" value="{{ old(key: 'owner_name') }}" placeholder="নাম লিখুন">
                     </div>
 
                     <!-- Upazila Field -->
