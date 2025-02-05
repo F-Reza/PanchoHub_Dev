@@ -305,8 +305,8 @@
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="pen-tool"></i><span>এডুকেশন হাব</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="alert.html">শিক্ষা প্রতিষ্ঠান</a></li>
                                 <li><a class="nav-link" href="badge.html">শিক্ষক</a></li>
+                                <li><a class="nav-link" href="alert.html">শিক্ষা প্রতিষ্ঠান</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -329,7 +329,7 @@
                                     data-feather="users"></i><span>ইউজার সমুহ</span></a>
                             <ul class="dropdown-menu">
                                 <li><a class="nav-link" href="{{ route('admin.users.index') }}">লোকাল ইউজার</a></li>
-                                <li><a class="nav-link" href="{{ route('admin.staff.index') }}">কর্মচারীগণ</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.staff.index') }}">এডমিন স্টাফ</a></li>
                             </ul>
                         </li>
 
@@ -337,18 +337,18 @@
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="gift"></i><span>প্যাকেজ সমূহ</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="basic-form.html"> বেসিক </a></li>
-                                <li><a class="nav-link" href="forms-advanced-form.html"> রেগুলার </a></li>
-                                <li><a class="nav-link" href="forms-editor.html"> প্রিমিয়াম </a></li>
+                                <li><a class="nav-link" href="#"> বেসিক </a></li>
+                                <li><a class="nav-link" href="#"> রেগুলার </a></li>
+                                <li><a class="nav-link" href="#"> প্রিমিয়াম </a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="credit-card"></i><span>পেমেন্টস </span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="basic-form.html"> ট্রানজেকশন হিস্ট্রি</a></li>
-                                <li><a class="nav-link" href="forms-advanced-form.html"> সকল লেনদেন </a></li>
-                                <li><a class="nav-link" href="forms-editor.html"> পেমেন্ট গেটওয়ে সেটিংস </a></li>
+                                <li><a class="nav-link" href="#"> ট্রানজেকশন হিস্ট্রি</a></li>
+                                <li><a class="nav-link" href="#"> সকল লেনদেন </a></li>
+                                <li><a class="nav-link" href="#"> পেমেন্ট গেটওয়ে সেটিংস </a></li>
                             </ul>
                         </li>
 
@@ -356,7 +356,9 @@
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="settings"></i><span>সেটিংস সমূহ</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="forms-editor.html"> যোগাযোগ </a></li>
+                                <li><a class="nav-link" href="#"> যোগাযোগ </a></li>
+                                <li><a class="nav-link" href="#"> প্রাইভেসি পলিসি </a></li>
+                                <li><a class="nav-link" href="#"> টার্মস এন্ড কন্ডিশনস </a></li>
                             </ul>
                         </li>
                         <!-- Main END Point -->
