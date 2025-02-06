@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('institutions', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->string('category');
+            $table->string('title');
+            $table->string('est_year');
+            $table->text('details');
+            $table->text('type');
+            $table->string('contact');
+            $table->string('email')->nullable();
+            $table->string('upazila');
+            $table->string('address');
+            $table->string('image')->nullable();
+            $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();
         });
     }

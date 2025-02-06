@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->string('name');
+            $table->string('title');
+            $table->string('category');
+            $table->string('contact');
+            $table->string('classess');
+            $table->string('subjects');
+            $table->string('time_period');
+            $table->string('gender');
+            $table->string('salary');
+            $table->string('upazila');
+            $table->string('address');
+            $table->string('image')->nullable();
+            $table->enum('status', ['Approved', 'In Review', 'Pending', 'Denied'])->default('Pending');
             $table->timestamps();
         });
     }

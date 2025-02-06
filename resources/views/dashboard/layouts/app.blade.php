@@ -305,8 +305,8 @@
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="pen-tool"></i><span>এডুকেশন হাব</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="badge.html">শিক্ষক</a></li>
-                                <li><a class="nav-link" href="alert.html">শিক্ষা প্রতিষ্ঠান</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.teachers.index') }}">শিক্ষক</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.institutions.index') }}">শিক্ষা প্রতিষ্ঠান</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">

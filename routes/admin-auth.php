@@ -34,6 +34,8 @@ use App\Http\Controllers\PlotSalesController;
 use App\Http\Controllers\TechniciansController;
 use App\Http\Controllers\NurseryController;
 use App\Http\Controllers\EntrepreneursController;
+use App\Http\Controllers\TeachersController;
+use App\Http\Controllers\InstitutionsController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -202,17 +204,18 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::put('/entrepreneurs/{id}', [EntrepreneursController::class, 'update'])->name('entrepreneurs.update');
     Route::delete('/entrepreneurs', [EntrepreneursController::class, 'destroy'])->name('entrepreneurs.destroy');
 
-    //Institutions Routes
-    Route::get('/institutions', [EntrepreneursController::class, 'index'])->name('institutions.index');
-    Route::post('/institutions', [EntrepreneursController::class, 'store'])->name('institutions.store');
-    Route::put('/institutions/{id}', [EntrepreneursController::class, 'update'])->name('institutions.update');
-    Route::delete('/institutions', [EntrepreneursController::class, 'destroy'])->name('institutions.destroy');
-
     //Teachers Routes
-    Route::get('/teachers', [EntrepreneursController::class, 'index'])->name('teachers.index');
-    Route::post('/teachers', [EntrepreneursController::class, 'store'])->name('teachers.store');
-    Route::put('/teachers/{id}', [EntrepreneursController::class, 'update'])->name('teachers.update');
-    Route::delete('/teachers', [EntrepreneursController::class, 'destroy'])->name('teachers.destroy');
+    Route::get('/teachers', [TeachersController::class, 'index'])->name('teachers.index');
+    Route::post('/teachers', [TeachersController::class, 'store'])->name('teachers.store');
+    Route::put('/teachers/{id}', [TeachersController::class, 'update'])->name('teachers.update');
+    Route::delete('/teachers', [TeachersController::class, 'destroy'])->name('teachers.destroy');
+
+    //Institutions Routes
+    Route::get('/institutions', [InstitutionsController::class, 'index'])->name('institutions.index');
+    Route::post('/institutions', [InstitutionsController::class, 'store'])->name('institutions.store');
+    Route::put('/institutions/{id}', [InstitutionsController::class, 'update'])->name('institutions.update');
+    Route::delete('/institutions', [InstitutionsController::class, 'destroy'])->name('institutions.destroy');
+
 
 
 
