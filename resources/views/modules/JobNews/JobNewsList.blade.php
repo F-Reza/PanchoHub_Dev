@@ -370,8 +370,8 @@
 
                     <!-- OthersInfo Field -->
                     <div class="form-group ">
-                        <label for="others_info">অনান্য তথ্য :</label>
-                        <textarea class="form-control" id="others_info" name="others_info" value="{{ old('others_info') }}" placeholder="অনান্য তথ্য লিখুন"></textarea>
+                        <label for="others_info">অন্যান্য তথ্য :</label>
+                        <textarea class="form-control" id="others_info" name="others_info" value="{{ old('others_info') }}" placeholder="অন্যান্য তথ্য লিখুন"></textarea>
                     </div>
 
 
@@ -506,8 +506,8 @@
 
                     <!-- OthersInfo Field -->
                     <div class="form-group ">
-                        <label for="others_info">অনান্য তথ্য :</label>
-                        <textarea class="form-control" id="others_info" name="others_info" value="{{ old('others_info') }}" placeholder="অনান্য তথ্য লিখুন"></textarea>
+                        <label for="others_info">অন্যান্য তথ্য :</label>
+                        <textarea class="form-control" id="others_info" name="others_info" value="{{ old('others_info') }}" placeholder="অন্যান্য তথ্য লিখুন"></textarea>
                     </div>
 
                     <!-- Status Field -->
@@ -575,7 +575,7 @@
                                             <div><samp class="sampcolor">অভিজ্ঞতা: </samp> <span id="xExperience"></span></div>
                                             <div><samp class="sampcolor">বেতন: </samp> <span id="xSalary"></span></div>
                                             <div><samp class="sampcolor">আবেদনের সর্বশেষ তারিখ: </samp> <span id="xDateline"></span></div>
-                                            <div><samp class="sampcolor">চাকরির বেপারে অনান্য তথ্য: </samp> <span id="xOthersInfo"></span></div>
+                                            <div><samp class="sampcolor">চাকরির বেপারে অন্যান্য তথ্য: </samp> <span id="xOthersInfo"></span></div>
                                         </div>
                                     </div>
                                 </div>

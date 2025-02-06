@@ -302,7 +302,7 @@
 
                     <!-- OthersInfo Field -->
                     <div class="form-group ">
-                        <label for="others_info">অন্যান তথ্য : (যদি থাকে)</label>
+                        <label for="others_info">অন্যান্য তথ্য : (যদি থাকে)</label>
                         <textarea class="form-control" id="others_info" name="others_info" rows="3" value="{{ old(key: 'others_info') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
@@ -398,7 +398,7 @@
 
                     <!-- OthersInfo Field -->
                     <div class="form-group ">
-                        <label for="others_info">অন্যান তথ্য : (যদি থাকে)</label>
+                        <label for="others_info">অন্যান্য তথ্য : (যদি থাকে)</label>
                         <textarea class="form-control" id="others_info" name="others_info" rows="3" value="{{ old(key: 'others_info') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
@@ -478,7 +478,7 @@
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
                                             <div><samp class="sampcolor">অভিজ্ঞতা: </samp> <span id="xExperience"></span></div>
                                             <div><hr/></div>
-                                            <div><samp class="sampcolor">অন্যান তথ্য: </samp> <br/><span id="xOthersInfo"></span></div>
+                                            <div><samp class="sampcolor">অন্যান্য তথ্য: </samp> <br/><span id="xOthersInfo"></span></div>
                                         </div>
                                     </div>
                                 </div>

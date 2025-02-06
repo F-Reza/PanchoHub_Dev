@@ -38,7 +38,7 @@
                                                 </th>
                                                 <th>Image</th>
                                                 <th class="align-left">Name</th>
-                                                <th class="align-left">category</th>
+                                                <th class="align-left">Category</th>
                                                 <th class="align-left">	Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">	Added By</th>
@@ -760,7 +760,7 @@
 
             });
 
-            //deleTeteacher
+            //deleteTeacher
             function deleteTeacher(id) {
                 if (confirm('Are you sure you want to delete this Teacher?')) {
                     $.ajax({

@@ -498,8 +498,8 @@
                                                 <img id="modalImage" src="" style="width: 100px; height: 100px;" title="Hospital Logo" alt="logo">
                                             </div>
                                             <div class="p-2 flex-shrink-1 bd-highlight mt-4">
-                                                <h4 class="dark-color"><span id="xDrName"></span></h4>
-                                                <h5 class="theme-color lead"><samp class="sampcolor">বিশেষজ্ঞ: </samp> <span id="xCategory"></span></h5>
+                                                <h5 class="dark-color mb-1 pb-1"><span id="xDrName"></span></h5>
+                                                <p class="theme-color lead"><samp class="sampcolor">ধরন: </samp> <span id="xCategory"></span></p>
                                             </div>
                                         </div>
                                         <div class="about-list">
@@ -611,7 +611,7 @@
             let editorInstance;
 
             // Event listener for when the edit modal is hidden
-            $('#editshoppingModal').on('hidden.bs.modal', function() {
+            $('#editDoctorModal').on('hidden.bs.modal', function() {
                 if (editorInstance) {
                     editorInstance.destroy();
                     editorInstance = null;

@@ -520,7 +520,7 @@
             let editorInstance;
 
             // Event listener for when the edit modal is hidden
-            $('#editshoppingModal').on('hidden.bs.modal', function() {
+            $('#editNurseryModal').on('hidden.bs.modal', function() {
                 if (editorInstance) {
                     editorInstance.destroy();
                     editorInstance = null;

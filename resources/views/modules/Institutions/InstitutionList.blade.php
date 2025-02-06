@@ -18,7 +18,7 @@
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h4>শিক্ষা প্রতিষ্ঠান</h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createinstitutionModal">Create</a>
+                                    data-target="#createInstitutionModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -37,8 +37,9 @@
                                                     </div>
                                                 </th>
                                                 <th>Image</th>
-                                                <th class="align-left">Name</th>
-                                                <th class="align-left">category</th>
+                                                <th class="align-left">Category</th>
+                                                <th class="align-left">Est Year</th>
+                                                <th class="align-left">Type</th>
                                                 <th class="align-left">	Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">	Added By</th>
@@ -72,8 +73,9 @@
                                                                     width="70" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left" style=" max-width: 250px;"> {{ $institution->name }} </td>
                                                         <td class="align-left"> {{ $institution->category }} </td>
+                                                        <td class="align-left"> {{ $institution->est_year }} </td>
+                                                        <td class="align-left"> {{ $institution->type }} </td>
                                                         <td class="align-left"> {{ $institution->contact }} </td>
                                                         <td class="align-left"> {{ $institution->upazila }} </td>
                                                         <td class="align-left"> {{ $institution->user->name ?? 'N/A' }}</td>
@@ -97,18 +99,16 @@
 
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewinstitutionModal"
+                                                                data-toggle="modal" data-target="#viewInstitutionModal"
                                                                 data-id="{{ $institution->id }}"
                                                                 data-user="{{ $institution->user->name }}"
-                                                                data-name="{{ $institution->name }}"
-                                                                data-title="{{ $institution->title }}"
                                                                 data-category="{{ $institution->category }}"
+                                                                data-title="{{ $institution->title }}"
+                                                                data-est_year="{{ $institution->est_year }}"
+                                                                data-details="{{ $institution->details }}"
+                                                                data-type="{{ $institution->type }}"
                                                                 data-contact="{{ $institution->contact }}"
-                                                                data-classess="{{ $institution->classess }}"
-                                                                data-subjects="{{ $institution->subjects }}"
-                                                                data-time_period="{{ $institution->time_period }}"
-                                                                data-gender="{{ $institution->gender }}"
-                                                                data-salary="{{ $institution->salary }}"
+                                                                data-email="{{ $institution->email?? 'Empty' }}"
                                                                 data-upazila="{{ $institution->upazila }}"
                                                                 data-address="{{ $institution->address }}"
                                                                 data-status="{{ $institution->status }}"
@@ -118,17 +118,15 @@
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editinstitutionModal"
+                                                                data-toggle="modal" data-target="#editInstitutionModal"
                                                                 data-id="{{ $institution->id }}"
-                                                                data-name="{{ $institution->name }}"
-                                                                data-title="{{ $institution->title }}"
                                                                 data-category="{{ $institution->category }}"
+                                                                data-title="{{ $institution->title }}"
+                                                                data-est_year="{{ $institution->est_year }}"
+                                                                data-details="{{ $institution->details }}"
+                                                                data-type="{{ $institution->type }}"
                                                                 data-contact="{{ $institution->contact }}"
-                                                                data-classess="{{ $institution->classess }}"
-                                                                data-subjects="{{ $institution->subjects }}"
-                                                                data-time_period="{{ $institution->time_period }}"
-                                                                data-gender="{{ $institution->gender }}"
-                                                                data-salary="{{ $institution->salary }}"
+                                                                data-email="{{ $institution->email?? '' }}"
                                                                 data-upazila="{{ $institution->upazila }}"
                                                                 data-address="{{ $institution->address }}"
                                                                 data-status="{{ $institution->status }}"
@@ -137,7 +135,7 @@
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteinstitution({{ $institution->id }})"
+                                                                onclick="deleteInstitution({{ $institution->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -250,8 +248,8 @@
     </div>
 
     <!-- Modal -->
-    <!-- Create institution Modal -->
-    <div class="modal modalz fade" id="createinstitutionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create Institution Modal -->
+    <div class="modal modalz fade" id="createInstitutionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -265,58 +263,50 @@
                 <form method="POST" action="{{ route('admin.institutions.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
-                    <!-- Name Field -->
-                    <div class="form-group">
-                        <label for="name">নাম :*</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
-                    </div>
-
                     <!-- Title Field -->
                     <div class="form-group">
-                        <label for="title">টাইটেল :*</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="টাইটেল লিখুন" required>
+                        <label for="title">প্রতিষ্ঠানের নাম/টাইটেল :*</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="নাম/টাইটেল লিখুন" required>
                     </div>
 
                     <!-- Category Field -->
                     <div class="form-group">
-                        <label for="gender"> ক্যাটাগরি :* </label>
-                        <br>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="category" id="want" value="পড়াতে চাই" checked>
-                          <label class="form-check-label" for="want">
-                            পড়াতে চাই
-                          </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="category"  id="need" value="শিক্ষক চাই">
-                          <label class="form-check-label" for="need">
-                            শিক্ষক চাই
-                          </label>
-                        </div>
+                        <label for="category">ক্যাটাগরি :* </label>
+                        <select class="form-control" id="category" name="category" required>
+                            <option value=""> নির্বাচন করুন </option>
+                            <option value="স্কুল">স্কুল</option>
+                            <option value="কলেজ">কলেজ</option>
+                            <option value="স্কুল ও কলেজ">স্কুল ও কলেজ</option>
+                            <option value="মাদ্রাসা">মাদ্রাসা</option>
+                            <option value="মক্তব">মক্তব</option>
+                            <option value="কিন্ডারগার্টেন">কিন্ডারগার্টেন</option>
+                            <option value="কোচিং সেন্টারের">কোচিং সেন্টারের</option>
+                            <option value="অন্যান্য">অন্যান্য</option>
+                        </select>
                     </div>
 
-                    <!-- Gender Field -->
+                     <!-- Type Field -->
+                     <div class="form-group">
+                        <label for="type">প্রতিষ্ঠানের ধরন :* </label>
+                        <select class="form-control" id="type" name="type" required>
+                            <option value=""> নির্বাচন করুন </option>
+                            <option value="সরকারি">সরকারি</option>
+                            <option value="আধা সরকারি">আধা সরকারি</option>
+                            <option value="বেসরকারি">বেসরকারি</option>
+                            <option value="অন্যান্য">অন্যান্য</option>
+                        </select>
+                    </div>
+
+                    <!-- EstYear Field -->
                     <div class="form-group">
-                        <label for="gender"> লিঙ্গ :* </label>
-                        <br>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="gender" id="male" value="ছেলে" checked>
-                          <label class="form-check-label" for="male">
-                            ছেলে
-                          </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="gender" value="মেয়ে" id="female">
-                          <label class="form-check-label" for="female">
-                            মেয়ে
-                          </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="gender" value="ছেলে ও মেয়ে" id="both">
-                          <label class="form-check-label" for="both">
-                            ছেলে ও মেয়ে
-                          </label>
-                        </div>
+                        <label for="est_year">প্রতিষ্ঠানের স্থাপিত সাল :*</label>
+                        <input type="text" class="form-control" id="est_year" name="est_year" value="{{ old(key: 'est_year') }}" placeholder="সাল লিখুন" required>
+                    </div>
+
+                    <!-- Details Field -->
+                    <div class="form-group ">
+                        <label for="details">প্রতিষ্ঠানের বেপারে বিস্তারিত :*</label>
+                        <textarea class="" id="editor" name="details" value="{{ old(key: 'details') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Contact Field -->
@@ -325,29 +315,12 @@
                         <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
                     </div>
 
-                    <!-- Classess Field -->
+                    <!-- Email Field -->
                     <div class="form-group">
-                        <label for="classess">কোন শ্রেণীর :*</label>
-                        <input type="text" name="classess" class="form-control" id="classess" value="{{ old(key: 'classess') }}" placeholder="শ্রেণী সমূহ লিখুন" required>
+                        <label for="email">প্রতিষ্ঠানের ইমেইল : (যদি থাকে)</label>
+                        <input type="text" name="email" class="form-control" id="email" value="{{ old(key: 'email') }}" placeholder="ইমেইল লিখুন">
                     </div>
 
-                    <!-- Subjects Field -->
-                    <div class="form-group">
-                        <label for="subjects">কোন কোন সাবজেক্টের :*</label>
-                        <input type="text" name="subjects" class="form-control" id="subjects" value="{{ old(key: 'subjects') }}" placeholder="সাবজেক্টের নাম লিখুন" required>
-                    </div>
-
-                    <!-- TimePeriod Field -->
-                    <div class="form-group">
-                        <label for="time_period">সপ্তাহে কত দিন পড়াবেন/পড়বেন :*</label>
-                        <input type="text" name="time_period" class="form-control" id="time_period" value="{{ old(key: 'time_period') }}" placeholder="দিন সমূহ লিখুন" required>
-                    </div>
-
-                    <!-- Salary Field -->
-                    <div class="form-group">
-                        <label for="salary">বেতন কত নিবেন/দিবেন :*</label>
-                        <input type="text" name="salary" class="form-control" id="salary" value="{{ old(key: 'salary') }}" placeholder="বেতন লিখুন" required>
-                    </div>
 
                     <!-- Upazila Field -->
                     <div class="form-group">
@@ -396,8 +369,8 @@
         </div>
     </div>
 
-    <!-- Edit institution Modal -->
-    <div class="modal modalz fade" id="editinstitutionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit Institution Modal -->
+    <div class="modal modalz fade" id="editInstitutionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
 
@@ -415,58 +388,48 @@
 
                 <div class="modal-body">
 
-                    <!-- Name Field -->
-                    <div class="form-group">
-                        <label for="name">নাম :*</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
-                    </div>
-
                     <!-- Title Field -->
                     <div class="form-group">
-                        <label for="title">টাইটেল :*</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="টাইটেল লিখুন" required>
+                        <label for="title">প্রতিষ্ঠানের নাম/টাইটেল :*</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="নাম/টাইটেল লিখুন" required>
                     </div>
 
                     <!-- Category Field -->
                     <div class="form-group">
-                        <label for="category"> লিঙ্গ :* </label>
-                        <br>
-                        <div class="form-check form-check-inline">
-                          <input class="" type="radio" name="category" id="want" value="পড়াতে চাই">
-                          <label class="form-check-label" for="want">
-                            পড়াতে চাই
-                          </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="" type="radio" name="category" value="শিক্ষক চাই" id="need">
-                          <label class="form-check-label" for="need">
-                            শিক্ষক চাই
-                          </label>
-                        </div>
+                        <label for="category">ক্যাটাগরি :* </label>
+                        <select class="form-control" id="category" name="category" required>
+                            <option value="স্কুল" {{ old('category') == 'স্কুল' ? 'selected' : '' }}> স্কুল</option>
+                            <option value="কলেজ" {{ old('category') == 'কলেজ' ? 'selected' : '' }}>কলেজ</option>
+                            <option value="স্কুল ও কলেজ" {{ old('category') == 'স্কুল ও কলেজ' ? 'selected' : '' }}>স্কুল ও কলেজ</option>
+                            <option value="মাদ্রাসা" {{ old('category') == 'মাদ্রাসা' ? 'selected' : '' }}>মাদ্রাসা</option>
+                            <option value="মক্তব" {{ old('category') == 'মক্তব' ? 'selected' : '' }}>মক্তব</option>
+                            <option value="কিন্ডারগার্টেন" {{ old('category') == 'কিন্ডারগার্টেন' ? 'selected' : '' }}>কিন্ডারগার্টেন</option>
+                            <option value="কোচিং সেন্টারের" {{ old('category') == 'কোচিং সেন্টারের' ? 'selected' : '' }}>কোচিং সেন্টারের</option>
+                            <option value="অন্যান্য" {{ old('category') == 'অন্যান্য' ? 'selected' : '' }}>অন্যান্য</option>
+                        </select>
                     </div>
 
-                    <!-- Gender Field -->
+                     <!-- Type Field -->
+                     <div class="form-group">
+                        <label for="type">প্রতিষ্ঠানের ধরন :* </label>
+                        <select class="form-control" id="type" name="type" required>
+                            <option value="সরকারি" {{ old('type') == 'সরকারি' ? 'selected' : '' }}> সরকারি</option>
+                            <option value="আধা সরকারি" {{ old('type') == 'আধা সরকারি' ? 'selected' : '' }}>আধা সরকারি</option>
+                            <option value="বেসরকারি" {{ old('type') == 'বেসরকারি' ? 'selected' : '' }}>বেসরকারি</option>
+                            <option value="অন্যান্য" {{ old('type') == 'অন্যান্য' ? 'selected' : '' }}>অন্যান্য</option>
+                        </select>
+                    </div>
+
+                    <!-- EstYear Field -->
                     <div class="form-group">
-                        <label for="gender"> লিঙ্গ :* </label>
-                        <br>
-                        <div class="form-check form-check-inline">
-                          <input class="" type="radio" name="gender" id="male" value="ছেলে">
-                          <label class="form-check-label" for="male">
-                            ছেলে
-                          </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="" type="radio" name="gender" value="মেয়ে" id="female">
-                          <label class="form-check-label" for="female">
-                            মেয়ে
-                          </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                          <input class="" type="radio" name="gender" value="ছেলে ও মেয়ে" id="both">
-                          <label class="form-check-label" for="both">
-                            ছেলে ও মেয়ে
-                          </label>
-                        </div>
+                        <label for="est_year">প্রতিষ্ঠানের স্থাপিত সাল :*</label>
+                        <input type="text" class="form-control" id="est_year" name="est_year" value="{{ old(key: 'est_year') }}" placeholder="সাল লিখুন" required>
+                    </div>
+
+                    <!-- Details Field -->
+                    <div class="form-group ">
+                        <label for="details">প্রতিষ্ঠানের বেপারে বিস্তারিত :*</label>
+                        <textarea class="" id="editorX" name="details" value="{{ old(key: 'details') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Contact Field -->
@@ -475,29 +438,12 @@
                         <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
                     </div>
 
-                    <!-- Classess Field -->
+                    <!-- Email Field -->
                     <div class="form-group">
-                        <label for="classess">কোন শ্রেণীর :*</label>
-                        <input type="text" name="classess" class="form-control" id="classess" value="{{ old(key: 'classess') }}" placeholder="শ্রেণী সমূহ লিখুন" required>
+                        <label for="email">প্রতিষ্ঠানের ইমেইল : (যদি থাকে)</label>
+                        <input type="text" name="email" class="form-control" id="email" value="{{ old(key: 'email') }}" placeholder="ইমেইল লিখুন">
                     </div>
 
-                    <!-- Subjects Field -->
-                    <div class="form-group">
-                        <label for="subjects">কোন কোন সাবজেক্টের :*</label>
-                        <input type="text" name="subjects" class="form-control" id="subjects" value="{{ old(key: 'subjects') }}" placeholder="সাবজেক্টের নাম লিখুন" required>
-                    </div>
-
-                    <!-- TimePeriod Field -->
-                    <div class="form-group">
-                        <label for="time_period">সপ্তাহে কত দিন পড়াবেন/পড়বেন :*</label>
-                        <input type="text" name="time_period" class="form-control" id="time_period" value="{{ old(key: 'time_period') }}" placeholder="দিন সমূহ লিখুন" required>
-                    </div>
-
-                    <!-- Salary Field -->
-                    <div class="form-group">
-                        <label for="salary">বেতন কত নিবেন/দিবেন :*</label>
-                        <input type="text" name="salary" class="form-control" id="salary" value="{{ old(key: 'salary') }}" placeholder="বেতন লিখুন" required>
-                    </div>
 
                     <!-- Upazila Field -->
                     <div class="form-group">
@@ -556,8 +502,8 @@
         </div>
     </div>
 
-    <!-- View institution Modal -->
-    <div class="modal modalz fade" id="viewinstitutionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- View Institution Modal -->
+    <div class="modal modalz fade" id="viewInstitutionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -617,6 +563,53 @@
 
         <script type="text/javascript">
 
+             //CKEditor with Image Upload
+             ClassicEditor
+                .create(document.querySelector('#editor'), {
+                    toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'insertTable','alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'undo', 'redo'
+                    ],
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+            // Function to initialize CKEditor
+            function initializeCKEditor() {
+                return ClassicEditor
+                    .create(document.querySelector('#editorX'), {
+                        toolbar: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                        'bulletedList', 'numberedList', 'todoList', '|',
+                        'insertTable','alignment', 'horizontalLine', '|',
+                        'specialCharacters', 'undo', 'redo'
+                    ],
+
+                    });
+            }
+
+            // Variable to hold the CKEditor instance
+            let editorInstance;
+
+            // Event listener for when the edit modal is hidden
+            $('#editInstitutionModal').on('hidden.bs.modal', function() {
+                if (editorInstance) {
+                    editorInstance.destroy();
+                    editorInstance = null;
+                }
+            });
+
+
             //imagePreview
             document.getElementById('editIcon').addEventListener('click', function() {
                 document.getElementById('fileInput').click();
@@ -651,21 +644,19 @@
             });
 
 
-            //viewinstitutionModal
-            $('#viewinstitutionModal').on('show.bs.modal', function(event) {
+            //viewInstitutionModal
+            $('#viewInstitutionModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user = button.data('user');
-                var name = button.data('name');
-                var title = button.data('title');
                 var category = button.data('category');
+                var title = button.data('title');
+                var est_year = button.data('est_year');
+                var details = button.data('details');
+                var type = button.data('type');
                 var contact = button.data('contact');
-                var classess = button.data('classess');
-                var subjects = button.data('subjects');
-                var time_period = button.data('time_period');
-                var gender = button.data('gender');
-                var salary = button.data('salary');
+                var emailemail = button.data('email') || '';
                 var upazila = button.data('upazila');
                 var address = button.data('address');
                 var status = button.data('status');
@@ -674,15 +665,13 @@
 
                 var modal = $(this);
                 modal.find('#xUser').text(user);
-                modal.find('#xName').text(name);
-                modal.find('#xTitle').text(title);
                 modal.find('#xCategory').text(category);
+                modal.find('#xTitle').text(title);
+                modal.find('#xEstYear').text(est_year);
+                modal.find('#xDetails').html(details);
+                modal.find('#xType').text(type);
                 modal.find('#xContact').text(contact);
-                modal.find('#xClassess').text(classess);
-                modal.find('#xSubjects').text(subjects);
-                modal.find('#xTimePeriod').text(time_period);
-                modal.find('#xGender').text(gender);
-                modal.find('#xSalary').text(salary);
+                modal.find('#xEmail').text(email);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
                 modal.find('#xStatus').text(status);
@@ -697,55 +686,41 @@
                 }
             });
 
-            //editinstitutionModal
-            $('#editinstitutionModal').on('show.bs.modal', function(event) {
+            //editInstitutionModal
+            $('#editInstitutionModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
-                var name = button.data('name');
-                var title = button.data('title');
                 var category = button.data('category');
+                var title = button.data('title');
+                var est_year = button.data('est_year');
+                var details = button.data('details');
+                var type = button.data('type');
                 var contact = button.data('contact');
-                var classess = button.data('classess');
-                var subjects = button.data('subjects');
-                var time_period = button.data('time_period');
-                var gender = button.data('gender');
-                var salary = button.data('salary');
+                var email = button.data('email') || '';
                 var upazila = button.data('upazila');
                 var address = button.data('address');
                 var status = button.data('status');
                 var image = button.data('image');
 
                 var modal = $(this);
-                modal.find('#name').val(name);
-                modal.find('#title').val(title);
                 modal.find('#category').val(category);
+                modal.find('#title').val(title);
+                modal.find('#est_year').val(est_year);
+                modal.find('#type').val(type);
                 modal.find('#contact').val(contact);
-                modal.find('#classess').val(classess);
-                modal.find('#subjects').val(subjects);
-                modal.find('#time_period').val(time_period);
-                modal.find('#salary').val(salary);
+                modal.find('#email').val(email);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
                 modal.find('#status').val(status);
 
-                // Handle category selection
-                modal.find('input[name="category"]').prop('checked', false);
-                if (category) {
-                    modal.find('input[name="category"]').each(function() {
-                        if ($(this).val() === category) {
-                            $(this).prop('checked', true);
-                        }
+                // Initialize CKEditor if it hasn't been initialized yet
+                if (!editorInstance) {
+                    initializeCKEditor().then(editor => {
+                        editorInstance = editor;
+                        editorInstance.setData(details);
                     });
-                }
-
-                // Handle gender selection
-                modal.find('input[name="gender"]').prop('checked', false);
-                if (gender) {
-                    modal.find('input[name="gender"]').each(function() {
-                        if ($(this).val() === gender) {
-                            $(this).prop('checked', true);
-                        }
-                    });
+                } else {
+                    editorInstance.setData(details);
                 }
 
                 var imagePreview = modal.find('#imagePreviewX');
@@ -760,9 +735,9 @@
 
             });
 
-            //deleTeinstitution
-            function deleteinstitution(id) {
-                if (confirm('Are you sure you want to delete this institution?')) {
+            //deleteInstitution
+            function deleteInstitution(id) {
+                if (confirm('Are you sure you want to delete this Institution?')) {
                     $.ajax({
                         url: '{{ route('admin.institutions.destroy') }}',
                         type: 'DELETE',
@@ -781,7 +756,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete institution. Please try again.');
+                            alert('Failed to delete Institution. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });
