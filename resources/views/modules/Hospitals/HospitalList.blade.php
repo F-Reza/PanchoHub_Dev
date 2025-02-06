@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - হাসপাতাল সমূহ |</title>
+        <title>| পঞ্চহাব - হাসপাতাল |</title>
     </x-slot>
 
     <!-- Main Content -->

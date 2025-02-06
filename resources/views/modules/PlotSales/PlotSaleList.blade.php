@@ -249,7 +249,7 @@
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle"> ফ্ল্যাট ও জমি যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle"> ফ্ল্যাট ও জমি বিক্রয় যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -359,7 +359,7 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">ফ্ল্যাট ও জমি ডাটা পরিবর্তন </h5>
+                    <h5 class="modal-title" id="modalTitle">ফ্ল্যাট ও জমি বিক্রয় ডাটা পরিবর্তন </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -471,7 +471,7 @@
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">ফ্ল্যাট ও জমি ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">ফ্ল্যাট ও জমি বিক্রয় ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

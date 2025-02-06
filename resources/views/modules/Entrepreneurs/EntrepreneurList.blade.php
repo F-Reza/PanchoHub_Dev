@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - উদ্যোক্তা  সমূহ |</title>
+        <title>| পঞ্চহাব - উদ্যোক্তা |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 
@@ -16,7 +16,7 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4>উদ্যোক্তা  সমূহ</h4>
+                                <h4>উদ্যোক্তা সমূহ</h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
                                     data-target="#createEntrepreneurModal">Create</a>
                             </div>
@@ -351,7 +351,7 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">নার্সারি ডাটা পরিবর্তন </h5>
+                    <h5 class="modal-title" id="modalTitle">উদ্যোক্তা ডাটা পরিবর্তন </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>

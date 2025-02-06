@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - রক্তদাতা সমূহ |</title>
+        <title>| পঞ্চহাব - রক্তদাতা |</title>
     </x-slot>
 
     <!-- Main Content -->
@@ -15,7 +15,7 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4>রক্তদাতা সমূহ</h4>
+                                <h4>রক্তদাতা</h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
                                     data-target="#createDonorModal">Create</a>
                             </div>

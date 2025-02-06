@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - হোটেল সমূহ |</title>
+        <title>| পঞ্চহাব - হোটেল |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 

@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - রেস্টুরেন্ট সমূহ |</title>
+        <title>| পঞ্চহাব - রেস্টুরেন্ট |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 

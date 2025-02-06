@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - ডায়াগনস্টিক সেন্টার সমূহ |</title>
+        <title>| পঞ্চহাব - ডায়াগনস্টিক সেন্টার |</title>
     </x-slot>
 
     <!-- Main Content -->
@@ -15,7 +15,7 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4>ডায়াগনস্টিক সেন্টার সমূহ</h4>
+                                <h4>ডায়াগনস্টিক সেন্টার</h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
                                     data-target="#createDiagnosticModal">Create</a>
                             </div>

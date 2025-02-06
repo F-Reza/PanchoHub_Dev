@@ -289,7 +289,7 @@
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="grid"></i><span>বিজনেস পয়েন্ট</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="{{ route('admin.hoteles.index') }}">হোটেল সমুহ</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.hoteles.index') }}">হোটেল</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.restaurants.index') }}">রেস্টুরেন্ট </a></li>
                                 <li><a class="nav-link" href="{{ route('admin.salon_parlour.index') }}">পার্লার-সেলুন</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.shopping.index') }}">কেনাকাটা</a></li>

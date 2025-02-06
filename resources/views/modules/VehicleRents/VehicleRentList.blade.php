@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - গাড়িভাড়া সমূহ |</title>
+        <title>| পঞ্চহাব - গাড়িভাড়া |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 

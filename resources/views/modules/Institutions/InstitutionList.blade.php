@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - উদ্যোক্তা  সমূহ |</title>
+        <title>| পঞ্চহাব - শিক্ষা প্রতিষ্ঠান |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 
@@ -16,9 +16,9 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4>উদ্যোক্তা  সমূহ</h4>
+                                <h4>শিক্ষা প্রতিষ্ঠান</h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createEntrepreneurModal">Create</a>
+                                    data-target="#createinstitutionModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -38,6 +38,7 @@
                                                 </th>
                                                 <th>Image</th>
                                                 <th class="align-left">Name</th>
+                                                <th class="align-left">category</th>
                                                 <th class="align-left">	Contact</th>
                                                 <th class="align-left">Upazila</th>
                                                 <th class="align-left">	Added By</th>
@@ -47,23 +48,23 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($entrepreneurs->isNotEmpty())
-                                                @foreach ($entrepreneurs as $key => $entrepreneur)
+                                            @if ($institutions->isNotEmpty())
+                                                @foreach ($institutions as $key => $institution)
                                                     <tr>
                                                         <td> {{ ++$key }} </td>
                                                         <td class="text-center">
                                                             <div class="custom-checkbox custom-control">
                                                                 <input type="checkbox" data-checkboxes="mygroup"
                                                                     class="custom-control-input"
-                                                                    id="checkbox-{{ $entrepreneur->id }}">
-                                                                <label for="checkbox-{{ $entrepreneur->id }}"
+                                                                    id="checkbox-{{ $institution->id }}">
+                                                                <label for="checkbox-{{ $institution->id }}"
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            @if (!empty($entrepreneur->image))
+                                                            @if (!empty($institution->image))
                                                                 <img class="article-image" alt="image" title="Image"
-                                                                    src="{{ asset('uploads/entrepreneurs/' . $entrepreneur->image) }}"
+                                                                    src="{{ asset('uploads/institutions/' . $institution->image) }}"
                                                                     width="70" height="40">
                                                             @else
                                                                 <img class="article-image" alt="image" title="Image"
@@ -71,16 +72,17 @@
                                                                     width="70" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left" style=" max-width: 250px;"> {{ $entrepreneur->name }} </td>
-                                                        <td class="align-left"> {{ $entrepreneur->contact }} </td>
-                                                        <td class="align-left"> {{ $entrepreneur->upazila }} </td>
-                                                        <td class="align-left"> {{ $entrepreneur->user->name ?? 'N/A' }}</td>
+                                                        <td class="align-left" style=" max-width: 250px;"> {{ $institution->name }} </td>
+                                                        <td class="align-left"> {{ $institution->category }} </td>
+                                                        <td class="align-left"> {{ $institution->contact }} </td>
+                                                        <td class="align-left"> {{ $institution->upazila }} </td>
+                                                        <td class="align-left"> {{ $institution->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
-                                                            {{ \Carbon\Carbon::parse($entrepreneur->created_at)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($institution->created_at)->format('d M, Y') }}
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $statusClass = match ($entrepreneur->status) {
+                                                                $statusClass = match ($institution->status) {
                                                                     'Approved' => 'badge badge-secondary badge-shadow',
                                                                     'In Review' => 'badge badge-info badge-shadow',
                                                                     'Pending' => 'badge badge-warning badge-shadow',
@@ -89,47 +91,53 @@
                                                                 };
                                                             @endphp
                                                             <div class="{{ $statusClass }}">
-                                                                {{ $entrepreneur->status }}
+                                                                {{ $institution->status }}
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewEntrepreneurModal"
-                                                                data-id="{{ $entrepreneur->id }}"
-                                                                data-user="{{ $entrepreneur->user->name }}"
-                                                                data-name="{{ $entrepreneur->name }}"
-                                                                data-contact="{{ $entrepreneur->contact ?? 'Empty' }}"
-                                                                data-fb_page_name="{{ $entrepreneur->fb_page_name ?? 'Empty' }}"
-                                                                data-page_link="{{ $entrepreneur->page_link ?? 'Empty' }}"
-                                                                data-email="{{ $entrepreneur->email ?? 'Empty' }}"
-                                                                data-servies="{{ $entrepreneur->servies }}"
-                                                                data-upazila="{{ $entrepreneur->upazila }}"
-                                                                data-address="{{ $entrepreneur->address?? 'Empty' }}"
-                                                                data-status="{{ $entrepreneur->status }}"
-                                                                data-image="{{ $entrepreneur->image ? asset('uploads/entrepreneurs/' . $entrepreneur->image) : '' }}"
-                                                                data-entry="{{ \Carbon\Carbon::parse($entrepreneur->created_at)->format('d/m/Y') }}">
+                                                                data-toggle="modal" data-target="#viewinstitutionModal"
+                                                                data-id="{{ $institution->id }}"
+                                                                data-user="{{ $institution->user->name }}"
+                                                                data-name="{{ $institution->name }}"
+                                                                data-title="{{ $institution->title }}"
+                                                                data-category="{{ $institution->category }}"
+                                                                data-contact="{{ $institution->contact }}"
+                                                                data-classess="{{ $institution->classess }}"
+                                                                data-subjects="{{ $institution->subjects }}"
+                                                                data-time_period="{{ $institution->time_period }}"
+                                                                data-gender="{{ $institution->gender }}"
+                                                                data-salary="{{ $institution->salary }}"
+                                                                data-upazila="{{ $institution->upazila }}"
+                                                                data-address="{{ $institution->address }}"
+                                                                data-status="{{ $institution->status }}"
+                                                                data-image="{{ $institution->image ? asset('uploads/institutions/' . $institution->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($institution->created_at)->format('d/m/Y') }}">
                                                                 View
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editEntrepreneurModal"
-                                                                data-id="{{ $entrepreneur->id }}"
-                                                                data-name="{{ $entrepreneur->name }}"
-                                                                data-contact="{{ $entrepreneur->contact ?? '' }}"
-                                                                data-fb_page_name="{{ $entrepreneur->fb_page_name ?? '' }}"
-                                                                data-page_link="{{ $entrepreneur->page_link ?? '' }}"
-                                                                data-email="{{ $entrepreneur->email ?? '' }}"
-                                                                data-servies="{{ $entrepreneur->servies }}"
-                                                                data-upazila="{{ $entrepreneur->upazila }}"
-                                                                data-address="{{ $entrepreneur->address?? '' }}"
-                                                                data-status="{{ $entrepreneur->status }}"
-                                                                data-image="{{ $entrepreneur->image ? asset('uploads/entrepreneurs/' . $entrepreneur->image) : '' }}">
+                                                                data-toggle="modal" data-target="#editinstitutionModal"
+                                                                data-id="{{ $institution->id }}"
+                                                                data-name="{{ $institution->name }}"
+                                                                data-title="{{ $institution->title }}"
+                                                                data-category="{{ $institution->category }}"
+                                                                data-contact="{{ $institution->contact }}"
+                                                                data-classess="{{ $institution->classess }}"
+                                                                data-subjects="{{ $institution->subjects }}"
+                                                                data-time_period="{{ $institution->time_period }}"
+                                                                data-gender="{{ $institution->gender }}"
+                                                                data-salary="{{ $institution->salary }}"
+                                                                data-upazila="{{ $institution->upazila }}"
+                                                                data-address="{{ $institution->address }}"
+                                                                data-status="{{ $institution->status }}"
+                                                                data-image="{{ $institution->image ? asset('uploads/institutions/' . $institution->image) : '' }}">
                                                                 Edit
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteEntrepreneur({{ $entrepreneur->id }})"
+                                                                onclick="deleteinstitution({{ $institution->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -242,55 +250,103 @@
     </div>
 
     <!-- Modal -->
-    <!-- Create Entrepreneur Modal -->
-    <div class="modal modalz fade" id="createEntrepreneurModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create institution Modal -->
+    <div class="modal modalz fade" id="createinstitutionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">উদ্যোক্তা যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle">শিক্ষক যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Modal Content Goes Here -->
-                <form method="POST" action="{{ route('admin.entrepreneurs.store') }}" id="modalForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.institutions.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
                     <!-- Name Field -->
                     <div class="form-group">
-                        <label for="name">উদ্যোক্তার নাম :*</label>
+                        <label for="name">নাম :*</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
-                    <div class="form-group ">
-                        <label for="servies">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য :*</label>
-                        <textarea class="" id="editor" name="servies" value="{{ old('servies') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                    <!-- Title Field -->
+                    <div class="form-group">
+                        <label for="title">টাইটেল :*</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="টাইটেল লিখুন" required>
+                    </div>
+
+                    <!-- Category Field -->
+                    <div class="form-group">
+                        <label for="gender"> ক্যাটাগরি :* </label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="category" id="want" value="পড়াতে চাই" checked>
+                          <label class="form-check-label" for="want">
+                            পড়াতে চাই
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="category"  id="need" value="শিক্ষক চাই">
+                          <label class="form-check-label" for="need">
+                            শিক্ষক চাই
+                          </label>
+                        </div>
+                    </div>
+
+                    <!-- Gender Field -->
+                    <div class="form-group">
+                        <label for="gender"> লিঙ্গ :* </label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender" id="male" value="ছেলে" checked>
+                          <label class="form-check-label" for="male">
+                            ছেলে
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender" value="মেয়ে" id="female">
+                          <label class="form-check-label" for="female">
+                            মেয়ে
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="gender" value="ছেলে ও মেয়ে" id="both">
+                          <label class="form-check-label" for="both">
+                            ছেলে ও মেয়ে
+                          </label>
+                        </div>
                     </div>
 
                     <!-- Contact Field -->
                     <div class="form-group">
-                        <label for="contact">যোগাযোগ নম্বর :</label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
+                        <label for="contact">যোগাযোগ নম্বর :*</label>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
                     </div>
 
-                    <!-- FB_PageName Field -->
+                    <!-- Classess Field -->
                     <div class="form-group">
-                        <label for="fb_page_name">ফেসবুক পেজের নাম :</label>
-                        <input type="text" name="fb_page_name" class="form-control" id="fb_page_name" value="{{ old(key: 'fb_page_name') }}" placeholder="পেজের নাম লিখুন">
+                        <label for="classess">কোন শ্রেণীর :*</label>
+                        <input type="text" name="classess" class="form-control" id="classess" value="{{ old(key: 'classess') }}" placeholder="শ্রেণী সমূহ লিখুন" required>
                     </div>
 
-                    <!-- PageLink Field -->
+                    <!-- Subjects Field -->
                     <div class="form-group">
-                        <label for="page_link">পেজের লিংক :</label>
-                        <input type="text" name="page_link" class="form-control" id="page_link" value="{{ old(key: 'page_link') }}" placeholder="লিংক লিখুন">
+                        <label for="subjects">কোন কোন সাবজেক্টের :*</label>
+                        <input type="text" name="subjects" class="form-control" id="subjects" value="{{ old(key: 'subjects') }}" placeholder="সাবজেক্টের নাম লিখুন" required>
                     </div>
 
-                    <!-- Email Field -->
+                    <!-- TimePeriod Field -->
                     <div class="form-group">
-                        <label for="email">ইমেল : (যদিন থাকে)</label>
-                        <input type="text" name="email" class="form-control" id="email" value="{{ old(key: 'email') }}" placeholder="ইমেল লিখুন">
+                        <label for="time_period">সপ্তাহে কত দিন পড়াবেন/পড়বেন :*</label>
+                        <input type="text" name="time_period" class="form-control" id="time_period" value="{{ old(key: 'time_period') }}" placeholder="দিন সমূহ লিখুন" required>
+                    </div>
+
+                    <!-- Salary Field -->
+                    <div class="form-group">
+                        <label for="salary">বেতন কত নিবেন/দিবেন :*</label>
+                        <input type="text" name="salary" class="form-control" id="salary" value="{{ old(key: 'salary') }}" placeholder="বেতন লিখুন" required>
                     </div>
 
                     <!-- Upazila Field -->
@@ -308,8 +364,8 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address">বিস্তারিত ঠিকানা :</label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
+                        <label for="address">বিস্তারিত ঠিকানা :*</label>
+                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
                     </div>
 
                     <!-- Picture Input with Preview -->
@@ -340,8 +396,8 @@
         </div>
     </div>
 
-    <!-- Edit Entrepreneur Modal -->
-    <div class="modal modalz fade" id="editEntrepreneurModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit institution Modal -->
+    <div class="modal modalz fade" id="editinstitutionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
 
@@ -361,38 +417,86 @@
 
                     <!-- Name Field -->
                     <div class="form-group">
-                        <label for="name">উদ্যোক্তার নাম :*</label>
+                        <label for="name">নাম :*</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
-                    <div class="form-group ">
-                        <label for="servies">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য :*</label>
-                        <textarea class="" id="editorX" name="servies" value="{{ old('servies') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                    <!-- Title Field -->
+                    <div class="form-group">
+                        <label for="title">টাইটেল :*</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="টাইটেল লিখুন" required>
+                    </div>
+
+                    <!-- Category Field -->
+                    <div class="form-group">
+                        <label for="category"> লিঙ্গ :* </label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                          <input class="" type="radio" name="category" id="want" value="পড়াতে চাই">
+                          <label class="form-check-label" for="want">
+                            পড়াতে চাই
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="" type="radio" name="category" value="শিক্ষক চাই" id="need">
+                          <label class="form-check-label" for="need">
+                            শিক্ষক চাই
+                          </label>
+                        </div>
+                    </div>
+
+                    <!-- Gender Field -->
+                    <div class="form-group">
+                        <label for="gender"> লিঙ্গ :* </label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                          <input class="" type="radio" name="gender" id="male" value="ছেলে">
+                          <label class="form-check-label" for="male">
+                            ছেলে
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="" type="radio" name="gender" value="মেয়ে" id="female">
+                          <label class="form-check-label" for="female">
+                            মেয়ে
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="" type="radio" name="gender" value="ছেলে ও মেয়ে" id="both">
+                          <label class="form-check-label" for="both">
+                            ছেলে ও মেয়ে
+                          </label>
+                        </div>
                     </div>
 
                     <!-- Contact Field -->
                     <div class="form-group">
-                        <label for="contact">যোগাযোগ নম্বর :</label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
+                        <label for="contact">যোগাযোগ নম্বর :*</label>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন" required>
                     </div>
 
-                    <!-- FB_PageName Field -->
+                    <!-- Classess Field -->
                     <div class="form-group">
-                        <label for="fb_page_name">ফেসবুক পেজের নাম :</label>
-                        <input type="text" name="fb_page_name" class="form-control" id="fb_page_name" value="{{ old(key: 'fb_page_name') }}" placeholder="পেজের নাম লিখুন">
+                        <label for="classess">কোন শ্রেণীর :*</label>
+                        <input type="text" name="classess" class="form-control" id="classess" value="{{ old(key: 'classess') }}" placeholder="শ্রেণী সমূহ লিখুন" required>
                     </div>
 
-                    <!-- PageLink Field -->
+                    <!-- Subjects Field -->
                     <div class="form-group">
-                        <label for="page_link">পেজের লিংক :</label>
-                        <input type="text" name="page_link" class="form-control" id="page_link" value="{{ old(key: 'page_link') }}" placeholder="লিংক লিখুন">
+                        <label for="subjects">কোন কোন সাবজেক্টের :*</label>
+                        <input type="text" name="subjects" class="form-control" id="subjects" value="{{ old(key: 'subjects') }}" placeholder="সাবজেক্টের নাম লিখুন" required>
                     </div>
 
-                    <!-- Email Field -->
+                    <!-- TimePeriod Field -->
                     <div class="form-group">
-                        <label for="email">ইমেল : (যদিন থাকে)</label>
-                        <input type="text" name="email" class="form-control" id="email" value="{{ old(key: 'email') }}" placeholder="ইমেল লিখুন">
+                        <label for="time_period">সপ্তাহে কত দিন পড়াবেন/পড়বেন :*</label>
+                        <input type="text" name="time_period" class="form-control" id="time_period" value="{{ old(key: 'time_period') }}" placeholder="দিন সমূহ লিখুন" required>
+                    </div>
+
+                    <!-- Salary Field -->
+                    <div class="form-group">
+                        <label for="salary">বেতন কত নিবেন/দিবেন :*</label>
+                        <input type="text" name="salary" class="form-control" id="salary" value="{{ old(key: 'salary') }}" placeholder="বেতন লিখুন" required>
                     </div>
 
                     <!-- Upazila Field -->
@@ -410,8 +514,8 @@
 
                     <!-- Address Field -->
                     <div class="form-group">
-                        <label for="address">বিস্তারিত ঠিকানা :</label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
+                        <label for="address">বিস্তারিত ঠিকানা :*</label>
+                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
                     </div>
 
                     <!-- Picture Input with Preview -->
@@ -452,12 +556,12 @@
         </div>
     </div>
 
-    <!-- View Entrepreneur Modal -->
-    <div class="modal modalz fade" id="viewEntrepreneurModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- View institution Modal -->
+    <div class="modal modalz fade" id="viewinstitutionModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">উদ্যোক্তা ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">শিক্ষক ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -473,7 +577,7 @@
 
                                             <div class="d-flex bd-highlight">
                                                 <div class="flex-fill bd-highlight mr-3">
-                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="entrepreneur Logo" alt="logo">
+                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="institution Logo" alt="logo">
                                                 </div>
                                                 <div class="flex-fill bd-highlight align-self-center">
                                                     <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
@@ -484,14 +588,17 @@
                                                 </div>
                                             </div>
 
-                                            <h6 class="dark-color mt-3 mb-2">নাম: <span id="xName"></span> </h6>
-                                            <div><samp class="sampcolor">পেজের নাম: </samp> <span id="xFbPageName"></span></div>
-                                            <div><samp class="sampcolor">পেজের লিংক: </samp> <span id="xPageLink"></span></div>
-                                            <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
-                                            <div><samp class="sampcolor">ইমেল: </samp> <span id="xEmail"></span></div>
-                                            <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
+                                            <h6 class="dark-color mt-3 mb-2"><span id="xTitle"></span> </h6>
+                                            <div><samp class="sampcolor">ক্যাটাগরি: </samp> <span id="xCategory"></span></div>
+                                            <div><samp class="sampcolor">লিঙ্গ: </samp> <span id="xGender"></span></div>
+                                            <div><samp class="sampcolor">শ্রেণীর: </samp> <span id="xClassess"></span></div>
+                                            <div><samp class="sampcolor">সাবজেক্ট: </samp> <span id="xSubjects"></span></div>
+                                            <div><samp class="sampcolor">দিন সমূহ: </samp> <span id="xTimePeriod"></span></div>
+                                            <div><samp class="sampcolor">বেতন: </samp> <span id="xSalary"></span></div>
                                             <div><hr/></div>
-                                            <div><samp class="sampcolor">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য: </samp> <br/><span id="xServies"></span></div>
+                                            <div><samp class="sampcolor">নাম: </samp> <span id="xName"></span></div>
+                                            <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
+                                            <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -509,53 +616,6 @@
     <x-slot name="script">
 
         <script type="text/javascript">
-
-            //CKEditor with Image Upload
-            ClassicEditor
-                .create(document.querySelector('#editor'), {
-                    toolbar: [
-                        'heading', '|',
-                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
-                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
-                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
-                        'bulletedList', 'numberedList', 'todoList', '|',
-                        'insertTable','alignment', 'horizontalLine', '|',
-                        'specialCharacters', 'undo', 'redo'
-                    ],
-
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-            // Function to initialize CKEditor
-            function initializeCKEditor() {
-                return ClassicEditor
-                    .create(document.querySelector('#editorX'), {
-                        toolbar: [
-                        'heading', '|',
-                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
-                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
-                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
-                        'bulletedList', 'numberedList', 'todoList', '|',
-                        'insertTable','alignment', 'horizontalLine', '|',
-                        'specialCharacters', 'undo', 'redo'
-                    ],
-
-                    });
-            }
-
-            // Variable to hold the CKEditor instance
-            let editorInstance;
-
-            // Event listener for when the edit modal is hidden
-            $('#editshoppingModal').on('hidden.bs.modal', function() {
-                if (editorInstance) {
-                    editorInstance.destroy();
-                    editorInstance = null;
-                }
-            });
-
 
             //imagePreview
             document.getElementById('editIcon').addEventListener('click', function() {
@@ -591,20 +651,23 @@
             });
 
 
-            //viewEntrepreneurModal
-            $('#viewEntrepreneurModal').on('show.bs.modal', function(event) {
+            //viewinstitutionModal
+            $('#viewinstitutionModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user = button.data('user');
                 var name = button.data('name');
-                var contact = button.data('contact') || '';
-                var fb_page_name = button.data('fb_page_name') || '';
-                var page_link = button.data('page_link') || '';
-                var email = button.data('email') || '';
-                var servies = button.data('servies');
+                var title = button.data('title');
+                var category = button.data('category');
+                var contact = button.data('contact');
+                var classess = button.data('classess');
+                var subjects = button.data('subjects');
+                var time_period = button.data('time_period');
+                var gender = button.data('gender');
+                var salary = button.data('salary');
                 var upazila = button.data('upazila');
-                var address = button.data('address') || '';
+                var address = button.data('address');
                 var status = button.data('status');
                 var entry = button.data('entry');
                 var image = button.data('image');
@@ -612,11 +675,14 @@
                 var modal = $(this);
                 modal.find('#xUser').text(user);
                 modal.find('#xName').text(name);
+                modal.find('#xTitle').text(title);
+                modal.find('#xCategory').text(category);
                 modal.find('#xContact').text(contact);
-                modal.find('#xFbPageName').text(fb_page_name);
-                modal.find('#xPageLink').text(page_link);
-                modal.find('#xEmail').text(email);
-                modal.find('#xServies').html(servies);
+                modal.find('#xClassess').text(classess);
+                modal.find('#xSubjects').text(subjects);
+                modal.find('#xTimePeriod').text(time_period);
+                modal.find('#xGender').text(gender);
+                modal.find('#xSalary').text(salary);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
                 modal.find('#xStatus').text(status);
@@ -631,16 +697,19 @@
                 }
             });
 
-            //editEntrepreneurModal
-            $('#editEntrepreneurModal').on('show.bs.modal', function(event) {
+            //editinstitutionModal
+            $('#editinstitutionModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
                 var name = button.data('name');
+                var title = button.data('title');
+                var category = button.data('category');
                 var contact = button.data('contact');
-                var fb_page_name = button.data('fb_page_name');
-                var page_link = button.data('page_link');
-                var email = button.data('email');
-                var servies = button.data('servies');
+                var classess = button.data('classess');
+                var subjects = button.data('subjects');
+                var time_period = button.data('time_period');
+                var gender = button.data('gender');
+                var salary = button.data('salary');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
                 var status = button.data('status');
@@ -648,22 +717,35 @@
 
                 var modal = $(this);
                 modal.find('#name').val(name);
+                modal.find('#title').val(title);
+                modal.find('#category').val(category);
                 modal.find('#contact').val(contact);
-                modal.find('#fb_page_name').val(fb_page_name);
-                modal.find('#page_link').val(page_link);
-                modal.find('#email').val(email);
+                modal.find('#classess').val(classess);
+                modal.find('#subjects').val(subjects);
+                modal.find('#time_period').val(time_period);
+                modal.find('#salary').val(salary);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
                 modal.find('#status').val(status);
 
-                // Initialize CKEditor if it hasn't been initialized yet
-                if (!editorInstance) {
-                    initializeCKEditor().then(editor => {
-                        editorInstance = editor;
-                        editorInstance.setData(servies);
+                // Handle category selection
+                modal.find('input[name="category"]').prop('checked', false);
+                if (category) {
+                    modal.find('input[name="category"]').each(function() {
+                        if ($(this).val() === category) {
+                            $(this).prop('checked', true);
+                        }
                     });
-                } else {
-                    editorInstance.setData(servies);
+                }
+
+                // Handle gender selection
+                modal.find('input[name="gender"]').prop('checked', false);
+                if (gender) {
+                    modal.find('input[name="gender"]').each(function() {
+                        if ($(this).val() === gender) {
+                            $(this).prop('checked', true);
+                        }
+                    });
                 }
 
                 var imagePreview = modal.find('#imagePreviewX');
@@ -673,16 +755,16 @@
                     imagePreview.html('<i class="bi bi-image" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/entrepreneurs/' + id);
+                modal.find('#modalFormX').attr('action', '/admin/institutions/' + id);
 
 
             });
 
-            //deleteEntrepreneur
-            function deleteEntrepreneur(id) {
-                if (confirm('Are you sure you want to delete this Entrepreneur?')) {
+            //deleTeinstitution
+            function deleteinstitution(id) {
+                if (confirm('Are you sure you want to delete this institution?')) {
                     $.ajax({
-                        url: '{{ route('admin.entrepreneurs.destroy') }}',
+                        url: '{{ route('admin.institutions.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -699,7 +781,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete Entrepreneur. Please try again.');
+                            alert('Failed to delete institution. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });
