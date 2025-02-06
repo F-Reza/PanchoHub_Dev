@@ -36,6 +36,17 @@ use App\Http\Controllers\NurseryController;
 use App\Http\Controllers\EntrepreneursController;
 use App\Http\Controllers\TeachersController;
 use App\Http\Controllers\InstitutionsController;
+use App\Http\Controllers\BusScheduleController;
+use App\Http\Controllers\TrainScheduleController;
+use App\Http\Controllers\FireServiceController;
+use App\Http\Controllers\PoliceStationController;
+use App\Http\Controllers\ThanaController;
+use App\Http\Controllers\BiddutOfficeController;
+use App\Http\Controllers\CurierServiseController;
+use App\Http\Controllers\TouristPlaceController;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\PrivacyPolicyController;
+use App\Http\Controllers\TermsController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -215,6 +226,74 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::post('/institutions', [InstitutionsController::class, 'store'])->name('institutions.store');
     Route::put('/institutions/{id}', [InstitutionsController::class, 'update'])->name('institutions.update');
     Route::delete('/institutions', [InstitutionsController::class, 'destroy'])->name('institutions.destroy');
+
+
+    //BusSchedule Routes
+    Route::get('/bus', [BusScheduleController::class, 'index'])->name('bus.index');
+    Route::post('/bus', [BusScheduleController::class, 'store'])->name('bus.store');
+    Route::put('/bus/{id}', [BusScheduleController::class, 'update'])->name('bus.update');
+    Route::delete('/bus', [BusScheduleController::class, 'destroy'])->name('bus.destroy');
+
+    //TrainSchedule Routes
+    Route::get('/train', [TrainScheduleController::class, 'index'])->name('train.index');
+    Route::post('/train', [TrainScheduleController::class, 'store'])->name('train.store');
+    Route::put('/train/{id}', [TrainScheduleController::class, 'update'])->name('train.update');
+    Route::delete('/train', [TrainScheduleController::class, 'destroy'])->name('train.destroy');
+
+    //FireService Routes
+    Route::get('/fire_service', [FireServiceController::class, 'index'])->name('fire_service.index');
+    Route::post('/fire_service', [FireServiceController::class, 'store'])->name('fire_service.store');
+    Route::put('/fire_service/{id}', [FireServiceController::class, 'update'])->name('fire_service.update');
+    Route::delete('/fire_service', [FireServiceController::class, 'destroy'])->name('fire_service.destroy');
+
+    //PoliceStation Routes
+    Route::get('/police_station', [PoliceStationController::class, 'index'])->name('police_station.index');
+    Route::post('/police_station', [PoliceStationController::class, 'store'])->name('police_station.store');
+    Route::put('/police_station/{id}', [PoliceStationController::class, 'update'])->name('police_station.update');
+    Route::delete('/police_station', [PoliceStationController::class, 'destroy'])->name('police_station.destroy');
+
+    //Thana Routes
+    Route::get('/thana', [ThanaController::class, 'index'])->name('thana.index');
+    Route::post('/thana', [ThanaController::class, 'store'])->name('thana.store');
+    Route::put('/thana/{id}', [ThanaController::class, 'update'])->name('thana.update');
+    Route::delete('/thana', [ThanaController::class, 'destroy'])->name('thana.destroy');
+
+    //BiddutOffice Routes
+    Route::get('/biddut_office', [BiddutOfficeController::class, 'index'])->name('biddut_office.index');
+    Route::post('/biddut_office', [BiddutOfficeController::class, 'store'])->name('biddut_office.store');
+    Route::put('/biddut_office/{id}', [BiddutOfficeController::class, 'update'])->name('biddut_office.update');
+    Route::delete('/biddut_office', [BiddutOfficeController::class, 'destroy'])->name('biddut_office.destroy');
+
+    //CurierServise Routes
+    Route::get('/curier_servise', [CurierServiseController::class, 'index'])->name('curier_servise.index');
+    Route::post('/curier_servise', [CurierServiseController::class, 'store'])->name('curier_servise.store');
+    Route::put('/curier_servise/{id}', [CurierServiseController::class, 'update'])->name('curier_servise.update');
+    Route::delete('/curier_servise', [CurierServiseController::class, 'destroy'])->name('curier_servise.destroy');
+
+    //TouristPlace Routes
+    Route::get('/tourist_place', [TouristPlaceController::class, 'index'])->name('tourist_place.index');
+    Route::post('/tourist_place', [TouristPlaceController::class, 'store'])->name('tourist_place.store');
+    Route::put('/tourist_place/{id}', [TouristPlaceController::class, 'update'])->name('tourist_place.update');
+    Route::delete('/tourist_place', [TouristPlaceController::class, 'destroy'])->name('tourist_place.destroy');
+
+    //ContactUs Routes
+    Route::get('/contact_us', [ContactUsController::class, 'index'])->name('contact_us.index');
+    Route::post('/contact_us', [ContactUsController::class, 'store'])->name('contact_us.store');
+    Route::put('/contact_us/{id}', [ContactUsController::class, 'update'])->name('contact_us.update');
+    Route::delete('/contact_us', [ContactUsController::class, 'destroy'])->name('contact_us.destroy');
+
+    //PrivacyPolicy Routes
+    Route::get('/privacy_policy', [PrivacyPolicyController::class, 'index'])->name('privacy_policy.index');
+    Route::post('/privacy_policy', [PrivacyPolicyController::class, 'store'])->name('privacy_policy.store');
+    Route::put('/privacy_policy/{id}', [PrivacyPolicyController::class, 'update'])->name('privacy_policy.update');
+    Route::delete('/privacy_policy', [PrivacyPolicyController::class, 'destroy'])->name('privacy_policy.destroy');
+
+    //Terms Routes
+    Route::get('/terms', [TermsController::class, 'index'])->name('terms.index');
+    Route::post('/terms', [TermsController::class, 'store'])->name('terms.store');
+    Route::put('/terms/{id}', [TermsController::class, 'update'])->name('terms.update');
+    Route::delete('/terms', [TermsController::class, 'destroy'])->name('terms.destroy');
+
 
 
 
