@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('curier_servises', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('contact');
+            $table->string('upazila');
+            $table->string('address');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

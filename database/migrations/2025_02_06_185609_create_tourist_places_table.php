@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('tourist_places', function (Blueprint $table) {
             $table->id();
+            $table->string('place_name');
+            $table->longText('place_details');
+            $table->string('upazila');
+            $table->string('address');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

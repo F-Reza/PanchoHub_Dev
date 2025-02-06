@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('police_stations', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('name');
+            $table->string('contact');
+            $table->string('upazila');
+            $table->string('address');
             $table->timestamps();
         });
     }
