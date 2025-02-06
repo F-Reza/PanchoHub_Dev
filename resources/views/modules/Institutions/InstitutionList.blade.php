@@ -536,15 +536,13 @@
 
                                             <h6 class="dark-color mt-3 mb-2"><span id="xTitle"></span> </h6>
                                             <div><samp class="sampcolor">ক্যাটাগরি: </samp> <span id="xCategory"></span></div>
-                                            <div><samp class="sampcolor">লিঙ্গ: </samp> <span id="xGender"></span></div>
-                                            <div><samp class="sampcolor">শ্রেণীর: </samp> <span id="xClassess"></span></div>
-                                            <div><samp class="sampcolor">সাবজেক্ট: </samp> <span id="xSubjects"></span></div>
-                                            <div><samp class="sampcolor">দিন সমূহ: </samp> <span id="xTimePeriod"></span></div>
-                                            <div><samp class="sampcolor">বেতন: </samp> <span id="xSalary"></span></div>
-                                            <div><hr/></div>
-                                            <div><samp class="sampcolor">নাম: </samp> <span id="xName"></span></div>
-                                            <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
+                                            <div><samp class="sampcolor">প্রতিষ্ঠানের ধরন: </samp> <span id="xType"></span></div>
+                                            <div><samp class="sampcolor">প্রতিষ্ঠানের স্থাপিত সাল: </samp> <span id="xEstYear"></span></div>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
+                                            <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
+                                            <div><samp class="sampcolor">প্রতিষ্ঠানের ইমেইল: </samp> <span id="xEmail"></span></div>
+                                            <div><hr/></div>
+                                            <div><samp class="sampcolor">প্রতিষ্ঠানের বেপারে বিস্তারিত: </samp> <span id="xDetails"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -656,7 +654,7 @@
                 var details = button.data('details');
                 var type = button.data('type');
                 var contact = button.data('contact');
-                var emailemail = button.data('email') || '';
+                var email = button.data('email') || '';
                 var upazila = button.data('upazila');
                 var address = button.data('address');
                 var status = button.data('status');
