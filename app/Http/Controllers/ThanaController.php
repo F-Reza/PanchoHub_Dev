@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thana;
+use App\Models\PoliceStation;
 use Illuminate\Http\Request;
 
 class ThanaController extends Controller
 {
     public function index()
     {
+        $policeStations = PoliceStation::with('user')->latest()->paginate(25);
         $thanas = Thana::with('user')->latest()->paginate(25);
         return view('modules.FireService.FireService',[
-            'thanas' => $thanas
+            'thanas' => $thanas,
+            'policeStations' => $policeStations
         ]);
     }
 
