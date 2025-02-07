@@ -26,16 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-
-    //NewsDesk Routes
-    Route::get('/news_desks', [NewsDeskController::class, 'index'])->name('news_desks.index');
-    Route::get('/news_desks/create', [NewsDeskController::class, 'create'])->name('news_desks.create');
-    Route::post('/news_desks', [NewsDeskController::class, 'store'])->name('news_desks.store');
-    Route::get('/news_desks/{id}/edit', [NewsDeskController::class, 'edit'])->name('news_desks.edit');
-    Route::post('/news_desks/{id}', [NewsDeskController::class, 'update'])->name('news_desks.update');
-    Route::delete('/news_desks', [NewsDeskController::class, 'destroy'])->name('news_desks.destroy');
-
-
 });
 
 Route::fallback(function () {

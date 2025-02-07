@@ -472,6 +472,17 @@
             function initializeCKEditor() {
                 return ClassicEditor
                     .create(document.querySelector('#editorX'), {
+                        toolbar: [
+                            'heading', '|',
+                            'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
+                            'fontColor', 'fontBackgroundColor', 'highlight', 'link',
+                            'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
+                            'bulletedList', 'numberedList', 'todoList', '|',
+                            'imageUpload', 'imageStyle:alignLeft', 'imageStyle:full',
+                            'imageStyle:alignCenter', 'imageStyle:alignRight', 'resizeImage',
+                            'insertTable', 'mediaEmbed', 'alignment', 'horizontalLine', '|',
+                            'specialCharacters', 'indent', 'undo', 'redo'
+                        ],
                         ckfinder: {
                             uploadUrl: '{{ route('admin.notifications.upload').'?_token='.csrf_token() }}'
                         }

@@ -7,59 +7,61 @@ use Illuminate\Http\Request;
 
 class PoliceStationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $policeStations = PoliceStation::with('user')->latest()->paginate(25);
+        return view('modules.PoliceStation.PoliceStation',[
+            'policeStations' => $policeStations
+        ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
+        $policeStation = new PoliceStation();
+        $policeStation-> title = $request->title;
+        $policeStation-> name = $request->name;
+        $policeStation-> contact = $request->contact;
+        $policeStation-> upazila = $request->upazila;
+        $policeStation-> address = $request->address;
+
+        $policeStation->save();
+
+        flash()->success('PoliceStation added successfully.');
+        return redirect()->back();
+    }
+    public function update($id, Request $request, PoliceStation $policeStation)
+    {
+        $policeStation = PoliceStation::findOrFail($id);
+        $policeStation-> title = $request->title;
+        $policeStation-> name = $request->name;
+        $policeStation-> contact = $request->contact;
+        $policeStation-> upazila = $request->upazila;
+        $policeStation-> address = $request->address;
+
+        $policeStation->save();
+
+        flash()->success('PoliceStation updated successfully.');
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(PoliceStation $policeStation)
+    public function destroy(Request $request, PoliceStation $policeStation)
     {
-        //
-    }
+        $id = $request->id;
+        $policeStation = PoliceStation::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PoliceStation $policeStation)
-    {
-        //
-    }
+        if (!$policeStation) {
+            return response()->json([
+                'status' => false,
+                'message' => 'PoliceStation not found.',
+            ], 404);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, PoliceStation $policeStation)
-    {
-        //
-    }
+        $policeStation->delete();
+        flash()->success('PoliceStation deleted successfully.');
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PoliceStation $policeStation)
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'PoliceStation deleted successfully.',
+        ], 200);
     }
 }

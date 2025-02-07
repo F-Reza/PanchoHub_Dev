@@ -233,12 +233,16 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::post('/bus', [BusScheduleController::class, 'store'])->name('bus.store');
     Route::put('/bus/{id}', [BusScheduleController::class, 'update'])->name('bus.update');
     Route::delete('/bus', [BusScheduleController::class, 'destroy'])->name('bus.destroy');
+    Route::post('/bus/upload', [BusScheduleController::class, 'upload'])->name('bus.upload');
+    Route::post('/bus/delete', [BusScheduleController::class, 'delete'])->name('bus.delete');
 
     //TrainSchedule Routes
     Route::get('/train', [TrainScheduleController::class, 'index'])->name('train.index');
     Route::post('/train', [TrainScheduleController::class, 'store'])->name('train.store');
     Route::put('/train/{id}', [TrainScheduleController::class, 'update'])->name('train.update');
     Route::delete('/train', [TrainScheduleController::class, 'destroy'])->name('train.destroy');
+    Route::post('/train/upload', [TrainScheduleController::class, 'upload'])->name('train.upload');
+    Route::post('/train/delete', [TrainScheduleController::class, 'delete'])->name('train.delete');
 
     //FireService Routes
     Route::get('/fire_service', [FireServiceController::class, 'index'])->name('fire_service.index');
@@ -275,6 +279,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::post('/tourist_place', [TouristPlaceController::class, 'store'])->name('tourist_place.store');
     Route::put('/tourist_place/{id}', [TouristPlaceController::class, 'update'])->name('tourist_place.update');
     Route::delete('/tourist_place', [TouristPlaceController::class, 'destroy'])->name('tourist_place.destroy');
+    Route::post('/tourist_place/upload', [TouristPlaceController::class, 'upload'])->name('tourist_place.upload');
+    Route::post('/tourist_place/delete', [TouristPlaceController::class, 'delete'])->name('tourist_place.delete');
 
     //ContactUs Routes
     Route::get('/contact_us', [ContactUsController::class, 'index'])->name('contact_us.index');
@@ -293,6 +299,17 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::post('/terms', [TermsController::class, 'store'])->name('terms.store');
     Route::put('/terms/{id}', [TermsController::class, 'update'])->name('terms.update');
     Route::delete('/terms', [TermsController::class, 'destroy'])->name('terms.destroy');
+
+
+    //Pages Routes
+    Route::get('/emergencies', function () {
+        return view('modules.Pages.Emergencies');
+    })->middleware(['verified'])->name('emergencies');
+
+    Route::get('/websites', function () {
+        return view('modules.Pages.Websites');
+    })->middleware(['verified'])->name('websites');
+
 
 
 

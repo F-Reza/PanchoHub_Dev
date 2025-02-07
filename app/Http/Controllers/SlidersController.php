@@ -133,7 +133,7 @@ class SlidersController extends Controller
 
         $slider->save();
 
-        flash()->success('Slider added successfully.');
+        flash()->success('Slider updated successfully.');
         return redirect()->back();
     }
     public function destroy(Request $request, Sliders $sliders)

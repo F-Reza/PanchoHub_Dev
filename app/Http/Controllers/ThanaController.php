@@ -7,59 +7,61 @@ use Illuminate\Http\Request;
 
 class ThanaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $thanas = Thana::with('user')->latest()->paginate(25);
+        return view('modules.FireService.FireService',[
+            'thanas' => $thanas
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
+        $thana = new Thana();
+        $thana-> title = $request->title;
+        $thana-> contact = $request->contact;
+        $thana-> upazila = $request->upazila;
+        $thana-> address = $request->address;
+
+        $thana->save();
+
+        flash()->success('Thana added successfully.');
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Thana $thana)
+    public function update($id, Request $request, Thana $thana)
     {
-        //
+        $thana = Thana::findOrFail($id);
+        $thana-> title = $request->title;
+        $thana-> contact = $request->contact;
+        $thana-> upazila = $request->upazila;
+        $thana-> address = $request->address;
+
+        $thana->save();
+
+        flash()->success('Thana updated successfully.');
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Thana $thana)
+    public function destroy(Request $request, Thana $thana)
     {
-        //
-    }
+        $id = $request->id;
+        $thana = Thana::find($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Thana $thana)
-    {
-        //
-    }
+        if (!$thana) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Thana not found.',
+            ], 404);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Thana $thana)
-    {
-        //
+        $thana->delete();
+        flash()->success('Thana deleted successfully.');
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Thana deleted successfully.',
+        ], 200);
     }
 }

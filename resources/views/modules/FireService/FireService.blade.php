@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - আজকের খবর |</title>
+        <title>| পঞ্চহাব - স্লাইডার |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 
@@ -16,9 +16,9 @@
 
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4> আজকের খবর </h4>
+                                <h4> স্লাইডার সমূহ </h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createTodayNewsModal">Create</a>
+                                    data-target="#createSliderModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -36,9 +36,9 @@
                                                             class="custom-control-label">&nbsp;</label>
                                                     </div>
                                                 </th>
-                                                <th>Image</th>
-                                                <th class="align-left">Title</th>
-                                                <th class="align-left">Upazila</th>
+                                                <th>Slider Image</th>
+                                                <th class="align-left">	Category</th>
+                                                <th class="align-left">Slider Text</th>
                                                 <th class="align-left">	Added By</th>
                                                 <th class="align-left">Created At</th>
                                                 <th>Status</th>
@@ -46,80 +46,74 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($newsToday->isNotEmpty())
-                                                @foreach ($newsToday as $key => $todayNews)
+                                            @if ($sliders->isNotEmpty())
+                                                @foreach ($sliders as $key => $slider)
                                                     <tr>
                                                         <td> {{ ++$key }} </td>
                                                         <td class="text-center">
                                                             <div class="custom-checkbox custom-control">
                                                                 <input type="checkbox" data-checkboxes="mygroup"
                                                                     class="custom-control-input"
-                                                                    id="checkbox-{{ $todayNews->id }}">
-                                                                <label for="checkbox-{{ $todayNews->id }}"
+                                                                    id="checkbox-{{ $slider->id }}">
+                                                                <label for="checkbox-{{ $slider->id }}"
                                                                     class="custom-control-label">&nbsp;</label>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            @if (!empty($todayNews->image))
+                                                                      @if (!empty($slider->image))
                                                                 <img class="article-image" alt="image" title="News Image"
-                                                                    src="{{ asset('uploads/todayNews/' . $todayNews->image) }}"
-                                                                    width="70" height="40">
+                                                                    src="{{ asset('uploads/sliders/' . $slider->image) }}"
+                                                                    width="150" height="80">
                                                             @else
                                                                 <img class="article-image" alt="image" title="News Image"
                                                                     src="{{ asset('assets/dashboard/img/users/avatar.png') }}"
-                                                                    width="70" height="40">
+                                                                    width="150" height="80">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left" style=" max-width: 400px;"> {{ $todayNews->title }} </td>
-                                                        <td class="align-left"> {{ $todayNews->upazila }} </td>
-                                                        <td class="align-left"> {{ $todayNews->user->name ?? 'N/A' }}</td>
+                                                        <td class="align-left"> {{ $slider->category }} </td>
+                                                        <td class="align-left" style=" max-width: 250px;"> {{ $slider->description }} </td>
+                                                        <td class="align-left"> {{ $slider->user->name ?? 'N/A' }}</td>
                                                         <td class="align-left">
-                                                            {{ \Carbon\Carbon::parse($todayNews->created_at)->format('d M, Y') }}
+                                                            {{ \Carbon\Carbon::parse($slider->created_at)->format('d M, Y') }}
                                                         </td>
                                                         <td>
                                                             @php
-                                                                $statusClass = match ($todayNews->status) {
-                                                                    'Approved' => 'badge badge-secondary badge-shadow',
-                                                                    'In Review' => 'badge badge-info badge-shadow',
-                                                                    'Pending' => 'badge badge-warning badge-shadow',
-                                                                    'Denied' => 'badge badge-danger badge-shadow',
-                                                                    default => 'badge badge-success badge-shadow',
+                                                                $statusClass = match ($slider->status) {
+                                                                    'Active' => 'badge badge-secondary badge-shadow',
+                                                                    'Deactive' => 'badge badge-warning badge-shadow',
+                                                                    default => 'badge badge-info badge-shadow',
                                                                 };
                                                             @endphp
                                                             <div class="{{ $statusClass }}">
-                                                                {{ $todayNews->status }}
+                                                                {{ $slider->status }}
                                                             </div>
                                                         </td>
 
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewTodayNewsModal"
-                                                                data-id="{{ $todayNews->id }}"
-                                                                data-user="{{ $todayNews->user->name }}"
-                                                                data-title="{{ $todayNews->title }}"
-                                                                data-description="{{ $todayNews->description }}"
-                                                                data-upazila="{{ $todayNews->upazila }}"
-                                                                data-address="{{ $todayNews->address ?? 'Empty' }}"
-                                                                data-status="{{ $todayNews->status }}"
-                                                                data-image="{{ $todayNews->image ? asset('uploads/todayNews/' . $todayNews->image) : '' }}"
-                                                                data-entry="{{ \Carbon\Carbon::parse($todayNews->created_at)->format('d/m/Y') }}">
+                                                                data-toggle="modal" data-target="#viewSliderModal"
+                                                                data-id="{{ $slider->id }}"
+                                                                data-user="{{ $slider->user->name }}"
+                                                                data-category="{{ $slider->category }}"
+                                                                data-description="{{ $slider->description ?? 'Empty' }}"
+                                                                data-status="{{ $slider->status }}"
+                                                                data-image="{{ $slider->image ? asset('uploads/sliders/' . $slider->image) : '' }}"
+                                                                data-entry="{{ \Carbon\Carbon::parse($slider->created_at)->format('d/m/Y') }}">
                                                                 View
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editTodayNewsModal"
-                                                                data-id="{{ $todayNews->id }}"
-                                                                data-title="{{ $todayNews->title }}"
-                                                                data-description="{{ $todayNews->description }}"
-                                                                data-upazila="{{ $todayNews->upazila }}"
-                                                                data-address="{{ $todayNews->address ?? '' }}"
-                                                                data-status="{{ $todayNews->status }}"
-                                                                data-image="{{ $todayNews->image ? asset('uploads/todayNews/' . $todayNews->image) : '' }}">
+                                                                data-toggle="modal" data-target="#editSliderModal"
+                                                                data-id="{{ $slider->id }}"
+                                                                data-category="{{ $slider->category }}"
+                                                                data-description="{{ $slider->description ?? '' }}"
+                                                                data-status="{{ $slider->status }}"
+                                                                data-image="{{ $slider->image ? asset('uploads/sliders/' . $slider->image) : '' }}">
                                                                 Edit
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteTodayNews({{ $todayNews->id }})"
+                                                                onclick="deleteSlider({{ $slider->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -232,59 +226,50 @@
     </div>
 
     <!-- Modal -->
-    <!-- Create TodayNews Modal -->
-    <div class="modal modalz fade" id="createTodayNewsModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create Slider Modal -->
+    <div class="modal modalz fade" id="createSliderModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">আজকের খবর যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle">স্লাইডার যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Modal Content Goes Here -->
-                <form method="POST" action="{{ route('admin.todaynews.store') }}" id="modalForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.sliders.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
-                    <!-- Title Field -->
+                    <!-- Category Field -->
                     <div class="form-group">
-                        <label for="title">খবরের শিরোনাম :* </label>
-                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
-                    </div>
-
-                    <!-- Description Field -->
-                    <div class="form-group ">
-                        <label for="itemName">বিস্তারিত খবর :*</label>
-                        <textarea class="" id="editor" name="description" value="{{ old('description') }}" placeholder="বিস্তারিত খবর"></textarea>
-                    </div>
-
-                    <!-- Upazila Field -->
-                    <div class="form-group">
-                        <label for="upazila">উপজেলা :* </label>
-                        <select class="form-control" id="upazila" name="upazila" required>
+                        <label for="category">ক্যাটাগরি :* </label>
+                        <select class="form-control" id="category" name="category" required>
                             <option value=""> নির্বাচন করুন </option>
-                            <option value="বোদা">বোদা</option>
-                            <option value="দেবীগঞ্জ">দেবীগঞ্জ</option>
-                            <option value="আটোয়ারী">আটোয়ারী</option>
-                            <option value="তেঁতুলিয়া">তেঁতুলিয়া</option>
-                            <option value="পঞ্চগড় সদর">পঞ্চগড় সদর</option>
+                            <option value="ডাক্তারগন">ডাক্তারগন</option>
+                            <option value="হাসপাতাল">হাসপাতাল</option>
+                            <option value="ডায়াগনস্টিক সেন্টার">ডায়াগনস্টিক সেন্টার</option>
+                            <option value="হোস্টেল">হোস্টেল</option>
+                            <option value="রেস্টুরেন্ট">রেস্টুরেন্ট</option>
+                            <option value="পার্লার-সেলুন">পার্লার-সেলুন</option>
+                            <option value="গাড়ি ভাড়া">গাড়ি ভাড়া</option>
+                            <option value="বাসা ভাড়া">বাসা ভাড়া</option>
+                            <option value="ফ্লাট ও জমি বিক্রয়">ফ্লাট ও জমি বিক্রয়</option>
+                            <option value="নার্সারি">নার্সারি</option>
+                            <option value="শিক্ষা প্রতিষ্ঠান">শিক্ষা প্রতিষ্ঠান</option>
+                            <option value="কুরিয়ার সার্ভিস">কুরিয়ার সার্ভিস</option>
+                            <option value="রেস্টুরেন্ট">রেস্টুরেন্ট</option>
+                            <option value="অনান্য">অনান্য</option>
 
                         </select>
                     </div>
 
-                    <!-- Address Field -->
-                    <div class="form-group">
-                        <label for="address"> বিস্তারিত ঠিকানা :</label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
-                    </div>
-
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label">থাম্বনেইল</label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label">স্লাইডার ইমেজ *</label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
-                                <div class="image-preview" id="imagePreview" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
+                                <div class="image-preview" id="imagePreview" style="width: 380px; height: 180px; background-color: #f2f2f2; border-radius: 5px;">
                                     <i class="bi bi-image" style="font-size: 80px; color: #ccc;"></i>
                                 </div>
                                 <div class="edit-icon position-absolute" id="editIcon" style="bottom: 10px; right: 10px; border-radius: 50%; padding: 5px; cursor: pointer;">
@@ -294,6 +279,13 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Description Field -->
+                    <div class="form-group">
+                        <label for="description"> স্লাইডার টেক্সট :</label>
+                        <textarea class="form-control" id="description" name="description" value="{{ old('description') }}" rows="3" placeholder="স্লাইডার টেক্সট লিখুন"></textarea>
+                    </div>
+
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -306,8 +298,8 @@
         </div>
     </div>
 
-    <!-- Edit TodayNews Modal -->
-    <div class="modal modalz fade" id="editTodayNewsModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit Slider Modal -->
+    <div class="modal modalz fade" id="editSliderModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
 
@@ -317,7 +309,12 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">আজকের খবর ডাটা পরিবর্তন </h5>
+                    <h5 class="modal-title" id="modalTitle">স্লাইডার ডাটা পরিবর্তন </h5>
+                    <div class="ml-3 custom-switch">
+                        <input type="checkbox" checked class="custom-control-input" id="customSwitch"
+                            name="status" value="Active">
+                        <label class="custom-control-label" for="customSwitch">Status</label>
+                    </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -325,43 +322,33 @@
 
                 <div class="modal-body">
 
-                    <!-- Title Field -->
+                    <!-- Category Field -->
                     <div class="form-group">
-                        <label for="title">খবরের শিরোনাম :* </label>
-                        <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
-                    </div>
-
-                    <!-- Description Field -->
-                    <div class="form-group ">
-                        <label for="itemName">বিস্তারিত খবর :*</label>
-                        <textarea class="" id="editorX" name="description" value="{{ old('description') }}" placeholder="বিস্তারিত খবর"></textarea>
-                    </div>
-
-                    <!-- Upazila Field -->
-                    <div class="form-group">
-                        <label for="upazila">উপজেলা :* </label>
-                        <select class="form-control" id="upazila" name="upazila" required>
-                            <option value="বোদা" {{ old('upazila') == 'বোদা' ? 'selected' : '' }}> বোদা</option>
-                            <option value="দেবীগঞ্জ" {{ old('upazila') == 'দেবীগঞ্জ' ? 'selected' : '' }}>দেবীগঞ্জ</option>
-                            <option value="আটোয়ারী" {{ old('upazila') == 'আটোয়ারী' ? 'selected' : '' }}>আটোয়ারী</option>
-                            <option value="তেঁতুলিয়া" {{ old('upazila') == 'তেঁতুলিয়া' ? 'selected' : '' }}>তেঁতুলিয়া</option>
-                            <option value="পঞ্চগড় সদর" {{ old('upazila') == 'পঞ্চগড় সদর' ? 'selected' : '' }}>পঞ্চগড় সদর</option>
-
+                        <label for="category">ক্যাটাগরি :* </label>
+                        <select class="form-control" id="category" name="category" required>
+                            <option value="ডাক্তারগন" {{ old('category') == 'ডাক্তারগন' ? 'selected' : '' }}> ডাক্তারগন</option>
+                            <option value="হাসপাতাল" {{ old('category') == 'হাসপাতাল' ? 'selected' : '' }}> হাসপাতাল</option>
+                            <option value="ডায়াগনস্টিক সেন্টার" {{ old('category') == 'ডায়াগনস্টিক সেন্টার' ? 'selected' : '' }}> ডায়াগনস্টিক সেন্টার</option>
+                            <option value="হোস্টেল" {{ old('category') == 'হোস্টেল' ? 'selected' : '' }}> হোস্টেল</option>
+                            <option value="রেস্টুরেন্ট" {{ old('category') == 'রেস্টুরেন্ট' ? 'selected' : '' }}> রেস্টুরেন্ট</option>
+                            <option value="পার্লার-সেলুন" {{ old('category') == 'পার্লার-সেলুন' ? 'selected' : '' }}> পার্লার-সেলুন</option>
+                            <option value="গাড়ি ভাড়া" {{ old('category') == 'গাড়ি ভাড়া' ? 'selected' : '' }}> গাড়ি ভাড়া</option>
+                            <option value="বাসা ভাড়া" {{ old('category') == 'বাসা ভাড়া' ? 'selected' : '' }}> বাসা ভাড়া</option>
+                            <option value="ফ্লাট ও জমি বিক্রয়" {{ old('category') == 'ফ্লাট ও জমি বিক্রয়' ? 'selected' : '' }}> ফ্লাট ও জমি বিক্রয়</option>
+                            <option value="নার্সারি" {{ old('category') == 'নার্সারি' ? 'selected' : '' }}> নার্সারি</option>
+                            <option value="শিক্ষা প্রতিষ্ঠান" {{ old('category') == 'শিক্ষা প্রতিষ্ঠান' ? 'selected' : '' }}> শিক্ষা প্রতিষ্ঠান</option>
+                            <option value="কুরিয়ার সার্ভিস" {{ old('category') == 'কুরিয়ার সার্ভিস' ? 'selected' : '' }}> কুরিয়ার সার্ভিস</option>
+                            <option value="রেস্টুরেন্ট" {{ old('category') == 'রেস্টুরেন্ট' ? 'selected' : '' }}> রেস্টুরেন্ট</option>
+                            <option value="অনান্য" {{ old('category') == 'অনান্য' ? 'selected' : '' }}> অনান্য</option>
                         </select>
-                    </div>
-
-                    <!-- Address Field -->
-                    <div class="form-group">
-                        <label for="address"> বিস্তারিত ঠিকানা :</label>
-                        <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন"></textarea>
                     </div>
 
                     <!-- Picture Input with Preview -->
                     <div class="form-group">
-                        <label class="row justify-content-center" for="image-upload" id="image-label">থাম্বনেইল</label>
+                        <label class="row justify-content-center" for="image-upload" id="image-label">স্লাইডার ইমেজ *</label>
                         <div class="row justify-content-center">
                             <div class="position-relative">
-                                <div class="image-preview" id="imagePreviewX" style="width: 280px; height: 160px; background-color: #f2f2f2; border-radius: 5px;">
+                                <div class="image-preview" id="imagePreviewX" style="width: 380px; height: 180px; background-color: #f2f2f2; border-radius: 5px;">
                                     <i class="bi bi-image" style="font-size: 80px; color: #ccc;"></i>
                                 </div>
                                 <div class="edit-icon position-absolute" id="editIconX" style="bottom: 10px; right: 10px; border-radius: 50%; padding: 5px; cursor: pointer;">
@@ -372,15 +359,10 @@
                         </div>
                     </div>
 
-                    <!-- Status Field -->
+                    <!-- Description Field -->
                     <div class="form-group">
-                        <label for="status">স্ট্যাটাস </label>
-                        <select class="form-control" id="status" name="status" required>
-                            <option value="Pending" {{ old('status') == 'Pending' ? 'selected' : '' }}> Pending </option>
-                            <option value="In Review" {{ old('status') == 'In Review' ? 'selected' : '' }}> In Review </option>
-                            <option value="Approved" {{ old('status') == 'Approved' ? 'selected' : '' }}> Approved </option>
-                            <option value="Denied" {{ old('status') == 'Denied' ? 'selected' : '' }}> Denied </option>
-                        </select>
+                        <label for="description"> স্লাইডার টেক্সট :</label>
+                        <textarea class="form-control" id="description" name="description" value="{{ old('description') }}" rows="3" placeholder="স্লাইডার টেক্সট লিখুন"></textarea>
                     </div>
 
                     <div class="modal-footer">
@@ -393,12 +375,12 @@
         </div>
     </div>
 
-    <!-- View TodayNews Modal -->
-    <div class="modal modalz fade" id="viewTodayNewsModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- View Slider Modal -->
+    <div class="modal modalz fade" id="viewSliderModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">আজকের খবর ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">স্লাইডার ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -413,21 +395,20 @@
                                         <div class="p-2 flex-grow-1 bd-highlight">
 
                                             <div class="d-flex bd-highlight">
-                                                <div class="flex-fill bd-highlight mr-3">
-                                                    <img id="modalImage" src="" style="width: 300px; height: 160px;" title="todayNews Logo" alt="logo">
+                                                <div class="flex-fill bd-highlight mb-1">
+                                                    <img id="modalImage" src="" style=" height: 250px;" title="slider Logo" alt="logo">
                                                 </div>
-                                                <div class="flex-fill bd-highlight align-self-center">
-                                                    <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
-                                                    <div><hr/></div>
-                                                    <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
-                                                    <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
-                                                    <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
-                                                    <div><samp class="sampcolor">যোগ করেছেন: </samp> <span id="xUser"></span></div>
-                                                </div>
+
                                             </div>
 
-                                            <h6 class="dark-color mt-3"> <span id="xTitle"></span> </h6>
-                                            <div><samp class="sampcolor">বিস্তারিত খবর: </samp> <span id="xDescription"></span></div>
+                                            <h6 class="dark-color"> <span id="xTitle"></span> </h6>
+                                            <div><samp class="sampcolor">স্লাইডার টেক্সট: </samp> <span id="xDescription"></span></div>
+                                            <div><hr/></div>
+                                            <div><samp class="sampcolor">ক্যাটাগরি: </samp> <span id="xCategory"></span></div>
+                                            <div><samp class="sampcolor">নিবন্ধন তারিখ: </samp> <span id="xEntry"></span></div>
+                                            <div><samp class="sampcolor">যোগ করেছেন: </samp> <span id="xUser"></span></div>
+                                            <div><samp class="sampcolor">স্ট্যাটাস: </samp> <span id="xStatus"></span></div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -445,60 +426,6 @@
     <x-slot name="script">
 
         <script type="text/javascript">
-
-            //CKEditor with Image Upload
-            ClassicEditor
-                .create(document.querySelector('#editor'), {
-                    toolbar: [
-                        'heading', '|',
-                        'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
-                        'fontColor', 'fontBackgroundColor', 'highlight', 'link',
-                        'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
-                        'bulletedList', 'numberedList', 'todoList', '|',
-                        'imageUpload', 'imageStyle:alignLeft', 'imageStyle:full',
-                        'imageStyle:alignCenter', 'imageStyle:alignRight', 'resizeImage',
-                        'insertTable', 'mediaEmbed', 'alignment', 'horizontalLine', '|',
-                        'specialCharacters', 'indent', 'undo', 'redo'
-                    ],
-                    ckfinder: {
-                        uploadUrl: '{{ route('admin.todaynews.upload').'?_token='.csrf_token() }}'
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-
-            // Function to initialize CKEditor
-            function initializeCKEditor() {
-                return ClassicEditor
-                    .create(document.querySelector('#editorX'), {
-                        toolbar: [
-                            'heading', '|',
-                            'bold', 'italic', 'underline', 'fontSize', 'fontFamily',
-                            'fontColor', 'fontBackgroundColor', 'highlight', 'link',
-                            'pageBreak', 'blockQuote', 'codeBlock', 'removeFormat',
-                            'bulletedList', 'numberedList', 'todoList', '|',
-                            'imageUpload', 'imageStyle:alignLeft', 'imageStyle:full',
-                            'imageStyle:alignCenter', 'imageStyle:alignRight', 'resizeImage',
-                            'insertTable', 'mediaEmbed', 'alignment', 'horizontalLine', '|',
-                            'specialCharacters', 'indent', 'undo', 'redo'
-                        ],
-                        ckfinder: {
-                            uploadUrl: '{{ route('admin.todaynews.upload').'?_token='.csrf_token() }}'
-                        }
-                    });
-            }
-
-            // Variable to hold the CKEditor instance
-            let editorInstance;
-
-            // Event listener for when the edit modal is hidden
-            $('#editTodayNewsModal').on('hidden.bs.modal', function() {
-                if (editorInstance) {
-                    editorInstance.destroy();
-                    editorInstance = null;
-                }
-            });
 
             //imagePreview
             document.getElementById('editIcon').addEventListener('click', function() {
@@ -534,26 +461,22 @@
             });
 
 
-            //viewTodayNewsModal
-            $('#viewTodayNewsModal').on('show.bs.modal', function(event) {
+            //viewSliderModal
+            $('#viewSliderModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var user = button.data('user');
-                var title = button.data('title');
-                var description = button.data('description');
-                var upazila = button.data('upazila');
-                var address = button.data('address') || '';
+                var category = button.data('category');
+                var description = button.data('description') || '';
                 var status = button.data('status');
                 var entry = button.data('entry');
                 var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#xUser').text(user);
-                modal.find('#xTitle').text(title);
+                modal.find('#xCategory').text(category);
                 modal.find('#xDescription').html(description);
-                modal.find('#xUpazila').text(upazila);
-                modal.find('#xAddress').text(address);
                 modal.find('#xStatus').text(status);
                 modal.find('#xEntry').text(entry);
 
@@ -566,32 +489,19 @@
                 }
             });
 
-            //editTodayNewsModal
-            $('#editTodayNewsModal').on('show.bs.modal', function(event) {
+            //editSliderModal
+            $('#editSliderModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
-                var title = button.data('title');
+                var category = button.data('category');
                 var description = button.data('description');
-                var upazila = button.data('upazila');
-                var address = button.data('address');
                 var status = button.data('status');
                 var image = button.data('image');
 
                 var modal = $(this);
-                modal.find('#title').val(title);
-                modal.find('#upazila').val(upazila);
-                modal.find('#address').val(address);
-                modal.find('#status').val(status);
-
-                // Initialize CKEditor if it hasn't been initialized yet
-                if (!editorInstance) {
-                    initializeCKEditor().then(editor => {
-                        editorInstance = editor;
-                        editorInstance.setData(description);
-                    });
-                } else {
-                    editorInstance.setData(description);
-                }
+                modal.find('#category').val(category);
+                modal.find('#description').val(description);
+                modal.find('#customSwitch').prop('checked', status === 'Active').val(status);
 
                 var imagePreview = modal.find('#imagePreviewX');
                 if (image) {
@@ -600,16 +510,16 @@
                     imagePreview.html('<i class="bi bi-image" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/todaynews/' + id);
+                modal.find('#modalFormX').attr('action', '/admin/sliders/' + id);
 
 
             });
 
-            //deleteTodayNews
-            function deleteTodayNews(id) {
-                if (confirm('Are you sure you want to delete this TodayNews?')) {
+            //deleteSlider
+            function deleteSlider(id) {
+                if (confirm('Are you sure you want to delete this Slider?')) {
                     $.ajax({
-                        url: '{{ route('admin.todaynews.destroy') }}',
+                        url: '{{ route('admin.sliders.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -626,7 +536,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete TodayNews. Please try again.');
+                            alert('Failed to delete Slider. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });

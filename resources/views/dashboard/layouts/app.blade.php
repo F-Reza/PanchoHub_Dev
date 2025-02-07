@@ -313,15 +313,15 @@
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="server"></i><span>পাবলিক সার্ভিস</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="avatar.html">বাসের সময়সূচি</a></li>
-                                <li><a class="nav-link" href="card.html">ট্রেনের সময়সূচি</a></li>
-                                <li><a class="nav-link" href="modal.html">জরুরী সেবা</a></li>
-                                <li><a class="nav-link" href="sweet-alert.html">ওয়েব-সাইট </a></li>
-                                <li><a class="nav-link" href="toastr.html">ফায়ার সার্ভিস </a></li>
-                                <li><a class="nav-link" href="empty-state.html">থানা-পুলিশ</a></li>
-                                <li><a class="nav-link" href="multiple-upload.html">বিদ্যুৎ অফিস </a></li>
-                                <li><a class="nav-link" href="pricing.html">কুরিয়ার সার্ভিস</a></li>
-                                <li><a class="nav-link" href="tabs.html"> দর্শনীয় স্থান</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.bus.index') }}">বাসের সময়সূচি</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.train.index') }}">ট্রেনের সময়সূচি</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.emergencies') }}">জরুরী সেবা</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.websites') }}">ওয়েব-সাইট </a></li>
+                                <li><a class="nav-link" href="{{ route('admin.institutions.index') }}">ফায়ার সার্ভিস </a></li>
+                                <li><a class="nav-link" href="{{ route('admin.institutions.index') }}">থানা-পুলিশ</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.institutions.index') }}">বিদ্যুৎ অফিস </a></li>
+                                <li><a class="nav-link" href="{{ route('admin.institutions.index') }}">কুরিয়ার সার্ভিস</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.institutions.index') }}"> দর্শনীয় স্থান</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
