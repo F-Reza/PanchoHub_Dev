@@ -20,7 +20,7 @@ class ThanaController extends Controller
 
         $thana = new Thana();
         $thana-> title = $request->title;
-        $thana-> contact = $request->contact;
+        $thana-> contact = $request->contact?? null;
         $thana-> upazila = $request->upazila;
         $thana-> address = $request->address;
 
@@ -34,7 +34,7 @@ class ThanaController extends Controller
     {
         $thana = Thana::findOrFail($id);
         $thana-> title = $request->title;
-        $thana-> contact = $request->contact;
+        $thana-> contact = $request->contact?? null;
         $thana-> upazila = $request->upazila;
         $thana-> address = $request->address;
 
