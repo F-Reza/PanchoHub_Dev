@@ -356,7 +356,7 @@
                             <a href="#" class="menu-toggle nav-link has-dropdown"><i
                                     data-feather="settings"></i><span>সেটিংস সমূহ</span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="{{ route('admin.institutions.index') }}"> যোগাযোগ </a></li>
+                                <li><a class="nav-link" href="{{ route('admin.contact_us.index') }}"> যোগাযোগ </a></li>
                                 <li><a class="nav-link" href="{{ route('admin.privacy_policy.index') }}"> প্রাইভেসি পলিসি </a></li>
                                 <li><a class="nav-link" href="{{ route('admin.terms.index') }}"> টার্মস এন্ড কন্ডিশনস </a></li>
                             </ul>

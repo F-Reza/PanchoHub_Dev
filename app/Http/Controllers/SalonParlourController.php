@@ -25,7 +25,7 @@ class SalonParlourController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required|min:4|string',
             'category' => 'required|not_in:null,',
-            'servies' => 'required|min:4|string',
+            'services' => 'required|min:4|string',
             'timetable' => 'required|min:4|string',
             'contact' => 'nullable|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
@@ -42,7 +42,7 @@ class SalonParlourController extends Controller
         $salonParlour->user_id = Auth::user()->id;
         $salonParlour-> title = $request->title;
         $salonParlour-> category = $request->category;
-        $salonParlour-> servies = $request->servies;
+        $salonParlour-> services = $request->services;
         $salonParlour-> timetable = $request->timetable;
         $salonParlour-> contact = $request->contact?? null;
         $salonParlour-> upazila = $request->upazila;
@@ -96,7 +96,7 @@ class SalonParlourController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required|min:4|string',
             'category' => 'required|not_in:null,',
-            'servies' => 'required|min:4|string',
+            'services' => 'required|min:4|string',
             'timetable' => 'required|min:4|string',
             'contact' => 'nullable|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
@@ -111,7 +111,7 @@ class SalonParlourController extends Controller
 
         $salonParlour-> title = $request->title;
         $salonParlour-> category = $request->category;
-        $salonParlour-> servies = $request->servies;
+        $salonParlour-> services = $request->services;
         $salonParlour-> timetable = $request->timetable;
         $salonParlour-> contact = $request->contact?? null;
         $salonParlour-> upazila = $request->upazila;

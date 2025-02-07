@@ -102,7 +102,7 @@
                                                                 data-user="{{ $salonParlour->user->name }}"
                                                                 data-category="{{ $salonParlour->category }}"
                                                                 data-title="{{ $salonParlour->title }}"
-                                                                data-servies="{{ $salonParlour->servies }}"
+                                                                data-services="{{ $salonParlour->services }}"
                                                                 data-timetable="{{ $salonParlour->timetable }}"
                                                                 data-contact="{{ $salonParlour->contact?? 'Empty' }}"
                                                                 data-upazila="{{ $salonParlour->upazila }}"
@@ -118,7 +118,7 @@
                                                                 data-id="{{ $salonParlour->id }}"
                                                                 data-category="{{ $salonParlour->category }}"
                                                                 data-title="{{ $salonParlour->title }}"
-                                                                data-servies="{{ $salonParlour->servies }}"
+                                                                data-services="{{ $salonParlour->services }}"
                                                                 data-timetable="{{ $salonParlour->timetable }}"
                                                                 data-contact="{{ $salonParlour->contact?? '' }}"
                                                                 data-upazila="{{ $salonParlour->upazila }}"
@@ -275,10 +275,10 @@
                         <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
+                    <!-- Services Field -->
                     <div class="form-group ">
-                        <label for="servies">সার্ভিস সমূহ :*</label>
-                        <textarea class="" id="editor" name="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন"></textarea>
+                        <label for="services">সার্ভিস সমূহ :*</label>
+                        <textarea class="" id="editor" name="services" value="{{ old(key: 'services') }}" placeholder="সার্ভিস সমূহ লিখুন"></textarea>
                     </div>
 
                     <!-- TimeTable Field -->
@@ -377,10 +377,10 @@
                         <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
+                    <!-- Services Field -->
                     <div class="form-group ">
-                        <label for="servies">সার্ভিস সমূহ :*</label>
-                        <textarea class="" id="editorX" name="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন"></textarea>
+                        <label for="services">সার্ভিস সমূহ :*</label>
+                        <textarea class="" id="editorX" name="services" value="{{ old('services') }}" placeholder="সার্ভিস সমূহ লিখুন"></textarea>
                     </div>
 
                     <!-- TimeTable Field -->
@@ -489,7 +489,7 @@
                                             <div><samp class="sampcolor">সেলুন/পার্লার খোলা ও বন্ধের সময়: </samp> <span id="xTimetable"></span></div>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
                                             <div><hr/></div>
-                                            <div><samp class="sampcolor">সার্ভিস সমূহ: </samp> <span id="xServies"></span></div>
+                                            <div><samp class="sampcolor">সার্ভিস সমূহ: </samp> <span id="xServices"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -596,7 +596,7 @@
                 var user = button.data('user');
                 var category = button.data('category');
                 var title = button.data('title');
-                var servies = button.data('servies');
+                var services = button.data('services');
                 var timetable = button.data('timetable');
                 var contact = button.data('contact') || '';
                 var upazila = button.data('upazila');
@@ -609,7 +609,7 @@
                 modal.find('#xUser').text(user);
                 modal.find('#xCategory').text(category);
                 modal.find('#xTitle').text(title);
-                modal.find('#xServies').html(servies);
+                modal.find('#xServices').html(services);
                 modal.find('#xTimetable').text(timetable);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
@@ -632,7 +632,7 @@
                 var id = button.data('id');
                 var category = button.data('category');
                 var title = button.data('title');
-                var servies = button.data('servies');
+                var services = button.data('services');
                 var timetable = button.data('timetable');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
@@ -653,10 +653,10 @@
                 if (!editorInstance) {
                     initializeCKEditor().then(editor => {
                         editorInstance = editor;
-                        editorInstance.setData(servies);
+                        editorInstance.setData(services);
                     });
                 } else {
-                    editorInstance.setData(servies);
+                    editorInstance.setData(services);
                 }
 
                 var imagePreview = modal.find('#imagePreviewX');

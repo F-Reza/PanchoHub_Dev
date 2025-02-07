@@ -100,7 +100,7 @@
                                                                 data-user="{{ $restaurant->user->name }}"
                                                                 data-title="{{ $restaurant->title }}"
                                                                 data-menus="{{ $restaurant->menus }}"
-                                                                data-servies="{{ $restaurant->servies }}"
+                                                                data-services="{{ $restaurant->services }}"
                                                                 data-timetable="{{ $restaurant->timetable }}"
                                                                 data-contact="{{ $restaurant->contact?? 'Empty' }}"
                                                                 data-upazila="{{ $restaurant->upazila }}"
@@ -116,7 +116,7 @@
                                                                 data-id="{{ $restaurant->id }}"
                                                                 data-title="{{ $restaurant->title }}"
                                                                 data-menus="{{ $restaurant->menus }}"
-                                                                data-servies="{{ $restaurant->servies }}"
+                                                                data-services="{{ $restaurant->services }}"
                                                                 data-timetable="{{ $restaurant->timetable }}"
                                                                 data-contact="{{ $restaurant->contact?? '' }}"
                                                                 data-upazila="{{ $restaurant->upazila }}"
@@ -261,10 +261,10 @@
                         <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
+                    <!-- Services Field -->
                     <div class="form-group">
-                        <label for="servies"> সার্ভিস সমূহ :* </label>
-                        <input type="text" name="servies" class="form-control" id="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন" required>
+                        <label for="services"> সার্ভিস সমূহ :* </label>
+                        <input type="text" name="services" class="form-control" id="services" value="{{ old(key: 'services') }}" placeholder="সার্ভিস সমূহ লিখুন" required>
                     </div>
 
                     <!-- Menus Field -->
@@ -359,10 +359,10 @@
                         <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}" placeholder="টাইটেল লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
+                    <!-- Services Field -->
                     <div class="form-group">
-                        <label for="servies"> সার্ভিস সমূহ :* </label>
-                        <input type="text" name="servies" class="form-control" id="servies" value="{{ old('servies') }}" placeholder="সার্ভিস সমূহ লিখুন" required>
+                        <label for="services"> সার্ভিস সমূহ :* </label>
+                        <input type="text" name="services" class="form-control" id="services" value="{{ old('services') }}" placeholder="সার্ভিস সমূহ লিখুন" required>
                     </div>
 
                     <!-- Menus Field -->
@@ -477,7 +477,7 @@
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
                                             <div><samp class="sampcolor">রেস্টুরেন্ট খোলা ও বন্ধের সময়: </samp> <span id="xTimetable"></span></div>
                                             <div><hr/></div>
-                                            <div><samp class="sampcolor">সার্ভিস সমূহ: </samp> <span id="xServies"></span></div>
+                                            <div><samp class="sampcolor">সার্ভিস সমূহ: </samp> <span id="xServices"></span></div>
                                             <div><hr/></div>
                                             <div><samp class="sampcolor">রেস্টুরেন্টের মেনু আইটেম: </samp> <span id="xMenus"></span></div>
                                         </div>
@@ -586,7 +586,7 @@
                 var user = button.data('user');
                 var title = button.data('title');
                 var menus = button.data('menus');
-                var servies = button.data('servies');
+                var services = button.data('services');
                 var timetable = button.data('timetable');
                 var contact = button.data('contact') || '';
                 var upazila = button.data('upazila');
@@ -599,7 +599,7 @@
                 modal.find('#xUser').text(user);
                 modal.find('#xTitle').text(title);
                 modal.find('#xMenus').html(menus);
-                modal.find('#xServies').text(servies);
+                modal.find('#xServices').text(services);
                 modal.find('#xTimetable').text(timetable);
                 modal.find('#xContact').text(contact);
                 modal.find('#xUpazila').text(upazila);
@@ -622,7 +622,7 @@
                 var id = button.data('id');
                 var title = button.data('title');
                 var menus = button.data('menus');
-                var servies = button.data('servies');
+                var services = button.data('services');
                 var timetable = button.data('timetable');
                 var contact = button.data('contact');
                 var upazila = button.data('upazila');
@@ -632,7 +632,7 @@
 
                 var modal = $(this);
                 modal.find('#title').val(title);
-                modal.find('#servies').val(servies);
+                modal.find('#services').val(services);
                 modal.find('#timetable').val(timetable);
                 modal.find('#contact').val(contact);
                 modal.find('#upazila').val(upazila);

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('fb_page_name')->nullable();
             $table->string('page_link')->nullable();
             $table->string('email')->nullable();
-            $table->text('servies');
+            $table->text('services');
             $table->string('upazila');
             $table->string('address')->nullable();
             $table->string('image')->nullable();

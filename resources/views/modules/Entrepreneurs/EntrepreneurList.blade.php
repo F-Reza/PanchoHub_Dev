@@ -103,7 +103,7 @@
                                                                 data-fb_page_name="{{ $entrepreneur->fb_page_name ?? 'Empty' }}"
                                                                 data-page_link="{{ $entrepreneur->page_link ?? 'Empty' }}"
                                                                 data-email="{{ $entrepreneur->email ?? 'Empty' }}"
-                                                                data-servies="{{ $entrepreneur->servies }}"
+                                                                data-services="{{ $entrepreneur->services }}"
                                                                 data-upazila="{{ $entrepreneur->upazila }}"
                                                                 data-address="{{ $entrepreneur->address?? 'Empty' }}"
                                                                 data-status="{{ $entrepreneur->status }}"
@@ -120,7 +120,7 @@
                                                                 data-fb_page_name="{{ $entrepreneur->fb_page_name ?? '' }}"
                                                                 data-page_link="{{ $entrepreneur->page_link ?? '' }}"
                                                                 data-email="{{ $entrepreneur->email ?? '' }}"
-                                                                data-servies="{{ $entrepreneur->servies }}"
+                                                                data-services="{{ $entrepreneur->services }}"
                                                                 data-upazila="{{ $entrepreneur->upazila }}"
                                                                 data-address="{{ $entrepreneur->address?? '' }}"
                                                                 data-status="{{ $entrepreneur->status }}"
@@ -263,10 +263,10 @@
                         <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
+                    <!-- Services Field -->
                     <div class="form-group ">
-                        <label for="servies">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য :*</label>
-                        <textarea class="" id="editor" name="servies" value="{{ old('servies') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                        <label for="services">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য :*</label>
+                        <textarea class="" id="editor" name="services" value="{{ old('services') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Contact Field -->
@@ -365,10 +365,10 @@
                         <input type="text" class="form-control" id="name" name="name" value="{{ old(key: 'name') }}" placeholder="নাম লিখুন" required>
                     </div>
 
-                    <!-- Servies Field -->
+                    <!-- Services Field -->
                     <div class="form-group ">
-                        <label for="servies">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য :*</label>
-                        <textarea class="" id="editorX" name="servies" value="{{ old('servies') }}" placeholder="বিস্তারিত লিখুন"></textarea>
+                        <label for="services">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য :*</label>
+                        <textarea class="" id="editorX" name="services" value="{{ old('services') }}" placeholder="বিস্তারিত লিখুন"></textarea>
                     </div>
 
                     <!-- Contact Field -->
@@ -491,7 +491,7 @@
                                             <div><samp class="sampcolor">ইমেল: </samp> <span id="xEmail"></span></div>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
                                             <div><hr/></div>
-                                            <div><samp class="sampcolor">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য: </samp> <br/><span id="xServies"></span></div>
+                                            <div><samp class="sampcolor">উপকরণ/পণ্য বা সেবা সম্পর্কিত তথ্য: </samp> <br/><span id="xServices"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -602,7 +602,7 @@
                 var fb_page_name = button.data('fb_page_name') || '';
                 var page_link = button.data('page_link') || '';
                 var email = button.data('email') || '';
-                var servies = button.data('servies');
+                var services = button.data('services');
                 var upazila = button.data('upazila');
                 var address = button.data('address') || '';
                 var status = button.data('status');
@@ -616,7 +616,7 @@
                 modal.find('#xFbPageName').text(fb_page_name);
                 modal.find('#xPageLink').text(page_link);
                 modal.find('#xEmail').text(email);
-                modal.find('#xServies').html(servies);
+                modal.find('#xServices').html(services);
                 modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
                 modal.find('#xStatus').text(status);
@@ -640,7 +640,7 @@
                 var fb_page_name = button.data('fb_page_name');
                 var page_link = button.data('page_link');
                 var email = button.data('email');
-                var servies = button.data('servies');
+                var services = button.data('services');
                 var upazila = button.data('upazila');
                 var address = button.data('address');
                 var status = button.data('status');
@@ -660,10 +660,10 @@
                 if (!editorInstance) {
                     initializeCKEditor().then(editor => {
                         editorInstance = editor;
-                        editorInstance.setData(servies);
+                        editorInstance.setData(services);
                     });
                 } else {
-                    editorInstance.setData(servies);
+                    editorInstance.setData(services);
                 }
 
                 var imagePreview = modal.find('#imagePreviewX');

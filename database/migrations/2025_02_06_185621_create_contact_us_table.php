@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->longText('about');
-            $table->longText('servies');
+            $table->longText('services');
             $table->string('fb_page');
             $table->string('fb_group');
             $table->string('youtube');

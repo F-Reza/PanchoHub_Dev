@@ -7,59 +7,65 @@ use Illuminate\Http\Request;
 
 class ContactUsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $contacts = ContactUs::latest()->paginate(25);
+        return view('modules.ContactUs.ContactUs',[
+            'contacts' => $contacts
+        ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $user = new ContactUs();
+        $user-> email = $request->email;
+        $user-> phone = $request->phone;
+        $user-> address = $request->address;
+        $user-> about = $request->about;
+        $user-> services = $request->services;
+        $user-> fb_page = $request->fb_page;
+        $user-> fb_group = $request->fb_group;
+        $user-> youtube = $request->youtube;
+
+        $user->save();
+
+        flash()->success('ContactUs added successfully.');
+        return redirect()->back();
+    }
+    public function update($id, Request $request, ContactUs $contactUs)
+    {
+        $user = ContactUs::findOrFail($id);
+
+        $user-> email = $request->email;
+        $user-> phone = $request->phone;
+        $user-> address = $request->address;
+        $user-> about = $request->about;
+        $user-> services = $request->services;
+        $user-> fb_page = $request->fb_page;
+        $user-> fb_group = $request->fb_group;
+        $user-> youtube = $request->youtube;
+
+        $user->save();
+        flash()->success('ContactUs updated successfully.');
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ContactUs $contactUs)
+    public function destroy(Request $request, ContactUs $contactUs)
     {
-        //
-    }
+        $id = $request->id;
+        $contact = ContactUs::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ContactUs $contactUs)
-    {
-        //
-    }
+        if (!$contact) {
+            return response()->json([
+                'status' => false,
+                'message' => 'ContactUs not found.',
+            ], 404);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ContactUs $contactUs)
-    {
-        //
-    }
+        $contact->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ContactUs $contactUs)
-    {
-        //
+        return response()->json([
+            'status' => true,
+            'message' => 'ContactUs deleted successfully.',
+        ], 200);
     }
 }

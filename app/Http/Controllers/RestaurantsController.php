@@ -25,7 +25,7 @@ class RestaurantsController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required|min:4|string',
             'menus' => 'required|min:4|string',
-            'servies' => 'required|min:4|string',
+            'services' => 'required|min:4|string',
             'timetable' => 'required|min:4|string',
             'contact' => 'nullable|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
@@ -42,7 +42,7 @@ class RestaurantsController extends Controller
         $restaurant->user_id = Auth::user()->id;
         $restaurant-> title = $request->title;
         $restaurant-> menus = $request->menus;
-        $restaurant-> servies = $request->servies;
+        $restaurant-> services = $request->services;
         $restaurant-> timetable = $request->timetable;
         $restaurant-> contact = $request->contact?? null;
         $restaurant-> upazila = $request->upazila;
@@ -96,7 +96,7 @@ class RestaurantsController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required|min:4|string',
             'menus' => 'required|min:4|string',
-            'servies' => 'required|min:4|string',
+            'services' => 'required|min:4|string',
             'timetable' => 'required|min:4|string',
             'contact' => 'nullable|regex:/^[0-9]+$/',
             'upazila' => 'required|not_in:null,',
@@ -111,7 +111,7 @@ class RestaurantsController extends Controller
 
         $restaurant-> title = $request->title;
         $restaurant-> menus = $request->menus;
-        $restaurant-> servies = $request->servies;
+        $restaurant-> services = $request->services;
         $restaurant-> timetable = $request->timetable;
         $restaurant-> contact = $request->contact?? null;
         $restaurant-> upazila = $request->upazila;
