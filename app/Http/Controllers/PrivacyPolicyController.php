@@ -4,62 +4,74 @@ namespace App\Http\Controllers;
 
 use App\Models\PrivacyPolicy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PrivacyPolicyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $privaces= PrivacyPolicy::latest()->paginate(5);
+        return view('modules.Privacy.Privacy',[
+            'privaces' => $privaces
+        ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'description' => 'required|min:2|string',
+        ]);
+
+        if ($validator->fails()) {
+            flash()->error('Failed to add Privacy.');
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
+
+        $privacy = new PrivacyPolicy();
+        $privacy-> description = $request->description;
+
+        $privacy->save();
+
+        flash()->success('Privacy added successfully.');
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(PrivacyPolicy $privacyPolicy)
+    public function update($id, Request $request, PrivacyPolicy $privacyPolicy)
     {
-        //
-    }
+        $privacy = PrivacyPolicy::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PrivacyPolicy $privacyPolicy)
-    {
-        //
-    }
+        $validator = Validator::make($request->all(),[
+            'description' => 'required|min:2|string',
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, PrivacyPolicy $privacyPolicy)
-    {
-        //
-    }
+        if ($validator->fails()) {
+            flash()->error('Failed to update Privacy.');
+            return redirect()->back()->withErrors($validator->errors())->withInput();
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PrivacyPolicy $privacyPolicy)
+        $privacy-> description = $request->description;
+
+        $privacy->save();
+        flash()->success('Privacy updated successfully.');
+        return redirect()->back();
+    }
+    public function destroy(Request $request, PrivacyPolicy $privacyPolicy)
     {
-        //
+        $id = $request->id;
+        $privacy = PrivacyPolicy::find($id);
+
+        if (!$privacy) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Privacy not found.',
+            ], 404);
+        }
+
+        $privacy->delete();
+        flash()->success('Privacy deleted successfully.');
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Privacy deleted successfully.',
+        ], 200);
     }
 }

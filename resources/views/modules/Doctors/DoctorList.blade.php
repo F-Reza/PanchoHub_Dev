@@ -512,7 +512,7 @@
 
                                         <div class="about-list">
                                             <div class="d-flex flex-column">
-                                                <div class="h6 pb-0 mb-0 mt-1">চেম্বারসমূহ</div>
+                                                <div class="mt-1 dark-color">চেম্বারসমূহ:</div>
                                                 <div><hr/></div>
                                                 <div id="chamberContainer"></div>
                                             </div>
