@@ -341,7 +341,6 @@
         </div>
     </div>
 
-
     <!-- View Tourist Place Modal -->
     <div class="modal modalz fade" id="viewTouristPlaceModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
@@ -359,16 +358,17 @@
                             <div class="col-lg-12">
                                 <div class="about-text about-list">
                                     <div class="d-flex bd-highlight p-2">
-                                        <div class="p-2 align-self-center fixed-width" style="width: 150px; flex-shrink: 0;">
-                                            <img id="modalImage" src="" style="width: 150px; height: 100px;" title="Hospital Logo" alt="logo">
+                                        <div class="p-2 fixed-width" style="width: 160px; flex-shrink: 0;">
+                                            <img id="modalImage" src="" style="width: 160px; height: 100px;" title="Hospital Logo" alt="logo">
                                         </div>
-                                        <div class="p-2 flex-grow-1 bd-highlight align-self-center">
-                                            <h6 class="dark-color"> <span id="xTitle"></span> </h6>
-                                            <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
+                                        <div class="p-2 pt-3 flex-grow-1 bd-highlight align-self-center">
+                                            <h6 class="dark-color"> <span id="xPlaceName"></span> </h6>
                                             <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
+                                            <div><hr/></div>
                                         </div>
                                     </div>
+                                    <div class="p-2"><samp class="sampcolor h6">স্থান সম্পর্কে বিস্তারিত: </samp> <span id="xPlaceDetails"></span></div>
                                 </div>
                             </div>
                         </div>
@@ -513,9 +513,18 @@
 
                 var modal = $(this);
                 modal.find('#place_name').val(place_name);
-                modal.find('#place_details').val(place_details);
                 modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
+
+                // Initialize CKEditor if it hasn't been initialized yet
+                if (!editorInstance) {
+                    initializeCKEditor().then(editor => {
+                        editorInstance = editor;
+                        editorInstance.setData(place_details);
+                    });
+                } else {
+                    editorInstance.setData(place_details);
+                }
 
                 var imagePreview = modal.find('#imagePreviewX');
                 if (image) {
