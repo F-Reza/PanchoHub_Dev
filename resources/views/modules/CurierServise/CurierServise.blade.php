@@ -2,7 +2,7 @@
 
     <!-- Set Page Title -->
     <x-slot name="title">
-        <title>| পঞ্চহাব - বিদ্যুৎ অফিস |</title>
+        <title>| পঞ্চহাব - কুরিয়ার সার্ভিস |</title>
     </x-slot>
     <style> .ck-editor__editable_inline{  height:240px; } </style>
 
@@ -15,9 +15,9 @@
                         <div class="card">
                             <!-- Button to Open the Modal -->
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h4>বিদ্যুৎ অফিস</h4>
+                                <h4>কুরিয়ার সার্ভিস</h4>
                                 <a href="#" class="btn btn-primary px-4" data-toggle="modal"
-                                    data-target="#createBiddutOfficeModal">Create</a>
+                                    data-target="#createCurierServiseModal">Create</a>
                             </div>
 
                             <div class="card-body">
@@ -29,19 +29,20 @@
                                                 <th>Logo</th>
                                                 <th class="align-left">Title</th>
                                                 <th class="align-left">Contact</th>
+                                                <th class="align-left">Upazila</th>
                                                 <th class="align-left">Address</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if ($biddutOffices->isNotEmpty())
-                                                @foreach ($biddutOffices as $key => $biddutOffice)
+                                            @if ($curierServises->isNotEmpty())
+                                                @foreach ($curierServises as $key => $curierServise)
                                                     <tr>
                                                         <td> {{ ++$key }} </td>
                                                         <td>
-                                                            @if (!empty($biddutOffice->image))
+                                                            @if (!empty($curierServise->image))
                                                                 <img class="user-img-radious-style" alt="image" title="Logo"
-                                                                    src="{{ asset('uploads/biddutOffices/' . $biddutOffice->image) }}"
+                                                                    src="{{ asset('uploads/curierServises/' . $curierServise->image) }}"
                                                                     width="60" height="40">
                                                             @else
                                                                 <img class="user-img-radious-style" alt="image" title="Logo"
@@ -49,32 +50,35 @@
                                                                     width="70" height="40">
                                                             @endif
                                                         </td>
-                                                        <td class="align-left" style=" max-width: 300px;"> {{ $biddutOffice->title }} </td>
-                                                        <td class="align-left"> {{ $biddutOffice->contact }} </td>
-                                                        <td class="align-left"> {{ $biddutOffice->address }} </td>
+                                                        <td class="align-left" style=" max-width: 300px;"> {{ $curierServise->title }} </td>
+                                                        <td class="align-left"> {{ $curierServise->contact }} </td>
+                                                        <td class="align-left"> {{ $curierServise->upazila }} </td>
+                                                        <td class="align-left"> {{ $curierServise->address }} </td>
                                                         <td>
                                                             <a href="#" class="btn btn-success"
-                                                                data-toggle="modal" data-target="#viewBiddutOfficeModal"
-                                                                data-id="{{ $biddutOffice->id }}"
-                                                                data-title="{{ $biddutOffice->title }}"
-                                                                data-contact="{{ $biddutOffice->contact }}"
-                                                                data-address="{{ $biddutOffice->address }}"
-                                                                data-image="{{ $biddutOffice->image ? asset('uploads/biddutOffices/' . $biddutOffice->image) : '' }}">
+                                                                data-toggle="modal" data-target="#viewCurierServiseModal"
+                                                                data-id="{{ $curierServise->id }}"
+                                                                data-title="{{ $curierServise->title }}"
+                                                                data-contact="{{ $curierServise->contact }}"
+                                                                data-upazila="{{ $curierServise->upazila }}"
+                                                                data-address="{{ $curierServise->address }}"
+                                                                data-image="{{ $curierServise->image ? asset('uploads/curierServises/' . $curierServise->image) : '' }}">
                                                                 View
                                                             </a>
 
                                                             <a href="#" class="btn btn-primary"
-                                                                data-toggle="modal" data-target="#editBiddutOfficeModal"
-                                                                data-id="{{ $biddutOffice->id }}"
-                                                                data-title="{{ $biddutOffice->title }}"
-                                                                data-contact="{{ $biddutOffice->contact }}"
-                                                                data-address="{{ $biddutOffice->address }}"
-                                                                data-image="{{ $biddutOffice->image ? asset('uploads/biddutOffices/' . $biddutOffice->image) : '' }}">
+                                                                data-toggle="modal" data-target="#editCurierServiseModal"
+                                                                data-id="{{ $curierServise->id }}"
+                                                                data-title="{{ $curierServise->title }}"
+                                                                data-contact="{{ $curierServise->contact }}"
+                                                                data-upazila="{{ $curierServise->upazila }}"
+                                                                data-address="{{ $curierServise->address }}"
+                                                                data-image="{{ $curierServise->image ? asset('uploads/curierServises/' . $curierServise->image) : '' }}">
                                                                 Edit
                                                             </a>
 
                                                             <a href="javascript:void(0);"
-                                                                onclick="deleteBiddutOffice({{ $biddutOffice->id }})"
+                                                                onclick="deleteCurierServise({{ $curierServise->id }})"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -188,37 +192,51 @@
     </div>
 
     <!-- Modal -->
-    <!-- Create Biddut Office Modal -->
-    <div class="modal modalz fade" id="createBiddutOfficeModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Create Curier Servise Modal -->
+    <div class="modal modalz fade" id="createCurierServiseModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalTitle">বিদ্যুৎ অফিস যোগ করুন</h5>
+                <h5 class="modal-title" id="modalTitle">কুরিয়ার সার্ভিস যোগ করুন</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Modal Content Goes Here -->
-                <form method="POST" action="{{ route('admin.biddut_office.store') }}" id="modalForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.curier_servise.store') }}" id="modalForm" enctype="multipart/form-data">
                 @csrf
 
                      <!-- Title Field -->
                      <div class="form-group">
-                        <label for="title">বিদ্যুৎ অফিসের নাম বা টাইটেল :*</label>
+                        <label for="title">কুরিয়ার সার্ভিসের নাম বা টাইটেল :*</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="নাম বা টাইটেল লিখুন" required>
+                    </div>
+
+                    <!-- Contact Field -->
+                    <div class="form-group">
+                        <label for="contact">যোগাযোগ নম্বর :*</label>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
+                    </div>
+
+                    <!-- Upazila Field -->
+                    <div class="form-group">
+                        <label for="upazila">উপজেলা :* </label>
+                        <select class="form-control" id="upazila" name="upazila" required>
+                            <option value=""> নির্বাচন করুন </option>
+                            <option value="বোদা">বোদা</option>
+                            <option value="দেবীগঞ্জ">দেবীগঞ্জ</option>
+                            <option value="আটোয়ারী">আটোয়ারী</option>
+                            <option value="তেঁতুলিয়া">তেঁতুলিয়া</option>
+                            <option value="পঞ্চগড় সদর">পঞ্চগড় সদর</option>
+
+                        </select>
                     </div>
 
                     <!-- Address Field -->
                     <div class="form-group">
                         <label for="address">বিস্তারিত ঠিকানা :*</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
-                    </div>
-
-                     <!-- Contact Field -->
-                     <div class="form-group">
-                        <label for="contact">যোগাযোগ নম্বর :*</label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
                     <!-- Picture Input with Preview -->
@@ -249,8 +267,8 @@
         </div>
     </div>
 
-    <!-- Edit Biddut Office Modal -->
-    <div class="modal modalz fade" id="editBiddutOfficeModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- Edit Curier Servise Modal -->
+    <div class="modal modalz fade" id="editCurierServiseModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
 
@@ -260,7 +278,7 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">বিদ্যুৎ অফিস ডাটা পরিবর্তন </h5>
+                    <h5 class="modal-title" id="modalTitle">কুরিয়ার সার্ভিস ডাটা পরিবর্তন </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -270,20 +288,33 @@
 
                     <!-- Title Field -->
                     <div class="form-group">
-                        <label for="title">বিদ্যুৎ অফিসের নাম বা টাইটেল :*</label>
+                        <label for="title">কুরিয়ার সার্ভিসের নাম বা টাইটেল :*</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{ old(key: 'title') }}" placeholder="নাম বা টাইটেল লিখুন" required>
+                    </div>
+
+                    <!-- Contact Field -->
+                    <div class="form-group">
+                        <label for="contact">যোগাযোগ নম্বর :*</label>
+                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
+                    </div>
+
+                     <!-- Upazila Field -->
+                     <div class="form-group">
+                        <label for="upazila">উপজেলা :* </label>
+                        <select class="form-control" id="upazila" name="upazila" required>
+                            <option value="বোদা" {{ old('upazila') == 'বোদা' ? 'selected' : '' }}> বোদা</option>
+                            <option value="দেবীগঞ্জ" {{ old('upazila') == 'দেবীগঞ্জ' ? 'selected' : '' }}>দেবীগঞ্জ</option>
+                            <option value="আটোয়ারী" {{ old('upazila') == 'আটোয়ারী' ? 'selected' : '' }}>আটোয়ারী</option>
+                            <option value="তেঁতুলিয়া" {{ old('upazila') == 'তেঁতুলিয়া' ? 'selected' : '' }}>তেঁতুলিয়া</option>
+                            <option value="পঞ্চগড় সদর" {{ old('upazila') == 'পঞ্চগড় সদর' ? 'selected' : '' }}>পঞ্চগড় সদর</option>
+
+                        </select>
                     </div>
 
                     <!-- Address Field -->
                     <div class="form-group">
                         <label for="address">বিস্তারিত ঠিকানা :*</label>
                         <textarea class="form-control" id="address" name="address" value="{{ old('address') }}" rows="3" placeholder="ঠিকানা লিখুন" required></textarea>
-                    </div>
-
-                     <!-- Contact Field -->
-                     <div class="form-group">
-                        <label for="contact">যোগাযোগ নম্বর :*</label>
-                        <input type="text" name="contact" class="form-control" id="contact" value="{{ old(key: 'contact') }}" placeholder="ফোন নম্বর লিখুন">
                     </div>
 
                     <!-- Picture Input with Preview -->
@@ -313,12 +344,12 @@
     </div>
 
 
-    <!-- View Biddut Office Modal -->
-    <div class="modal modalz fade" id="viewBiddutOfficeModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+    <!-- View Curier Servise Modal -->
+    <div class="modal modalz fade" id="viewCurierServiseModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered custom-modal-width" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">বিদ্যুৎ অফিস ভিউ ডাটা</h5>
+                    <h5 class="modal-title" id="modalTitle">কুরিয়ার সার্ভিস ভিউ ডাটা</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -336,6 +367,7 @@
                                         <div class="p-2 flex-grow-1 bd-highlight align-self-center">
                                             <h6 class="dark-color"> <span id="xTitle"></span> </h6>
                                             <div><samp class="sampcolor">যোগাযোগ নম্বর: </samp> <span id="xContact"></span></div>
+                                            <div><samp class="sampcolor">উপজেলা: </samp> <span id="xUpazila"></span></div>
                                             <div><samp class="sampcolor">বিস্তারিত ঠিকানা: </samp> <span id="xAddress"></span></div>
                                         </div>
                                     </div>
@@ -388,19 +420,21 @@
                 }
             });
 
-            //viewBiddutOfficeModal
-            $('#viewBiddutOfficeModal').on('show.bs.modal', function(event) {
+            //viewCurierServiseModal
+            $('#viewCurierServiseModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 // Fetch data from the button
                 var id = button.data('id');
                 var title = button.data('title');
                 var contact = button.data('contact');
+                var upazila = button.data('upazila');
                 var address = button.data('address');
                 var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#xTitle').text(title);
                 modal.find('#xContact').text(contact);
+                modal.find('#xUpazila').text(upazila);
                 modal.find('#xAddress').text(address);
 
                 // Set the image source correctly
@@ -413,18 +447,20 @@
 
             });
 
-            //editBiddutOfficeModal
-            $('#editBiddutOfficeModal').on('show.bs.modal', function(event) {
+            //editCurierServiseModal
+            $('#editCurierServiseModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var id = button.data('id');
                 var title = button.data('title');
                 var contact = button.data('contact');
+                var upazila = button.data('upazila');
                 var address = button.data('address');
                 var image = button.data('image');
 
                 var modal = $(this);
                 modal.find('#title').val(title);
                 modal.find('#contact').val(contact);
+                modal.find('#upazila').val(upazila);
                 modal.find('#address').val(address);
 
                 var imagePreview = modal.find('#imagePreviewX');
@@ -434,15 +470,15 @@
                     imagePreview.html('<i class="bi bi-person-circle" style="font-size: 60px; color: #ccc;"></i>');
                 }
 
-                modal.find('#modalFormX').attr('action', '/admin/biddut_office/' + id);
+                modal.find('#modalFormX').attr('action', '/admin/curier_servise/' + id);
 
             });
 
-            //deleteBiddutOffice
-            function deleteBiddutOffice(id) {
-                if (confirm('Are you sure you want to delete this Biddut Office?')) {
+            //deleteCurierServise
+            function deleteCurierServise(id) {
+                if (confirm('Are you sure you want to delete this Curier Servise?')) {
                     $.ajax({
-                        url: '{{ route('admin.biddut_office.destroy') }}',
+                        url: '{{ route('admin.curier_servise.destroy') }}',
                         type: 'DELETE',
                         data: {
                             id: id,
@@ -459,7 +495,7 @@
                             }
                         },
                         error: function(xhr) {
-                            alert('Failed to delete Biddut Office. Please try again.');
+                            alert('Failed to delete Curier Servise. Please try again.');
                             console.error(xhr.responseText);
                         },
                     });
