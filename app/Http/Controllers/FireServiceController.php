@@ -9,7 +9,7 @@ class FireServiceController extends Controller
 {
     public function index()
     {
-        $fireServices = FireService::with('user')->latest()->paginate(25);
+        $fireServices = FireService::latest()->paginate(25);
         return view('modules.FireService.FireService',[
             'fireServices' => $fireServices
         ]);

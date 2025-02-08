@@ -35,7 +35,7 @@ class AdminStaffController extends Controller //implements HasMiddleware
         $roles = Role::orderBy('name', 'ASC')->get();
         $permissions = Permission::orderBy('name', 'ASC')->get();
         $admins = Admin::latest()->paginate(25);
-        return view('modules.Users.AdminList',[
+        return view('modules.Users.AdminStaffList',[
             'admins' => $admins,
             'roles' => $roles,
             'permissions' => $permissions,

@@ -24,12 +24,12 @@ class PermissionController extends Controller //implements HasMiddleware
     // }
 
 
-    public function index() {
-        $permissions = Permission::orderBy('created_at', 'DESC')->paginate(15);
-        return view('permissions.list',[
-            'permissions' => $permissions
-        ]);
-    }
+    // public function index() {
+    //     $permissions = Permission::orderBy('created_at', 'DESC')->paginate(15);
+    //     return view('permissions.list',[
+    //         'permissions' => $permissions
+    //     ]);
+    // }
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(),[

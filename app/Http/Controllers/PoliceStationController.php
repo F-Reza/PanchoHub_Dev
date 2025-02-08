@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class PoliceStationController extends Controller
 {
-    public function index()
-    {
-        $policeStations = PoliceStation::with('user')->latest()->paginate(25);
-        return view('modules.PoliceStation.PoliceStation',[
-            'policeStations' => $policeStations
-        ]);
-    }
+    // public function index()
+    // {
+    //     $policeStations = PoliceStation::latest()->paginate(25);
+    //     return view('modules.PoliceStation.PoliceStation',[
+    //         'policeStations' => $policeStations
+    //     ]);
+    // }
     public function store(Request $request)
     {
 

@@ -10,11 +10,11 @@ class ThanaController extends Controller
 {
     public function index()
     {
-        $policeStations = PoliceStation::with('user')->latest()->paginate(25);
-        $thanas = Thana::with('user')->latest()->paginate(25);
-        return view('modules.FireService.FireService',[
+        $polices = PoliceStation::latest()->paginate(25);
+        $thanas = Thana::latest()->paginate(25);
+        return view('modules.ThanaPolice.ThanaPolice',[
             'thanas' => $thanas,
-            'policeStations' => $policeStations
+            'polices' => $polices
         ]);
     }
 

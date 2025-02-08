@@ -251,10 +251,10 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::delete('/fire_service', [FireServiceController::class, 'destroy'])->name('fire_service.destroy');
 
     //PoliceStation Routes
-    Route::get('/police_station', [PoliceStationController::class, 'index'])->name('police_station.index');
-    Route::post('/police_station', [PoliceStationController::class, 'store'])->name('police_station.store');
-    Route::put('/police_station/{id}', [PoliceStationController::class, 'update'])->name('police_station.update');
-    Route::delete('/police_station', [PoliceStationController::class, 'destroy'])->name('police_station.destroy');
+    Route::get('/police', [PoliceStationController::class, 'index'])->name('police.index');
+    Route::post('/police', [PoliceStationController::class, 'store'])->name('police.store');
+    Route::put('/police/{id}', [PoliceStationController::class, 'update'])->name('police.update');
+    Route::delete('/police', [PoliceStationController::class, 'destroy'])->name('police.destroy');
 
     //Thana Routes
     Route::get('/thana', [ThanaController::class, 'index'])->name('thana.index');

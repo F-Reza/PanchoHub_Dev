@@ -12,7 +12,7 @@ class BiddutOfficeController extends Controller
 {
     public function index()
     {
-        $biddutOffices = BiddutOffice::with('user')->latest()->paginate(25);
+        $biddutOffices = BiddutOffice::latest()->paginate(25);
         return view('modules.BiddutOffice.BiddutOffice',[
             'biddutOffices' => $biddutOffices
         ]);
@@ -23,7 +23,6 @@ class BiddutOfficeController extends Controller
         $biddutOffice = new BiddutOffice();
         $biddutOffice-> title = $request->title;
         $biddutOffice-> contact = $request->contact;
-        $biddutOffice-> upazila = $request->upazila;
         $biddutOffice-> address = $request->address;
 
         if ($request->hasFile('image')) {
@@ -72,7 +71,6 @@ class BiddutOfficeController extends Controller
         $biddutOffice = BiddutOffice::findOrFail($id);
         $biddutOffice-> title = $request->title;
         $biddutOffice-> contact = $request->contact;
-        $biddutOffice-> upazila = $request->upazila;
         $biddutOffice-> address = $request->address;
 
         if ($request->hasFile('image')) {

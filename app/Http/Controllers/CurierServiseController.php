@@ -12,7 +12,7 @@ class CurierServiseController extends Controller
 {
     public function index()
     {
-        $curierServises = CurierServise::with('user')->latest()->paginate(25);
+        $curierServises = CurierServise::latest()->paginate(25);
         return view('modules.CurierServise.CurierServise',[
             'curierServises' => $curierServises
         ]);

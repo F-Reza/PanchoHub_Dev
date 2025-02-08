@@ -24,12 +24,12 @@ class RoleController extends Controller //implements HasMiddleware
     //    ];
     // }
 
-    public function index() {
-        $roles = Role::orderBy('name', 'ASC')->paginate(10);
-        return view('admin.roles.list',[
-            'roles' => $roles
-        ]);
-    }
+    // public function index() {
+    //     $roles = Role::orderBy('name', 'ASC')->paginate(10);
+    //     return view('admin.roles.list',[
+    //         'roles' => $roles
+    //     ]);
+    // }
 
     public function store(Request $request) {
         $validator = Validator::make($request->all(),[

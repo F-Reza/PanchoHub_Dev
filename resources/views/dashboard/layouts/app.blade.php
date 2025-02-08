@@ -316,10 +316,10 @@
                                 <li><a class="nav-link" href="{{ route('admin.bus.index') }}">বাসের সময়সূচি</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.train.index') }}">ট্রেনের সময়সূচি</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.emergencies') }}">জরুরী সেবা</a></li>
-                                <li><a class="nav-link" href="{{ route('admin.websites') }}">ওয়েব-সাইট </a></li>
-                                <li><a class="nav-link" href="{{ route('admin.fire_service.index') }}">ফায়ার সার্ভিস </a></li>
+                                <li><a class="nav-link" href="{{ route('admin.websites') }}">ওয়েব-সাইট</a></li>
+                                <li><a class="nav-link" href="{{ route('admin.fire_service.index') }}">ফায়ার সার্ভিস</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.thana.index') }}">থানা-পুলিশ</a></li>
-                                <li><a class="nav-link" href="{{ route('admin.biddut_office.index') }}">বিদ্যুৎ অফিস </a></li>
+                                <li><a class="nav-link" href="{{ route('admin.biddut_office.index') }}">বিদ্যুৎ অফিস</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.curier_servise.index') }}">কুরিয়ার সার্ভিস</a></li>
                                 <li><a class="nav-link" href="{{ route('admin.tourist_place.index') }}"> দর্শনীয় স্থান</a></li>
                             </ul>

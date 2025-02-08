@@ -12,7 +12,7 @@ class TouristPlaceController extends Controller
 {
     public function index()
     {
-        $touristPlaces = TouristPlace::with('user')->latest()->paginate(25);
+        $touristPlaces = TouristPlace::latest()->paginate(25);
         return view('modules.TouristPlace.TouristPlace',[
             'touristPlaces' => $touristPlaces
         ]);
