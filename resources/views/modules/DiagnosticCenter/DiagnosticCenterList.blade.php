@@ -458,8 +458,8 @@
 
         <script type="text/javascript">
 
-             //CKEditor with Image Upload
-             ClassicEditor
+            //CKEditor with Image Upload
+            ClassicEditor
                 .create(document.querySelector('#editor'), {
                     toolbar: [
                         'heading', '|',

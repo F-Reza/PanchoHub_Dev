@@ -53,8 +53,8 @@ class TouristPlaceController extends Controller
     public function store(Request $request)
     {
         $touristPlace = new TouristPlace();
-        $touristPlace-> title = $request->title;
-        $touristPlace-> contact = $request->contact;
+        $touristPlace-> place_name = $request->place_name;
+        $touristPlace-> place_details = $request->place_details;
         $touristPlace-> upazila = $request->upazila;
         $touristPlace-> address = $request->address;
 
@@ -102,8 +102,8 @@ class TouristPlaceController extends Controller
     public function update($id, Request $request, TouristPlace $touristPlace)
     {
         $touristPlace = TouristPlace::findOrFail($id);
-        $touristPlace-> title = $request->title;
-        $touristPlace-> contact = $request->contact;
+        $touristPlace-> place_name = $request->place_name;
+        $touristPlace-> place_details = $request->place_details;
         $touristPlace-> upazila = $request->upazila;
         $touristPlace-> address = $request->address;
 

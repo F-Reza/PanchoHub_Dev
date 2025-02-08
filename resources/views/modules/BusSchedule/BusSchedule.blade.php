@@ -276,6 +276,14 @@
                 }
             });
 
+            // Event listener for when the edit modal is hidden
+            $('#editBusScheduleModal').on('hidden.bs.modal', function() {
+                if (editorInstance) {
+                    editorInstance.destroy();
+                    editorInstance = null;
+                }
+            });
+
             //editBusScheduleModal
             $('#editBusScheduleModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
